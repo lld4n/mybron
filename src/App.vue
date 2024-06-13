@@ -34,7 +34,7 @@ import Settings from "./assets/icons/settings.svg";
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: var(--tg-theme-hint-color);
+    background-color: var(--tg-theme-secondary-bg-color);
     :deep(path) {
       fill: var(--tg-theme-text-color);
     }
