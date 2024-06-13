@@ -33,6 +33,7 @@ import Settings from "./assets/icons/settings.svg";
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
     background-color: var(--tg-theme-hint-color);
     :deep(path) {
       fill: var(--tg-theme-text-color);
