@@ -17,3 +17,9 @@ export const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+router.beforeEach((to) => {
+  window.Telegram.WebApp.BackButton.isVisible = !to.matched
+    .map((e) => e.path)
+    .includes("/");
+});

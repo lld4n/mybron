@@ -101,10 +101,13 @@ import Group from "../assets/icons/group.svg";
 import Block from "../components/Block.vue";
 import Date from "../components/Date.vue";
 import Carousel from "../components/Carousel.vue";
-import { onMounted } from "vue";
+import { router } from "../utils";
 console.log(window.Telegram);
-onMounted(() => {
-  window.Telegram.WebApp.BackButton.isVisible = false;
+// onMounted(() => {
+//   window.Telegram.WebApp.BackButton.isVisible = false;
+// });
+window.Telegram.WebApp.onEvent("backButtonClicked", () => {
+  router.go(-1);
 });
 </script>
 
