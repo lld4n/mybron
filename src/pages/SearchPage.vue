@@ -30,6 +30,7 @@ const value = defineModel("value");
               <div class="content__right">1500 отелей</div>
             </div>
           </div>
+          <div class="content__bar" />
           <div class="content__item">
             <Point />
             <div class="content__info">
@@ -75,6 +76,7 @@ const value = defineModel("value");
               <div class="content__right">1500 отелей</div>
             </div>
           </div>
+          <div class="content__bar" />
           <div class="content__item">
             <Point />
             <div class="content__info">
@@ -103,21 +105,22 @@ const value = defineModel("value");
   display: flex;
   padding: 8px;
   border-radius: 10px;
-  background-color: var(--tg-theme-secondary-bg-color);
+  background: var(--tg-theme-bg-color);
   gap: 6px;
   align-items: center;
+  :deep(path) {
+    fill: var(--tg-theme-hint-color);
+  }
 }
 .input {
   flex: 1;
   width: 100%;
   font-size: 17px;
   line-height: 22px;
-  background-color: var(--tg-theme-secondary-bg-color);
+  background-color: var(--tg-theme-bg-color);
   letter-spacing: -0.4px;
   color: var(--tg-theme-text-color);
-  :deep(path) {
-    fill: var(--tg-theme-hint-color);
-  }
+
   &::placeholder {
     color: var(--tg-theme-hint-color);
   }
@@ -129,10 +132,9 @@ const value = defineModel("value");
   margin-bottom: 8px;
   &__block {
     display: flex;
-    padding: 0 16px;
     border-radius: 12px;
     flex-direction: column;
-    background-color: var(--tg-theme-secondary-bg-color);
+    background-color: var(--tg-theme-bg-color);
   }
   &__additional {
     font-size: 13px;
@@ -143,21 +145,23 @@ const value = defineModel("value");
     padding: 5px 16px;
   }
   &__title {
-    margin-top: 16px;
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
     letter-spacing: -0.45px;
+    padding: 16px 16px 0 16px;
   }
   &__list {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
   }
   &__item {
+    width: 100%;
     display: flex;
     gap: 18px;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px 0 10px 16px;
   }
   &__info {
     flex: 1;
@@ -190,6 +194,13 @@ const value = defineModel("value");
     line-height: 18px;
     letter-spacing: -0.15px;
     color: var(--tg-theme-hint-color);
+    padding-right: 16px;
+  }
+  &__bar {
+    width: calc(100% - 36px);
+    height: 1px;
+    margin-left: 36px;
+    background-color: var(--tg-theme-secondary-bg-color);
   }
 }
 </style>

@@ -34,7 +34,7 @@ defineProps({
   display: flex;
   flex-direction: column;
   padding: 24px 16px 12px;
-  background-color: var(--tg-theme-secondary-bg-color);
+  background-color: var(--tg-theme-bg-color);
   border-radius: 16px;
   gap: 8px;
 }

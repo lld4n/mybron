@@ -129,7 +129,7 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: var(--tg-theme-secondary-bg-color);
+    background-color: var(--tg-theme-bg-color);
     :deep(path) {
       fill: var(--tg-theme-text-color);
     }
@@ -170,7 +170,7 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
     gap: 12px;
     padding: 12px;
     align-items: center;
-    background-color: var(--tg-theme-secondary-bg-color);
+    background-color: var(--tg-theme-bg-color);
     border-radius: 12px;
     cursor: pointer;
     font-size: 17px;
@@ -228,7 +228,7 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
     width: 40px;
     height: 40px;
     border-radius: 8px;
-    background-color: var(--tg-theme-bg-color);
+    background-color: var(--tg-theme-secondary-bg-color);
   }
   &__right {
     display: flex;
@@ -268,7 +268,7 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
     margin-right: 0;
   }
   &__img {
-    background-color: var(--tg-theme-bg-color);
+    background-color: var(--tg-theme-secondary-bg-color);
     border-radius: 12px;
     position: absolute;
     top: 0;
