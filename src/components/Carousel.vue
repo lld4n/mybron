@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import emblaCarouselVue from "embla-carousel-vue";
 
-const [emblaRef] = emblaCarouselVue();
+const [emblaRef] = emblaCarouselVue({
+  dragFree: true,
+});
 </script>
 
 <template>

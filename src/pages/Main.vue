@@ -209,10 +209,14 @@ console.log(window.Telegram);
 .search {
   flex: 0 0 240px;
   min-width: 0;
-  padding: 8px 12px 8px 0;
+  padding: 8px 0;
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-right: 12px;
+  &:last-child {
+    margin-right: 0;
+  }
   &__img {
     flex: 0 0 40px;
     width: 40px;
@@ -254,6 +258,9 @@ console.log(window.Telegram);
   position: relative;
   user-select: none;
   margin-right: 12px;
+  &:last-child {
+    margin-right: 0;
+  }
   &__img {
     background-color: var(--tg-theme-bg-color);
     border-radius: 12px;
