@@ -1,9 +1,19 @@
-import { createMemoryHistory, createRouter } from "vue-router";
-import App from "../pages/App.vue";
+import { createRouter, createWebHistory } from "vue-router";
+import SearchPage from "../pages/SearchPage.vue";
+import Main from "../pages/Main.vue";
+import DatesPage from "../pages/DatesPage.vue";
+import ResultPage from "../pages/ResultPage.vue";
+import GuestsPage from "../pages/GuestsPage.vue";
 
-const routes = [{ path: "/", component: App }];
+const routes = [
+  { path: "/", component: Main },
+  { path: "/search", component: SearchPage },
+  { path: "/dates", component: DatesPage },
+  { path: "/guests", component: GuestsPage },
+  { path: "/results", component: ResultPage },
+];
 
 export const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
