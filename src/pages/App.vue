@@ -38,16 +38,22 @@
         <button class="main__btn">Найти отели</button>
       </div>
     </main>
+    <section class="section">
+      <Block title="Мои бронирования" link="/more" link-text="Больше"></Block>
+      <Block title="Недавние поиски"></Block>
+      <Block title="Популярные"></Block>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import User from "./assets/icons/user.svg";
-import Settings from "./assets/icons/settings.svg";
-import Logo from "./assets/logo.svg";
-import Globe from "./assets/icons/globe.svg";
-import Calendar from "./assets/icons/calendar.svg";
-import Group from "./assets/icons/group.svg";
+import User from "../assets/icons/user.svg";
+import Settings from "../assets/icons/settings.svg";
+import Logo from "../assets/logo.svg";
+import Globe from "../assets/icons/globe.svg";
+import Calendar from "../assets/icons/calendar.svg";
+import Group from "../assets/icons/group.svg";
+import Block from "../components/Block.vue";
 // @ts-ignore
 console.log(window.Telegram);
 </script>
@@ -150,5 +156,10 @@ console.log(window.Telegram);
     font-weight: 600;
     margin-top: 8px;
   }
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 </style>

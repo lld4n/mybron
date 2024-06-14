@@ -1,9 +1,9 @@
-import {createMemoryHistory, createRouter} from "vue-router";
-import App from "../App.vue";
+import { createMemoryHistory, createRouter } from "vue-router";
+import App from "../pages/App.vue";
 
-const routes = [{path: "/", component: App}];
+const routes = [{ path: "/", component: App }];
 
 export const router = createRouter({
-    history: createMemoryHistory(),
-    routes
+  history: createMemoryHistory(),
+  routes,
 });
