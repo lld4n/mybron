@@ -104,7 +104,11 @@ import Block from "../components/Block.vue";
 import Date from "../components/Date.vue";
 import Carousel from "../components/Carousel.vue";
 import { guests, router, useStore } from "../utils";
+import { onMounted } from "vue";
 console.log(window.Telegram);
+onMounted(() => {
+  window.Telegram.WebApp.expand();
+});
 window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   router.go(-1);
 });

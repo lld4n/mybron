@@ -12,51 +12,53 @@ const childrenCount = computed(() => store.childrenCount);
 <template>
   <div class="guests">
     <div class="content">
-      <Block title="Гости" class="list">
-        <div class="item">
-          <div class="left">
-            <div class="text">Взрослые</div>
+      <Block title="Гости">
+        <div class="list">
+          <div class="item">
+            <div class="left">
+              <div class="text">Взрослые</div>
+            </div>
+            <div class="right">
+              <button
+                class="circle"
+                :disabled="adultsCount === 1"
+                @click="store.changeCounts(adultsCount - 1, childrenCount)"
+              >
+                <Minus />
+              </button>
+              <div class="count">{{ adultsCount }}</div>
+              <button
+                class="circle"
+                :disabled="adultsCount === 6"
+                @click="store.changeCounts(adultsCount + 1, childrenCount)"
+              >
+                <Plus />
+              </button>
+            </div>
           </div>
-          <div class="right">
-            <button
-              class="circle"
-              :disabled="adultsCount === 1"
-              @click="store.changeCounts(adultsCount - 1, childrenCount)"
-            >
-              <Minus />
-            </button>
-            <div class="count">{{ adultsCount }}</div>
-            <button
-              class="circle"
-              :disabled="adultsCount === 6"
-              @click="store.changeCounts(adultsCount + 1, childrenCount)"
-            >
-              <Plus />
-            </button>
-          </div>
-        </div>
-        <div class="bar" />
-        <div class="item">
-          <div class="left">
-            <div class="text">Дети</div>
-            <div class="add">до 18 лет</div>
-          </div>
-          <div class="right">
-            <button
-              class="circle"
-              :disabled="childrenCount === 0"
-              @click="store.changeCounts(adultsCount, childrenCount - 1)"
-            >
-              <Minus />
-            </button>
-            <div class="count">{{ childrenCount }}</div>
-            <button
-              class="circle"
-              :disabled="childrenCount === 6"
-              @click="store.changeCounts(adultsCount, childrenCount + 1)"
-            >
-              <Plus />
-            </button>
+          <div class="bar" />
+          <div class="item">
+            <div class="left">
+              <div class="text">Дети</div>
+              <div class="add">до 18 лет</div>
+            </div>
+            <div class="right">
+              <button
+                class="circle"
+                :disabled="childrenCount === 0"
+                @click="store.changeCounts(adultsCount, childrenCount - 1)"
+              >
+                <Minus />
+              </button>
+              <div class="count">{{ childrenCount }}</div>
+              <button
+                class="circle"
+                :disabled="childrenCount === 6"
+                @click="store.changeCounts(adultsCount, childrenCount + 1)"
+              >
+                <Plus />
+              </button>
+            </div>
           </div>
         </div>
       </Block>
@@ -81,14 +83,11 @@ const childrenCount = computed(() => store.childrenCount);
 .list {
   display: flex;
   flex-direction: column;
-  &:last-child {
-    padding-bottom: 0;
-  }
+  gap: 12px;
 }
 .item {
   display: flex;
   align-items: center;
-  padding: 12px 0;
 }
 .left {
   flex: 1;
@@ -136,6 +135,9 @@ const childrenCount = computed(() => store.childrenCount);
   font-weight: 400;
   letter-spacing: -0.15px;
   color: var(--tg-theme-hint-color);
+  :deep(path) {
+    fill: var(--tg-theme-text-color);
+  }
 }
 .footer {
   position: fixed;
@@ -160,5 +162,8 @@ const childrenCount = computed(() => store.childrenCount);
   background-color: var(--tg-theme-button-color);
   border-radius: 12px;
   padding: 14px 0;
+}
+.wrapper {
+  gap: 0;
 }
 </style>
