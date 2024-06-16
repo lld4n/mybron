@@ -111,6 +111,9 @@ const childrenCount = computed(() => store.childrenCount);
   &:disabled {
     opacity: 0.5;
   }
+  :deep(path) {
+    fill: var(--tg-theme-text-color);
+  }
 }
 .count {
   width: 24px;
@@ -135,9 +138,6 @@ const childrenCount = computed(() => store.childrenCount);
   font-weight: 400;
   letter-spacing: -0.15px;
   color: var(--tg-theme-hint-color);
-  :deep(path) {
-    fill: var(--tg-theme-text-color);
-  }
 }
 .footer {
   position: fixed;

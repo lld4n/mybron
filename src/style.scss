@@ -106,7 +106,7 @@ body,
   background-color: var(--tg-theme-secondary-bg-color);
 }
 // dark
-:root {
+[data-theme="dark"] {
   --tg-color-scheme: dark;
   --tg-theme-accent-text-color: #2ea6ff;
   --tg-theme-bg-color: #18222d;

@@ -108,6 +108,9 @@ import { onMounted } from "vue";
 console.log(window.Telegram);
 onMounted(() => {
   window.Telegram.WebApp.expand();
+  if (window.Telegram.WebApp.colorScheme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
 });
 window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   router.go(-1);
