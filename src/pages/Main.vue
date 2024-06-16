@@ -35,7 +35,9 @@
             <Group />
             <div class="main__text">Гости</div>
           </div>
-          <div class="main__right main__right_active">2 взрослых</div>
+          <div class="main__right main__right_active">
+            {{ guests(store.adultsCount, store.childrenCount) }}
+          </div>
         </div>
         <button class="main__btn" @click="$router.push('/results')">Найти отели</button>
       </div>
@@ -101,14 +103,13 @@ import Group from "../assets/icons/group.svg";
 import Block from "../components/Block.vue";
 import Date from "../components/Date.vue";
 import Carousel from "../components/Carousel.vue";
-import { router } from "../utils";
+import { guests, router, useStore } from "../utils";
 console.log(window.Telegram);
-// onMounted(() => {
-//   window.Telegram.WebApp.BackButton.isVisible = false;
-// });
 window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   router.go(-1);
 });
+
+const store = useStore();
 </script>
 
 <style lang="scss" scoped>
@@ -211,6 +212,7 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding-bottom: 12px;
 }
 .search {
   flex: 0 0 240px;
