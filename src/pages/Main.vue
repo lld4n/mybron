@@ -26,8 +26,28 @@
             <Calendar />
             <div class="main__text">Когда</div>
           </div>
-          <div class="main__right main__right_active">
-            <Date left="5 июня, ср" right="6 июня, чт" />
+          <div
+            class="main__right"
+            :class="{
+              main__right_active: !!store.in && !!store.out,
+            }"
+          >
+            <DateView
+              :left="
+                store.in?.toLocaleDateString('RU-ru', {
+                  day: 'numeric',
+                  month: 'long',
+                  weekday: 'short',
+                }) || 'Заезд'
+              "
+              :right="
+                store.out?.toLocaleDateString('RU-ru', {
+                  day: 'numeric',
+                  month: 'long',
+                  weekday: 'short',
+                }) || 'Выезд'
+              "
+            />
           </div>
         </div>
         <div class="main__item" @click="$router.push('/guests')">
@@ -55,7 +75,7 @@
             <div class="search__right">
               <div class="search__title">Москва</div>
               <div class="search__content">
-                <Date left="29 сент" right="18 нояб" :size="0.8" />, 2 гостя
+                <DateView left="29 сент" right="18 нояб" :size="0.8" />, 2 гостя
               </div>
             </div>
           </div>
@@ -64,7 +84,7 @@
             <div class="search__right">
               <div class="search__title">Отель Метрополь</div>
               <div class="search__content">
-                <Date left="29 сент" right="18 нояб" :size="0.8" />, 2 гостя
+                <DateView left="29 сент" right="18 нояб" :size="0.8" />, 2 гостя
               </div>
             </div>
           </div>
@@ -101,7 +121,7 @@ import Globe from "../assets/icons/globe.svg";
 import Calendar from "../assets/icons/calendar.svg";
 import Group from "../assets/icons/group.svg";
 import Block from "../components/Block.vue";
-import Date from "../components/Date.vue";
+import DateView from "../components/DateView.vue";
 import Carousel from "../components/Carousel.vue";
 import { guests, router, useStore } from "../utils";
 import { onMounted } from "vue";
@@ -194,8 +214,20 @@ const store = useStore();
   &__right {
     flex: 1;
     text-align: end;
+    :deep(span) {
+      color: var(--tg-theme-hint-color);
+    }
+    :deep(path) {
+      fill: var(--tg-theme-hint-color);
+    }
     color: var(--tg-theme-hint-color);
     &_active {
+      :deep(span) {
+        color: var(--tg-theme-text-color);
+      }
+      :deep(path) {
+        fill: var(--tg-theme-text-color);
+      }
       color: var(--tg-theme-text-color);
     }
   }
