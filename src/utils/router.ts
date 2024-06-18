@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import SearchPage from "../pages/SearchPage.vue";
 import Main from "../pages/Main.vue";
 import DatesPage from "../pages/DatesPage.vue";
-import ResultPage from "../pages/ResultPage.vue";
+import SearchResultsPage from "../pages/SearchResultsPage.vue";
 import GuestsPage from "../pages/GuestsPage.vue";
 import GuestsChildrenPage from "../pages/GuestsChildrenPage.vue";
 
@@ -12,7 +12,7 @@ const routes = [
   { path: "/dates", component: DatesPage },
   { path: "/guests", component: GuestsPage },
   { path: "/guests/children", component: GuestsChildrenPage },
-  { path: "/results", component: ResultPage },
+  { path: "/search/results", component: SearchResultsPage },
 ];
 
 export const router = createRouter({

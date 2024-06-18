@@ -56,10 +56,12 @@
             <div class="main__text">Гости</div>
           </div>
           <div class="main__right main__right_active">
-            {{ store.adultsCount + store.children.length + " гостя" }}
+            {{ guests(store.adultsCount, store.children) }}
           </div>
         </div>
-        <button class="main__btn" @click="$router.push('/results')">Найти отели</button>
+        <button class="main__btn" @click="$router.push('/search/results')">
+          Найти отели
+        </button>
       </div>
     </main>
     <section class="section">
@@ -123,7 +125,7 @@ import Group from "../assets/icons/group.svg";
 import Block from "../components/Block.vue";
 import DateView from "../components/DateView.vue";
 import Carousel from "../components/Carousel.vue";
-import { router, useStore } from "../utils";
+import { guests, router, useStore } from "../utils";
 import { onMounted } from "vue";
 console.log(window.Telegram);
 onMounted(() => {

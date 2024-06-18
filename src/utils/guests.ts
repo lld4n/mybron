@@ -18,3 +18,15 @@ export const ages = [
   "16 лет",
   "17 лет",
 ];
+
+export function guests(adults: number, children: number[]) {
+  let ans = adults + " ";
+  if (adults === 1) ans += "взрослый";
+  else ans += "взрослых";
+  if (children.length > 0) {
+    ans += ", " + children.length;
+    if (children.length === 1) ans += "ребёнок";
+    else ans += "ребёнка";
+  }
+  return ans;
+}
