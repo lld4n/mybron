@@ -1,11 +1,3 @@
-export function guests(adults: number, children: number[]): string {
-  // let ans = "";
-  // if (adults === 1) ans += adults + " взрослый";
-  // else ans += adults + " взрослых";
-  //
-  // return ans;
-}
-
 export const ages = [
   "0 лет",
   "1 год",
