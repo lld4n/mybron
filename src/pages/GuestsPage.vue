@@ -2,84 +2,85 @@
 import Block from "../components/Block.vue";
 import Minus from "../assets/icons/minus.svg";
 import Plus from "../assets/icons/plus.svg";
-import { useStore } from "../utils";
+import CircleX from "../assets/icons/x-circle.svg";
+import { ages, useStore } from "../utils";
 import { computed } from "vue";
 const store = useStore();
 const adultsCount = computed(() => store.adultsCount);
-const childrenCount = computed(() => store.childrenCount);
+const children = computed(() => store.children);
 </script>
 
 <template>
-  <div class="guests">
-    <div class="content">
+  <div :class="$style.guests">
+    <div :class="$style.content">
       <Block title="Гости">
-        <div class="list">
-          <div class="item">
-            <div class="left">
-              <div class="text">Взрослые</div>
-            </div>
-            <div class="right">
+        <div :class="$style.list">
+          <div :class="$style.item">
+            <div :class="$style.left">Взрослые</div>
+            <div :class="$style.right">
               <button
-                class="circle"
+                :class="$style.circle"
                 :disabled="adultsCount === 1"
-                @click="store.changeCounts(adultsCount - 1, childrenCount)"
+                @click="store.changeAdults(adultsCount - 1)"
               >
                 <Minus />
               </button>
-              <div class="count">{{ adultsCount }}</div>
+              <div :class="$style.count">{{ adultsCount }}</div>
               <button
-                class="circle"
-                :disabled="adultsCount === 6"
-                @click="store.changeCounts(adultsCount + 1, childrenCount)"
+                :class="$style.circle"
+                :disabled="adultsCount === 4"
+                @click="store.changeAdults(adultsCount + 1)"
               >
                 <Plus />
               </button>
             </div>
           </div>
-          <div class="bar" />
-          <div class="item">
-            <div class="left">
-              <div class="text">Дети</div>
-              <div class="add">до 18 лет</div>
+          <div :class="$style.bar" />
+          <template v-for="(age, i) of children">
+            <div :class="$style.item">
+              <div :class="$style.left">{{ "Ребёнок " + ages[age] }}</div>
+              <div :class="$style.right">
+                <div :class="$style.delete" @click="store.removeChildren(i)">
+                  <CircleX />
+                </div>
+              </div>
             </div>
-            <div class="right">
-              <button
-                class="circle"
-                :disabled="childrenCount === 0"
-                @click="store.changeCounts(adultsCount, childrenCount - 1)"
-              >
-                <Minus />
-              </button>
-              <div class="count">{{ childrenCount }}</div>
-              <button
-                class="circle"
-                :disabled="childrenCount === 6"
-                @click="store.changeCounts(adultsCount, childrenCount + 1)"
-              >
-                <Plus />
-              </button>
-            </div>
-          </div>
+            <div :class="$style.bar" v-if="i !== 3" />
+          </template>
+          <button
+            :class="$style.add"
+            v-if="children.length !== 4"
+            @click="$router.push('/guests/children')"
+          >
+            <Plus />
+            Добавить ребёнка
+          </button>
         </div>
       </Block>
     </div>
-    <div class="footer">
-      <button class="btn" @click="$router.push('/')">Применить</button>
+
+    <div :class="$style.footer">
+      <button :class="$style.send" @click="$router.push('/')">Применить</button>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.guests {
+<style module lang="scss">
+.add {
   display: flex;
-  flex-direction: column;
-  padding: 12px 16px;
-  height: 100%;
+  width: 100%;
   gap: 10px;
+  align-items: center;
+  color: var(--tg-theme-link-color);
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: -0.43px;
+  path {
+    fill: var(--tg-theme-link-color);
+  }
 }
-.content {
-  flex: 1;
-}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -91,8 +92,10 @@ const childrenCount = computed(() => store.childrenCount);
 }
 .left {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.43px;
+  font-weight: 400;
 }
 .right {
   display: flex;
@@ -111,7 +114,7 @@ const childrenCount = computed(() => store.childrenCount);
   &:disabled {
     opacity: 0.5;
   }
-  :deep(path) {
+  path {
     fill: var(--tg-theme-text-color);
   }
 }
@@ -126,18 +129,15 @@ const childrenCount = computed(() => store.childrenCount);
   height: 1px;
   background-color: var(--tg-theme-secondary-bg-color);
 }
-.text {
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.43px;
-  font-weight: 400;
+.guests {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  height: 100%;
+  gap: 10px;
 }
-.add {
-  font-size: 14px;
-  line-height: 18px;
-  font-weight: 400;
-  letter-spacing: -0.15px;
-  color: var(--tg-theme-hint-color);
+.content {
+  flex: 1;
 }
 .footer {
   position: fixed;
@@ -149,7 +149,7 @@ const childrenCount = computed(() => store.childrenCount);
   justify-content: center;
   align-items: center;
 }
-.btn {
+.send {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -163,7 +163,10 @@ const childrenCount = computed(() => store.childrenCount);
   border-radius: 12px;
   padding: 14px 0;
 }
-.wrapper {
-  gap: 0;
+.delete {
+  cursor: pointer;
+  path {
+    fill: var(--tg-theme-hint-color);
+  }
 }
 </style>

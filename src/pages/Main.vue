@@ -56,7 +56,7 @@
             <div class="main__text">Гости</div>
           </div>
           <div class="main__right main__right_active">
-            {{ guests(store.adultsCount, store.childrenCount) }}
+            {{ store.adultsCount + store.children.length + " гостя" }}
           </div>
         </div>
         <button class="main__btn" @click="$router.push('/results')">Найти отели</button>
@@ -123,7 +123,7 @@ import Group from "../assets/icons/group.svg";
 import Block from "../components/Block.vue";
 import DateView from "../components/DateView.vue";
 import Carousel from "../components/Carousel.vue";
-import { guests, router, useStore } from "../utils";
+import { router, useStore } from "../utils";
 import { onMounted } from "vue";
 console.log(window.Telegram);
 onMounted(() => {

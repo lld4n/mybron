@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 interface StoreInterface {
   adultsCount: number;
-  childrenCount: number;
+  children: number[];
   in: null | Date;
   out: null | Date;
 }
@@ -11,15 +11,22 @@ export const useStore = defineStore("store", {
   state: (): StoreInterface => {
     return {
       adultsCount: 2,
-      childrenCount: 0,
+      children: [],
       in: null,
       out: null,
     };
   },
   actions: {
-    changeCounts(adults: number, children: number) {
-      if (adults >= 1 || adults <= 6) this.adultsCount = adults;
-      if (children >= 0 || children <= 6) this.childrenCount = children;
+    changeAdults(adults: number) {
+      if (adults >= 1 || adults <= 4) this.adultsCount = adults;
+    },
+    addChildren(age: number) {
+      if (this.children.length < 4) this.children.push(age);
+    },
+    removeChildren(index: number) {
+      if (index >= 0 && index < this.children.length) {
+        this.children.splice(index, 1);
+      }
     },
     changeDate(date: Date) {
       if (!this.in) {

@@ -16,18 +16,20 @@ defineProps({
 </script>
 
 <template>
-  <div class="wrapper">
-    <div class="header">
-      <h2 class="title">{{ title }}</h2>
-      <router-link :to="link" v-if="link" class="link">{{ linkText }}</router-link>
+  <div :class="$style.wrapper">
+    <div :class="$style.header">
+      <h2 :class="$style.title">{{ title }}</h2>
+      <router-link :to="link" v-if="link" :class="$style.link">{{
+        linkText
+      }}</router-link>
     </div>
-    <div class="main">
+    <div :class="$style.main">
       <slot></slot>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .wrapper {
   width: 100%;
   overflow: hidden;
