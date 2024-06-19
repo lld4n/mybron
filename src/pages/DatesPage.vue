@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import X from "../assets/icons/x.svg";
 import DateView from "../components/DateView.vue";
 import { months, useStore } from "../utils";
 import { computed } from "vue";
@@ -10,42 +9,11 @@ const dates = months();
 const store = useStore();
 const inDate = computed(() => store.in);
 const outDate = computed(() => store.out);
+console.log(store.in, store.out);
 </script>
 
 <template>
   <div class="dates">
-    <div class="dates__header">
-      <div
-        class="dates__block"
-        @click="store.clearDate(false)"
-        :class="{ dates__block_active: !inDate }"
-      >
-        <div class="dates__block__left">
-          <div class="dates__block__top">Заезд</div>
-          <div class="dates__block__bottom" v-if="!!inDate">
-            {{ inDate.toLocaleDateString("RU-ru", { day: "numeric", month: "long" }) }}
-          </div>
-        </div>
-        <div class="dates__block__right" v-if="!!inDate">
-          <X />
-        </div>
-      </div>
-      <div
-        class="dates__block"
-        @click="store.clearDate(true)"
-        :class="{ dates__block_active: !outDate }"
-      >
-        <div class="dates__block__left">
-          <div class="dates__block__top">Выезд</div>
-          <div class="dates__block__bottom" v-if="!!outDate">
-            {{ outDate.toLocaleDateString("RU-ru", { day: "numeric", month: "long" }) }}
-          </div>
-        </div>
-        <div class="dates__block__right" v-if="!!outDate">
-          <X />
-        </div>
-      </div>
-    </div>
     <div class="dates__main">
       <div class="dates__content">
         <div class="dates__week">
@@ -84,8 +52,16 @@ const outDate = computed(() => store.out);
       </div>
     </div>
     <div class="dates__footer">
-      <button class="dates__footer__btn" @click="$router.push('/')">
+      <button
+        class="dates__footer__btn"
+        @click="$router.push('/')"
+        :disabled="!inDate || !outDate"
+      >
+        <span class="dates__footer__day" v-if="!outDate">
+          {{ inDate.toLocaleDateString("RU-ru", { day: "numeric", month: "long" }) }}
+        </span>
         <DateView
+          v-if="!!inDate && !!outDate"
           :left="
             inDate?.toLocaleDateString('RU-ru', { day: 'numeric', month: 'long' }) ||
             'Заезд'
@@ -108,7 +84,7 @@ const outDate = computed(() => store.out);
   &__main {
     flex: 1;
     overflow: auto;
-    padding: 0 16px 8px;
+    padding: 8px 16px;
   }
   &__name {
     width: 100%;
@@ -253,6 +229,13 @@ const outDate = computed(() => store.out);
     justify-content: center;
     align-items: center;
     width: 100%;
+    &__day {
+      font-size: 17px;
+      line-height: 22px;
+      letter-spacing: -0.43px;
+      font-weight: 600;
+      color: var(--tg-theme-button-text-color);
+    }
     &__btn {
       background-color: var(--tg-theme-button-color);
       width: 100%;
@@ -267,6 +250,10 @@ const outDate = computed(() => store.out);
       }
       :deep(path) {
         fill: var(--tg-theme-button-text-color);
+      }
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
     }
   }

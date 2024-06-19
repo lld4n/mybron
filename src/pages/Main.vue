@@ -32,7 +32,9 @@
               main__right_active: !!store.in && !!store.out,
             }"
           >
+            <span v-if="!store.out">Выберите дату</span>
             <DateView
+              v-if="!!store.in && !!store.out"
               :left="
                 store.in?.toLocaleDateString('RU-ru', {
                   day: 'numeric',

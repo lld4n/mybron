@@ -1,10 +1,15 @@
 import { defineStore } from "pinia";
 
+export type SortFilters = "default" | "stars" | "cheap" | "expensive" | "closeness";
+
 interface StoreInterface {
   adultsCount: number;
   children: number[];
-  in: null | Date;
+  in: Date;
   out: null | Date;
+  filters: {
+    sort: SortFilters;
+  };
 }
 
 export const useStore = defineStore("store", {
@@ -12,8 +17,13 @@ export const useStore = defineStore("store", {
     return {
       adultsCount: 2,
       children: [],
-      in: null,
-      out: null,
+      in: new Date(new Date().setHours(0, 0, 0, 0)),
+      out: new Date(
+        new Date(new Date().setHours(0, 0, 0, 0)).setDate(new Date().getDate() + 1),
+      ),
+      filters: {
+        sort: "default",
+      },
     };
   },
   actions: {
@@ -29,21 +39,22 @@ export const useStore = defineStore("store", {
       }
     },
     changeDate(date: Date) {
-      if (!this.in) {
-        if (!this.out || this.out.getTime() > date.getTime()) this.in = date;
-        else {
-          this.in = this.out;
+      if (!this.out) {
+        if (date.getTime() < this.in.getTime()) {
+          this.out = this.in;
+          this.in = date;
+        } else {
           this.out = date;
         }
-      } else if (this.in.getTime() > date.getTime()) {
-        this.out = this.in;
-        this.in = date;
-      } else if (!this.out) this.out = date;
-      else this.out = date;
-    },
-    clearDate(out: boolean) {
-      if (!out) this.in = null;
-      else this.out = null;
+      } else {
+        if (date.getTime() < this.in.getTime()) {
+          this.out = this.in;
+          this.in = date;
+        } else {
+          this.in = date;
+          this.out = null;
+        }
+      }
     },
   },
 });

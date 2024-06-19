@@ -7,18 +7,18 @@ const [emblaRef] = emblaCarouselVue({
 </script>
 
 <template>
-  <div class="embla" ref="emblaRef">
-    <div class="embla__container">
+  <div :class="$style.embla" ref="emblaRef">
+    <div :class="$style.container">
       <slot></slot>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .embla {
   overflow: hidden;
 }
-.embla__container {
+.container {
   display: flex;
 }
 </style>

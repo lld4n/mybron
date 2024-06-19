@@ -12,6 +12,8 @@ type MonthsValue = {
 
 export function months() {
   const currentDate = new Date();
+  const currentDateStart = new Date();
+  currentDateStart.setHours(0, 0, 0, 0);
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
@@ -46,7 +48,7 @@ export function months() {
       value.push({
         real: start,
         day: start.getDate(),
-        disabled: currentDate.getTime() > start.getTime(),
+        disabled: currentDateStart.getTime() > start.getTime(),
       });
     } else {
       let i = 0;
@@ -57,7 +59,7 @@ export function months() {
       value.push({
         real: start,
         day: start.getDate(),
-        disabled: currentDate.getTime() > start.getTime(),
+        disabled: currentDateStart.getTime() > start.getTime(),
       });
     }
     for (let i = 1; i < month.length; i++) {
@@ -73,7 +75,7 @@ export function months() {
       value.push({
         real: d,
         day: d.getDate(),
-        disabled: currentDate.getTime() > d.getTime(),
+        disabled: currentDateStart.getTime() > d.getTime(),
       });
     }
     if (value.length > 0) {
