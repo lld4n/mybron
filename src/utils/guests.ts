@@ -25,8 +25,8 @@ export function guests(adults: number, children: number[]) {
   else ans += "взрослых";
   if (children.length > 0) {
     ans += ", " + children.length;
-    if (children.length === 1) ans += "ребёнок";
-    else ans += "ребёнка";
+    if (children.length === 1) ans += " ребёнок";
+    else ans += " ребёнка";
   }
   return ans;
 }

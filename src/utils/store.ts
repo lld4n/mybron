@@ -1,7 +1,18 @@
 import { defineStore } from "pinia";
 
+export const OtherFiltersValues: OtherFilters[] = ["card", "breakfast"];
+export type OtherFilters = "card" | "breakfast";
+
+export const PaymentFiltersValues: PaymentFilters[] = ["hotel", "agency"];
+export type PaymentFilters = "hotel" | "agency";
+
+export type StarsFilters = 1 | 2 | 3 | 4 | 5;
+export const StarsFiltersValues: StarsFilters[] = [1, 2, 3, 4, 5];
+
 export type SortFilters = "default" | "stars" | "cheap" | "expensive" | "closeness";
 
+export type Key = "payment" | "stars" | "other";
+export type Array = StarsFilters[] | PaymentFilters[] | OtherFilters[];
 interface StoreInterface {
   adultsCount: number;
   children: number[];
@@ -9,6 +20,9 @@ interface StoreInterface {
   out: null | Date;
   filters: {
     sort: SortFilters;
+    payment: PaymentFilters[];
+    stars: StarsFilters[];
+    other: OtherFilters[];
   };
 }
 
@@ -23,10 +37,33 @@ export const useStore = defineStore("store", {
       ),
       filters: {
         sort: "default",
+        payment: [],
+        stars: [],
+        other: [],
       },
     };
   },
   actions: {
+    allFilters(key: Key, array: Array) {
+      if (this.filters[key].length !== array.length) {
+        // @ts-ignore
+        this.filters[key] = array;
+      } else {
+        this.filters[key] = [];
+      }
+    },
+    changeFilters(key: Key, value: any) {
+      if (this.filters[key].filter((e) => e === value).length > 0) {
+        //@ts-ignore
+        this.filters[key] = this.filters[key].filter((e) => e !== value);
+      } else {
+        //@ts-ignore
+        this.filters[key].push(value);
+      }
+    },
+    changeFiltersSort(value: SortFilters) {
+      this.filters.sort = value;
+    },
     changeAdults(adults: number) {
       if (adults >= 1 || adults <= 4) this.adultsCount = adults;
     },
@@ -40,20 +77,15 @@ export const useStore = defineStore("store", {
     },
     changeDate(date: Date) {
       if (!this.out) {
-        if (date.getTime() < this.in.getTime()) {
+        if (this.in.getTime() > date.getTime()) {
           this.out = this.in;
           this.in = date;
         } else {
           this.out = date;
         }
       } else {
-        if (date.getTime() < this.in.getTime()) {
-          this.out = this.in;
-          this.in = date;
-        } else {
-          this.in = date;
-          this.out = null;
-        }
+        this.in = date;
+        this.out = null;
       }
     },
   },
