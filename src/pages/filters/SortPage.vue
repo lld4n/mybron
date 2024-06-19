@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Block from "../../components/Block.vue";
 import Check from "../../assets/icons/check.svg";
 import { useStore } from "../../utils";
 import FilterTemplate from "../../components/FilterTemplate.vue";
