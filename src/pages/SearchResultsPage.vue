@@ -7,7 +7,7 @@ import HotelCard from "../components/HotelCard.vue";
 <template>
   <div :class="$style.wrapper">
     <header :class="$style.header">
-      <div :class="$style.info">
+      <div :class="$style.info" @click="$router.push('/search/filter/info')">
         <div :class="$style.title">Адлер, Россия</div>
         <div :class="$style.subtitle">31 мая — 8 июня, 2 взрослых</div>
       </div>
@@ -29,9 +29,11 @@ import HotelCard from "../components/HotelCard.vue";
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 12px 16px 0 16px;
+  padding: 12px 16px 0 0;
 }
 .info {
+  cursor: pointer;
+  margin-left: 16px;
   padding: 5px 10px;
   border-radius: 8px;
   background-color: var(--quarternary-fill-background);
@@ -71,6 +73,6 @@ import HotelCard from "../components/HotelCard.vue";
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 20px 0;
+  padding: 20px 0 62px;
 }
 </style>

@@ -13,7 +13,7 @@ const store = useStore();
           :class="$style.item"
           @click="
             store.addChildren(index);
-            $router.push('/guests');
+            $router.go(-1);
           "
         >
           {{ age }}
@@ -29,12 +29,13 @@ const store = useStore();
   padding: 12px 16px;
 }
 .bar {
+  margin-left: 16px;
   width: 100%;
   height: 1px;
   background-color: var(--tg-theme-secondary-bg-color);
 }
 .item {
-  padding: 11px 0;
+  padding: 11px 0 11px 16px;
   font-size: 17px;
   line-height: 22px;
   font-weight: 400;

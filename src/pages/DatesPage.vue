@@ -56,7 +56,7 @@ console.log(store.in, store.out);
     <div class="dates__footer">
       <button
         class="dates__footer__btn"
-        @click="$router.push('/')"
+        @click="$router.go(-1)"
         :disabled="!inDate || !outDate"
       >
         <span class="dates__footer__day" v-if="!outDate">

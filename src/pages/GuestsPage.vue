@@ -60,7 +60,7 @@ const children = computed(() => store.children);
     </div>
 
     <div :class="$style.footer">
-      <button :class="$style.send" @click="$router.push('/')">Применить</button>
+      <button :class="$style.send" @click="$router.go(-1)">Применить</button>
     </div>
   </div>
 </template>
@@ -85,6 +85,7 @@ const children = computed(() => store.children);
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 0 16px;
 }
 .item {
   display: flex;

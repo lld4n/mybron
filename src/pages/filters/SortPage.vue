@@ -44,6 +44,9 @@ const store = useStore();
   gap: 16px;
   cursor: pointer;
   align-items: center;
+  path {
+    stroke: var(--tg-theme-button-color);
+  }
 }
 .title {
   font-size: 17px;

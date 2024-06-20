@@ -138,6 +138,7 @@ const toRenderPrice = (v: number) => {
 
 <style module lang="scss">
 .sort {
+  margin-left: 16px;
   flex: 0 0 44px;
   min-width: 0;
   display: flex;
@@ -179,6 +180,9 @@ const toRenderPrice = (v: number) => {
   cursor: pointer;
   path {
     fill: var(--tg-theme-text-color);
+  }
+  &:last-child {
+    margin-right: 0;
   }
 }
 .title {

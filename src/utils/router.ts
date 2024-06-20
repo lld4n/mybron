@@ -10,6 +10,7 @@ import PricePage from "../pages/filters/PricePage.vue";
 import PaymentPage from "../pages/filters/PaymentPage.vue";
 import StarsPage from "../pages/filters/StarsPage.vue";
 import OtherPage from "../pages/filters/OtherPage.vue";
+import InfoPage from "../pages/filters/InfoPage.vue";
 
 const routes = [
   { path: "/", component: Main },
@@ -26,6 +27,7 @@ const routes = [
   { path: "/search/filter/other", component: OtherPage },
   { path: "/search/filter/payment", component: PaymentPage },
   { path: "/search/filter/stars", component: StarsPage },
+  { path: "/search/filter/info", component: InfoPage },
 ];
 
 export const router = createRouter({

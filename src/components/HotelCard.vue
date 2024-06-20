@@ -34,7 +34,10 @@ const url2 =
         <span>5 <StarsSmall /></span>
       </div>
       <div :class="$style.text">
-        <RatingView :level="9" :clas="$style.rating" /> 7829 отзывов • 33,6 км от центра
+        <RatingView :level="9" :clas="$style.rating" />
+        <span>7829 отзывов</span>
+        <span>•</span>
+        <span>33,6 км от центра</span>
       </div>
     </div>
     <div :class="$style.bottom">
@@ -49,6 +52,7 @@ const url2 =
   display: flex;
   flex-direction: column;
   gap: 2px;
+  padding-left: 16px;
 }
 .name {
   font-size: 17px;
@@ -58,6 +62,9 @@ const url2 =
   display: flex;
   gap: 8px;
   align-items: center;
+  path {
+    fill: var(--tg-theme-text-color);
+  }
 }
 .rating {
   width: 20px;
@@ -65,7 +72,7 @@ const url2 =
 }
 .text {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   font-size: 13px;
   line-height: 22px;
   font-weight: 400;
@@ -79,6 +86,7 @@ const url2 =
   display: flex;
   gap: 6px;
   align-items: flex-end;
+  padding-left: 16px;
 }
 .price {
   font-size: 22px;
@@ -90,7 +98,6 @@ const url2 =
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 0 0 0 16px;
 }
 .image {
   flex: 0 0 340px;
@@ -99,5 +106,8 @@ const url2 =
   height: 240px;
   object-fit: cover;
   border-radius: 8px;
+  &:first-child {
+    margin-left: 16px;
+  }
 }
 </style>

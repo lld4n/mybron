@@ -14,41 +14,7 @@
         <h1 class="main__title">Забронируйте отель<br /><span>очень быстро</span></h1>
       </div>
       <div class="main__list">
-        <div class="main__item" @click="$router.push('/search')">
-          <div class="main__left">
-            <Globe />
-            <div class="main__text">Где</div>
-          </div>
-          <div class="main__right">Город или отель</div>
-        </div>
-        <div class="main__item" @click="$router.push('/dates')">
-          <div class="main__left">
-            <Calendar />
-            <div class="main__text">Когда</div>
-          </div>
-          <div
-            class="main__right"
-            :class="{
-              main__right_active: !!store.in && !!store.out,
-            }"
-          >
-            <span v-if="!store.out">Выберите дату</span>
-            <DateView
-              v-if="!!store.in && !!store.out"
-              :left="toRenderDate(store.in)"
-              :right="toRenderDate(store.out)"
-            />
-          </div>
-        </div>
-        <div class="main__item" @click="$router.push('/guests')">
-          <div class="main__left">
-            <Group />
-            <div class="main__text">Гости</div>
-          </div>
-          <div class="main__right main__right_active">
-            {{ guests(store.adultsCount, store.children) }}
-          </div>
-        </div>
+        <MainInfo />
         <button class="main__btn" @click="$router.push('/search/results')">
           Найти отели
         </button>
@@ -109,14 +75,12 @@
 import User from "../assets/icons/user.svg";
 import Settings from "../assets/icons/settings.svg";
 import Logo from "../assets/logo.svg";
-import Globe from "../assets/icons/globe.svg";
-import Calendar from "../assets/icons/calendar.svg";
-import Group from "../assets/icons/group.svg";
 import Block from "../components/Block.vue";
 import DateView from "../components/DateView.vue";
 import Carousel from "../components/Carousel.vue";
-import { guests, router, useStore } from "../utils";
+import { router } from "../utils";
 import { onMounted } from "vue";
+import MainInfo from "../components/MainInfo.vue";
 console.log(window.Telegram);
 onMounted(() => {
   window.Telegram.WebApp.expand();
@@ -127,32 +91,6 @@ onMounted(() => {
 window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   router.go(-1);
 });
-
-const store = useStore();
-
-const toRenderDate = (d: Date) => {
-  if (!d) return "";
-  const day = d.getDate();
-  const month = d.getMonth();
-  const months = [
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря",
-  ];
-  const weekDays = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
-  const week = d.getDay();
-
-  return `${day} ${months[month]}, ${weekDays[week]}`;
-};
 </script>
 
 <style lang="scss" scoped>
@@ -209,44 +147,7 @@ const toRenderDate = (d: Date) => {
     gap: 8px;
     width: 100%;
   }
-  &__item {
-    display: flex;
-    gap: 12px;
-    padding: 12px;
-    align-items: center;
-    background-color: var(--tg-theme-bg-color);
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: -0.43px;
-  }
-  &__left {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  &__right {
-    flex: 1;
-    text-align: end;
-    :deep(span) {
-      color: var(--tg-theme-hint-color);
-    }
-    :deep(path) {
-      fill: var(--tg-theme-hint-color);
-    }
-    color: var(--tg-theme-hint-color);
-    &_active {
-      :deep(span) {
-        color: var(--tg-theme-text-color);
-      }
-      :deep(path) {
-        fill: var(--tg-theme-text-color);
-      }
-      color: var(--tg-theme-text-color);
-    }
-  }
+
   &__btn {
     padding: 14px;
     display: flex;
@@ -277,8 +178,8 @@ const toRenderDate = (d: Date) => {
   gap: 10px;
   align-items: center;
   margin-right: 12px;
-  &:last-child {
-    margin-right: 0;
+  &:first-child {
+    margin-left: 16px;
   }
   &__img {
     flex: 0 0 40px;
@@ -321,8 +222,8 @@ const toRenderDate = (d: Date) => {
   position: relative;
   user-select: none;
   margin-right: 12px;
-  &:last-child {
-    margin-right: 0;
+  &:first-child {
+    margin-left: 16px;
   }
   &__img {
     background-color: var(--tg-theme-secondary-bg-color);
