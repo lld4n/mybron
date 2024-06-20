@@ -49,6 +49,7 @@ const url =
   background-color: var(--tg-theme-secondary-bg-color);
   z-index: 10;
   min-height: calc(100% - 380px);
+  height: 100%;
   margin-top: 380px;
   display: flex;
   flex-direction: column;
