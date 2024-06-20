@@ -8,6 +8,7 @@ type MonthsValue = {
   real: Date;
   day: number;
   disabled: boolean;
+  position: "left" | "middle" | "right";
 } | null;
 
 export function months() {
@@ -49,6 +50,7 @@ export function months() {
         real: start,
         day: start.getDate(),
         disabled: currentDateStart.getTime() > start.getTime(),
+        position: "left",
       });
     } else {
       let i = 0;
@@ -60,6 +62,7 @@ export function months() {
         real: start,
         day: start.getDate(),
         disabled: currentDateStart.getTime() > start.getTime(),
+        position: "left",
       });
     }
     for (let i = 1; i < month.length; i++) {
@@ -76,6 +79,7 @@ export function months() {
         real: d,
         day: d.getDate(),
         disabled: currentDateStart.getTime() > d.getTime(),
+        position: d.getDay() === 0 ? "right" : d.getDay() === 1 ? "left" : "middle",
       });
     }
     if (value.length > 0) {

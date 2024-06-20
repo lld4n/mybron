@@ -40,6 +40,8 @@ console.log(store.in, store.out);
                   dates__day_active_one:
                     (inDate?.getTime() === day.real.getTime() && !outDate) ||
                     (outDate?.getTime() === day.real.getTime() && !inDate),
+                  dates__day_left: day.position === 'left',
+                  dates__day_right: day.position === 'right',
                 }"
                 :disabled="day.disabled"
                 @click="store.changeDate(day.real)"
@@ -104,6 +106,14 @@ console.log(store.in, store.out);
     position: relative;
     &:disabled {
       color: var(--tg-theme-hint-color);
+    }
+    &_left {
+      border-bottom-left-radius: 12px;
+      border-top-left-radius: 12px;
+    }
+    &_right {
+      border-bottom-right-radius: 12px;
+      border-top-right-radius: 12px;
     }
     &_active {
       background-color: var(--tg-theme-button-color);

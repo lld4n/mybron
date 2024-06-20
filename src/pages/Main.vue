@@ -35,20 +35,8 @@
             <span v-if="!store.out">Выберите дату</span>
             <DateView
               v-if="!!store.in && !!store.out"
-              :left="
-                store.in?.toLocaleDateString('RU-ru', {
-                  day: 'numeric',
-                  month: 'long',
-                  weekday: 'short',
-                }) || 'Заезд'
-              "
-              :right="
-                store.out?.toLocaleDateString('RU-ru', {
-                  day: 'numeric',
-                  month: 'long',
-                  weekday: 'short',
-                }) || 'Выезд'
-              "
+              :left="toRenderDate(store.in)"
+              :right="toRenderDate(store.out)"
             />
           </div>
         </div>
@@ -141,6 +129,30 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
 });
 
 const store = useStore();
+
+const toRenderDate = (d: Date) => {
+  if (!d) return "";
+  const day = d.getDate();
+  const month = d.getMonth();
+  const months = [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря",
+  ];
+  const weekDays = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+  const week = d.getDay();
+
+  return `${day} ${months[month]}, ${weekDays[week]}`;
+};
 </script>
 
 <style lang="scss" scoped>
