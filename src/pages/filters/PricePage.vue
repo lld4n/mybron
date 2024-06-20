@@ -79,11 +79,21 @@ watch(
       <div :class="$style.header">
         <div :class="$style.block">
           <div :class="$style.title">От</div>
-          <input type="text" :class="$style.input" v-model="inputs[0]" pattern="\d*" />
+          <input
+            type="text"
+            :class="$style.input"
+            v-model="inputs[0]"
+            inputmode="numeric"
+          />
         </div>
         <div :class="$style.block">
           <div :class="$style.title">До</div>
-          <input type="text" :class="$style.input" v-model="inputs[1]" pattern="\d*" />
+          <input
+            type="text"
+            :class="$style.input"
+            v-model="inputs[1]"
+            inputmode="numeric"
+          />
         </div>
       </div>
       <div :class="$style.wrapper">
