@@ -10,6 +10,22 @@ import Sort from "../assets/icons/sort.svg";
 import UpDown from "../assets/icons/up-down.svg";
 import StarsView from "./StarsView.vue";
 const store = useStore();
+const toRenderPrice = (v: number) => {
+  let ans = "";
+  let i = 0;
+  const s = String(v);
+  for (let j = s.length - 1; j >= 0; j--) {
+    i++;
+    ans += s[j];
+    if (i === 3) {
+      i = 0;
+      ans += " ";
+    }
+  }
+  ans = ans.split("").reverse().join("");
+  ans += " ₽";
+  return ans.trim();
+};
 </script>
 
 <template>
@@ -20,10 +36,31 @@ const store = useStore();
     >
       <Sort />
     </div>
-    <div :class="$style.filter">
+    <div :class="$style.filter" @click="$router.push('/search/filter/price')">
       <div :class="$style.left">
         <div :class="$style.subtitle">Цена</div>
-        <div :class="$style.title">Любая</div>
+        <div :class="$style.title">
+          <template
+            v-if="store.filters.price[0] === 0 && store.filters.price[1] === 50000"
+            >Любая</template
+          >
+          <template
+            v-if="store.filters.price[0] === 0 && store.filters.price[1] !== 50000"
+            >{{ "до " + toRenderPrice(store.filters.price[1]) }}</template
+          >
+          <template
+            v-if="store.filters.price[0] !== 0 && store.filters.price[1] === 50000"
+            >{{ "от " + toRenderPrice(store.filters.price[0]) }}</template
+          >
+          <template
+            v-if="store.filters.price[0] !== 0 && store.filters.price[1] !== 50000"
+            >{{
+              toRenderPrice(store.filters.price[0]) +
+              " — " +
+              toRenderPrice(store.filters.price[1])
+            }}</template
+          >
+        </div>
       </div>
       <UpDown />
     </div>

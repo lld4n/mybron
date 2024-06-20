@@ -23,6 +23,7 @@ interface StoreInterface {
     payment: PaymentFilters[];
     stars: StarsFilters[];
     other: OtherFilters[];
+    price: [number, number];
   };
 }
 
@@ -40,10 +41,14 @@ export const useStore = defineStore("store", {
         payment: [],
         stars: [],
         other: [],
+        price: [0, 50000],
       },
     };
   },
   actions: {
+    changeFiltersPrice(newValue: [number, number]) {
+      this.filters.price = newValue;
+    },
     allFilters(key: Key, array: Array) {
       if (this.filters[key].length !== array.length) {
         // @ts-ignore

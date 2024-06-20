@@ -83,7 +83,6 @@ console.log(store.in, store.out);
   height: 100%;
   &__main {
     flex: 1;
-    overflow: auto;
     padding: 8px 16px;
   }
   &__name {
@@ -223,6 +222,11 @@ console.log(store.in, store.out);
     }
   }
   &__footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
     background-color: var(--tg-theme-bg-color);
     padding: 12px 16px;
     display: flex;
