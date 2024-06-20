@@ -22,7 +22,7 @@ const url2 =
 </script>
 
 <template>
-  <div :class="$style.card">
+  <div :class="$style.card" @click="$router.push('/hotel/1')">
     <Carousel>
       <img :src="url2" :class="$style.image" />
       <img :src="url2" :class="$style.image" />
@@ -34,7 +34,7 @@ const url2 =
         <span>5 <StarsSmall /></span>
       </div>
       <div :class="$style.text">
-        <RatingView :level="9" :clas="$style.rating" />
+        <RatingView :level="9" type="small" />
         <span>7829 отзывов</span>
         <span>•</span>
         <span>33,6 км от центра</span>
@@ -66,10 +66,6 @@ const url2 =
     fill: var(--tg-theme-text-color);
   }
 }
-.rating {
-  width: 20px;
-  height: 23px;
-}
 .text {
   display: flex;
   gap: 6px;
@@ -95,6 +91,7 @@ const url2 =
   letter-spacing: -0.26px;
 }
 .card {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 8px;
