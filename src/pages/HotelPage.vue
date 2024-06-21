@@ -6,8 +6,10 @@ const url =
   "https://static1.cbrimages.com/wordpress/wp-content/uploads/2023/08/collage-maker-07-aug-2023-01-43-pm-4128.jpg";
 
 const sharePage = () => {
-  const text = "Это тестовое сообщение";
-  window.Telegram.WebApp.openInvoice("https://lldan.ru");
+  // const text = "Это тестовое сообщение";
+  window.Telegram.WebApp.openInvoice("https://lldan.ru", (url, status) => {
+    console.log(url, status);
+  });
   // window.Telegram.WebApp.openTelegramLink(
   //   `https://t.me/share/url?url=https://lldan.ru&text=${text}`,
   // );
