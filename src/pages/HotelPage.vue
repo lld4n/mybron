@@ -7,8 +7,8 @@ const url =
 
 const sharePage = () => {
   // const text = "Это тестовое сообщение";
-  window.Telegram.WebApp.openInvoice("https://lldan.ru", (url, status) => {
-    console.log(url, status);
+  window.Telegram.WebApp.requestWriteAccess((success) => {
+    console.log(success);
   });
   // window.Telegram.WebApp.openTelegramLink(
   //   `https://t.me/share/url?url=https://lldan.ru&text=${text}`,
