@@ -12,6 +12,10 @@ import StarsPage from "../pages/filters/StarsPage.vue";
 import OtherPage from "../pages/filters/OtherPage.vue";
 import InfoPage from "../pages/filters/InfoPage.vue";
 import HotelPage from "../pages/HotelPage.vue";
+import HotelAboutPage from "../pages/hotel/HotelAboutPage.vue";
+import HotelAmenitiesPage from "../pages/hotel/HotelAmenitiesPage.vue";
+import HotelReviewsPage from "../pages/hotel/HotelReviewsPage.vue";
+import HotelInfoPage from "../pages/hotel/HotelInfoPage.vue";
 
 const routes = [
   { path: "/", component: Main },
@@ -31,6 +35,12 @@ const routes = [
   { path: "/search/filter/info", component: InfoPage },
 
   { path: "/hotel/:id", component: HotelPage },
+  { path: "/hotel/:id/about", component: HotelAboutPage },
+  { path: "/hotel/:id/amenities", component: HotelAmenitiesPage },
+  { path: "/hotel/:id/reviews", component: HotelReviewsPage },
+  { path: "/hotel/:id/info", component: HotelInfoPage },
+
+  { path: "/room/:id", component: HotelPage },
 ];
 
 export const router = createRouter({

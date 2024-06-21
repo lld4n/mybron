@@ -11,7 +11,7 @@ import Wrapper from "../../components/Wrapper.vue";
     }"
   >
     <div :class="$style.wrapper">
-      <MainInfo />
+      <MainInfo :search="true" />
     </div>
   </Wrapper>
 </template>

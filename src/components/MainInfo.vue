@@ -29,10 +29,14 @@ const toRenderDate = (d: Date) => {
 
   return `${day} ${months[month]}, ${weekDays[week]}`;
 };
+interface Props {
+  search?: boolean;
+}
+defineProps<Props>();
 </script>
 
 <template>
-  <div :class="$style.item" @click="$router.push('/search')">
+  <div :class="$style.item" @click="$router.push('/search')" v-if="!!search">
     <div :class="$style.left">
       <Globe />
       <div>Где</div>

@@ -35,7 +35,6 @@ defineProps({
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 24px 0 12px;
   background-color: var(--tg-theme-bg-color);
   border-radius: 16px;
   gap: 8px;
@@ -52,7 +51,7 @@ defineProps({
   line-height: 24px;
   letter-spacing: -0.45px;
   color: var(--tg-theme-text-color);
-  padding-left: 16px;
+  padding: 24px 16px 4px;
 }
 .link {
   font-size: 17px;
@@ -62,7 +61,7 @@ defineProps({
   color: var(--tg-theme-link-color);
 }
 .main {
-  padding: 12px 0;
   overflow: hidden;
+  padding-bottom: 8px;
 }
 </style>

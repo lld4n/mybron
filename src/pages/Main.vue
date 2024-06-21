@@ -14,7 +14,7 @@
         <h1 class="main__title">Забронируйте отель<br /><span>очень быстро</span></h1>
       </div>
       <div class="main__list">
-        <MainInfo />
+        <MainInfo :search="true" />
         <button class="main__btn" @click="$router.push('/search/results')">
           Найти отели
         </button>

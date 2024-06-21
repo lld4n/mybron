@@ -32,6 +32,7 @@ const store = useStore();
 
 <style module lang="scss">
 .footer {
+  z-index: 100;
   position: fixed;
   bottom: 0;
   left: 0;

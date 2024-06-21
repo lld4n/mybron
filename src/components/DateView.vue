@@ -1,27 +1,23 @@
 <script setup lang="ts">
 import Arrow from "../assets/icons/arrow.svg";
-defineProps({
-  left: String,
-  right: String,
-  size: {
-    type: Number,
-    required: false,
-    default: 1,
-  },
-});
+interface Props {
+  left: string;
+  right: string;
+}
+defineProps<Props>();
 </script>
 
 <template>
-  <span class="date">
+  <span :class="$style.date">
     {{ left }}
-    <Arrow :style="{ transform: 'scale(' + size + ')' }" />
+    <Arrow />
     {{ right }}
   </span>
 </template>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .date {
-  :deep(path) {
+  path {
     fill: var(--tg-theme-text-color);
   }
 }
