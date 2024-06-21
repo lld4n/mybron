@@ -5,13 +5,19 @@ import Plus from "../assets/icons/plus.svg";
 import CircleX from "../assets/icons/x-circle.svg";
 import { ages, useStore } from "../utils";
 import { computed } from "vue";
+import Wrapper from "../components/Wrapper.vue";
 const store = useStore();
 const adultsCount = computed(() => store.adultsCount);
 const children = computed(() => store.children);
 </script>
 
 <template>
-  <div :class="$style.guests">
+  <Wrapper
+    :footer="{
+      text: 'Применить',
+      click: () => $router.go(-1),
+    }"
+  >
     <div :class="$style.content">
       <Block title="Гости">
         <div :class="$style.list">
@@ -58,11 +64,7 @@ const children = computed(() => store.children);
         </div>
       </Block>
     </div>
-
-    <div :class="$style.footer">
-      <button :class="$style.send" @click="$router.go(-1)">Применить</button>
-    </div>
-  </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">
@@ -130,39 +132,10 @@ const children = computed(() => store.children);
   height: 1px;
   background-color: var(--tg-theme-secondary-bg-color);
 }
-.guests {
-  display: flex;
-  flex-direction: column;
-  padding: 12px 16px;
-  height: 100%;
-  gap: 10px;
-}
+
 .content {
   flex: 1;
-}
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding: 12px 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.send {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.43px;
-  font-weight: 600;
-  color: var(--tg-theme-button-text-color);
-  background-color: var(--tg-theme-button-color);
-  border-radius: 12px;
-  padding: 14px 0;
 }
 .delete {
   cursor: pointer;

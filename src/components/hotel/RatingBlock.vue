@@ -1,6 +1,31 @@
 <script setup lang="ts">
 import Block from "../Block.vue";
 import RatingView from "../RatingView.vue";
+const backgrounds: { [percent: number]: string } = {
+  10: "#FF3B30",
+  20: "#FD5F28",
+  30: "#FE8B20",
+  40: "#FE8B20",
+  50: "#FEBA19",
+  60: "#FEBA19",
+  70: "#8CC928",
+  80: "#8CC928",
+  90: "#34C759",
+  100: "#34C759",
+};
+const titles = [
+  "Плохо",
+  "Плохо",
+  "Плохо",
+  "Плохо",
+  "Плохо",
+  "Удовлетворительно",
+  "Удовлетворительно",
+  "Хорошо",
+  "Отлично",
+  "Превосходно",
+  "Превосходно",
+];
 const ratings = [
   {
     name: "Питание",
@@ -34,7 +59,7 @@ const ratings = [
     <div :class="$style.rating">
       <RatingView :level="10" type="big" />
       <div :class="$style.right">
-        <div :class="$style.title">Превосходно</div>
+        <div :class="$style.title">{{ titles[10] || "Превосходно" }}</div>
         <div :class="$style.subtitle">5252 отзывов на Tripadvisor</div>
       </div>
     </div>
@@ -48,6 +73,7 @@ const ratings = [
           <div
             :class="$style.active"
             :style="{
+              backgroundColor: backgrounds[item.percent],
               width: item.percent + '%',
             }"
           />

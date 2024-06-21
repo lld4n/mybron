@@ -13,11 +13,18 @@ export type SortFilters = "default" | "stars" | "cheap" | "expensive" | "closene
 
 export type Key = "payment" | "stars" | "other";
 export type Array = StarsFilters[] | PaymentFilters[] | OtherFilters[];
+
+export type Message = {
+  type: "copy";
+  text: string;
+} | null;
+
 interface StoreInterface {
   adultsCount: number;
   children: number[];
   in: Date;
   out: null | Date;
+  message: Message;
   filters: {
     sort: SortFilters;
     payment: PaymentFilters[];
@@ -36,6 +43,7 @@ export const useStore = defineStore("store", {
       out: new Date(
         new Date(new Date().setHours(0, 0, 0, 0)).setDate(new Date().getDate() + 1),
       ),
+      message: null,
       filters: {
         sort: "default",
         payment: [],
@@ -46,6 +54,12 @@ export const useStore = defineStore("store", {
     };
   },
   actions: {
+    setMessage(mes: Message) {
+      this.message = mes;
+      setTimeout(() => {
+        this.message = null;
+      }, 1000);
+    },
     changeFiltersPrice(newValue: [number, number]) {
       this.filters.price = newValue;
     },

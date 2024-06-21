@@ -4,6 +4,12 @@ import Share from "../assets/icons/share.svg";
 import RatingBlock from "../components/hotel/RatingBlock.vue";
 const url =
   "https://static1.cbrimages.com/wordpress/wp-content/uploads/2023/08/collage-maker-07-aug-2023-01-43-pm-4128.jpg";
+
+const sharePage = () => {
+  window.Telegram.WebApp.requestContact((success, response) => {
+    console.log(success, response);
+  });
+};
 </script>
 
 <template>
@@ -13,7 +19,7 @@ const url =
       <img :src="url" :class="$style.image" />
       <img :src="url" :class="$style.image" />
     </CarouselCount>
-    <button :class="$style.share"><Share /></button>
+    <button :class="$style.share" @click="sharePage"><Share /></button>
   </div>
   <div :class="$style.content">
     <RatingBlock />
