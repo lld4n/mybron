@@ -21,4 +21,8 @@ export const en: i18nType = {
     add: "Add",
     unknown: "Unknown",
   },
+  reservation: {
+    my: "Мои бронирования",
+    zero: "Здесь будут храниться ваши бронирования",
+  },
 };

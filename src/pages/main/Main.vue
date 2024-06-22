@@ -29,9 +29,7 @@
             Больше
           </div>
         </div>
-        <div :class="$style.reservations">
-          <!--          skip-->
-        </div>
+        <ReservationCard status="loading" />
       </Block>
       <Block>
         <div :class="$style.top">
@@ -139,6 +137,7 @@ import Text from "../../components/ui/wrappers/Text.vue";
 
 import MainInfo from "../../components/common/MainInfo.vue";
 import { useInter } from "../../utils/i18n";
+import ReservationCard from "../../components/items/ReservationCard.vue";
 const q = useInter();
 console.log(window.Telegram);
 onMounted(() => {

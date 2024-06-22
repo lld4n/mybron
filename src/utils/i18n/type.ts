@@ -17,6 +17,10 @@ export type i18nType = {
     add: string;
     unknown: string;
   };
+  reservation: {
+    my: string;
+    zero: string;
+  };
 };
 
 export type SlugType = "en" | "ru";
