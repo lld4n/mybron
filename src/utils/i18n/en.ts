@@ -27,6 +27,15 @@ export const en: i18nType = {
   },
   copy: "скопирован",
   hotel: {
+    buttons: {
+      cancel: "Отменить бронирование",
+      call: "Позвонить в отель",
+      chat: "Открыть чат поддержки",
+      popup: {
+        close: "Закрыть",
+        cancel: "Отменить",
+      },
+    },
     status: {
       loading: "Ожидает оплаты",
       payed: "Оплачено",

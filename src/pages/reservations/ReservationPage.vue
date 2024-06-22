@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import StatusBlock from "../../components/hotel/StatusBlock.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
+import ButtonsBlock from "../../components/hotel/ButtonsBlock.vue";
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
       <StatusBlock status="cancel" />
       <StatusBlock status="fail" />
       <StatusBlock status="absence" />
+      <ButtonsBlock />
     </div>
   </Wrapper>
 </template>
