@@ -14,6 +14,5 @@
   flex-direction: column;
   background-color: var(--tg-theme-bg-color);
   border-radius: 16px;
-  gap: 8px;
 }
 </style>

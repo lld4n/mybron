@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import Block from "../components/ui/Block.vue";
-import Minus from "../assets/icons/minus.svg";
-import Plus from "../assets/icons/plus.svg";
-import CircleX from "../assets/icons/x-circle.svg";
-import { ages, useStore } from "../utils";
+import Block from "../../components/ui/Block.vue";
+import Minus from "../../assets/icons/minus.svg";
+import Plus from "../../assets/icons/plus.svg";
+import CircleX from "../../assets/icons/x-circle.svg";
+import { ages, useStore } from "../../utils";
 import { computed } from "vue";
-import Wrapper from "../components/Wrapper.vue";
+import Wrapper from "../../components/Wrapper.vue";
+import Title from "../../components/ui/Title.vue";
 const store = useStore();
 const adultsCount = computed(() => store.adultsCount);
 const children = computed(() => store.children);
@@ -19,7 +20,10 @@ const children = computed(() => store.children);
     }"
   >
     <div :class="$style.content">
-      <Block title="Гости">
+      <Block>
+        <div :class="$style.top">
+          <Title>Гости</Title>
+        </div>
         <div :class="$style.list">
           <div :class="$style.item">
             <div :class="$style.left">Взрослые</div>
@@ -43,7 +47,7 @@ const children = computed(() => store.children);
           </div>
           <div :class="$style.bar" />
           <template v-for="(age, i) of children">
-            <div :class="$style.item">
+            <div :class="$style.children">
               <div :class="$style.left">{{ "Ребёнок " + ages[age] }}</div>
               <div :class="$style.right">
                 <div :class="$style.delete" @click="store.removeChildren(i)">
@@ -78,6 +82,7 @@ const children = computed(() => store.children);
   line-height: 22px;
   font-weight: 400;
   letter-spacing: -0.43px;
+  padding: 11px 0;
   path {
     fill: var(--tg-theme-link-color);
   }
@@ -86,12 +91,17 @@ const children = computed(() => store.children);
 .list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 0 16px;
+  padding: 0 0 0 16px;
 }
 .item {
   display: flex;
   align-items: center;
+  padding: 4px 16px 4px 0;
+}
+.children {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px 10px 0;
 }
 .left {
   flex: 1;
@@ -136,6 +146,9 @@ const children = computed(() => store.children);
 .content {
   flex: 1;
   padding: 12px 16px;
+}
+.top {
+  padding: 16px 16px 4px;
 }
 .delete {
   cursor: pointer;

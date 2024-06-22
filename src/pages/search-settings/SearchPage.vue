@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Search from "../assets/icons/search.svg";
-import Point from "../assets/icons/point.svg";
+import Search from "../../assets/icons/search.svg";
+import Point from "../../assets/icons/point.svg";
 const value = defineModel("value");
 </script>
 

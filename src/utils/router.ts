@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SearchPage from "../pages/SearchPage.vue";
+import SearchPage from "../pages/search-settings/SearchPage.vue";
 import Main from "../pages/main/Main.vue";
-import DatesPage from "../pages/DatesPage.vue";
+import DatesPage from "../pages/search-settings/DatesPage.vue";
 import SearchResultsPage from "../pages/SearchResultsPage.vue";
-import GuestsPage from "../pages/GuestsPage.vue";
-import GuestsChildrenPage from "../pages/GuestsChildrenPage.vue";
+import GuestsPage from "../pages/search-settings/GuestsPage.vue";
+import GuestsChildrenPage from "../pages/search-settings/GuestsChildrenPage.vue";
 import SortPage from "../pages/filters/SortPage.vue";
 import PricePage from "../pages/filters/PricePage.vue";
 import PaymentPage from "../pages/filters/PaymentPage.vue";
@@ -25,13 +25,14 @@ import SettingsCurrencyPage from "../pages/settings/SettingsCurrencyPage.vue";
 const routes = [
   { path: "/", component: Main },
 
+  // настройка поиска
   { path: "/dates", component: DatesPage },
   { path: "/guests", component: GuestsPage },
   { path: "/guests/children", component: GuestsChildrenPage },
-
   { path: "/search", component: SearchPage },
-  { path: "/search/results", component: SearchResultsPage },
 
+  // результаты поиска с фильтрами
+  { path: "/search/results", component: SearchResultsPage },
   { path: "/search/filter/sort", component: SortPage },
   { path: "/search/filter/price", component: PricePage },
   { path: "/search/filter/other", component: OtherPage },
@@ -39,15 +40,18 @@ const routes = [
   { path: "/search/filter/stars", component: StarsPage },
   { path: "/search/filter/info", component: InfoPage },
 
+  // страница отеля и его доп информация
   { path: "/hotel/:id", component: HotelPage },
   { path: "/hotel/:id/about", component: HotelAboutPage },
   { path: "/hotel/:id/amenities", component: HotelAmenitiesPage },
   { path: "/hotel/:id/reviews", component: HotelReviewsPage },
   { path: "/hotel/:id/info", component: HotelInfoPage },
 
+  // бронирования, включая мои бронирования
   { path: "/reservation/my", component: ReservationMyPage },
   { path: "/reservation/:id", component: ReservationPage },
 
+  // настройки и его доп страницы
   { path: "/settings", component: SettingsPage },
   { path: "/settings/language", component: SettingsLanguagePage },
   { path: "/settings/currency", component: SettingsCurrencyPage },

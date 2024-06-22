@@ -16,7 +16,9 @@
       </div>
       <div :class="$style.list">
         <MainInfo :search="true" />
-        <button :class="$style.find">Найти отели</button>
+        <button :class="$style.find" @click="$router.push('/search/results')">
+          Найти отели
+        </button>
       </div>
     </main>
     <div :class="$style.content">

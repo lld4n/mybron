@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import Block from "../components/ui/Block.vue";
-import { ages, useStore } from "../utils";
+import Block from "../../components/ui/Block.vue";
+import Title from "../../components/ui/Title.vue";
+import { ages, useStore } from "../../utils";
 
 const store = useStore();
 </script>
 
 <template>
   <div :class="$style.wrapper">
-    <Block title="Выберите возраст ребёнка">
+    <Block>
+      <div :class="$style.top">
+        <Title>Выберите возраст ребёнка</Title>
+      </div>
       <template v-for="(age, index) of ages">
         <div
           :class="$style.item"
@@ -27,6 +31,9 @@ const store = useStore();
 <style module lang="scss">
 .wrapper {
   padding: 12px 16px;
+}
+.top {
+  padding: 16px 16px 4px;
 }
 .bar {
   margin-left: 16px;

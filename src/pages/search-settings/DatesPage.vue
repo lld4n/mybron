@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DateView from "../components/ui/DateView.vue";
-import { months, useStore } from "../utils";
+import DateView from "../../components/ui/DateView.vue";
+import { months, useStore } from "../../utils";
 import { computed } from "vue";
 
 const weeks = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
@@ -85,7 +85,7 @@ console.log(store.in, store.out);
   height: 100%;
   &__main {
     flex: 1;
-    padding: 8px 16px;
+    padding: 8px 16px 90px;
   }
   &__name {
     width: 100%;
