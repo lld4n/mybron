@@ -11,7 +11,7 @@ const handleCancel = () => {
   window.Telegram.WebApp.showPopup(
     {
       title: q.i18n.hotel.buttons.cancel,
-      message: "",
+      message: "52",
       buttons: [
         {
           id: "close",
