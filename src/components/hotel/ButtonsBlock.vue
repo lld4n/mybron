@@ -15,12 +15,12 @@ const handleCancel = () => {
       buttons: [
         {
           id: "close",
-          type: "close",
+          type: "default",
           text: q.i18n.hotel.buttons.popup.close,
         },
         {
           id: "cancel",
-          type: "destructive",
+          type: "cancel",
           text: q.i18n.hotel.buttons.popup.cancel,
         },
       ],

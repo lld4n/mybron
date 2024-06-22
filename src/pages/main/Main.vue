@@ -141,6 +141,7 @@ import ReservationCard from "../../components/items/ReservationCard.vue";
 const q = useInter();
 console.log(window.Telegram);
 onMounted(() => {
+  console.log(window.Telegram.WebApp.initDataUnsafe.user?.language_code);
   if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
     q.changeLanguage("en");
   }
