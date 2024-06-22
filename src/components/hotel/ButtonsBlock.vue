@@ -20,7 +20,7 @@ const handleCancel = () => {
         },
         {
           id: "cancel",
-          type: "cancel",
+          type: "destructive",
           text: q.i18n.hotel.buttons.popup.cancel,
         },
       ],
