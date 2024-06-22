@@ -23,10 +23,19 @@ export type i18nType = {
   };
   copy: string;
   hotel: {
+    amenity: string;
+    total: {
+      title: string;
+      tax: string;
+      total: string;
+    };
     buttons: {
       cancel: string;
       call: string;
       chat: string;
+      message: {
+        canceled: string;
+      };
       popup: {
         close: string;
         cancel: string;

@@ -5,8 +5,14 @@ import Phone from "../../assets/hotel-buttons/phone.svg";
 import Chat from "../../assets/hotel-buttons/chat.svg";
 import { useInter } from "../../utils/i18n";
 import Text from "../ui/wrappers/Text.vue";
-const q = useInter();
+import { useStore } from "../../utils";
+interface Props {
+  noShowCancel?: boolean;
+}
 
+defineProps<Props>();
+const q = useInter();
+const store = useStore();
 const handleCancel = () => {
   window.Telegram.WebApp.showPopup(
     {
@@ -26,6 +32,12 @@ const handleCancel = () => {
       ],
     },
     (button_id) => {
+      if (button_id === "cancel") {
+        store.setMessage({
+          type: "cancel",
+          text: q.i18n.hotel.buttons.message.canceled,
+        });
+      }
       console.log(button_id);
     },
   );
@@ -35,7 +47,7 @@ const handleCancel = () => {
 <template>
   <Block>
     <div :class="$style.wrapper">
-      <div :class="$style.item" @click="handleCancel">
+      <div :class="$style.item" @click="handleCancel" v-if="!noShowCancel">
         <div :class="$style.icon">
           <X />
         </div>

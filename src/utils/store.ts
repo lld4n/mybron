@@ -15,7 +15,7 @@ export type Key = "payment" | "stars" | "other";
 export type Array = StarsFilters[] | PaymentFilters[] | OtherFilters[];
 
 export type Message = {
-  type: "copy";
+  type: "copy" | "cancel" | "fail cancel" | "cancel fine";
   text: string;
   desc?: string;
   out?: boolean;

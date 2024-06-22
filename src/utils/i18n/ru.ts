@@ -27,10 +27,19 @@ export const ru: i18nType = {
   },
   copy: "скопирован",
   hotel: {
+    amenity: "Все удобства",
+    total: {
+      title: "Оплата картой",
+      tax: "Налоги",
+      total: "Итого",
+    },
     buttons: {
       cancel: "Отменить бронирование",
       call: "Позвонить в отель",
       chat: "Открыть чат поддержки",
+      message: {
+        canceled: "Бронирование отменено",
+      },
       popup: {
         close: "Закрыть",
         cancel: "Отменить",

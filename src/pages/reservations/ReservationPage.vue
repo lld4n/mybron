@@ -2,6 +2,8 @@
 import StatusBlock from "../../components/hotel/StatusBlock.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import ButtonsBlock from "../../components/hotel/ButtonsBlock.vue";
+import TotalBlock from "../../components/hotel/TotalBlock.vue";
+import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
 </script>
 
 <template>
@@ -13,6 +15,9 @@ import ButtonsBlock from "../../components/hotel/ButtonsBlock.vue";
       <StatusBlock status="fail" />
       <StatusBlock status="absence" />
       <ButtonsBlock />
+      <ButtonsBlock :no-show-cancel="true" />
+      <SummaryBlock />
+      <TotalBlock />
     </div>
   </Wrapper>
 </template>
