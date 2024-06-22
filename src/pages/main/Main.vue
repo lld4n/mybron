@@ -138,9 +138,13 @@ import Title from "../../components/ui/wrappers/Title.vue";
 import Text from "../../components/ui/wrappers/Text.vue";
 
 import MainInfo from "../../components/common/MainInfo.vue";
-
+import { useInter } from "../../utils/i18n";
+const q = useInter();
 console.log(window.Telegram);
 onMounted(() => {
+  if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
+    q.changeLanguage("en");
+  }
   window.Telegram.WebApp.expand();
   if (window.Telegram.WebApp.colorScheme === "dark") {
     document.documentElement.setAttribute("data-theme", "dark");
