@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CarouselCount from "../components/CarouselCount.vue";
+import CarouselCount from "../components/ui/carousel/CarouselCount.vue";
 import Share from "../assets/icons/share.svg";
 import RatingBlock from "../components/hotel/RatingBlock.vue";
 import Wrapper from "../components/Wrapper.vue";

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import emblaCarouselVue from "embla-carousel-vue";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
-
+// flex: 0 0 44px; min-width: 0;
 const [emblaRef] = emblaCarouselVue(
   {
     dragFree: true,

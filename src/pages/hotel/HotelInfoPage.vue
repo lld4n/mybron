@@ -10,8 +10,17 @@ import MainInfo from "../../components/MainInfo.vue";
       click: () => $router.go(-1),
     }"
   >
-    <MainInfo />
+    <div :class="$style.wrapper">
+      <MainInfo />
+    </div>
   </Wrapper>
 </template>
 
-<style lang="scss"></style>
+<style module lang="scss">
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  gap: 8px;
+}
+</style>

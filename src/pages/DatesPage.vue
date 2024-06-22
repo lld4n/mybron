@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DateView from "../components/DateView.vue";
+import DateView from "../components/ui/DateView.vue";
 import { months, useStore } from "../utils";
 import { computed } from "vue";
 

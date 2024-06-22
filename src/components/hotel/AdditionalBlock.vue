@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Block from "../Block.vue";
+import Block from "../ui/Block.vue";
 </script>
 
 <template>

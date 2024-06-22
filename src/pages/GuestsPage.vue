@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Block from "../components/Block.vue";
+import Block from "../components/ui/Block.vue";
 import Minus from "../assets/icons/minus.svg";
 import Plus from "../assets/icons/plus.svg";
 import CircleX from "../assets/icons/x-circle.svg";

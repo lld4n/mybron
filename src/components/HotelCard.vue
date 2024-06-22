@@ -12,7 +12,7 @@
 //   };
 // }
 // const props = defineProps<Props>();
-import Carousel from "./Carousel.vue";
+import Carousel from "./ui/carousel/Carousel.vue";
 import StarsSmall from "../assets/icons/stars/star-small.svg";
 import RatingView from "./RatingView.vue";
 const url1 =

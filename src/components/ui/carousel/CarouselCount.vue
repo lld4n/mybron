@@ -2,6 +2,7 @@
 import emblaCarouselVue from "embla-carousel-vue";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { onMounted, ref } from "vue";
+// flex: 0 0 44px; min-width: 0;
 const count = ref(0);
 const selected = ref(0);
 const [emblaRef, emblaApi] = emblaCarouselVue(

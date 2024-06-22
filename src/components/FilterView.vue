@@ -5,7 +5,7 @@ import {
   StarsFiltersValues,
   useStore,
 } from "../utils";
-import Carousel from "./Carousel.vue";
+import Carousel from "./ui/carousel/Carousel.vue";
 import Sort from "../assets/icons/sort.svg";
 import UpDown from "../assets/icons/up-down.svg";
 import StarsView from "./StarsView.vue";
