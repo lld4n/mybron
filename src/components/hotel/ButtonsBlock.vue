@@ -14,14 +14,14 @@ const handleCancel = () => {
       message: "52",
       buttons: [
         {
-          id: "close",
-          type: "default",
-          text: q.i18n.hotel.buttons.popup.close,
-        },
-        {
           id: "cancel",
           type: "destructive",
           text: q.i18n.hotel.buttons.popup.cancel,
+        },
+        {
+          id: "close",
+          type: "default",
+          text: q.i18n.hotel.buttons.popup.close,
         },
       ],
     },
