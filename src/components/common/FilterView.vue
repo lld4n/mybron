@@ -4,11 +4,11 @@ import {
   PaymentFiltersValues,
   StarsFiltersValues,
   useStore,
-} from "../utils";
-import Carousel from "./ui/carousel/Carousel.vue";
-import Sort from "../assets/icons/sort.svg";
-import UpDown from "../assets/icons/up-down.svg";
-import StarsView from "./StarsView.vue";
+} from "../../utils";
+import Carousel from "../ui/carousel/Carousel.vue";
+import Sort from "../../assets/icons/sort.svg";
+import UpDown from "../../assets/icons/up-down.svg";
+import StarsView from "../StarsView.vue";
 const store = useStore();
 const toRenderPrice = (v: number) => {
   let ans = "";
@@ -182,7 +182,7 @@ const toRenderPrice = (v: number) => {
     fill: var(--tg-theme-text-color);
   }
   &:last-child {
-    margin-right: 0;
+    margin-right: 16px;
   }
 }
 .title {

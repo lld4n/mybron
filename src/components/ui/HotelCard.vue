@@ -1,32 +1,16 @@
 <script setup lang="ts">
-// interface Props {
-//   images: string[];
-//   name: string;
-//   stars: number;
-//   rating: number;
-//   review: number;
-//   distance: number;
-//   price: {
-//     full: number;
-//     day: number;
-//   };
-// }
-// const props = defineProps<Props>();
-import Carousel from "./ui/carousel/Carousel.vue";
-import StarsSmall from "../assets/icons/stars/star-small.svg";
-import RatingView from "./RatingView.vue";
-const url1 =
-  "https://static1.cbrimages.com/wordpress/wp-content/uploads/2023/08/collage-maker-07-aug-2023-01-43-pm-4128.jpg";
-const url2 =
-  "https://www.ca.kayak.com/news/wp-content/uploads/sites/186/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg";
+import Carousel from "./carousel/Carousel.vue";
+import StarsSmall from "../../assets/icons/stars/star-small.svg";
+import RatingView from "../RatingView.vue";
+const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 </script>
 
 <template>
   <div :class="$style.card" @click="$router.push('/hotel/1')">
     <Carousel>
-      <img :src="url2" :class="$style.image" />
-      <img :src="url2" :class="$style.image" />
-      <img :src="url1" :class="$style.image" />
+      <img :src="url" :class="$style.image" />
+      <img :src="url" :class="$style.image" />
+      <img :src="url" :class="$style.image" />
     </Carousel>
     <div :class="$style.middle">
       <div :class="$style.name">

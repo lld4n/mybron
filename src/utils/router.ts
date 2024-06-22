@@ -2,15 +2,15 @@ import { createRouter, createWebHistory } from "vue-router";
 import SearchPage from "../pages/search-settings/SearchPage.vue";
 import Main from "../pages/main/Main.vue";
 import DatesPage from "../pages/search-settings/DatesPage.vue";
-import SearchResultsPage from "../pages/SearchResultsPage.vue";
+import SearchResultsPage from "../pages/search-results/SearchResultsPage.vue";
 import GuestsPage from "../pages/search-settings/GuestsPage.vue";
 import GuestsChildrenPage from "../pages/search-settings/GuestsChildrenPage.vue";
-import SortPage from "../pages/filters/SortPage.vue";
-import PricePage from "../pages/filters/PricePage.vue";
-import PaymentPage from "../pages/filters/PaymentPage.vue";
-import StarsPage from "../pages/filters/StarsPage.vue";
-import OtherPage from "../pages/filters/OtherPage.vue";
-import InfoPage from "../pages/filters/InfoPage.vue";
+import SearchFilterSortPage from "../pages/search-results/SearchFilterSortPage.vue";
+import SearchFilterPricePage from "../pages/search-results/SearchFilterPricePage.vue";
+import SearchFilterPaymentPage from "../pages/search-results/SearchFilterPaymentPage.vue";
+import SearchFilterStarsPage from "../pages/search-results/SearchFilterStarsPage.vue";
+import SearchFilterOtherPage from "../pages/search-results/SearchFilterOtherPage.vue";
+import SearchFilterInfoPage from "../pages/search-results/SearchFilterInfoPage.vue";
 import HotelPage from "../pages/HotelPage.vue";
 import HotelAboutPage from "../pages/hotel/HotelAboutPage.vue";
 import HotelAmenitiesPage from "../pages/hotel/HotelAmenitiesPage.vue";
@@ -21,7 +21,7 @@ import ReservationPage from "../pages/reservations/ReservationPage.vue";
 import SettingsPage from "../pages/settings/SettingsPage.vue";
 import SettingsLanguagePage from "../pages/settings/SettingsLanguagePage.vue";
 import SettingsCurrencyPage from "../pages/settings/SettingsCurrencyPage.vue";
-
+import SearchMapPage from "../pages/search-results/SearchMapPage.vue";
 const routes = [
   { path: "/", component: Main },
 
@@ -33,12 +33,13 @@ const routes = [
 
   // результаты поиска с фильтрами
   { path: "/search/results", component: SearchResultsPage },
-  { path: "/search/filter/sort", component: SortPage },
-  { path: "/search/filter/price", component: PricePage },
-  { path: "/search/filter/other", component: OtherPage },
-  { path: "/search/filter/payment", component: PaymentPage },
-  { path: "/search/filter/stars", component: StarsPage },
-  { path: "/search/filter/info", component: InfoPage },
+  { path: "/search/map", component: SearchMapPage },
+  { path: "/search/filter/sort", component: SearchFilterSortPage },
+  { path: "/search/filter/price", component: SearchFilterPricePage },
+  { path: "/search/filter/other", component: SearchFilterOtherPage },
+  { path: "/search/filter/payment", component: SearchFilterPaymentPage },
+  { path: "/search/filter/stars", component: SearchFilterStarsPage },
+  { path: "/search/filter/info", component: SearchFilterInfoPage },
 
   // страница отеля и его доп информация
   { path: "/hotel/:id", component: HotelPage },

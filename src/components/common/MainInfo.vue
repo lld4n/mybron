@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { guests, useStore } from "../utils";
-import Globe from "../assets/icons/globe.svg";
-import Calendar from "../assets/icons/calendar.svg";
-import Group from "../assets/icons/group.svg";
-import DateView from "./ui/DateView.vue";
+import { guests, useStore } from "../../utils";
+import Globe from "../../assets/icons/globe.svg";
+import Calendar from "../../assets/icons/calendar.svg";
+import Group from "../../assets/icons/group.svg";
+import DateView from "../ui/DateView.vue";
 const store = useStore();
 
 const toRenderDate = (d: Date) => {

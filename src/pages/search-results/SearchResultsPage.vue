@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import FilterView from "../components/FilterView.vue";
-import MapIcon from "../assets/icons/map.svg";
-import HotelCard from "../components/HotelCard.vue";
+import FilterView from "../../components/common/FilterView.vue";
+import MapIcon from "../../assets/icons/map.svg";
+import HotelCard from "../../components/ui/HotelCard.vue";
 </script>
 
 <template>
@@ -16,7 +16,9 @@ import HotelCard from "../components/HotelCard.vue";
     <div :class="$style.list">
       <HotelCard v-for="_ of Array.from({ length: 5 })" />
     </div>
-    <button :class="$style.btn"><MapIcon /> На карте</button>
+    <button :class="$style.btn" @click="$router.push('/search/map')">
+      <MapIcon /> На карте
+    </button>
   </div>
 </template>
 
@@ -26,14 +28,20 @@ import HotelCard from "../components/HotelCard.vue";
   flex-direction: column;
 }
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--tg-theme-bg-color);
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 12px 16px 0 0;
+  padding: 12px 0 8px 0;
 }
 .info {
   cursor: pointer;
-  margin-left: 16px;
+  margin: 0 16px;
   padding: 5px 10px;
   border-radius: 8px;
   background-color: var(--quarternary-fill-background);
@@ -70,9 +78,11 @@ import HotelCard from "../components/HotelCard.vue";
   }
 }
 .list {
+  background-color: var(--tg-theme-bg-color);
+  margin-top: 116px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 20px 0 62px;
+  padding: 12px 0 62px;
 }
 </style>

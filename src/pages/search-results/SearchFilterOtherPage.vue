@@ -1,44 +1,41 @@
 <script setup lang="ts">
-import FilterTemplate from "../../components/FilterTemplate.vue";
+import FilterTemplate from "../../components/ui/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
-import { PaymentFiltersValues, useStore } from "../../utils";
+import { OtherFiltersValues, useStore } from "../../utils";
 const store = useStore();
 </script>
 
 <template>
-  <FilterTemplate title="Способ оплаты">
+  <FilterTemplate title="Другое">
     <template v-slot:main>
-      <div
-        :class="$style.btn"
-        @click="store.allFilters('payment', PaymentFiltersValues)"
-      >
-        <template v-if="store.filters.payment.length === PaymentFiltersValues.length"
+      <div :class="$style.btn" @click="store.allFilters('other', OtherFiltersValues)">
+        <template v-if="store.filters.other.length === OtherFiltersValues.length"
           >Сбросить</template
         >
         <template v-else>Выбрать все</template>
       </div>
       <div :class="$style.bar" />
-      <div :class="$style.item" @click="store.changeFilters('payment', 'hotel')">
+      <div :class="$style.item" @click="store.changeFilters('other', 'card')">
         <div
           :class="[
             $style.check,
-            { [$style.active]: store.filters.payment.includes('hotel') },
+            { [$style.active]: store.filters.other.includes('card') },
           ]"
         >
-          <CheckBox v-if="store.filters.payment.includes('hotel')" />
+          <CheckBox v-if="store.filters.other.includes('card')" />
         </div>
-        <div :class="$style.value">Оплата в отеле</div>
+        <div :class="$style.value">С данными карты</div>
       </div>
-      <div :class="$style.item" @click="store.changeFilters('payment', 'agency')">
+      <div :class="$style.item" @click="store.changeFilters('other', 'breakfast')">
         <div
           :class="[
             $style.check,
-            { [$style.active]: store.filters.payment.includes('agency') },
+            { [$style.active]: store.filters.other.includes('breakfast') },
           ]"
         >
-          <CheckBox v-if="store.filters.payment.includes('agency')" />
+          <CheckBox v-if="store.filters.other.includes('breakfast')" />
         </div>
-        <div :class="$style.value">Оплата агенству</div>
+        <div :class="$style.value">С завтраком</div>
       </div>
     </template>
   </FilterTemplate>

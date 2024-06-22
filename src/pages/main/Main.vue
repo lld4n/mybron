@@ -137,7 +137,7 @@ import Carousel from "../../components/ui/carousel/Carousel.vue";
 import Title from "../../components/ui/Title.vue";
 import Text from "../../components/ui/Text.vue";
 
-import MainInfo from "../../components/MainInfo.vue";
+import MainInfo from "../../components/common/MainInfo.vue";
 
 console.log(window.Telegram);
 onMounted(() => {
