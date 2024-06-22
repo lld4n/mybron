@@ -5,10 +5,11 @@ import ShapeIcon from "../../assets/icons/shape.svg";
 import X from "../../assets/icons/x.svg";
 import { computed, ref, watch } from "vue";
 import { useSwipe } from "@vueuse/core";
-const viewInfo = ref(false);
+const viewInfo = ref<"in" | "out" | "default">("default");
 const el = ref(null);
+const container = ref(null);
 // @ts-ignore
-const height = computed(() => el.value?.offsetHeight);
+const height = computed(() => container.value?.offsetHeight);
 const bottom = ref("0");
 const opacity = ref(1);
 
@@ -42,7 +43,7 @@ const { isSwiping, lengthY } = useSwipe(el, {
       bottom.value = "-100%";
       opacity.value = 0;
       setTimeout(() => {
-        viewInfo.value = false;
+        viewInfo.value = "default";
       }, 300);
     } else {
       bottom.value = "0";
@@ -50,6 +51,15 @@ const { isSwiping, lengthY } = useSwipe(el, {
     }
   },
 });
+
+const handleClose = () => {
+  if (viewInfo.value === "in") {
+    viewInfo.value = "out";
+    setTimeout(() => {
+      viewInfo.value = "default";
+    }, 450);
+  } else viewInfo.value = "in";
+};
 </script>
 
 <template>
@@ -61,31 +71,28 @@ const { isSwiping, lengthY } = useSwipe(el, {
       </div>
       <FilterView />
     </header>
-    <div :class="$style.map" @click="viewInfo = !viewInfo">Здесь будет карта</div>
+    <div :class="$style.map" @click="handleClose">Здесь будет карта</div>
     <div
       :class="[
         $style.view,
         {
           [$style.animated]: !isSwiping,
+          [$style.out]: viewInfo === 'out',
         },
       ]"
-      v-if="viewInfo"
-      ref="el"
+      v-if="viewInfo !== 'default'"
+      ref="container"
       :style="{ bottom, opacity }"
     >
-      <div :class="$style.top">
+      <div :class="$style.top" ref="el">
         <div :class="$style.line" />
       </div>
-      <button :class="$style.close" @click.prevent="viewInfo = false">
+      <button :class="$style.close" @click.prevent="handleClose">
         <X />
       </button>
       <HotelCard />
     </div>
-    <button
-      :class="$style.btn"
-      v-if="!viewInfo"
-      @click="$router.push('/search/results')"
-    >
+    <button :class="$style.btn" @click="$router.push('/search/results')">
       <ShapeIcon /> Список
     </button>
   </div>
@@ -156,6 +163,7 @@ const { isSwiping, lengthY } = useSwipe(el, {
   height: 100%;
 }
 .view {
+  z-index: 100;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -164,8 +172,33 @@ const { isSwiping, lengthY } = useSwipe(el, {
   padding-bottom: 12px;
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
+  animation: in_anim 0.5s ease;
   &.animated {
     transition: all 0.2s ease-in-out;
+  }
+  &.out {
+    animation: out_anim 0.5s ease;
+  }
+}
+
+@keyframes out_anim {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -100%;
+    opacity: 0;
+  }
+}
+@keyframes in_anim {
+  from {
+    bottom: -100%;
+    //opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
   }
 }
 
