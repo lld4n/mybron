@@ -11,12 +11,10 @@ const container = ref(null);
 // @ts-ignore
 const height = computed(() => container.value?.offsetHeight);
 const bottom = ref("0");
-const opacity = ref(1);
 
 watch(viewInfo, (value) => {
   if (value) {
     bottom.value = "0";
-    opacity.value = 1;
   }
 });
 
@@ -27,10 +25,8 @@ const { isSwiping, lengthY } = useSwipe(el, {
       if (lengthY.value < 0) {
         const length = Math.abs(lengthY.value);
         bottom.value = `-${length}px`;
-        opacity.value = 1.1 - length / height.value;
       } else {
         bottom.value = "0";
-        opacity.value = 1;
       }
     }
   },
@@ -41,13 +37,11 @@ const { isSwiping, lengthY } = useSwipe(el, {
       Math.abs(lengthY.value) / height.value >= 0.5
     ) {
       bottom.value = "-100%";
-      opacity.value = 0;
       setTimeout(() => {
         viewInfo.value = "default";
       }, 300);
     } else {
       bottom.value = "0";
-      opacity.value = 1;
     }
   },
 });
@@ -82,7 +76,7 @@ const handleClose = () => {
       ]"
       v-if="viewInfo !== 'default'"
       ref="container"
-      :style="{ bottom, opacity }"
+      :style="{ bottom }"
     >
       <div :class="$style.top" ref="el">
         <div :class="$style.line" />
@@ -184,21 +178,17 @@ const handleClose = () => {
 @keyframes out_anim {
   from {
     bottom: 0;
-    opacity: 1;
   }
   to {
     bottom: -100%;
-    opacity: 0;
   }
 }
 @keyframes in_anim {
   from {
     bottom: -100%;
-    //opacity: 0;
   }
   to {
     bottom: 0;
-    opacity: 1;
   }
 }
 
