@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import Text from "../ui/wrappers/Text.vue";
 import DateView from "../ui/views/DateView.vue";
-import SuccessIcon from "../../assets/reservation/success.svg";
-import FailIcon from "../../assets/reservation/fail.svg";
-import LoadingIcon from "../../assets/reservation/loading.svg";
+import StatusView from "../ui/views/StatusView.vue";
 interface Props {
   status: "success" | "loading" | "fail";
 }
@@ -15,9 +13,7 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
   <div :class="$style.wrapper" @click="$router.push('/reservation/1')">
     <div :class="$style.left">
       <div :class="$style.status">
-        <SuccessIcon v-if="status === 'success'" />
-        <FailIcon v-if="status === 'fail'" />
-        <LoadingIcon v-if="status === 'loading'" :class="$style.loader" />
+        <StatusView :status="status" />
       </div>
       <img :src="url" :class="$style.img" />
     </div>
@@ -84,18 +80,6 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
   svg {
     width: 14px;
     height: 14px;
-  }
-}
-.loader {
-  animation: spin 3s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
 </style>

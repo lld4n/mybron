@@ -21,6 +21,22 @@ export type i18nType = {
     my: string;
     zero: string;
   };
+  copy: string;
+  hotel: {
+    status: {
+      loading: string;
+      payed: string;
+      fail: string;
+      absence: string;
+      number: string;
+      return: string;
+      dft: string;
+      button: string;
+      cancel: string;
+      hold: string;
+      copy: string;
+    };
+  };
 };
 
 export type SlugType = "en" | "ru";

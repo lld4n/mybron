@@ -15,7 +15,7 @@ import CopyButton from "../ui/CopyButton.vue";
     </div>
     <div :class="$style.map">
       <img src="https://i.ibb.co/yNtsMP8/2024-06-21-21-12-03.jpg" :class="$style.img" />
-      <CopyButton text="Театральный пр-д, д.2, Москва" />
+      <CopyButton text="Театральный пр-д, д.2, Москва" title="Адрес" />
     </div>
   </div>
 </template>

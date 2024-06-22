@@ -55,6 +55,7 @@ const handleClose = () => {
 
 <style module lang="scss">
 .footer {
+  min-height: 1px;
   z-index: 100;
   position: fixed;
   bottom: 0;
@@ -83,7 +84,7 @@ const handleClose = () => {
 }
 .message {
   position: absolute;
-  bottom: 100%;
+  top: -64px;
   left: 0;
   right: 0;
   z-index: 99;
@@ -111,18 +112,18 @@ const handleClose = () => {
 
 @keyframes in_anim {
   from {
-    bottom: 0;
+    top: 100%;
   }
   to {
-    bottom: 100%;
+    top: -64px;
   }
 }
 @keyframes out_anim {
   from {
-    bottom: 100%;
+    top: -64px;
   }
   to {
-    bottom: 0;
+    top: 100%;
   }
 }
 </style>
