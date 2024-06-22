@@ -203,7 +203,7 @@ const handleClose = () => {
 }
 
 .top {
-  height: 12px;
+  height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -216,7 +216,7 @@ const handleClose = () => {
 }
 .close {
   position: absolute;
-  top: 8px;
+  top: 24px;
   right: 20px;
   background-color: var(--tg-theme-bg-color);
   width: 36px;
