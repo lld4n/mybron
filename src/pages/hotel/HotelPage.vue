@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import CarouselCount from "../components/ui/carousel/CarouselCount.vue";
-import Share from "../assets/icons/share.svg";
-import RatingBlock from "../components/hotel/RatingBlock.vue";
-import Wrapper from "../components/Wrapper.vue";
-import AboutBlock from "../components/hotel/AboutBlock.vue";
-import AdditionalBlock from "../components/hotel/AdditionalBlock.vue";
-import MainBlock from "../components/hotel/MainBlock.vue";
-import InfoBlock from "../components/hotel/InfoBlock.vue";
+import CarouselCount from "../../components/ui/carousel/CarouselCount.vue";
+import Share from "../../assets/icons/share.svg";
+import RatingBlock from "../../components/hotel/RatingBlock.vue";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
+import AboutBlock from "../../components/hotel/AboutBlock.vue";
+import AdditionalBlock from "../../components/hotel/AdditionalBlock.vue";
+import MainBlock from "../../components/hotel/MainBlock.vue";
+import InfoBlock from "../../components/hotel/InfoBlock.vue";
 const url =
   "https://static1.cbrimages.com/wordpress/wp-content/uploads/2023/08/collage-maker-07-aug-2023-01-43-pm-4128.jpg";
 

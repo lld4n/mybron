@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FilterTemplate from "../../components/ui/FilterTemplate.vue";
+import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { StarsFiltersValues, useStore } from "../../utils";
-import StarsView from "../../components/StarsView.vue";
+import StarsView from "../../components/ui/views/StarsView.vue";
 const store = useStore();
 </script>
 

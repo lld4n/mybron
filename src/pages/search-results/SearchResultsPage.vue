@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FilterView from "../../components/common/FilterView.vue";
 import MapIcon from "../../assets/icons/map.svg";
-import HotelCard from "../../components/ui/HotelCard.vue";
+import HotelCard from "../../components/items/HotelCard.vue";
 </script>
 
 <template>

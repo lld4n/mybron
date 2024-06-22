@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Block from "../../components/ui/Block.vue";
-import Title from "../../components/ui/Title.vue";
+import Block from "../../components/ui/wrappers/Block.vue";
+import Title from "../../components/ui/wrappers/Title.vue";
 import { ages, useStore } from "../../utils";
 
 const store = useStore();

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Carousel from "./carousel/Carousel.vue";
+import Carousel from "../ui/carousel/Carousel.vue";
 import StarsSmall from "../../assets/icons/stars/star-small.svg";
-import RatingView from "../RatingView.vue";
+import RatingView from "../ui/views/RatingView.vue";
 const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 </script>
 

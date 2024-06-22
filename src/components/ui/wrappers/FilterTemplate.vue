@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Wrapper from "../Wrapper.vue";
+import Wrapper from "./Wrapper.vue";
 
 defineProps({
   title: { type: String, required: true },

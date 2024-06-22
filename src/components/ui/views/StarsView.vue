@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import StarsSmallOutLine from "../assets/icons/stars/star-small-outline.svg";
-import StarsSmall from "../assets/icons/stars/star-small.svg";
-import StarsBigOutLine from "../assets/icons/stars/star-big-outline.svg";
-import StarsBig from "../assets/icons/stars/star-big.svg";
+import StarsSmallOutLine from "../../../assets/icons/stars/star-small-outline.svg";
+import StarsSmall from "../../../assets/icons/stars/star-small.svg";
+import StarsBigOutLine from "../../../assets/icons/stars/star-big-outline.svg";
+import StarsBig from "../../../assets/icons/stars/star-big.svg";
 interface Props {
   type: "small" | "big";
   level: 1 | 2 | 3 | 4 | 5;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Block from "../ui/Block.vue";
-import RatingView from "../RatingView.vue";
+import Block from "../ui/wrappers/Block.vue";
+import RatingView from "../ui/views/RatingView.vue";
 const backgrounds: { [percent: number]: string } = {
   10: "#FF3B30",
   20: "#FD5F28",

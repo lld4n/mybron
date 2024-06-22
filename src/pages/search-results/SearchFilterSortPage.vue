@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Check from "../../assets/icons/check.svg";
 import { useStore } from "../../utils";
-import FilterTemplate from "../../components/ui/FilterTemplate.vue";
+import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 const store = useStore();
 </script>
 

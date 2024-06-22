@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import RatingView from "../RatingView.vue";
-import StarsView from "../StarsView.vue";
-import CopyButton from "../CopyButton.vue";
+import RatingView from "../ui/views/RatingView.vue";
+import StarsView from "../ui/views/StarsView.vue";
+import CopyButton from "../ui/CopyButton.vue";
 </script>
 
 <template>

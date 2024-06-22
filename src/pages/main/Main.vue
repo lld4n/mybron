@@ -131,11 +131,11 @@ import Logo from "../../assets/logo.svg";
 import { router } from "../../utils";
 import { onMounted } from "vue";
 
-import Block from "../../components/ui/Block.vue";
-import DateView from "../../components/ui/DateView.vue";
+import Block from "../../components/ui/wrappers/Block.vue";
+import DateView from "../../components/ui/views/DateView.vue";
 import Carousel from "../../components/ui/carousel/Carousel.vue";
-import Title from "../../components/ui/Title.vue";
-import Text from "../../components/ui/Text.vue";
+import Title from "../../components/ui/wrappers/Title.vue";
+import Text from "../../components/ui/wrappers/Text.vue";
 
 import MainInfo from "../../components/common/MainInfo.vue";
 

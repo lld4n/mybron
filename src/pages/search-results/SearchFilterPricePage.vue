@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FilterTemplate from "../../components/ui/FilterTemplate.vue";
+import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import Slider from "primevue/slider";
 import { onMounted, ref, watch } from "vue";
 import { useStore } from "../../utils";

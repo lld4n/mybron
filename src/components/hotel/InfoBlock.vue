@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HotelButton from "./HotelButton.vue";
-import DateView from "../ui/DateView.vue";
+import DateView from "../ui/views/DateView.vue";
 import Pencil from "../../assets/icons/pencil.svg";
 </script>
 

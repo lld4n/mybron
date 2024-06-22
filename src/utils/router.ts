@@ -11,7 +11,7 @@ import SearchFilterPaymentPage from "../pages/search-results/SearchFilterPayment
 import SearchFilterStarsPage from "../pages/search-results/SearchFilterStarsPage.vue";
 import SearchFilterOtherPage from "../pages/search-results/SearchFilterOtherPage.vue";
 import SearchFilterInfoPage from "../pages/search-results/SearchFilterInfoPage.vue";
-import HotelPage from "../pages/HotelPage.vue";
+import HotelPage from "../pages/hotel/HotelPage.vue";
 import HotelAboutPage from "../pages/hotel/HotelAboutPage.vue";
 import HotelAmenitiesPage from "../pages/hotel/HotelAmenitiesPage.vue";
 import HotelReviewsPage from "../pages/hotel/HotelReviewsPage.vue";

@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import Copy from "../assets/icons/copy.svg";
+import Copy from "../../assets/icons/copy.svg";
+import { useStore } from "../../utils";
 interface Props {
   text: string;
 }
 const props = defineProps<Props>();
+const store = useStore();
 const copy = async () => {
   await navigator.clipboard.writeText(props.text);
+  store.setMessage({
+    type: "copy",
+    text: "Адрес скопирован",
+  });
 };
 </script>
 

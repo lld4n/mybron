@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Block from "../../components/ui/Block.vue";
+import Block from "../../components/ui/wrappers/Block.vue";
 import Minus from "../../assets/icons/minus.svg";
 import Plus from "../../assets/icons/plus.svg";
 import CircleX from "../../assets/icons/x-circle.svg";
 import { ages, useStore } from "../../utils";
 import { computed } from "vue";
-import Wrapper from "../../components/Wrapper.vue";
-import Title from "../../components/ui/Title.vue";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
+import Title from "../../components/ui/wrappers/Title.vue";
 const store = useStore();
 const adultsCount = computed(() => store.adultsCount);
 const children = computed(() => store.children);

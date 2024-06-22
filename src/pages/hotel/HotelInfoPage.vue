@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Wrapper from "../../components/Wrapper.vue";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import MainInfo from "../../components/common/MainInfo.vue";
 </script>
 

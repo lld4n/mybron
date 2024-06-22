@@ -8,7 +8,7 @@ import {
 import Carousel from "../ui/carousel/Carousel.vue";
 import Sort from "../../assets/icons/sort.svg";
 import UpDown from "../../assets/icons/up-down.svg";
-import StarsView from "../StarsView.vue";
+import StarsView from "../ui/views/StarsView.vue";
 const store = useStore();
 const toRenderPrice = (v: number) => {
   let ans = "";

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Block from "../ui/Block.vue";
+import Block from "../ui/wrappers/Block.vue";
 import HotelButton from "./HotelButton.vue";
 </script>
 

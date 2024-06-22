@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HotelCard from "../../components/ui/HotelCard.vue";
+import HotelCard from "../../components/items/HotelCard.vue";
 import FilterView from "../../components/common/FilterView.vue";
 import ShapeIcon from "../../assets/icons/shape.svg";
 import X from "../../assets/icons/x.svg";

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Arrow from "../../assets/icons/arrow.svg";
+import Arrow from "../../../assets/icons/arrow.svg";
 interface Props {
   left: string;
   right: string;

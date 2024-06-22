@@ -17,6 +17,8 @@ export type Array = StarsFilters[] | PaymentFilters[] | OtherFilters[];
 export type Message = {
   type: "copy";
   text: string;
+  desc?: string;
+  out?: boolean;
 } | null;
 
 interface StoreInterface {
@@ -56,9 +58,18 @@ export const useStore = defineStore("store", {
   actions: {
     setMessage(mes: Message) {
       this.message = mes;
-      setTimeout(() => {
-        this.message = null;
-      }, 1000);
+      if (!mes?.out) {
+        setTimeout(() => {
+          if (this.message) this.message.out = true;
+        }, 4800);
+        setTimeout(() => {
+          this.message = null;
+        }, 5000);
+      } else {
+        setTimeout(() => {
+          this.message = null;
+        }, 200);
+      }
     },
     changeFiltersPrice(newValue: [number, number]) {
       this.filters.price = newValue;

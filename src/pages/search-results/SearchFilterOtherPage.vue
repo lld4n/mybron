@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FilterTemplate from "../../components/ui/FilterTemplate.vue";
+import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { OtherFiltersValues, useStore } from "../../utils";
 const store = useStore();
