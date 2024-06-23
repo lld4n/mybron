@@ -85,6 +85,12 @@ import RoomCard from "../../components/items/RoomCard.vue";
   &:last-child {
     margin-right: 16px;
   }
+  path {
+    fill: var(--tg-theme-text-color);
+  }
+}
+.text {
+  color: var(--tg-theme-hint-color);
 }
 .content {
   display: flex;
