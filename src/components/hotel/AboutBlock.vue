@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import Block from "../ui/wrappers/Block.vue";
 import HotelButton from "./HotelButton.vue";
+import Title from "../ui/wrappers/Title.vue";
 </script>
 
 <template>
-  <Block title="Об отеле">
+  <Block>
+    <div :class="$style.top">
+      <Title> Об отеле </Title>
+    </div>
     <div :class="$style.text">
       Сетевой пятизвездочный отель на Новинском бульваре, в 400 м от станции метро
       Смоленская. Расстояние до аэропорта Внуково составляет 29 км, а до Киевского
@@ -22,6 +26,9 @@ import HotelButton from "./HotelButton.vue";
 </template>
 
 <style module lang="scss">
+.top {
+  padding: 24px 16px 8px;
+}
 .text {
   font-size: 17px;
   font-weight: 400;

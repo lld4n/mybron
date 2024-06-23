@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import Block from "../ui/wrappers/Block.vue";
+import Title from "../ui/wrappers/Title.vue";
 </script>
 
 <template>
-  <Block title="Дополнительная информация">
+  <Block>
+    <div :class="$style.top">
+      <Title>Дополнительная информация</Title>
+    </div>
     <div :class="$style.text">
       Информируем, что в соответствии с Федеральным законом от 29 июля 2017 № 214-ФЗ «О
       проведении эксперимента по развитию курортной инфраструктуры» и Законом
@@ -16,8 +20,11 @@ import Block from "../ui/wrappers/Block.vue";
 </template>
 
 <style module lang="scss">
+.top {
+  padding: 24px 16px 8px;
+}
 .text {
-  padding: 0 16px;
+  padding: 0 16px 16px;
   font-size: 17px;
   line-height: 22px;
   font-weight: 400;

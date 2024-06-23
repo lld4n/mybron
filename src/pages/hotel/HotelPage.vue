@@ -7,18 +7,9 @@ import AboutBlock from "../../components/hotel/AboutBlock.vue";
 import AdditionalBlock from "../../components/hotel/AdditionalBlock.vue";
 import MainBlock from "../../components/hotel/MainBlock.vue";
 import InfoBlock from "../../components/hotel/InfoBlock.vue";
-const url =
-  "https://static1.cbrimages.com/wordpress/wp-content/uploads/2023/08/collage-maker-07-aug-2023-01-43-pm-4128.jpg";
+const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 
-const sharePage = () => {
-  // const text = "Это тестовое сообщение";
-  window.Telegram.WebApp.requestWriteAccess((success) => {
-    console.log(success);
-  });
-  // window.Telegram.WebApp.openTelegramLink(
-  //   `https://t.me/share/url?url=https://lldan.ru&text=${text}`,
-  // );
-};
+const sharePage = () => {};
 </script>
 
 <template>

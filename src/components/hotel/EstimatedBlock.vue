@@ -78,7 +78,6 @@ const q = useInter();
   display: flex;
 }
 .item {
-  //flex: 1;
   padding: 0 24px;
   border-right: 1px solid var(--tg-theme-secondary-bg-color);
   &:first-child {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Block from "../ui/wrappers/Block.vue";
 import RatingView from "../ui/views/RatingView.vue";
+import Title from "../ui/wrappers/Title.vue";
 const backgrounds: { [percent: number]: string } = {
   10: "#FF3B30",
   20: "#FD5F28",
@@ -55,7 +56,10 @@ const ratings = [
 </script>
 
 <template>
-  <Block title="Оценка гостей">
+  <Block>
+    <div :class="$style.header">
+      <Title>Оценка гостей</Title>
+    </div>
     <div :class="$style.rating">
       <RatingView :level="10" type="big" />
       <div :class="$style.right">
@@ -84,6 +88,9 @@ const ratings = [
 </template>
 
 <style module lang="scss">
+.header {
+  padding: 24px 16px 20px;
+}
 .rating {
   display: flex;
   gap: 10px;
@@ -110,7 +117,7 @@ const ratings = [
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  padding: 24px 16px 0;
+  padding: 24px 16px 20px;
 }
 .item {
   flex: 1;
