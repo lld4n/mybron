@@ -27,6 +27,10 @@ export const en: i18nType = {
   },
   copy: "скопирован",
   hotel: {
+    estimated: {
+      in: "Заезд",
+      out: "Выезд",
+    },
     amenity: "Все удобства",
     total: {
       title: "Оплата картой",

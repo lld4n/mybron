@@ -24,33 +24,34 @@ import Level10M from "../../../assets/icons/rating/10m.svg";
 interface Props {
   level: number;
   type: "small" | "big";
+  c?: string;
 }
 defineProps<Props>();
 </script>
 
 <template>
-  <Level0 v-if="level === 0 && type === 'big'" />
-  <Level1 v-if="level === 1 && type === 'big'" />
-  <Level2 v-if="level === 2 && type === 'big'" />
-  <Level3 v-if="level === 3 && type === 'big'" />
-  <Level4 v-if="level === 4 && type === 'big'" />
-  <Level5 v-if="level === 5 && type === 'big'" />
-  <Level6 v-if="level === 6 && type === 'big'" />
-  <Level7 v-if="level === 7 && type === 'big'" />
-  <Level8 v-if="level === 8 && type === 'big'" />
-  <Level9 v-if="level === 9 && type === 'big'" />
-  <Level10 v-if="level === 10 && type === 'big'" />
-  <Level0M v-if="level === 0 && type === 'small'" />
-  <Level1M v-if="level === 1 && type === 'small'" />
-  <Level2M v-if="level === 2 && type === 'small'" />
-  <Level3M v-if="level === 3 && type === 'small'" />
-  <Level4M v-if="level === 4 && type === 'small'" />
-  <Level5M v-if="level === 5 && type === 'small'" />
-  <Level6M v-if="level === 6 && type === 'small'" />
-  <Level7M v-if="level === 7 && type === 'small'" />
-  <Level8M v-if="level === 8 && type === 'small'" />
-  <Level9M v-if="level === 9 && type === 'small'" />
-  <Level10M v-if="level === 10 && type === 'small'" />
+  <Level0 :class="c" v-if="level === 0 && type === 'big'" />
+  <Level1 :class="c" v-if="level === 1 && type === 'big'" />
+  <Level2 :class="c" v-if="level === 2 && type === 'big'" />
+  <Level3 :class="c" v-if="level === 3 && type === 'big'" />
+  <Level4 :class="c" v-if="level === 4 && type === 'big'" />
+  <Level5 :class="c" v-if="level === 5 && type === 'big'" />
+  <Level6 :class="c" v-if="level === 6 && type === 'big'" />
+  <Level7 :class="c" v-if="level === 7 && type === 'big'" />
+  <Level8 :class="c" v-if="level === 8 && type === 'big'" />
+  <Level9 :class="c" v-if="level === 9 && type === 'big'" />
+  <Level10 :class="c" v-if="level === 10 && type === 'big'" />
+  <Level0M :class="c" v-if="level === 0 && type === 'small'" />
+  <Level1M :class="c" v-if="level === 1 && type === 'small'" />
+  <Level2M :class="c" v-if="level === 2 && type === 'small'" />
+  <Level3M :class="c" v-if="level === 3 && type === 'small'" />
+  <Level4M :class="c" v-if="level === 4 && type === 'small'" />
+  <Level5M :class="c" v-if="level === 5 && type === 'small'" />
+  <Level6M :class="c" v-if="level === 6 && type === 'small'" />
+  <Level7M :class="c" v-if="level === 7 && type === 'small'" />
+  <Level8M :class="c" v-if="level === 8 && type === 'small'" />
+  <Level9M :class="c" v-if="level === 9 && type === 'small'" />
+  <Level10M :class="c" v-if="level === 10 && type === 'small'" />
 </template>
 
 <style module lang="scss"></style>
