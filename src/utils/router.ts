@@ -22,6 +22,8 @@ import SettingsPage from "../pages/settings/SettingsPage.vue";
 import SettingsLanguagePage from "../pages/settings/SettingsLanguagePage.vue";
 import SettingsCurrencyPage from "../pages/settings/SettingsCurrencyPage.vue";
 import SearchMapPage from "../pages/search-results/SearchMapPage.vue";
+import HotelRoomsPage from "../pages/hotel/HotelRoomsPage.vue";
+import HotelCheckoutPage from "../pages/hotel/HotelCheckoutPage.vue";
 const routes = [
   { path: "/", component: Main },
 
@@ -57,7 +59,9 @@ const routes = [
   { path: "/settings/language", component: SettingsLanguagePage },
   { path: "/settings/currency", component: SettingsCurrencyPage },
 
-  { path: "/room/:id", component: HotelPage },
+  { path: "/rooms/:id", component: HotelRoomsPage },
+
+  { path: "/checkout", component: HotelCheckoutPage },
 ];
 
 export const router = createRouter({

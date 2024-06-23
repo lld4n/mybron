@@ -6,6 +6,7 @@ interface Props {
   footer?: {
     click: () => void;
     text: string;
+    desc?: string;
   };
 }
 defineProps<Props>();
@@ -47,6 +48,7 @@ const handleClose = () => {
         </div>
       </div>
       <div :class="$style.block" v-if="!!footer">
+        <Text :s="12" :l="16" v-if="!!footer.desc">{{ footer.desc }}</Text>
         <button :class="$style.btn" @click="footer.click">{{ footer.text }}</button>
       </div>
     </div>
@@ -67,6 +69,10 @@ const handleClose = () => {
 }
 
 .block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
   z-index: 100;
   padding: 12px 16px;
   background-color: var(--tg-theme-bg-color);

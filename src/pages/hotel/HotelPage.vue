@@ -19,7 +19,7 @@ const sharePage = () => {};
   <Wrapper
     :footer="{
       text: 'Номера от 17 000 ₽',
-      click: () => $router.push('/room/1'),
+      click: () => $router.push('/rooms/1'),
     }"
   >
     <div :class="$style.carousel">

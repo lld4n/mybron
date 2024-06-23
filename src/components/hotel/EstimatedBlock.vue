@@ -26,9 +26,7 @@ const q = useInter();
         :c="$style.link"
         >Отель метрополь</Text
       >
-      <Text :s="28" :l="31" :w="700" @click="$router.push('/hotel/1')" v-if="!!rating"
-        >Отель метрополь</Text
-      >
+      <Text :s="28" :l="31" :w="700" v-if="!!rating">Отель метрополь</Text>
       <CopyButton title="Адрес" text="Театральный пр-д, д.2, Москва" />
       <RatingView v-if="!!rating" :level="rating" type="big" :c="$style.rating" />
     </div>
