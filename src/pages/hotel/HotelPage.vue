@@ -7,6 +7,9 @@ import AboutBlock from "../../components/hotel/AboutBlock.vue";
 import AdditionalBlock from "../../components/hotel/AdditionalBlock.vue";
 import MainBlock from "../../components/hotel/MainBlock.vue";
 import InfoBlock from "../../components/hotel/InfoBlock.vue";
+import ReviewsBlock from "../../components/hotel/ReviewsBlock.vue";
+import AmenityBlock from "../../components/hotel/AmenityBlock.vue";
+import ConditionsBlock from "../../components/hotel/ConditionsBlock.vue";
 const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 
 const sharePage = () => {};
@@ -32,6 +35,9 @@ const sharePage = () => {};
       <InfoBlock />
       <RatingBlock />
       <AboutBlock />
+      <ReviewsBlock />
+      <AmenityBlock />
+      <ConditionsBlock />
       <AdditionalBlock />
     </div>
   </Wrapper>

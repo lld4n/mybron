@@ -27,6 +27,10 @@ export const en: i18nType = {
   },
   copy: "скопирован",
   hotel: {
+    reviews: {
+      name: "Отзывы",
+      button: "отзыва",
+    },
     estimated: {
       in: "Заезд",
       out: "Выезд",

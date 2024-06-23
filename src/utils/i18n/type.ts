@@ -23,6 +23,10 @@ export type i18nType = {
   };
   copy: string;
   hotel: {
+    reviews: {
+      name: string;
+      button: string;
+    };
     estimated: {
       in: string;
       out: string;
