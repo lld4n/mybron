@@ -1,7 +1,21 @@
 <script setup lang="ts">
 import Search from "../../assets/icons/search.svg";
 import Point from "../../assets/icons/point.svg";
+import { onMounted } from "vue";
+import { api } from "../../utils";
 const value = defineModel("value");
+
+onMounted(() => {
+  api
+    .get("live-search", {
+      searchParams: {
+        q: "москва",
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    });
+});
 </script>
 
 <template>
