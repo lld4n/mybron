@@ -269,6 +269,15 @@ console.log(store.in, store.out);
         opacity: 0.5;
         cursor: not-allowed;
       }
+      transition: opacity 0.1s ease-out;
+      &:not([disabled]):active {
+        opacity: 0.6 !important;
+      }
+      @media (hover: hover) {
+        &:not([disabled]):hover {
+          opacity: 0.85;
+        }
+      }
     }
   }
 }

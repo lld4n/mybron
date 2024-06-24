@@ -45,4 +45,15 @@ import Pencil from "../../assets/icons/pencil.svg";
   font-weight: 400;
   color: var(--tg-theme-hint-color);
 }
+.btn {
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
+}
 </style>

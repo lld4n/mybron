@@ -67,6 +67,15 @@ import RoomCard from "../../components/items/RoomCard.vue";
 }
 .info {
   padding: 12px 0;
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .item {
   flex: 0 0 auto;
@@ -87,6 +96,15 @@ import RoomCard from "../../components/items/RoomCard.vue";
   }
   path {
     fill: var(--tg-theme-text-color);
+  }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
   }
 }
 .text {

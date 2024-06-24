@@ -152,3 +152,11 @@ body,
   --tertiary-fill-background: #7474801f;
   --range-fill: #007aff1f;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--tg-theme-text-color);
+  box-shadow: none;
+}

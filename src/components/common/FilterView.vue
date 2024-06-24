@@ -152,6 +152,15 @@ const toRenderPrice = (v: number) => {
   path {
     fill: var(--tg-theme-text-color);
   }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .sorted {
   position: relative;
@@ -183,6 +192,15 @@ const toRenderPrice = (v: number) => {
   }
   &:last-child {
     margin-right: 16px;
+  }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
   }
 }
 .title {

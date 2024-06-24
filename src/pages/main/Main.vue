@@ -178,6 +178,15 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   path {
     fill: var(--tg-theme-text-color);
   }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .main {
   padding: 0 16px 48px;
@@ -245,6 +254,15 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   font-weight: 400;
   line-height: 22px;
   color: var(--tg-theme-link-color);
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .bottom {
   padding: 4px 0 8px;
@@ -257,6 +275,15 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   display: flex;
   gap: 10px;
   align-items: center;
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
   &__img {
     width: 40px;
     height: 40px;

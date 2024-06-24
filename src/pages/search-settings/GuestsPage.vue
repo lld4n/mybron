@@ -86,6 +86,15 @@ const children = computed(() => store.children);
   path {
     fill: var(--tg-theme-link-color);
   }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 
 .list {
@@ -130,6 +139,15 @@ const children = computed(() => store.children);
   path {
     fill: var(--tg-theme-text-color);
   }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .count {
   width: 24px;
@@ -154,6 +172,15 @@ const children = computed(() => store.children);
   cursor: pointer;
   path {
     fill: var(--tg-theme-hint-color);
+  }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
   }
 }
 </style>

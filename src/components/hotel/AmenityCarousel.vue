@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Carousel from "../ui/carousel/Carousel.vue";
 import Text from "../ui/wrappers/Text.vue";
-import Right from "../../assets/icons/chevron-right.svg";
+import AmenityArrow from "../../assets/icons/amenity-arrow.svg";
 import { useInter } from "../../utils/i18n";
 const list = ["Wi-Fi", "Парковка", "Кондиционер", "Коробка", "Луффи"];
 const q = useInter();
@@ -16,7 +16,7 @@ const q = useInter();
     </Carousel>
     <Text :s="13" :l="18" :c="$style.link">
       {{ q.i18n.hotel.amenity }}
-      <Right />
+      <AmenityArrow />
     </Text>
   </div>
 </template>
@@ -50,6 +50,15 @@ const q = useInter();
   cursor: pointer;
   path {
     stroke: var(--tg-theme-text-color);
+  }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
   }
 }
 </style>

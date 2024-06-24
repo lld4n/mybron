@@ -105,7 +105,7 @@ const value = defineModel("value");
   display: flex;
   padding: 8px;
   border-radius: 10px;
-  background: var(--tg-theme-bg-color);
+  background: var(--tertiary-fill-background);
   gap: 6px;
   align-items: center;
   :deep(path) {
@@ -117,7 +117,7 @@ const value = defineModel("value");
   width: 100%;
   font-size: 17px;
   line-height: 22px;
-  background-color: var(--tg-theme-bg-color);
+  background-color: transparent;
   letter-spacing: -0.4px;
   color: var(--tg-theme-text-color);
 
@@ -162,6 +162,16 @@ const value = defineModel("value");
     gap: 18px;
     align-items: center;
     padding: 10px 0 10px 16px;
+    transition: opacity 0.1s ease-out;
+    cursor: pointer;
+    &:not([disabled]):active {
+      opacity: 0.6 !important;
+    }
+    @media (hover: hover) {
+      &:not([disabled]):hover {
+        opacity: 0.85;
+      }
+    }
   }
   &__info {
     flex: 1;

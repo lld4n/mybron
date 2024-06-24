@@ -43,6 +43,15 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
       border-bottom: none;
     }
   }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .img {
   width: 64px;

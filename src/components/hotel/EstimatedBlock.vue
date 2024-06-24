@@ -65,6 +65,15 @@ const q = useInter();
 .link {
   cursor: pointer;
   color: var(--tg-theme-link-color);
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .rating {
   position: absolute;

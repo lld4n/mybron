@@ -95,5 +95,14 @@ const q = useInter();
   cursor: pointer;
   padding: 11px 0;
   color: var(--tg-theme-link-color);
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 </style>

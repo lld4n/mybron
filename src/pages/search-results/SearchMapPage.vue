@@ -86,9 +86,11 @@ const handleClose = () => {
       </button>
       <HotelCard />
     </div>
-    <button :class="$style.btn" @click="$router.push('/search/results')">
-      <ShapeIcon /> Список
-    </button>
+    <div :class="$style.block">
+      <button :class="$style.btn" @click="$router.push('/search/results')">
+        <ShapeIcon /> Список
+      </button>
+    </div>
   </div>
 </template>
 
@@ -129,13 +131,20 @@ const handleClose = () => {
   line-height: 16px;
   color: var(--tg-theme-hint-color);
 }
-.btn {
+.block {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--tg-theme-bg-color);
   position: fixed;
   bottom: 12px;
   right: 12px;
-  padding: 13px 24px;
   border-radius: 12px;
+}
+.btn {
+  display: flex;
+  padding: 13px 24px;
+  border-radius: 11px;
   font-size: 17px;
   line-height: 22px;
   align-items: center;
@@ -233,6 +242,19 @@ const handleClose = () => {
   svg {
     width: 15px;
     height: 15px;
+  }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    svg {
+      opacity: 0.6 !important;
+    }
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      svg {
+        opacity: 0.85;
+      }
+    }
   }
 }
 </style>

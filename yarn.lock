@@ -835,6 +835,11 @@ typescript@^5.2.2:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.5.tgz#42ccef2c571fdbd0f6718b1d1f5e6e5ef006f611"
   integrity sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==
 
+vite-plugin-pretty-module-classnames@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-pretty-module-classnames/-/vite-plugin-pretty-module-classnames-1.2.0.tgz#4e6596ea73950ce04cc5cec62272f3a5fec0e001"
+  integrity sha512-DGy/6KaImpGvO4nJQXjKVXS4j50UVxAxYgVWMmSyKHw5CQy5nXFsIgw39DRykzF4v8ofxDo7Y/i9fIeHbCkZmA==
+
 vite-svg-loader@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/vite-svg-loader/-/vite-svg-loader-5.1.0.tgz#b0b89bd8024bc0f707d0e8d7422446ac01576d94"

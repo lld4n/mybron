@@ -16,9 +16,11 @@ import HotelCard from "../../components/items/HotelCard.vue";
     <div :class="$style.list">
       <HotelCard v-for="_ of Array.from({ length: 5 })" />
     </div>
-    <button :class="$style.btn" @click="$router.push('/search/map')">
-      <MapIcon /> На карте
-    </button>
+    <div :class="$style.block">
+      <button :class="$style.btn" @click="$router.push('/search/map')">
+        <MapIcon /> На карте
+      </button>
+    </div>
   </div>
 </template>
 
@@ -45,6 +47,15 @@ import HotelCard from "../../components/items/HotelCard.vue";
   padding: 5px 10px;
   border-radius: 8px;
   background-color: var(--quarternary-fill-background);
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .title {
   font-size: 14px;
@@ -58,14 +69,21 @@ import HotelCard from "../../components/items/HotelCard.vue";
   line-height: 16px;
   color: var(--tg-theme-hint-color);
 }
-.btn {
+.block {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--tg-theme-bg-color);
   position: fixed;
   bottom: 12px;
   right: 12px;
-  padding: 13px 24px;
   border-radius: 12px;
+}
+.btn {
+  display: flex;
+  padding: 13px 24px;
   font-size: 17px;
+  border-radius: 11px;
   line-height: 22px;
   align-items: center;
   font-weight: 600;

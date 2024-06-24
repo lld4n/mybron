@@ -17,7 +17,7 @@ const handleCancel = () => {
   window.Telegram.WebApp.showPopup(
     {
       title: q.i18n.hotel.buttons.cancel,
-      message: "52",
+      message: "Бесплатная отмена",
       buttons: [
         {
           id: "cancel",
@@ -83,6 +83,15 @@ const handleCancel = () => {
   flex: 1;
   text-align: center;
   cursor: pointer;
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .icon {
   width: 44px;

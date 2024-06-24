@@ -53,6 +53,15 @@ const store = useStore();
   letter-spacing: -0.43px;
   color: var(--tg-theme-link-color);
   cursor: pointer;
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .bar {
   width: 100%;
