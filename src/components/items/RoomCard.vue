@@ -52,7 +52,7 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
 }
 .item {
   margin-top: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   margin-right: 8px;
   &:last-child {
     margin-right: 16px;

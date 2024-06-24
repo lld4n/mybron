@@ -87,6 +87,15 @@ const handleClose = () => {
   width: 100%;
   background-color: var(--tg-theme-button-color);
   color: var(--tg-theme-button-text-color);
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .message {
   position: absolute;

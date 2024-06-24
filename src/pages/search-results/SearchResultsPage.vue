@@ -70,11 +70,19 @@ import HotelCard from "../../components/items/HotelCard.vue";
   align-items: center;
   font-weight: 600;
   background-color: var(--tg-theme-button-color);
-
   color: var(--tg-theme-button-text-color);
   gap: 6px;
   path {
     fill: var(--tg-theme-button-text-color);
+  }
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
   }
 }
 .list {

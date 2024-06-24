@@ -70,6 +70,11 @@ watch(
     store.changeFiltersPrice(numbers.value as [number, number]);
   },
 );
+
+const focus = () => {
+  inputs.value[1] = "";
+  numbers.value[1] = 0;
+};
 </script>
 
 <template>
@@ -93,6 +98,7 @@ watch(
             :class="$style.input"
             v-model="inputs[1]"
             inputmode="numeric"
+            @focus="focus"
           />
         </div>
       </div>

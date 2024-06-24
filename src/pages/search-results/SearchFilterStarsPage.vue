@@ -7,7 +7,7 @@ const store = useStore();
 </script>
 
 <template>
-  <FilterTemplate title="Способ оплаты">
+  <FilterTemplate title="Звезды">
     <template v-slot:main>
       <div :class="$style.btn" @click="store.allFilters('stars', StarsFiltersValues)">
         <template v-if="store.filters.stars.length === StarsFiltersValues.length"
@@ -16,31 +16,13 @@ const store = useStore();
         <template v-else>Выбрать все</template>
       </div>
       <div :class="$style.bar" />
-      <div :class="$style.item" @click="store.changeFilters('stars', 1)">
+      <div :class="$style.item" @click="store.changeFilters('stars', 5)">
         <div
-          :class="[$style.check, { [$style.active]: store.filters.stars.includes(1) }]"
+          :class="[$style.check, { [$style.active]: store.filters.stars.includes(5) }]"
         >
-          <CheckBox v-if="store.filters.stars.includes(1)" />
+          <CheckBox v-if="store.filters.stars.includes(5)" />
         </div>
-        <div :class="$style.value">
-          <StarsView :level="1" type="big" />
-        </div>
-      </div>
-      <div :class="$style.item" @click="store.changeFilters('stars', 2)">
-        <div
-          :class="[$style.check, { [$style.active]: store.filters.stars.includes(2) }]"
-        >
-          <CheckBox v-if="store.filters.stars.includes(2)" />
-        </div>
-        <div :class="$style.value"><StarsView :level="2" type="big" /></div>
-      </div>
-      <div :class="$style.item" @click="store.changeFilters('stars', 3)">
-        <div
-          :class="[$style.check, { [$style.active]: store.filters.stars.includes(3) }]"
-        >
-          <CheckBox v-if="store.filters.stars.includes(3)" />
-        </div>
-        <div :class="$style.value"><StarsView :level="3" type="big" /></div>
+        <div :class="$style.value"><StarsView :level="5" type="big" /></div>
       </div>
       <div :class="$style.item" @click="store.changeFilters('stars', 4)">
         <div
@@ -50,13 +32,31 @@ const store = useStore();
         </div>
         <div :class="$style.value"><StarsView :level="4" type="big" /></div>
       </div>
-      <div :class="$style.item" @click="store.changeFilters('stars', 5)">
+      <div :class="$style.item" @click="store.changeFilters('stars', 3)">
         <div
-          :class="[$style.check, { [$style.active]: store.filters.stars.includes(5) }]"
+          :class="[$style.check, { [$style.active]: store.filters.stars.includes(3) }]"
         >
-          <CheckBox v-if="store.filters.stars.includes(5)" />
+          <CheckBox v-if="store.filters.stars.includes(3)" />
         </div>
-        <div :class="$style.value"><StarsView :level="5" type="big" /></div>
+        <div :class="$style.value"><StarsView :level="3" type="big" /></div>
+      </div>
+      <div :class="$style.item" @click="store.changeFilters('stars', 2)">
+        <div
+          :class="[$style.check, { [$style.active]: store.filters.stars.includes(2) }]"
+        >
+          <CheckBox v-if="store.filters.stars.includes(2)" />
+        </div>
+        <div :class="$style.value"><StarsView :level="2" type="big" /></div>
+      </div>
+      <div :class="$style.item" @click="store.changeFilters('stars', 1)">
+        <div
+          :class="[$style.check, { [$style.active]: store.filters.stars.includes(1) }]"
+        >
+          <CheckBox v-if="store.filters.stars.includes(1)" />
+        </div>
+        <div :class="$style.value">
+          <StarsView :level="1" type="big" />
+        </div>
       </div>
     </template>
   </FilterTemplate>

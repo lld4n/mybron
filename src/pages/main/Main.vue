@@ -12,7 +12,7 @@
       <Logo />
       <div :class="$style.title">
         <div>Забронируйте отель</div>
-        <span>очень быстро</span>
+        <span :class="$style.animate">очень быстро</span>
       </div>
       <div :class="$style.list">
         <MainInfo :search="true" />
@@ -194,11 +194,11 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   display: flex;
   width: 100%;
   flex-direction: column;
-  span {
-    background: linear-gradient(90deg, #9f51e4 25%, #1554fd 75%);
-    -webkit-background-clip: text;
-    color: transparent;
-  }
+  //span {
+  //  background: linear-gradient(90deg, #9f51e4 25%, #1554fd 75%);
+  //  -webkit-background-clip: text;
+  //  color: transparent;
+  //}
 }
 .list {
   width: 100%;
@@ -216,6 +216,15 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   font-size: 17px;
   font-weight: 600;
   line-height: 22px;
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
+  }
 }
 .content {
   display: flex;
@@ -297,6 +306,28 @@ window.Telegram.WebApp.onEvent("backButtonClicked", () => {
     right: 0;
     bottom: 0;
     object-fit: cover;
+  }
+}
+.animate {
+  background: linear-gradient(
+    to right,
+    #a950e1 0%,
+    #0e53fe 25%,
+    #19e59d 50%,
+    #0e53fe 75%,
+    #a950e1 100%
+  );
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s linear infinite;
+}
+@keyframes shine {
+  100% {
+    background-position: -200% center;
   }
 }
 </style>
