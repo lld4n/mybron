@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import DateView from "../../components/ui/views/DateView.vue";
-import { months, useStore } from "../../utils";
+import { months, useStore, dates as reformatDates } from "../../utils";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 const weeks = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 const dates = months();
@@ -9,9 +10,17 @@ const dates = months();
 const store = useStore();
 const inDate = computed(() => store.in);
 const outDate = computed(() => store.out);
-console.log(store.in, store.out);
-const areConsecutiveDates = (inDate: Date, outDate: Date) =>
-  Math.abs(outDate.getDate() - inDate.getDate()) <= 1;
+const areConsecutiveDates = (inDate: Date, outDate: Date) => {
+  return outDate.getTime() - inDate.getTime() <= 86400000;
+};
+const router = useRouter();
+const handleClick = () => {
+  if (!store.search) {
+    router.push("/search");
+  } else {
+    router.push("/search/results");
+  }
+};
 </script>
 
 <template>
@@ -66,24 +75,20 @@ const areConsecutiveDates = (inDate: Date, outDate: Date) =>
     <div class="dates__footer">
       <button
         class="dates__footer__btn"
-        @click="$router.go(-1)"
+        @click="handleClick"
         :disabled="!inDate || !outDate"
       >
         <span class="dates__footer__day" v-if="!outDate">
-          {{ inDate.toLocaleDateString("RU-ru", { day: "numeric", month: "long" }) }}
+          {{ reformatDates(inDate) }}
         </span>
         <DateView
           v-if="!!inDate && !!outDate"
           :left="
-            inDate?.toLocaleDateString('RU-ru', {
-              day: 'numeric',
-              month: inDate.getMonth() === outDate.getMonth() ? undefined : 'long',
-            }) || 'Заезд'
+            reformatDates(inDate, {
+              sameMonth: inDate.getMonth() === outDate.getMonth(),
+            })
           "
-          :right="
-            outDate?.toLocaleDateString('RU-ru', { day: 'numeric', month: 'long' }) ||
-            'Выезд'
-          "
+          :right="reformatDates(outDate)"
         />
       </button>
     </div>

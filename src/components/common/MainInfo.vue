@@ -1,34 +1,11 @@
 <script setup lang="ts">
-import { guests, useStore } from "../../utils";
+import { dates, guests, useStore } from "../../utils";
 import Globe from "../../assets/icons/globe.svg";
 import Calendar from "../../assets/icons/calendar.svg";
 import Group from "../../assets/icons/group.svg";
 import DateView from "../ui/views/DateView.vue";
 const store = useStore();
 
-const toRenderDate = (d: Date) => {
-  if (!d) return "";
-  const day = d.getDate();
-  const month = d.getMonth();
-  const months = [
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря",
-  ];
-  const weekDays = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
-  const week = d.getDay();
-
-  return `${day} ${months[month]}, ${weekDays[week]}`;
-};
 interface Props {
   search?: boolean;
 }
@@ -69,8 +46,8 @@ defineProps<Props>();
       <span v-if="!store.out">Выберите дату</span>
       <DateView
         v-if="!!store.in && !!store.out"
-        :left="toRenderDate(store.in)"
-        :right="toRenderDate(store.out)"
+        :left="dates(store.in, { week: true })"
+        :right="dates(store.out, { week: true })"
       />
     </div>
   </div>

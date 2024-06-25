@@ -16,9 +16,7 @@
       </div>
       <div :class="$style.list">
         <MainInfo :search="true" />
-        <button :class="$style.find" @click="$router.push('/search/results')">
-          Найти отели
-        </button>
+        <button :class="$style.find" @click="handleFind">Найти отели</button>
       </div>
     </main>
     <div :class="$style.content">
@@ -126,7 +124,7 @@ import Case from "../../assets/icons/case.svg";
 import Settings from "../../assets/icons/settings.svg";
 import Logo from "../../assets/logo.svg";
 
-import { router } from "../../utils";
+import { useStore } from "../../utils";
 import { onMounted } from "vue";
 
 import Block from "../../components/ui/wrappers/Block.vue";
@@ -138,6 +136,7 @@ import Text from "../../components/ui/wrappers/Text.vue";
 import MainInfo from "../../components/common/MainInfo.vue";
 import { useInter } from "../../utils/i18n";
 import ReservationCard from "../../components/items/ReservationCard.vue";
+import { useRouter } from "vue-router";
 const q = useInter();
 console.log(window.Telegram);
 onMounted(() => {
@@ -153,6 +152,17 @@ onMounted(() => {
 window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   router.go(-1);
 });
+const store = useStore();
+const router = useRouter();
+const handleFind = () => {
+  if (!store.search) {
+    router.push("/search");
+  } else if (!store.out) {
+    router.push("/dates");
+  } else {
+    router.push("/search/results");
+  }
+};
 </script>
 
 <style lang="scss" module>

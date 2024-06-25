@@ -2,22 +2,138 @@
 import FilterView from "../../components/common/FilterView.vue";
 import MapIcon from "../../assets/icons/map.svg";
 import HotelCard from "../../components/items/HotelCard.vue";
+import { api, dates, dateToApi, guests, nightsRange, useStore } from "../../utils";
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { BodyType, HotelInfoDTO } from "./types.ts";
+import Text from "../../components/ui/wrappers/Text.vue";
+import LoadingLottie from "../../components/ui/loading/LoadingLottie.vue";
+const loading = ref(true);
+const fetched = ref(false);
+const list = ref<HotelInfoDTO[]>([]);
+const store = useStore();
+const router = useRouter();
+onMounted(async () => {
+  if (!store.search || !store.out) {
+    await router.push("/");
+    return;
+  }
+  loading.value = true;
+  fetched.value = false;
+  const URL =
+    store.search.type === "city" ? "hotels/search/by-city" : "hotels/search/by-hotel";
+
+  const data: BodyType = {
+    checkInDate: dateToApi(store.in),
+    checkOutDate: dateToApi(store.out),
+    hotelId: store.search.type === "hotel" ? store.search.id : undefined,
+    cityId: store.search.type === "city" ? store.search.id : undefined,
+    filters: {
+      numbersOfGuests: store.adultsCount + store.children.length,
+    },
+  };
+
+  if (store.filters.price[0] !== 0) {
+    data.filters.minDailyPrice = store.filters.price[0];
+  }
+  if (store.filters.price[1] !== 50000) {
+    data.filters.maxDailyPrice = store.filters.price[1];
+  }
+  if (store.filters.stars.length > 0) {
+    data.filters.hotelCategories = store.filters.stars;
+  }
+  if (store.filters.payment.length > 0) {
+    data.filters.paymentRecipients = store.filters.payment.map((e) =>
+      e.toLocaleUpperCase(),
+    );
+  }
+  if (store.filters.other.includes("breakfast")) {
+    data.filters.breakfastIncluded = true;
+  }
+  if (store.filters.other.includes("card")) {
+    data.filters.guaranteeTypeCardIncluded = true;
+  }
+
+  const jsonData: { hotels: HotelInfoDTO[] } = await api
+    .post(URL, {
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .json();
+  console.log(jsonData.hotels);
+  if (store.filters.sort === "default") {
+    list.value = jsonData.hotels;
+  } else if (store.filters.sort === "stars") {
+    list.value = jsonData.hotels.sort((a, b) => b.info.category - a.info.category);
+  } else if (store.filters.sort === "cheap") {
+    list.value = jsonData.hotels.sort(
+      (a, b) =>
+        a.minimalPriceDetails.client.clientCurrency.net.price -
+        b.minimalPriceDetails.client.clientCurrency.net.price,
+    );
+  } else if (store.filters.sort === "expensive") {
+    list.value = jsonData.hotels.sort(
+      (a, b) =>
+        b.minimalPriceDetails.client.clientCurrency.net.price -
+        a.minimalPriceDetails.client.clientCurrency.net.price,
+    );
+  } else if (store.filters.sort === "closeness") {
+    list.value = jsonData.hotels.sort(
+      (a, b) => a.geo.distanceToCenter - b.geo.distanceToCenter,
+    );
+  }
+  loading.value = false;
+  fetched.value = true;
+});
+
+const subtitle = () => {
+  let ans = dates(store.in) + " — " + dates(store.out!);
+  ans += ", " + guests(store.adultsCount, store.children);
+  return ans;
+};
 </script>
 
 <template>
   <div :class="$style.wrapper">
     <header :class="$style.header">
       <div :class="$style.info" @click="$router.push('/search/filter/info')">
-        <div :class="$style.title">Адлер, Россия</div>
-        <div :class="$style.subtitle">31 мая — 8 июня, 2 взрослых</div>
+        <div :class="$style.title">{{ store.search?.name }}</div>
+        <div :class="$style.subtitle">{{ subtitle() }}</div>
       </div>
       <FilterView />
     </header>
-    <div :class="$style.list">
-      <HotelCard v-for="_ of Array.from({ length: 5 })" />
+    <div :class="$style.list" v-if="list.length > 0">
+      <HotelCard
+        v-for="item of list"
+        :id="item.id"
+        :images="[item.info.photo.url]"
+        :price="{
+          all: item.minimalPriceDetails.client.clientCurrency.net.price,
+          currency: item.minimalPriceDetails.client.clientCurrency.net.currency,
+          nights: nightsRange(store.in, store.out!),
+        }"
+        :center="Number(item.geo.distanceToCenter.toFixed(2))"
+        :name="item.info.name"
+        :stars="item.info.category"
+      />
+    </div>
+    <div :class="$style.center" v-if="loading">
+      <LoadingLottie />
+    </div>
+    <div :class="$style.center" v-if="fetched && list.length === 0">
+      <Text :s="17" :l="22" :w="600">Ничего не найдено</Text>
+      <Text :s="17" :l="22" :g="true"
+        >Попробуйте изменить фильтры или выбрать другое направление</Text
+      >
     </div>
     <div :class="$style.block">
-      <button :class="$style.btn" @click="$router.push('/search/map')">
+      <button
+        :class="$style.btn"
+        :disabled="(fetched && list.length === 0) || loading"
+        @click="$router.push('/search/map')"
+      >
         <MapIcon /> На карте
       </button>
     </div>
@@ -28,6 +144,7 @@ import HotelCard from "../../components/items/HotelCard.vue";
 .wrapper {
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 }
 .header {
   position: fixed;
@@ -102,6 +219,10 @@ import HotelCard from "../../components/items/HotelCard.vue";
       opacity: 0.85;
     }
   }
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 }
 .list {
   background-color: var(--tg-theme-bg-color);
@@ -110,5 +231,14 @@ import HotelCard from "../../components/items/HotelCard.vue";
   flex-direction: column;
   gap: 24px;
   padding: 12px 0 62px;
+}
+.center {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
 }
 </style>

@@ -94,7 +94,7 @@ export function months() {
     }
   }
 
-  console.log(ans);
+  // console.log(ans);
   return ans;
 }
 
@@ -106,4 +106,54 @@ export function line(value: MonthsValue[]) {
     value.unshift(null);
   }
   return value;
+}
+
+export function dates(
+  date: Date,
+  options?: {
+    week?: boolean;
+    sameMonth?: boolean;
+  },
+) {
+  const monthsNames = [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря",
+  ];
+  const weekNames = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+
+  const dayName = date.getDate();
+  const weekName = weekNames[date.getDay()];
+  const monthName = monthsNames[date.getMonth()];
+
+  let ans = dayName + " ";
+  if (!options?.sameMonth) {
+    ans += monthName;
+  }
+  if (options?.week) {
+    ans += ", " + weekName;
+  }
+
+  return ans;
+}
+
+export function dateToApi(date: Date) {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function nightsRange(d1: Date, d2: Date) {
+  const differenceMs = Math.abs(d2.getTime() - d1.getTime());
+  return Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
 }

@@ -1,38 +1,52 @@
 <script setup lang="ts">
 import Carousel from "../ui/carousel/Carousel.vue";
 import StarsSmall from "../../assets/icons/stars/star-small.svg";
-import RatingView from "../ui/views/RatingView.vue";
-const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
+// import RatingView from "../ui/views/RatingView.vue";
+interface Props {
+  images: string[];
+  id: number;
+  stars: number;
+  name: string;
+  reviews?: {
+    rating: number;
+    count: number;
+  };
+  center: number;
+  price: { all: number; currency: string; nights: number };
+}
+
+defineProps<Props>();
 </script>
 
 <template>
   <div :class="$style.card" @click="$router.push('/hotel/1')">
     <Carousel>
-      <img :src="url" :class="$style.image" />
-      <img :src="url" :class="$style.image" />
-      <img :src="url" :class="$style.image" />
+      <img v-for="url of images" :src="url" alt="Image" :class="$style.image" />
     </Carousel>
     <div :class="$style.middle">
       <div :class="$style.name">
-        Отель Метрополь
-        <span>5 <StarsSmall /></span>
+        <div>{{ name }}</div>
+        <span>{{ stars }} <StarsSmall /></span>
       </div>
       <div :class="$style.text">
-        <RatingView :level="9" type="small" />
-        <span>7829 отзывов</span>
-        <span>•</span>
-        <span>33,6 км от центра</span>
+        <!--        <RatingView :level="9" type="small" />-->
+        <!--        <span>7829 отзывов</span>-->
+        <!--        <span>•</span>-->
+        <span>{{ center }} км от центра</span>
       </div>
     </div>
     <div :class="$style.bottom">
-      <div :class="$style.price">50 500 ₽</div>
-      <div :class="$style.day">25 250 ₽ за 1 ночь</div>
+      <div :class="$style.price">{{ price.all }} ₽</div>
+      <div :class="$style.day" v-if="price.nights > 1">
+        ~{{ Math.floor(price.all / (price.nights || 1)) }} ₽ за 1 ночь
+      </div>
     </div>
   </div>
 </template>
 
 <style module lang="scss">
 .middle {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -46,8 +60,19 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
   display: flex;
   gap: 8px;
   align-items: center;
+  overflow: hidden;
+  padding-right: 16px;
   path {
     fill: var(--tg-theme-text-color);
+  }
+  div {
+    //flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  span {
+    white-space: nowrap;
   }
 }
 .text {

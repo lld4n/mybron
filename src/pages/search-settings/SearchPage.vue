@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import Search from "../../assets/icons/search.svg";
-import Point from "../../assets/icons/point.svg";
-import Apartment from "../../assets/icons/apartment.svg";
 import { onMounted, ref, watch } from "vue";
-import { api, debounce, useStore } from "../../utils";
+import { api, dateToApi, debounce, useStore } from "../../utils";
 import Text from "../../components/ui/wrappers/Text.vue";
 import Block from "../../components/ui/wrappers/Block.vue";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
@@ -35,12 +33,6 @@ type GeoHotelItem = {
     type: string;
   };
 };
-function formatDate(date: Date) {
-  let year = date.getFullYear();
-  let month = (date.getMonth() + 1).toString().padStart(2, "0");
-  let day = date.getDate().toString().padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
 onMounted(async () => {
   input.value?.focus();
   try {
@@ -53,8 +45,8 @@ onMounted(async () => {
     const today = new Date();
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const todayFormatted = formatDate(today);
-    const tomorrowFormatted = formatDate(tomorrow);
+    const todayFormatted = dateToApi(today);
+    const tomorrowFormatted = dateToApi(tomorrow);
     const data = {
       checkInDate: todayFormatted,
       checkOutDate: tomorrowFormatted,
@@ -108,7 +100,11 @@ const store = useStore();
 const router = useRouter();
 const handleClick = (item: Item) => {
   store.setSearch(item);
-  router.go(-1);
+  if (!store.out) {
+    router.push("/dates");
+  } else {
+    router.push("/search/results");
+  }
 };
 </script>
 
