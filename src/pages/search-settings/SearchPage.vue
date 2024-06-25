@@ -1,113 +1,104 @@
 <script setup lang="ts">
 import Search from "../../assets/icons/search.svg";
 import Point from "../../assets/icons/point.svg";
-import { onMounted } from "vue";
-import { api } from "../../utils";
-const value = defineModel("value");
+import Apartment from "../../assets/icons/apartment.svg";
+import { onMounted, ref, watch } from "vue";
+import { api, debounce } from "../../utils";
+import Text from "../../components/ui/wrappers/Text.vue";
+import Block from "../../components/ui/wrappers/Block.vue";
+import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
+const value = defineModel<string>("value");
+const list = ref<SearchItem[]>([]);
+const input = ref<HTMLInputElement | null>(null);
+const loading = ref(true);
+type SearchItem = {
+  type: "CITY" | "HOTEL";
+  name: string;
+  id: number;
+};
 
 onMounted(() => {
-  api
-    .get("live-search", {
+  input.value?.focus();
+});
+
+const fetch = async (q: string) => {
+  try {
+    loading.value = true;
+    const data = await api.get("live-search", {
       searchParams: {
-        q: "москва",
+        q,
       },
-    })
-    .then((res) => {
-      console.log(res);
     });
+    const parsed: { liveSearchResults: SearchItem[] } = await data.json();
+    list.value = parsed.liveSearchResults;
+    console.log(parsed);
+    loading.value = false;
+  } catch (e) {}
+};
+
+const debouncedFetch = debounce(fetch, 500);
+
+watch(value, (v) => {
+  if (!v) return;
+  debouncedFetch(v);
 });
 </script>
 
 <template>
-  <div class="wrapper">
-    <label class="header" for="search">
+  <div :class="$style.wrapper">
+    <label :class="$style.header" for="search">
       <Search />
       <input
         id="search"
         type="text"
         placeholder="Город или отель"
-        class="input"
+        :class="$style.input"
         autocomplete="off"
         v-model="value"
+        ref="input"
       />
     </label>
-    <div class="content">
-      <div class="content__block">
-        <div class="content__list">
-          <div class="content__item">
-            <Point />
-            <div class="content__info">
-              <div class="content__left">
-                <div class="content__city">Москва</div>
-                <div class="content__location">Россия</div>
-              </div>
-              <div class="content__right">1500 отелей</div>
-            </div>
-          </div>
-          <div class="content__bar" />
-          <div class="content__item">
-            <Point />
-            <div class="content__info">
-              <div class="content__left">
-                <div class="content__city">Москва</div>
-                <div class="content__location">Россия</div>
-              </div>
-              <div class="content__right">1500 отелей</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div :class="$style.center" v-if="loading">
+      <LoadingSimple />
     </div>
-    <div class="content">
-      <div class="content__block">
-        <div class="content__title">Рядом с вами</div>
-        <div class="content__list">
-          <div class="content__item">
-            <Point />
-            <div class="content__info">
-              <div class="content__left">
-                <div class="content__city">Москва</div>
-                <div class="content__location">Россия</div>
+    <template v-if="!loading">
+      <div :class="$style.content">
+        <Block v-if="list.map((e) => e.type).includes('CITY')">
+          <template v-for="item of list">
+            <div :class="$style.item">
+              <Point />
+              <div :class="$style.info">
+                <div :class="$style.left">
+                  <Text :s="17" :l="22">{{ item.name }}</Text>
+                  <Text :s="14" :l="18" :g="true">неизвестно</Text>
+                </div>
+                <Text :s="14" :l="18" :g="true">неизвестно</Text>
               </div>
-              <div class="content__right">1500 отелей</div>
             </div>
-          </div>
-        </div>
+          </template>
+        </Block>
       </div>
-      <div class="content__additional">Основано на выбранном языке и вашем IP</div>
-    </div>
-    <div class="content">
-      <div class="content__block">
-        <div class="content__title">Популярные</div>
-        <div class="content__list">
-          <div class="content__item">
-            <Point />
-            <div class="content__info">
-              <div class="content__left">
-                <div class="content__city">Москва</div>
-                <div class="content__location">Россия</div>
+      <div :class="$style.content">
+        <Block v-if="list.map((e) => e.type).includes('HOTEL')">
+          <template v-for="item of list">
+            <div :class="$style.item">
+              <Apartment />
+              <div :class="$style.info">
+                <div :class="$style.left">
+                  <Text :s="17" :l="22">{{ item.name }}</Text>
+                  <Text :s="14" :l="18" :g="true">неизвестно</Text>
+                </div>
+                <Text :s="14" :l="18" :g="true">неизвестно</Text>
               </div>
-              <div class="content__right">1500 отелей</div>
             </div>
-          </div>
-          <div class="content__bar" />
-          <div class="content__item">
-            <Point />
-            <div class="content__info">
-              <div class="content__left">
-                <div class="content__city">Москва</div>
-                <div class="content__location">Россия</div>
-              </div>
-              <div class="content__right">1500 отелей</div>
-            </div>
-          </div>
-        </div>
+          </template>
+        </Block>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -122,7 +113,7 @@ onMounted(() => {
   background: var(--tertiary-fill-background);
   gap: 6px;
   align-items: center;
-  :deep(path) {
+  path {
     fill: var(--tg-theme-hint-color);
   }
 }
@@ -142,89 +133,48 @@ onMounted(() => {
 .content {
   display: flex;
   flex-direction: column;
-  width: 100%;
   margin-bottom: 8px;
-  &__block {
-    display: flex;
-    border-radius: 12px;
-    flex-direction: column;
-    background-color: var(--tg-theme-bg-color);
+}
+.item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding-left: 16px;
+  cursor: pointer;
+  transition: opacity 0.1s ease-out;
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
   }
-  &__additional {
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: -0.08px;
-    color: var(--tg-theme-hint-color);
-    padding: 5px 16px;
-  }
-  &__title {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 24px;
-    letter-spacing: -0.45px;
-    padding: 16px 16px 0 16px;
-  }
-  &__list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  &__item {
-    width: 100%;
-    display: flex;
-    gap: 18px;
-    align-items: center;
-    padding: 10px 0 10px 16px;
-    transition: opacity 0.1s ease-out;
-    cursor: pointer;
-    &:not([disabled]):active {
-      opacity: 0.6 !important;
-    }
-    @media (hover: hover) {
-      &:not([disabled]):hover {
-        opacity: 0.85;
-      }
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
     }
   }
-  &__info {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+}
+.info {
+  padding: 10px 16px 10px 0;
+  display: flex;
+  gap: 16px;
+  border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
+  flex: 1;
+  align-items: center;
+  overflow: hidden;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  div {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
-  &__left {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  &__city {
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: -0.43px;
-    color: var(--tg-theme-text-color);
-  }
-  &__location {
-    font-size: 14px;
-    line-height: 18px;
-    font-weight: 400;
-    letter-spacing: -0.15px;
-    color: var(--tg-theme-hint-color);
-  }
-  &__right {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: -0.15px;
-    color: var(--tg-theme-hint-color);
-    padding-right: 16px;
-  }
-  &__bar {
-    width: calc(100% - 36px);
-    height: 1px;
-    margin-left: 36px;
-    background-color: var(--tg-theme-secondary-bg-color);
-  }
+}
+.center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

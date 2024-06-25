@@ -4,6 +4,7 @@ interface Props {
   s?: number;
   l?: number;
   c?: string;
+  g?: boolean;
 }
 defineProps<Props>();
 </script>
@@ -15,10 +16,19 @@ defineProps<Props>();
       lineHeight: l + 'px' || '20px',
       fontSize: s + 'px' || '14px',
     }"
-    :class="c"
+    :class="[
+      c,
+      {
+        [$style.gray]: g,
+      },
+    ]"
   >
     <slot></slot>
   </div>
 </template>
 
-<style lang="scss"></style>
+<style module lang="scss">
+.gray {
+  color: var(--tg-theme-hint-color);
+}
+</style>
