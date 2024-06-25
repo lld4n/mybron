@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HotelCard from "../../components/items/HotelCard.vue";
+// import HotelCard from "../../components/items/HotelCard.vue";
 import FilterView from "../../components/common/FilterView.vue";
 import ShapeIcon from "../../assets/icons/shape.svg";
 import X from "../../assets/icons/x.svg";
@@ -84,7 +84,7 @@ const handleClose = () => {
       <button :class="$style.close" @click.prevent="handleClose">
         <X />
       </button>
-      <HotelCard />
+      <!--      <HotelCard />-->
     </div>
     <div :class="$style.block">
       <button :class="$style.btn" @click="$router.push('/search/results')">
