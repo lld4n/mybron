@@ -3,13 +3,21 @@ import Search from "../../assets/icons/search.svg";
 import Point from "../../assets/icons/point.svg";
 import Apartment from "../../assets/icons/apartment.svg";
 import { onMounted, ref, watch } from "vue";
-import { api, debounce } from "../../utils";
+import { api, debounce, useStore } from "../../utils";
 import Text from "../../components/ui/wrappers/Text.vue";
 import Block from "../../components/ui/wrappers/Block.vue";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
+import { useInter } from "../../utils/i18n";
+import { useRouter } from "vue-router";
+import ky from "ky";
+import Title from "../../components/ui/wrappers/Title.vue";
+import SearchCard, { Item } from "../../components/items/SearchCard.vue";
+
 const value = defineModel<string>("value");
 const list = ref<SearchItem[]>([]);
+const geoList = ref<GeoHotelItem[]>([]);
 const input = ref<HTMLInputElement | null>(null);
+const fetched = ref(false);
 const loading = ref(true);
 type SearchItem = {
   type: "CITY" | "HOTEL";
@@ -17,13 +25,65 @@ type SearchItem = {
   id: number;
 };
 
-onMounted(() => {
+type GeoHotelItem = {
+  id: number;
+  geo: {
+    cityName: string;
+  };
+  info: {
+    name: string;
+    type: string;
+  };
+};
+function formatDate(date: Date) {
+  let year = date.getFullYear();
+  let month = (date.getMonth() + 1).toString().padStart(2, "0");
+  let day = date.getDate().toString().padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+onMounted(async () => {
   input.value?.focus();
+  try {
+    const ipData: { ip: string } = await ky
+      .get("https://api.ipify.org?format=json")
+      .json();
+    const coorData: { latitude: number; longitude: number } = await ky
+      .get("https://ipapi.co/" + ipData.ip + "/json/")
+      .json();
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const todayFormatted = formatDate(today);
+    const tomorrowFormatted = formatDate(tomorrow);
+    const data = {
+      checkInDate: todayFormatted,
+      checkOutDate: tomorrowFormatted,
+      geolocation: {
+        latitude: coorData.latitude,
+        longitude: coorData.longitude,
+        radius: 25.25,
+      },
+      filters: {
+        breakfastIncluded: false,
+      },
+    };
+    const locatedHotel: { hotels: GeoHotelItem[] } = await api
+      .post("hotels/search/by-geolocation", {
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .json();
+    geoList.value = locatedHotel.hotels.slice(0, 6);
+    loading.value = false;
+  } catch (e) {}
 });
 
 const fetch = async (q: string) => {
   try {
     loading.value = true;
+    fetched.value = false;
     const data = await api.get("live-search", {
       searchParams: {
         q,
@@ -33,6 +93,7 @@ const fetch = async (q: string) => {
     list.value = parsed.liveSearchResults;
     console.log(parsed);
     loading.value = false;
+    fetched.value = true;
   } catch (e) {}
 };
 
@@ -42,6 +103,13 @@ watch(value, (v) => {
   if (!v) return;
   debouncedFetch(v);
 });
+const q = useInter();
+const store = useStore();
+const router = useRouter();
+const handleClick = (item: Item) => {
+  store.setSearch(item);
+  router.go(-1);
+};
 </script>
 
 <template>
@@ -51,7 +119,7 @@ watch(value, (v) => {
       <input
         id="search"
         type="text"
-        placeholder="Город или отель"
+        :placeholder="q.i18n.search.input"
         :class="$style.input"
         autocomplete="off"
         v-model="value"
@@ -62,38 +130,46 @@ watch(value, (v) => {
       <LoadingSimple />
     </div>
     <template v-if="!loading">
-      <div :class="$style.content">
-        <Block v-if="list.map((e) => e.type).includes('CITY')">
-          <template v-for="item of list">
-            <div :class="$style.item">
-              <Point />
-              <div :class="$style.info">
-                <div :class="$style.left">
-                  <Text :s="17" :l="22">{{ item.name }}</Text>
-                  <Text :s="14" :l="18" :g="true">неизвестно</Text>
-                </div>
-                <Text :s="14" :l="18" :g="true">неизвестно</Text>
-              </div>
-            </div>
-          </template>
-        </Block>
+      <Block v-if="list.map((e) => e.type).includes('CITY')" :class="$style.content">
+        <SearchCard
+          v-for="item of list"
+          :id="item.id"
+          :name="item.name"
+          :type="item.type === 'CITY' ? 'city' : 'hotel'"
+          :click="handleClick"
+          :no-show="item.type === 'HOTEL'"
+        />
+      </Block>
+      <Block v-if="list.map((e) => e.type).includes('HOTEL')" :class="$style.content">
+        <SearchCard
+          v-for="item of list"
+          :id="item.id"
+          :name="item.name"
+          :type="item.type === 'CITY' ? 'city' : 'hotel'"
+          :click="handleClick"
+          :no-show="item.type === 'CITY'"
+        />
+      </Block>
+      <div :class="$style.unfind" v-if="list.length === 0 && fetched">
+        <Text :s="17" :l="22" :w="600">Ничего не найдено</Text>
+        <Text :s="17" :l="22" :g="true">Но вот, что вам может подойти</Text>
       </div>
-      <div :class="$style.content">
-        <Block v-if="list.map((e) => e.type).includes('HOTEL')">
-          <template v-for="item of list">
-            <div :class="$style.item">
-              <Apartment />
-              <div :class="$style.info">
-                <div :class="$style.left">
-                  <Text :s="17" :l="22">{{ item.name }}</Text>
-                  <Text :s="14" :l="18" :g="true">неизвестно</Text>
-                </div>
-                <Text :s="14" :l="18" :g="true">неизвестно</Text>
-              </div>
-            </div>
-          </template>
-        </Block>
-      </div>
+      <Block v-if="geoList.length > 0" :class="$style.content">
+        <div :class="$style.top">
+          <Title>Рядом с вами</Title>
+        </div>
+        <SearchCard
+          v-for="item of geoList"
+          :id="item.id"
+          :name="item.info.name"
+          :type="item.info.type === 'city' ? 'city' : 'hotel'"
+          :city="item.geo.cityName"
+          :click="handleClick"
+        />
+      </Block>
+      <Text v-if="geoList.length > 0" :s="13" :l="18" :g="true" :c="$style.add"
+        >Основано на выбранном языке и вашем IP</Text
+      >
     </template>
   </div>
 </template>
@@ -103,7 +179,7 @@ watch(value, (v) => {
   display: flex;
   flex-direction: column;
   padding: 16px;
-  height: 100%;
+  min-height: 100%;
 }
 .header {
   margin-bottom: 20px;
@@ -131,50 +207,30 @@ watch(value, (v) => {
   }
 }
 .content {
-  display: flex;
-  flex-direction: column;
   margin-bottom: 8px;
+  overflow: initial !important;
 }
-.item {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  padding-left: 16px;
-  cursor: pointer;
-  transition: opacity 0.1s ease-out;
-  &:not([disabled]):active {
-    opacity: 0.6 !important;
-  }
-  @media (hover: hover) {
-    &:not([disabled]):hover {
-      opacity: 0.85;
-    }
-  }
+.top {
+  padding: 16px 16px 4px 16px;
 }
-.info {
-  padding: 10px 16px 10px 0;
-  display: flex;
-  gap: 16px;
-  border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
-  flex: 1;
-  align-items: center;
-  overflow: hidden;
-}
-.left {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-  div {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-}
+
 .center {
+  flex: 1;
   height: 100%;
   display: flex;
+  gap: 5px;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.add {
+  padding: 5px 16px;
+}
+.unfind {
+  padding: 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
 }
 </style>

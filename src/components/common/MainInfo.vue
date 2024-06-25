@@ -41,7 +41,17 @@ defineProps<Props>();
       <Globe />
       <div>Где</div>
     </div>
-    <div :class="$style.right">Город или отель</div>
+    <div
+      :class="[
+        $style.right,
+        {
+          [$style.active]: !!store.search,
+        },
+      ]"
+    >
+      <template v-if="!store.search">Город или отель</template>
+      <template v-if="!!store.search">{{ store.search.name }}</template>
+    </div>
   </div>
   <div :class="$style.item" @click="$router.push('/dates')">
     <div :class="$style.left">

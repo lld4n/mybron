@@ -3,6 +3,10 @@ import { i18nType } from "./type.ts";
 export const ru: i18nType = {
   slug: "ru",
   name: "Русский",
+  search: {
+    input: "Город или отель",
+    unknown: "неизвестно",
+  },
   currency: {
     RUB: "Рубль",
     USD: "Доллар",

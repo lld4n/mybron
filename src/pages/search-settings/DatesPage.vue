@@ -10,6 +10,8 @@ const store = useStore();
 const inDate = computed(() => store.in);
 const outDate = computed(() => store.out);
 console.log(store.in, store.out);
+const areConsecutiveDates = (inDate: Date, outDate: Date) =>
+  Math.abs(outDate.getDate() - inDate.getDate()) <= 1;
 </script>
 
 <template>
@@ -42,6 +44,14 @@ console.log(store.in, store.out);
                     (outDate?.getTime() === day.real.getTime() && !inDate),
                   dates__day_left: day.position === 'left',
                   dates__day_right: day.position === 'right',
+                  dates__day_consecutive_left:
+                    outDate &&
+                    inDate.getTime() === day.real.getTime() &&
+                    areConsecutiveDates(inDate, outDate),
+                  dates__day_consecutive_right:
+                    outDate &&
+                    outDate.getTime() === day.real.getTime() &&
+                    areConsecutiveDates(inDate, outDate),
                 }"
                 :disabled="day.disabled"
                 @click="store.changeDate(day.real)"
@@ -65,8 +75,10 @@ console.log(store.in, store.out);
         <DateView
           v-if="!!inDate && !!outDate"
           :left="
-            inDate?.toLocaleDateString('RU-ru', { day: 'numeric', month: 'long' }) ||
-            'Заезд'
+            inDate?.toLocaleDateString('RU-ru', {
+              day: 'numeric',
+              month: inDate.getMonth() === outDate.getMonth() ? undefined : 'long',
+            }) || 'Заезд'
           "
           :right="
             outDate?.toLocaleDateString('RU-ru', { day: 'numeric', month: 'long' }) ||
@@ -114,6 +126,16 @@ console.log(store.in, store.out);
     &_right {
       border-bottom-right-radius: 12px;
       border-top-right-radius: 12px;
+    }
+    &_consecutive {
+      &_left {
+        border-bottom-right-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+      }
+      &_right {
+        border-bottom-left-radius: 0 !important;
+        border-top-left-radius: 0 !important;
+      }
     }
     &_active {
       background-color: var(--tg-theme-button-color);

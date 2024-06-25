@@ -1,6 +1,10 @@
 export type i18nType = {
   slug: SlugType;
   name: string;
+  search: {
+    input: string;
+    unknown: string;
+  };
   currency: {
     [key in CurrencyType]: string;
   };

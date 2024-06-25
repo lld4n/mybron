@@ -21,7 +21,14 @@ export type Message = {
   out?: boolean;
 } | null;
 
+type Search = {
+  type: "city" | "hotel";
+  name: string;
+  id: number;
+} | null;
+
 interface StoreInterface {
+  search: Search;
   adultsCount: number;
   children: number[];
   in: Date;
@@ -39,6 +46,7 @@ interface StoreInterface {
 export const useStore = defineStore("store", {
   state: (): StoreInterface => {
     return {
+      search: null,
       adultsCount: 2,
       children: [],
       in: new Date(new Date().setHours(0, 0, 0, 0)),
@@ -56,6 +64,9 @@ export const useStore = defineStore("store", {
     };
   },
   actions: {
+    setSearch(c: Search) {
+      this.search = c;
+    },
     setMessage(mes: Message) {
       this.message = mes;
       if (!mes?.out) {
