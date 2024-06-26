@@ -11,10 +11,19 @@ import ReviewsBlock from "../../components/hotel/ReviewsBlock.vue";
 import AmenityBlock from "../../components/hotel/AmenityBlock.vue";
 import ConditionsBlock from "../../components/hotel/ConditionsBlock.vue";
 import { useRoute, useRouter } from "vue-router";
-import { onMounted } from "vue";
-import { api, dateToApi, useStore } from "../../utils";
+import { onMounted, ref } from "vue";
+import {
+  api,
+  dateToApi,
+  HotelWithOffersDto,
+  SearchHotelAccommodationsResponse,
+  useStore,
+} from "../../utils";
 import { SearchParamsOption } from "ky";
-const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
+import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
+const data = ref<HotelWithOffersDto | null>(null);
+const loading = ref(true);
+const fetched = ref(false);
 const route = useRoute();
 const store = useStore();
 const router = useRouter();
@@ -23,6 +32,8 @@ onMounted(async () => {
     await router.push("/");
     return;
   }
+  loading.value = true;
+  fetched.value = false;
   const params: SearchParamsOption = {
     hotelId: String(route.params.id),
     arrivalDate: dateToApi(store.in),
@@ -41,7 +52,7 @@ onMounted(async () => {
   if (store.filters.price[1] < 50000) {
     params.maxDailyPrice = String(store.filters.price[1]);
   }
-  if (store.filters.stars) {
+  if (store.filters.stars.length > 0) {
     params.stars = store.filters.stars.join(",");
   }
   if (store.filters.payment.length > 0) {
@@ -49,33 +60,55 @@ onMounted(async () => {
       .map((e) => e.toLocaleUpperCase())
       .join(",");
   }
-  const jsonData = await api
-    .get("hotel/accommodations", {
-      searchParams: params,
-    })
-    .json();
-  console.log(jsonData);
+  try {
+    const jsonData: SearchHotelAccommodationsResponse = await api
+      .get("hotel/accommodations", {
+        searchParams: params,
+      })
+      .json();
+    if (jsonData.offers.length > 0) {
+      data.value = jsonData.offers[0];
+      console.log(jsonData.offers[0]);
+    }
+  } catch (e) {}
+  loading.value = false;
+  fetched.value = true;
 });
 const sharePage = () => {};
 </script>
 
 <template>
+  <div :class="$style.center" v-if="loading">
+    <LoadingSimple />
+  </div>
   <Wrapper
     :footer="{
       text: 'Номера от 17 000 ₽',
       click: () => $router.push('/rooms/1'),
     }"
+    v-if="!loading && !!data"
   >
     <div :class="$style.carousel">
       <CarouselCount>
-        <img :src="url" :class="$style.image" />
-        <img :src="url" :class="$style.image" />
-        <img :src="url" :class="$style.image" />
+        <img
+          v-for="item of data.descriptionDetails.photos.photos"
+          :src="item.url"
+          :class="$style.image"
+          alt="Image"
+        />
       </CarouselCount>
       <button :class="$style.share" @click="sharePage"><Share /></button>
     </div>
     <div :class="$style.content">
-      <MainBlock />
+      <MainBlock
+        :id="data.id"
+        :address="data.address"
+        :center="data.descriptionDetails.distanceToCenter"
+        :latitude="data.descriptionDetails.latitude"
+        :longitude="data.descriptionDetails.longitude"
+        :name="data.name"
+        :stars="data.category"
+      />
       <InfoBlock />
       <RatingBlock />
       <AboutBlock />
@@ -125,5 +158,11 @@ const sharePage = () => {};
   position: relative;
   border-top-right-radius: 16px;
   border-top-left-radius: 16px;
+}
+.center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

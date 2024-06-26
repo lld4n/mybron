@@ -2,10 +2,29 @@
 import RatingView from "../ui/views/RatingView.vue";
 import StarsView from "../ui/views/StarsView.vue";
 import CopyButton from "../ui/CopyButton.vue";
-import AmenityCarousel from "./AmenityCarousel.vue";
+// import AmenityCarousel from "./AmenityCarousel.vue";
 import Walking from "../../assets/icons/walking.svg";
-import Point from "../../assets/icons/point.svg";
+// import Point from "../../assets/icons/point.svg";
 import Text from "../ui/wrappers/Text.vue";
+import { YandexMap, YandexMapDefaultSchemeLayer } from "vue-yandex-maps";
+import { onMounted, ref } from "vue";
+interface Props {
+  id: number;
+  rating?: number;
+  stars: number;
+  name: string;
+  amenities?: string[];
+  center: number;
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
+defineProps<Props>();
+const showMap = ref(false);
+onMounted(() => {
+  showMap.value = true;
+});
 </script>
 
 <template>
@@ -15,22 +34,34 @@ import Text from "../ui/wrappers/Text.vue";
       <StarsView :level="5" type="small" />
       <div :class="$style.title">Отель Метрополь</div>
     </div>
-    <AmenityCarousel />
+    <!--    <AmenityCarousel />-->
     <div :class="$style.meters">
       <Text :s="14" :l="18" :c="$style.item">
         <Walking />
-        2 мин пешком до центра
-        <span>800 м</span>
+        <!--        2 мин пешком до центра-->
+        <span>{{ center }} км</span>
       </Text>
-      <Text :s="14" :l="18" :c="$style.item">
-        <Point />
-        2 мин пешком до центра
-        <span>800 м</span>
-      </Text>
+      <!--      <Text :s="14" :l="18" :c="$style.item">-->
+      <!--        <Point />-->
+      <!--        2 мин пешком до центра-->
+      <!--        <span>800 м</span>-->
+      <!--      </Text>-->
     </div>
     <div :class="$style.map">
+      <yandex-map
+        v-if="showMap"
+        :settings="{
+          location: {
+            center: [longitude, latitude],
+          },
+        }"
+        width="100"
+        height="100"
+      >
+        <yandex-map-default-scheme-layer />
+      </yandex-map>
       <img src="https://i.ibb.co/yNtsMP8/2024-06-21-21-12-03.jpg" :class="$style.img" />
-      <CopyButton text="Театральный пр-д, д.2, Москва" title="Адрес" />
+      <CopyButton :text="address" title="Адрес" />
     </div>
   </div>
 </template>
