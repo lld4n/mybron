@@ -1,7 +1,6 @@
 <template>
   <div :class="$style.wrapper">
     <header :class="$style.header">
-      <Text :s="40" :l="50" :w="700">{{ test || "не работает" }}</Text>
       <button :class="$style.btn" @click="$router.push('/reservation/my')">
         <Case />
       </button>
