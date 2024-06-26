@@ -10,8 +10,52 @@ import InfoBlock from "../../components/hotel/InfoBlock.vue";
 import ReviewsBlock from "../../components/hotel/ReviewsBlock.vue";
 import AmenityBlock from "../../components/hotel/AmenityBlock.vue";
 import ConditionsBlock from "../../components/hotel/ConditionsBlock.vue";
+import { useRoute, useRouter } from "vue-router";
+import { onMounted } from "vue";
+import { api, dateToApi, useStore } from "../../utils";
+import { SearchParamsOption } from "ky";
 const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
-
+const route = useRoute();
+const store = useStore();
+const router = useRouter();
+onMounted(async () => {
+  if (!store.out) {
+    await router.push("/");
+    return;
+  }
+  const params: SearchParamsOption = {
+    hotelId: String(route.params.id),
+    arrivalDate: dateToApi(store.in),
+    departureDate: dateToApi(store.out),
+    guests: String(store.adultsCount + store.children.length),
+  };
+  if (store.filters.other.includes("breakfast")) {
+    params.withBreakfast = true;
+  }
+  if (store.filters.other.includes("card")) {
+    params.withCard = true;
+  }
+  if (store.filters.price[0] > 0) {
+    params.minDailyPrice = String(store.filters.price[0]);
+  }
+  if (store.filters.price[1] < 50000) {
+    params.maxDailyPrice = String(store.filters.price[1]);
+  }
+  if (store.filters.stars) {
+    params.stars = store.filters.stars.join(",");
+  }
+  if (store.filters.payment.length > 0) {
+    params.paymentRecipients = store.filters.payment
+      .map((e) => e.toLocaleUpperCase())
+      .join(",");
+  }
+  const jsonData = await api
+    .get("hotel/accommodations", {
+      searchParams: params,
+    })
+    .json();
+  console.log(jsonData);
+});
 const sharePage = () => {};
 </script>
 

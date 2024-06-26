@@ -19,7 +19,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div :class="$style.card" @click="$router.push('/hotel/1')">
+  <div :class="$style.card" @click="$router.push('/hotel/' + id)">
     <Carousel>
       <img v-for="url of images" :src="url" alt="Image" :class="$style.image" />
     </Carousel>
