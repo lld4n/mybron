@@ -1,6 +1,7 @@
 <template>
   <div :class="$style.wrapper">
     <header :class="$style.header">
+      <Text :s="40" :l="50" :w="700">{{ test || "не работает" }}</Text>
       <button :class="$style.btn" @click="$router.push('/reservation/my')">
         <Case />
       </button>
@@ -125,7 +126,7 @@ import Settings from "../../assets/icons/settings.svg";
 import Logo from "../../assets/logo.svg";
 
 import { useStore } from "../../utils";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 import Block from "../../components/ui/wrappers/Block.vue";
 import DateView from "../../components/ui/views/DateView.vue";
@@ -138,8 +139,10 @@ import { useInter } from "../../utils/i18n";
 import ReservationCard from "../../components/items/ReservationCard.vue";
 import { useRouter } from "vue-router";
 const q = useInter();
+const test = ref();
 console.log(window.Telegram);
 onMounted(() => {
+  test.value = window.Telegram.WebApp.initDataUnsafe.start_param;
   console.log(window.Telegram.WebApp.initDataUnsafe.user?.language_code);
   if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
     q.changeLanguage("en");
