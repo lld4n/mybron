@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import Search from "../../assets/icons/search.svg";
 import { onMounted, ref, watch } from "vue";
-import { api, dateToApi, debounce, useStore } from "../../utils";
+import {
+  api,
+  dateToApi,
+  debounce,
+  HotelWithCheapestOfferDto,
+  LiveSearchResponse,
+  LiveSearchResultDto,
+  SearchHotelByGeolocationRequest,
+  SearchHotelResponse,
+  useStore,
+} from "../../utils";
 import Text from "../../components/ui/wrappers/Text.vue";
 import Block from "../../components/ui/wrappers/Block.vue";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
@@ -12,27 +22,12 @@ import Title from "../../components/ui/wrappers/Title.vue";
 import SearchCard, { Item } from "../../components/items/SearchCard.vue";
 
 const value = defineModel<string>("value");
-const list = ref<SearchItem[]>([]);
-const geoList = ref<GeoHotelItem[]>([]);
+const list = ref<LiveSearchResultDto[]>([]);
+const geoList = ref<HotelWithCheapestOfferDto[]>([]);
 const input = ref<HTMLInputElement | null>(null);
 const fetched = ref(false);
 const loading = ref(true);
-type SearchItem = {
-  type: "CITY" | "HOTEL";
-  name: string;
-  id: number;
-};
 
-type GeoHotelItem = {
-  id: number;
-  geo: {
-    cityName: string;
-  };
-  info: {
-    name: string;
-    type: string;
-  };
-};
 onMounted(async () => {
   input.value?.focus();
   try {
@@ -47,7 +42,7 @@ onMounted(async () => {
     tomorrow.setDate(tomorrow.getDate() + 1);
     const todayFormatted = dateToApi(today);
     const tomorrowFormatted = dateToApi(tomorrow);
-    const data = {
+    const data: SearchHotelByGeolocationRequest = {
       checkInDate: todayFormatted,
       checkOutDate: tomorrowFormatted,
       geolocation: {
@@ -55,11 +50,9 @@ onMounted(async () => {
         longitude: coorData.longitude,
         radius: 25.25,
       },
-      filters: {
-        breakfastIncluded: false,
-      },
+      filters: {},
     };
-    const locatedHotel: { hotels: GeoHotelItem[] } = await api
+    const locatedHotel: SearchHotelResponse = await api
       .post("hotels/search/by-geolocation", {
         body: JSON.stringify(data),
         headers: {
@@ -81,7 +74,7 @@ const fetch = async (q: string) => {
         q,
       },
     });
-    const parsed: { liveSearchResults: SearchItem[] } = await data.json();
+    const parsed: LiveSearchResponse = await data.json();
     list.value = parsed.liveSearchResults;
     console.log(parsed);
     loading.value = false;

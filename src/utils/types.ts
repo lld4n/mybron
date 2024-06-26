@@ -30,22 +30,22 @@ export type CreateOrderResponse = {
 };
 
 export type FiltersDto = {
-  numberOfGuests: number;
-  hotelCategories: number[];
-  paymentRecipients: string[];
-  minDailyPrice: number;
-  maxDailyPrice: number;
-  breakfastIncluded: boolean;
-  guaranteeTypeCardIncluded: boolean;
+  numberOfGuests?: number;
+  hotelCategories?: number[];
+  paymentRecipients?: string[];
+  minDailyPrice?: number;
+  maxDailyPrice?: number;
+  breakfastIncluded?: boolean;
+  guaranteeTypeCardIncluded?: boolean;
 };
 
 export type SearchHotelByHotelRequest = {
   checkInDate: string;
   checkOutDate: string;
-  hotelId: number;
-  currency: string;
-  language: string;
-  filters: FiltersDto[];
+  hotelId?: number;
+  currency?: string;
+  language?: string;
+  filters: FiltersDto;
 };
 
 export type AvailableAmenitiesDto = {
@@ -204,7 +204,7 @@ export type SearchAvailabilityHotelOfferDto = {
 };
 
 export type SearchHotelResponse = {
-  hotels: HotelWithCheapestOfferDto;
+  hotels: HotelWithCheapestOfferDto[];
 };
 
 export type TaxDto = {
@@ -229,17 +229,17 @@ export type SearchHotelByGeolocationRequest = {
   checkInDate: string;
   checkOutDate: string;
   geolocation: GeolocationDto;
-  currency: string;
-  language: string;
+  currency?: string;
+  language?: string;
   filters: FiltersDto;
 };
 
 export type SearchHotelByCityRequest = {
   checkInDate: string;
   checkOutDate: string;
-  cityId: number;
-  currency: string;
-  language: string;
+  cityId?: number;
+  currency?: string;
+  language?: string;
   filters: FiltersDto;
 };
 

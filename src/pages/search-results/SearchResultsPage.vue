@@ -2,15 +2,25 @@
 import FilterView from "../../components/common/FilterView.vue";
 import MapIcon from "../../assets/icons/map.svg";
 import HotelCard from "../../components/items/HotelCard.vue";
-import { api, dates, dateToApi, guests, nightsRange, useStore } from "../../utils";
+import {
+  api,
+  dates,
+  dateToApi,
+  guests,
+  HotelWithCheapestOfferDto,
+  nightsRange,
+  SearchHotelByCityRequest,
+  SearchHotelByHotelRequest,
+  SearchHotelResponse,
+  useStore,
+} from "../../utils";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { BodyType, HotelInfoDTO } from "./types.ts";
 import Text from "../../components/ui/wrappers/Text.vue";
 import LoadingLottie from "../../components/ui/loading/LoadingLottie.vue";
 const loading = ref(true);
 const fetched = ref(false);
-const list = ref<HotelInfoDTO[]>([]);
+const list = ref<HotelWithCheapestOfferDto[]>([]);
 const store = useStore();
 const router = useRouter();
 onMounted(async () => {
@@ -23,15 +33,19 @@ onMounted(async () => {
   const URL =
     store.search.type === "city" ? "hotels/search/by-city" : "hotels/search/by-hotel";
 
-  const data: BodyType = {
+  const data: SearchHotelByHotelRequest & SearchHotelByCityRequest = {
     checkInDate: dateToApi(store.in),
     checkOutDate: dateToApi(store.out),
-    hotelId: store.search.type === "hotel" ? store.search.id : undefined,
-    cityId: store.search.type === "city" ? store.search.id : undefined,
     filters: {
-      numbersOfGuests: store.adultsCount + store.children.length,
+      numberOfGuests: store.adultsCount + store.children.length,
     },
   };
+
+  if (store.search.type === "city") {
+    data.cityId = store.search.id;
+  } else {
+    data.hotelId = store.search.id;
+  }
 
   if (store.filters.price[0] !== 0) {
     data.filters.minDailyPrice = store.filters.price[0];
@@ -54,7 +68,7 @@ onMounted(async () => {
     data.filters.guaranteeTypeCardIncluded = true;
   }
 
-  const jsonData: { hotels: HotelInfoDTO[] } = await api
+  const jsonData: SearchHotelResponse = await api
     .post(URL, {
       body: JSON.stringify(data),
       headers: {
