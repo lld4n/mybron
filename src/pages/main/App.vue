@@ -26,7 +26,7 @@ onMounted(async () => {
     };
     console.log("AUTH DATA", userData);
     const jsonData = await api
-      .post("/auth/sign-in/by-telegram", {
+      .post("auth/sign-in/by-telegram", {
         headers: {
           "Content-Type": "application/json",
         },
