@@ -13,6 +13,8 @@ import Building from "../../../assets/amenities/building.svg";
 import Dish from "../../../assets/amenities/dish.svg";
 import Shield from "../../../assets/amenities/shield.svg";
 import Teddy from "../../../assets/amenities/teddy.svg";
+import Heart from "../../../assets/amenities/heart.svg";
+import Exc from "../../../assets/amenities/exc.svg";
 interface Props {
   group: string;
 }
@@ -22,6 +24,8 @@ defineProps<Props>();
 
 <template>
   <Internet v-if="group === 'Интернет'" :class="$style.icon" />
+  <Heart v-if="group === 'Красота и здоровье'" :class="$style.icon" />
+  <Exc v-if="group === 'Важная информация'" :class="$style.icon" />
   <Car v-if="group === 'Транспорт'" :class="$style.icon" />
   <Building v-if="group === 'На территории'" :class="$style.icon" />
   <Conference v-if="group === 'Возможности для конференций'" :class="$style.icon" />

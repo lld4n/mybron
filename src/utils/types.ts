@@ -509,3 +509,46 @@ export type ServiceExtraFieldDto = {
   name: string;
   value: string;
 };
+
+export type HotelRatingsResponse = {
+  ratings: HotelRatingsDto;
+};
+
+export type HotelRatingsDto = {
+  ranking: RankingDto;
+  rating: number;
+  ratingImageUrl: string;
+  reviewsTotal: number;
+  reviewsByRating: ReviewCountDto[];
+  subratings: SubratingDto[];
+  priceLevel: string;
+  tripadvisorUrl: string;
+  amenities: string[];
+  styles: string[];
+  tripTypes: TripTypeDto[];
+};
+
+export type RankingDto = {
+  description: string;
+  location: string;
+  total: number;
+  rank: number;
+};
+
+export type ReviewCountDto = {
+  rating: number;
+  count: number;
+};
+
+export type SubratingDto = {
+  type: string;
+  name: string;
+  ratingImageUrl: string;
+  rating: number;
+};
+
+export type TripTypeDto = {
+  type: string;
+  name: string;
+  count: number;
+};

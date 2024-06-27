@@ -9,7 +9,7 @@ import Text from "../ui/wrappers/Text.vue";
 import { onMounted, ref } from "vue";
 import { AvailableAmenityDto } from "../../utils";
 import AmenityCarousel from "./AmenityCarousel.vue";
-import type { YMapLocationRequest } from "ymaps3";
+// import type { YMapLocationRequest } from "ymaps3";
 interface Props {
   id: number;
   rating?: number;
@@ -27,27 +27,27 @@ const showMap = ref(false);
 onMounted(() => {
   showMap.value = true;
 
-  async function initMap(): Promise<void> {
-    await ymaps3.ready;
+  // async function initMap(): Promise<void> {
+  //   await ymaps3.ready;
+  //
+  //   const LOCATION: YMapLocationRequest = {
+  //     center: [37.623082, 55.75254],
+  //     zoom: 9,
+  //   };
+  //
+  //   const { YMap, YMapDefaultSchemeLayer } = ymaps3;
+  //
+  //   const map = new YMap(document.getElementById("map")!, { location: LOCATION });
+  //   map.addChild(new YMapDefaultSchemeLayer({}));
+  // }
 
-    const LOCATION: YMapLocationRequest = {
-      center: [37.623082, 55.75254],
-      zoom: 9,
-    };
-
-    const { YMap, YMapDefaultSchemeLayer } = ymaps3;
-
-    const map = new YMap(document.getElementById("map")!, { location: LOCATION });
-    map.addChild(new YMapDefaultSchemeLayer({}));
-  }
-
-  initMap();
+  // initMap();
 });
 </script>
 
 <template>
   <div :class="$style.wrapper">
-    <RatingView :level="10" type="big" :c="$style.rating" />
+    <RatingView v-if="rating" :level="rating" type="big" :c="$style.rating" />
     <div :class="$style.top">
       <StarsView :level="stars" type="small" />
       <div :class="$style.title">{{ name }}</div>
@@ -66,7 +66,7 @@ onMounted(() => {
       </Text>
     </div>
     <div :class="$style.map">
-      <div id="map" style="width: 600px; height: 400px"></div>
+      <!--      <div id="map" style="width: 100%; height: 400px"></div>-->
       <!--      <yandex-map-->
       <!--        v-if="showMap"-->
       <!--        :settings="{-->

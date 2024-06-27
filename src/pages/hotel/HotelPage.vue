@@ -15,6 +15,8 @@ import { onMounted, ref } from "vue";
 import {
   api,
   dateToApi,
+  HotelRatingsDto,
+  HotelRatingsResponse,
   HotelReviewDto,
   HotelReviewsResponse,
   HotelWithOffersDto,
@@ -26,6 +28,7 @@ import { SearchParamsOption } from "ky";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 const data = ref<HotelWithOffersDto | null>(null);
 const reviews = ref<HotelReviewDto[]>([]);
+const ratings = ref<HotelRatingsDto | null>(null);
 const loading = ref(true);
 const fetched = ref(false);
 const route = useRoute();
@@ -86,8 +89,9 @@ onMounted(async () => {
         hotelId: String(route.params.id),
       },
     })
-    .json()
+    .json<HotelRatingsResponse>()
     .then((res) => {
+      ratings.value = res.ratings;
       console.log(res);
     });
 
@@ -143,6 +147,7 @@ const sharePage = () => {};
     </div>
     <div :class="$style.content">
       <MainBlock
+        :rating="ratings ? ratings.rating * 2 : undefined"
         :id="data.id"
         :address="data.address"
         :center="data.descriptionDetails.distanceToCenter"
@@ -162,7 +167,19 @@ const sharePage = () => {};
           )
         "
       />
-      <RatingBlock />
+      <RatingBlock
+        v-if="!!ratings"
+        :ratings="
+          ratings.subratings.map((e) => {
+            return {
+              name: e.name,
+              percent: e.rating * 2 * 10,
+            };
+          })
+        "
+        :count="ratings.reviewsTotal"
+        :rating="ratings.rating * 2"
+      />
       <ReviewsBlock :reviews="reviews" v-if="reviews.length > 0" />
       <AboutBlock :text="data.descriptionDetails.description" />
       <AmenityBlock

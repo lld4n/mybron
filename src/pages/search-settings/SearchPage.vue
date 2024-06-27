@@ -22,14 +22,6 @@ import Title from "../../components/ui/wrappers/Title.vue";
 import SearchCard, { Item } from "../../components/items/SearchCard.vue";
 
 const countries = ["RU", "KZ", "UZ", "KG", "TM", "GE", "BY", "AZ", "MD", "TJ", "AM"];
-
-const value = defineModel<string>("value");
-const list = ref<LiveSearchResultDto[]>([]);
-const geoList = ref<HotelWithCheapestOfferDto[]>([]);
-const input = ref<HTMLInputElement | null>(null);
-const fetched = ref(false);
-const loading = ref(true);
-
 const popular: { id: number; type: "CITY"; name: string; country: string }[] = [
   {
     id: 6,
@@ -63,12 +55,23 @@ const popular: { id: number; type: "CITY"; name: string; country: string }[] = [
   },
 ];
 
+const value = defineModel<string>("value");
+const list = ref<LiveSearchResultDto[]>([]);
+const geoList = ref<HotelWithCheapestOfferDto[]>([]);
+const input = ref<HTMLInputElement | null>(null);
+const fetched = ref(false);
+const loadingGeo = ref(true);
+const loadingSearch = ref(false);
+const q = useInter();
+const store = useStore();
+const router = useRouter();
+
 onMounted(async () => {
   input.value?.focus();
 
   try {
     if (!store.geo || !countries.includes(store.geo.country_code)) {
-      loading.value = false;
+      loadingGeo.value = false;
       return;
     }
     const today = new Date();
@@ -95,13 +98,13 @@ onMounted(async () => {
       })
       .json();
     geoList.value = locatedHotel.hotels.slice(0, 6);
-    loading.value = false;
+    loadingGeo.value = false;
   } catch (e) {}
 });
 
 const fetch = async (q: string) => {
   try {
-    loading.value = true;
+    loadingSearch.value = true;
     fetched.value = false;
     const data = await api.get("live-search", {
       searchParams: {
@@ -111,7 +114,7 @@ const fetch = async (q: string) => {
     const parsed: LiveSearchResponse = await data.json();
     list.value = parsed.liveSearchResults;
     console.log(parsed);
-    loading.value = false;
+    loadingSearch.value = false;
     fetched.value = true;
   } catch (e) {}
 };
@@ -119,12 +122,14 @@ const fetch = async (q: string) => {
 const debouncedFetch = debounce(fetch, 500);
 
 watch(value, (v) => {
-  if (!v) return;
+  if (!v) {
+    list.value = [];
+    fetched.value = false;
+    return;
+  }
   debouncedFetch(v);
 });
-const q = useInter();
-const store = useStore();
-const router = useRouter();
+
 const handleClick = (item: Item) => {
   store.setSearch(item);
   if (!store.out) {
@@ -149,64 +154,76 @@ const handleClick = (item: Item) => {
         ref="input"
       />
     </label>
-    <div :class="$style.center" v-if="loading">
+    <div :class="$style.unfind" v-if="fetched && list.length === 0">
+      <Text :s="17" :l="22" :w="600">Ничего не найдено</Text>
+      <Text :s="17" :l="22" :g="true">Но вот, что вам может подойти</Text>
+    </div>
+    <div :class="$style.loading__geo" v-if="loadingGeo && list.length === 0">
       <LoadingSimple />
     </div>
-    <template v-if="!loading">
-      <Block v-if="list.map((e) => e.type).includes('CITY')" :class="$style.content">
-        <SearchCard
-          v-for="item of list"
-          :id="item.id"
-          :name="item.name"
-          :type="item.type === 'CITY' ? 'city' : 'hotel'"
-          :click="handleClick"
-          :no-show="item.type === 'HOTEL'"
-        />
-      </Block>
-      <Block v-if="list.map((e) => e.type).includes('HOTEL')" :class="$style.content">
-        <SearchCard
-          v-for="item of list"
-          :id="item.id"
-          :name="item.name"
-          :type="item.type === 'CITY' ? 'city' : 'hotel'"
-          :click="handleClick"
-          :no-show="item.type === 'CITY'"
-        />
-      </Block>
-      <div :class="$style.unfind" v-if="list.length === 0 && fetched">
-        <Text :s="17" :l="22" :w="600">Ничего не найдено</Text>
-        <Text :s="17" :l="22" :g="true">Но вот, что вам может подойти</Text>
+    <div :class="$style.loading__search" v-if="loadingSearch">
+      <LoadingSimple />
+    </div>
+    <Block
+      v-if="fetched && list.map((e) => e.type).includes('CITY')"
+      :class="$style.content"
+    >
+      <SearchCard
+        v-for="item of list"
+        :id="item.id"
+        :name="item.name"
+        :type="item.type === 'CITY' ? 'city' : 'hotel'"
+        :click="handleClick"
+        :no-show="item.type === 'HOTEL'"
+      />
+    </Block>
+    <Block
+      v-if="fetched && list.map((e) => e.type).includes('HOTEL')"
+      :class="$style.content"
+    >
+      <SearchCard
+        v-for="item of list"
+        :id="item.id"
+        :name="item.name"
+        :type="item.type === 'CITY' ? 'city' : 'hotel'"
+        :click="handleClick"
+        :no-show="item.type === 'CITY'"
+      />
+    </Block>
+    <Block v-if="geoList.length > 0 && list.length === 0" :class="$style.content">
+      <div :class="$style.top">
+        <Title>Рядом с вами</Title>
       </div>
-      <Block v-if="geoList.length > 0" :class="$style.content">
-        <div :class="$style.top">
-          <Title>Рядом с вами</Title>
-        </div>
-        <SearchCard
-          v-for="item of geoList"
-          :id="item.id"
-          :name="item.info.name"
-          :type="item.info.type === 'city' ? 'city' : 'hotel'"
-          :city="item.geo.cityName"
-          :click="handleClick"
-        />
-      </Block>
-      <Block v-if="popular.length > 0" :class="$style.content">
-        <div :class="$style.top">
-          <Title>Популярное</Title>
-        </div>
-        <SearchCard
-          v-for="item of popular"
-          :id="item.id"
-          :name="item.name"
-          type="city"
-          :city="item.country"
-          :click="handleClick"
-        />
-      </Block>
-      <Text v-if="geoList.length > 0" :s="13" :l="18" :g="true" :c="$style.add"
-        >Основано на выбранном языке и вашем IP</Text
-      >
-    </template>
+      <SearchCard
+        v-for="item of geoList"
+        :id="item.id"
+        :name="item.info.name"
+        :type="item.info.type === 'city' ? 'city' : 'hotel'"
+        :city="item.geo.cityName"
+        :click="handleClick"
+      />
+    </Block>
+    <Text
+      v-if="geoList.length > 0 && list.length === 0"
+      :s="13"
+      :l="18"
+      :g="true"
+      :c="$style.add"
+      >Основано на выбранном языке и вашем IP</Text
+    >
+    <Block v-if="list.length === 0" :class="$style.content">
+      <div :class="$style.top">
+        <Title>Популярное</Title>
+      </div>
+      <SearchCard
+        v-for="item of popular"
+        :id="item.id"
+        :name="item.name"
+        type="city"
+        :city="item.country"
+        :click="handleClick"
+      />
+    </Block>
   </div>
 </template>
 
@@ -250,14 +267,24 @@ const handleClick = (item: Item) => {
   padding: 16px 16px 4px 16px;
 }
 
-.center {
-  flex: 1;
-  height: 100%;
-  display: flex;
-  gap: 5px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.loading {
+  &__geo {
+    padding: 40px 0;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__search {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .add {
   padding: 5px 16px;

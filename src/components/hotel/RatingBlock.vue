@@ -27,44 +27,51 @@ const titles = [
   "Превосходно",
   "Превосходно",
 ];
-const ratings = [
-  {
-    name: "Питание",
-    percent: 100,
-  },
-  {
-    name: "Расположение",
-    percent: 90,
-  },
-  {
-    name: "Удобство парковки",
-    percent: 80,
-  },
-  {
-    name: "Обслуживание",
-    percent: 70,
-  },
-  {
-    name: "Чистота номеров",
-    percent: 60,
-  },
-  {
-    name: "Завтрак",
-    percent: 50,
-  },
-];
+// const ratings = [
+//   {
+//     name: "Питание",
+//     percent: 100,
+//   },
+//   {
+//     name: "Расположение",
+//     percent: 90,
+//   },
+//   {
+//     name: "Удобство парковки",
+//     percent: 80,
+//   },
+//   {
+//     name: "Обслуживание",
+//     percent: 70,
+//   },
+//   {
+//     name: "Чистота номеров",
+//     percent: 60,
+//   },
+//   {
+//     name: "Завтрак",
+//     percent: 50,
+//   },
+// ];
+interface Props {
+  ratings: { name: string; percent: number }[];
+  count: number;
+  rating: number;
+}
+
+defineProps<Props>();
 </script>
 
 <template>
   <Block>
     <div :class="$style.header">
-      <Title>Оценка гостей (ждем апи)</Title>
+      <Title>Оценка гостей</Title>
     </div>
     <div :class="$style.rating">
-      <RatingView :level="10" type="big" />
+      <RatingView :level="rating" type="big" />
       <div :class="$style.right">
-        <div :class="$style.title">{{ titles[10] || "Превосходно" }}</div>
-        <div :class="$style.subtitle">5252 отзывов на Tripadvisor</div>
+        <div :class="$style.title">{{ titles[rating] || "Превосходно" }}</div>
+        <div :class="$style.subtitle">{{ count }} отзывов на Tripadvisor</div>
       </div>
     </div>
     <div :class="$style.percents">

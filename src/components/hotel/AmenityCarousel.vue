@@ -16,10 +16,12 @@ defineProps<Props>();
 <template>
   <div :class="$style.wrapper">
     <Carousel>
-      <div :class="$style.tag" v-for="item of am">
-        <AmenityView :group="item.groupName" />
-        <Text :s="14" :l="18">{{ item.name }}</Text>
-      </div>
+      <template v-for="item of am">
+        <div :class="$style.tag" v-if="item.included">
+          <AmenityView :group="item.groupName" />
+          <Text :s="14" :l="18">{{ item.name }}</Text>
+        </div>
+      </template>
     </Carousel>
     <Text :s="13" :l="18" :c="$style.link" @click="$router.push('/hotel/amenities')">
       {{ q.i18n.hotel.amenity }}
