@@ -17,7 +17,7 @@ import Block from "../../components/ui/wrappers/Block.vue";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 import { useInter } from "../../utils/i18n";
 import { useRouter } from "vue-router";
-import ky from "ky";
+// import ky from "ky";
 import Title from "../../components/ui/wrappers/Title.vue";
 import SearchCard, { Item } from "../../components/items/SearchCard.vue";
 

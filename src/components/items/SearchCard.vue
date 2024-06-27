@@ -2,7 +2,7 @@
 import Text from "../ui/wrappers/Text.vue";
 import Apartment from "../../assets/icons/apartment.svg";
 import Point from "../../assets/icons/point.svg";
-import { useInter } from "../../utils/i18n";
+// import { useInter } from "../../utils/i18n";
 
 export type Item = { type: ItemType; id: number; name: string };
 type ItemType = "city" | "hotel";
@@ -17,7 +17,7 @@ interface Props {
 }
 
 defineProps<Props>();
-const q = useInter();
+// const q = useInter();
 </script>
 
 <template>
