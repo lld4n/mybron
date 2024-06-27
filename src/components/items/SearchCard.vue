@@ -39,9 +39,7 @@ const q = useInter();
       <div :class="$style.left">
         <Text :s="17" :l="22">{{ name }}</Text>
         <Text :s="14" :l="18" :g="true" v-if="city">{{ city }}</Text>
-        <Text :s="14" :l="18" :g="true" v-if="!city">{{ q.i18n.search.unknown }}</Text>
       </div>
-      <Text :s="14" :l="18" :g="true">{{ q.i18n.search.unknown }}</Text>
     </div>
   </div>
 </template>

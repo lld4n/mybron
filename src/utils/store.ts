@@ -34,6 +34,7 @@ interface StoreInterface {
   in: Date;
   out: null | Date;
   message: Message;
+  geo: Geo | null;
   filters: {
     sort: SortFilters;
     payment: PaymentFilters[];
@@ -42,6 +43,12 @@ interface StoreInterface {
     price: [number, number];
   };
 }
+
+export type Geo = {
+  latitude: number;
+  longitude: number;
+  country_code: string;
+};
 
 export const useStore = defineStore("store", {
   state: (): StoreInterface => {
@@ -54,6 +61,7 @@ export const useStore = defineStore("store", {
         new Date(new Date().setHours(0, 0, 0, 0)).setDate(new Date().getDate() + 1),
       ),
       message: null,
+      geo: null,
       filters: {
         sort: "default",
         payment: [],
@@ -64,6 +72,9 @@ export const useStore = defineStore("store", {
     };
   },
   actions: {
+    setGeo(g: Geo) {
+      this.geo = g;
+    },
     setSearch(c: Search) {
       this.search = c;
     },

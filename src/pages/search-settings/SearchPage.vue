@@ -21,6 +21,8 @@ import ky from "ky";
 import Title from "../../components/ui/wrappers/Title.vue";
 import SearchCard, { Item } from "../../components/items/SearchCard.vue";
 
+const countries = ["RU", "KZ", "UZ", "KG", "TM", "GE", "BY", "AZ", "MD", "TJ", "AM"];
+
 const value = defineModel<string>("value");
 const list = ref<LiveSearchResultDto[]>([]);
 const geoList = ref<HotelWithCheapestOfferDto[]>([]);
@@ -28,15 +30,47 @@ const input = ref<HTMLInputElement | null>(null);
 const fetched = ref(false);
 const loading = ref(true);
 
+const popular: { id: number; type: "CITY"; name: string; country: string }[] = [
+  {
+    id: 6,
+    type: "CITY",
+    name: "Москва",
+    country: "Россия",
+  },
+  {
+    id: 37,
+    type: "CITY",
+    name: "Санкт-Петербург",
+    country: "Россия",
+  },
+  {
+    id: 48,
+    type: "CITY",
+    name: "Сочи",
+    country: "Россия",
+  },
+  {
+    id: 575,
+    type: "CITY",
+    name: "Ереван",
+    country: "Армения",
+  },
+  {
+    id: 35,
+    type: "CITY",
+    name: "Калининград",
+    country: "Россия",
+  },
+];
+
 onMounted(async () => {
   input.value?.focus();
+
   try {
-    const ipData: { ip: string } = await ky
-      .get("https://api.ipify.org?format=json")
-      .json();
-    const coorData: { latitude: number; longitude: number } = await ky
-      .get("https://ipapi.co/" + ipData.ip + "/json/")
-      .json();
+    if (!store.geo || !countries.includes(store.geo.country_code)) {
+      loading.value = false;
+      return;
+    }
     const today = new Date();
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -46,8 +80,8 @@ onMounted(async () => {
       checkInDate: todayFormatted,
       checkOutDate: tomorrowFormatted,
       geolocation: {
-        latitude: coorData.latitude,
-        longitude: coorData.longitude,
+        latitude: store.geo.latitude,
+        longitude: store.geo.longitude,
         radius: 25.25,
       },
       filters: {},
@@ -153,6 +187,19 @@ const handleClick = (item: Item) => {
           :name="item.info.name"
           :type="item.info.type === 'city' ? 'city' : 'hotel'"
           :city="item.geo.cityName"
+          :click="handleClick"
+        />
+      </Block>
+      <Block v-if="popular.length > 0" :class="$style.content">
+        <div :class="$style.top">
+          <Title>Популярное</Title>
+        </div>
+        <SearchCard
+          v-for="item of popular"
+          :id="item.id"
+          :name="item.name"
+          type="city"
+          :city="item.country"
           :click="handleClick"
         />
       </Block>
