@@ -24,6 +24,7 @@ onMounted(async () => {
       initData: window.Telegram.WebApp.initDataUnsafe,
       initDataRaw: window.Telegram.WebApp.initData,
     };
+    console.log("AUTH DATA", userData);
     const jsonData = await api
       .post("/auth/sign-in/by-telegram", {
         headers: {
@@ -33,7 +34,9 @@ onMounted(async () => {
       })
       .json();
     console.log("AUTH", jsonData);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 });
 </script>
 
