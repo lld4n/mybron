@@ -3,11 +3,13 @@ import HotelButton from "./HotelButton.vue";
 import DateView from "../ui/views/DateView.vue";
 import Pencil from "../../assets/icons/pencil.svg";
 import { dates, guests, useStore } from "../../utils";
+import { useRoute } from "vue-router";
 const store = useStore();
 interface Props {
   offersCount: number;
   minPrice: number;
 }
+const route = useRoute();
 
 defineProps<Props>();
 </script>
@@ -29,7 +31,7 @@ defineProps<Props>();
     </div>
     <HotelButton
       :text="offersCount + ' вариантов от ' + minPrice + ' ₽'"
-      :click="() => $router.push('')"
+      :click="() => $router.push('/rooms/' + route.params.id)"
     />
   </div>
 </template>

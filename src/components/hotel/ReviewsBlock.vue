@@ -32,7 +32,7 @@ defineProps<Props>();
     </div>
     <HotelButton
       :text="reviews.length + ' ' + q.i18n.hotel.reviews.button"
-      :click="() => $router.push('/hotel/1/reviews')"
+      :click="() => $router.push('/hotel/reviews')"
     />
   </Block>
 </template>

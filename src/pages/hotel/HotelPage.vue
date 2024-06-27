@@ -130,7 +130,7 @@ const sharePage = () => {};
           ),
         ) +
         ' ₽',
-      click: () => $router.push('/rooms/1'),
+      click: () => $router.push('/rooms/' + route.params.id),
     }"
     v-if="!loading && !!data"
   >
