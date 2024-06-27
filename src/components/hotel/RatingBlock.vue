@@ -58,7 +58,7 @@ const ratings = [
 <template>
   <Block>
     <div :class="$style.header">
-      <Title>Оценка гостей</Title>
+      <Title>Оценка гостей (ждем апи)</Title>
     </div>
     <div :class="$style.rating">
       <RatingView :level="10" type="big" />

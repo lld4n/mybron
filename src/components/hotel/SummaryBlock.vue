@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Block from "../ui/wrappers/Block.vue";
-import AmenityCarousel from "./AmenityCarousel.vue";
+// import AmenityCarousel from "./AmenityCarousel.vue";
 import Title from "../ui/wrappers/Title.vue";
 import Text from "../ui/wrappers/Text.vue";
 const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
@@ -38,7 +38,7 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
           >
         </div>
       </div>
-      <AmenityCarousel />
+      <!--      <AmenityCarousel />-->
     </div>
   </Block>
 </template>

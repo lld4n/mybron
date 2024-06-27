@@ -5,7 +5,7 @@ import StarsBigOutLine from "../../../assets/icons/stars/star-big-outline.svg";
 import StarsBig from "../../../assets/icons/stars/star-big.svg";
 interface Props {
   type: "small" | "big";
-  level: 1 | 2 | 3 | 4 | 5;
+  level: number;
 }
 const props = defineProps<Props>();
 const array: boolean[] = [];

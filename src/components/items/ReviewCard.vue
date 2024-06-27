@@ -2,9 +2,14 @@
 import Block from "../ui/wrappers/Block.vue";
 import Text from "../ui/wrappers/Text.vue";
 import ReviewView from "../ui/views/ReviewView.vue";
-const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 interface Props {
   mini?: boolean;
+  name: string;
+  date: string;
+  rating: number;
+  title: string;
+  text: string;
+  avatar: string;
 }
 
 defineProps<Props>();
@@ -17,7 +22,7 @@ defineProps<Props>();
     }"
   >
     <div :class="$style.top">
-      <img :src="url" :class="$style.img" />
+      <img :src="avatar" :class="$style.img" alt="avatar" />
       <div :class="$style.info">
         <Text :s="17" :l="22" :w="500">Сергей</Text>
         <Text :s="12" :l="16" :c="$style.gray">02.09.2024</Text>

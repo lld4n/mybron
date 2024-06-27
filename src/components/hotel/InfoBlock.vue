@@ -2,20 +2,35 @@
 import HotelButton from "./HotelButton.vue";
 import DateView from "../ui/views/DateView.vue";
 import Pencil from "../../assets/icons/pencil.svg";
+import { dates, guests, useStore } from "../../utils";
+const store = useStore();
+interface Props {
+  offersCount: number;
+  minPrice: number;
+}
+
+defineProps<Props>();
 </script>
 
 <template>
   <div :class="$style.wrapper">
     <div :class="$style.top">
       <div :class="$style.left">
-        <div :class="$style.title"><DateView left="31 мая" right="8 июня" /></div>
-        <div :class="$style.text">2 взрослых</div>
+        <div :class="$style.title">
+          <DateView :left="dates(store.in)" :right="dates(store.out!)" />
+        </div>
+        <div :class="$style.text">
+          {{ guests(store.adultsCount, store.children) }}
+        </div>
       </div>
-      <button :class="$style.btn" @click="$router.push('/hotel/1/info')">
+      <button :class="$style.btn" @click="$router.push('/hotel/info')">
         <Pencil />
       </button>
     </div>
-    <HotelButton text="7 вариантов от 17 000 ₽" :click="() => $router.push('')" />
+    <HotelButton
+      :text="offersCount + ' вариантов от ' + minPrice + ' ₽'"
+      :click="() => $router.push('')"
+    />
   </div>
 </template>
 

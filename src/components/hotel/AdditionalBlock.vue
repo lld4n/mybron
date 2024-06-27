@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import Block from "../ui/wrappers/Block.vue";
 import Title from "../ui/wrappers/Title.vue";
+interface Props {
+  data: string[];
+}
+
+defineProps<Props>();
 </script>
 
 <template>
@@ -9,12 +14,7 @@ import Title from "../ui/wrappers/Title.vue";
       <Title>Дополнительная информация</Title>
     </div>
     <div :class="$style.text">
-      Информируем, что в соответствии с Федеральным законом от 29 июля 2017 № 214-ФЗ «О
-      проведении эксперимента по развитию курортной инфраструктуры» и Законом
-      Санкт-Петербурга от 29 июня 2023 года № 419-81 "О введении на территории
-      Санкт-Петербурга курортного сбора" с 01.04.2024 г . все гости Санкт-Петербурга (за
-      исключением лиц освобожденных от уплаты курортного сбора) обязаны при заезде в
-      отель оплатить курортный сбор в размере 100 руб. с человека в сутки.
+      <span v-for="text of data">{{ text }}</span>
     </div>
   </Block>
 </template>
@@ -24,6 +24,9 @@ import Title from "../ui/wrappers/Title.vue";
   padding: 24px 16px 8px;
 }
 .text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding: 0 16px 16px;
   font-size: 17px;
   line-height: 22px;

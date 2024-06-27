@@ -15,18 +15,24 @@ import { onMounted, ref } from "vue";
 import {
   api,
   dateToApi,
+  HotelReviewDto,
+  HotelReviewsResponse,
   HotelWithOffersDto,
   SearchHotelAccommodationsResponse,
+  useHotel,
   useStore,
 } from "../../utils";
 import { SearchParamsOption } from "ky";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 const data = ref<HotelWithOffersDto | null>(null);
+const reviews = ref<HotelReviewDto[]>([]);
 const loading = ref(true);
 const fetched = ref(false);
 const route = useRoute();
 const store = useStore();
+const hotel = useHotel();
 const router = useRouter();
+
 onMounted(async () => {
   if (!store.out) {
     await router.push("/");
@@ -39,6 +45,7 @@ onMounted(async () => {
     arrivalDate: dateToApi(store.in),
     departureDate: dateToApi(store.out),
     guests: String(store.adultsCount + store.children.length),
+    // language: "en",
   };
   if (store.filters.other.includes("breakfast")) {
     params.withBreakfast = true;
@@ -60,6 +67,30 @@ onMounted(async () => {
       .map((e) => e.toLocaleUpperCase())
       .join(",");
   }
+  api
+    .get("hotel/reviews", {
+      searchParams: {
+        hotelId: String(route.params.id),
+      },
+    })
+    .json<HotelReviewsResponse>()
+    .then((res) => {
+      reviews.value = res.reviews;
+      hotel.setReviews(res.reviews);
+      console.log(res);
+    });
+
+  api
+    .get("hotel/ratings", {
+      searchParams: {
+        hotelId: String(route.params.id),
+      },
+    })
+    .json()
+    .then((res) => {
+      console.log(res);
+    });
+
   try {
     const jsonData: SearchHotelAccommodationsResponse = await api
       .get("hotel/accommodations", {
@@ -68,6 +99,10 @@ onMounted(async () => {
       .json();
     if (jsonData.offers.length > 0) {
       data.value = jsonData.offers[0];
+      hotel.setDescription(jsonData.offers[0].descriptionDetails.description);
+      hotel.setAmenities(
+        jsonData.offers[0].descriptionDetails.availableAmenities.availableAmenities,
+      );
       console.log(jsonData.offers[0]);
     }
   } catch (e) {}
@@ -83,7 +118,14 @@ const sharePage = () => {};
   </div>
   <Wrapper
     :footer="{
-      text: 'Номера от 17 000 ₽',
+      text:
+        'Номера от ' +
+        Math.min(
+          ...data.offers.offers.map(
+            (e) => e.priceDetails.client.clientCurrency.gross.price,
+          ),
+        ) +
+        ' ₽',
       click: () => $router.push('/rooms/1'),
     }"
     v-if="!loading && !!data"
@@ -108,14 +150,44 @@ const sharePage = () => {};
         :longitude="data.descriptionDetails.longitude"
         :name="data.name"
         :stars="data.category"
+        :amenities="data.descriptionDetails.availableAmenities.availableAmenities"
       />
-      <InfoBlock />
+      <InfoBlock
+        :offers-count="data.offers.offers.length"
+        :min-price="
+          Math.min(
+            ...data.offers.offers.map(
+              (e) => e.priceDetails.client.clientCurrency.gross.price,
+            ),
+          )
+        "
+      />
       <RatingBlock />
-      <AboutBlock />
-      <ReviewsBlock />
-      <AmenityBlock />
-      <ConditionsBlock />
-      <AdditionalBlock />
+      <ReviewsBlock :reviews="reviews" v-if="reviews.length > 0" />
+      <AboutBlock :text="data.descriptionDetails.description" />
+      <AmenityBlock
+        :am="data.descriptionDetails.availableAmenities.availableAmenities"
+      />
+      <ConditionsBlock
+        v-if="data.checkInTime && data.checkOutTime"
+        :in-time="data.checkInTime"
+        :fee="data.taxes?.taxes.find((e) => e.type === 'RESORT_FEE') || null"
+        :deposit="data.taxes?.taxes.find((e) => e.type === 'DEPOSIT') || null"
+        :out-time="data.checkOutTime"
+      />
+      <AdditionalBlock
+        v-if="data.additionalInfo || data.informationForGuest"
+        :data="
+          [
+            data.additionalInfo
+              ? [...data.additionalInfo?.infos.map((e) => e.value)]
+              : [],
+            data.informationForGuest
+              ? [...data.informationForGuest?.notifications.map((e) => e.value)]
+              : [],
+          ].flat()
+        "
+      />
     </div>
   </Wrapper>
 </template>

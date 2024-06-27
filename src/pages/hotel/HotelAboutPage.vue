@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Block from "../../components/ui/wrappers/Block.vue";
 import Title from "../../components/ui/wrappers/Title.vue";
+import { useHotel } from "../../utils";
+const hotel = useHotel();
 </script>
 
 <template>
@@ -10,19 +12,9 @@ import Title from "../../components/ui/wrappers/Title.vue";
         <Title>Об отеле</Title>
       </div>
       <div :class="$style.text">
-        Сетевой пятизвездочный отель на Новинском бульваре, в 400 м от станции метро
-        Смоленская. Расстояние до аэропорта Внуково составляет 29 км, а до Киевского
-        железнодорожного вокзала — 2 км. Большой театр находится в 3 км, Государственная
-        Третьяковская галерея — в 4 км, Храм Василия Блаженного — в 3 км.<br /><br />Для
-        размещения предлагаются 300 номеров различных категорий: Стандарт, Супериор,
-        Делюкс, Люкс. Здесь же можно забронировать самый большой в России Люкс площадью
-        490 кв. м. В каждом номере имеются большие удобные кровати, современная техника,
-        отделанная мрамором ванная комната с отдельным душем и отапливаемым полом.<br /><br />На
-        территории отеля работает ресторан OVO, где подают блюда современной итальянской
-        кухни, японский ресторан Megumi и бар The Lounge.<br /><br />Гости могут
-        посетить спа-центр, который предлагает более 300 видов лечебной терапии,
-        фитнес-центр с сауной, хаммамом и шелковой ванной. Для бизнес-туристов доступны
-        конференц-залы и переговорные.
+        <template v-for="text of hotel.description.split('\n')"
+          ><span>{{ text }}</span></template
+        >
       </div>
     </Block>
   </div>
@@ -36,6 +28,9 @@ import Title from "../../components/ui/wrappers/Title.vue";
   padding: 24px 16px 8px;
 }
 .text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding: 0 16px 16px;
   font-size: 16px;
   line-height: 22px;

@@ -45,10 +45,10 @@ const routes = [
 
   // страница отеля и его доп информация
   { path: "/hotel/:id", component: HotelPage },
-  { path: "/hotel/:id/about", component: HotelAboutPage },
-  { path: "/hotel/:id/amenities", component: HotelAmenitiesPage },
-  { path: "/hotel/:id/reviews", component: HotelReviewsPage },
-  { path: "/hotel/:id/info", component: HotelInfoPage },
+  { path: "/hotel/about", component: HotelAboutPage },
+  { path: "/hotel/amenities", component: HotelAmenitiesPage },
+  { path: "/hotel/reviews", component: HotelReviewsPage },
+  { path: "/hotel/info", component: HotelInfoPage },
 
   // бронирования, включая мои бронирования
   { path: "/reservation/my", component: ReservationMyPage },

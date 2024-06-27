@@ -478,7 +478,7 @@
   dependencies:
     vue-demi ">=0.14.8"
 
-"@yandex/ymaps3-types@>=0.0.27":
+"@yandex/ymaps3-types@>=0.0.27", "@yandex/ymaps3-types@^0.0.27":
   version "0.0.27"
   resolved "https://registry.yarnpkg.com/@yandex/ymaps3-types/-/ymaps3-types-0.0.27.tgz#56705d2d96e5c4bc70d70143fe988088a48d81b9"
   integrity sha512-aQ2FNLXekN810mwfY7vfP8jh9pNu2AZA7N/W0T2ziSdaooWPvUFY+QWE7+PhXbJU5L8E4LKk5jW61m56rs9AJg==

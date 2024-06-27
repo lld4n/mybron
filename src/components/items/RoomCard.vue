@@ -3,7 +3,7 @@ import Block from "../ui/wrappers/Block.vue";
 import CarouselCount from "../ui/carousel/CarouselCount.vue";
 import Carousel from "../ui/carousel/Carousel.vue";
 import Text from "../ui/wrappers/Text.vue";
-import AmenityCarousel from "../hotel/AmenityCarousel.vue";
+// import AmenityCarousel from "../hotel/AmenityCarousel.vue";
 import RoomItemCard from "./RoomItemCard.vue";
 const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 </script>
@@ -20,7 +20,7 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
         <Text :s="22" :l="28" :w="600">Супериор с двуспальной кроватью</Text>
         <Text :s="17" :l="22" :c="$style.text">26 м², одна большая кровать</Text>
       </div>
-      <AmenityCarousel />
+      <!--      <AmenityCarousel />-->
       <Carousel>
         <RoomItemCard :class="$style.item" />
         <RoomItemCard :class="$style.item" />

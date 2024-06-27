@@ -3,18 +3,25 @@ import Carousel from "../ui/carousel/Carousel.vue";
 import Text from "../ui/wrappers/Text.vue";
 import AmenityArrow from "../../assets/icons/amenity-arrow.svg";
 import { useInter } from "../../utils/i18n";
-const list = ["Wi-Fi", "Парковка", "Кондиционер", "Коробка", "Луффи"];
+import { AvailableAmenityDto } from "../../utils";
+import AmenityView from "../ui/views/AmenityView.vue";
 const q = useInter();
+interface Props {
+  am: AvailableAmenityDto[];
+}
+
+defineProps<Props>();
 </script>
 
 <template>
   <div :class="$style.wrapper">
     <Carousel>
-      <div :class="$style.tag" v-for="item of list">
-        <Text :s="14" :l="18">{{ item }}</Text>
+      <div :class="$style.tag" v-for="item of am">
+        <AmenityView :group="item.groupName" />
+        <Text :s="14" :l="18">{{ item.name }}</Text>
       </div>
     </Carousel>
-    <Text :s="13" :l="18" :c="$style.link">
+    <Text :s="13" :l="18" :c="$style.link" @click="$router.push('/hotel/amenities')">
       {{ q.i18n.hotel.amenity }}
       <AmenityArrow />
     </Text>
@@ -27,6 +34,7 @@ const q = useInter();
   flex-direction: column;
 }
 .tag {
+  align-items: center;
   flex: 0 0 auto;
   min-width: 0;
   display: flex;
@@ -40,6 +48,13 @@ const q = useInter();
   }
   &:last-child {
     margin-right: 16px;
+  }
+  path {
+    fill: var(--tg-theme-text-color);
+  }
+  svg {
+    width: 18px;
+    height: auto;
   }
 }
 .link {

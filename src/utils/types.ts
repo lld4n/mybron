@@ -294,6 +294,16 @@ export type HotelReviewDto = {
   publishedDate: string;
   text: string;
   title: string;
+  user: {
+    username: string;
+    avatar: {
+      thumbnail: string;
+      small: string;
+      medium: string;
+      large: string;
+      original: string;
+    };
+  };
 };
 
 export type HotelReviewsResponse = {
@@ -372,8 +382,8 @@ export type HotelWithOffersDto = {
   cityName: string;
   name: string;
   address: string;
-  checkInTime: LocalTime;
-  checkOutTime: LocalTime;
+  checkInTime: string; // LocalTime
+  checkOutTime: string; // LocalTime
   descriptionDetails: DescriptionDetailsDto;
   vatApplicable: boolean;
   hasTaxes: boolean;
