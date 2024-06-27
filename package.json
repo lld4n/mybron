@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@primevue/themes": "4.0.0-rc.2",
+    "@tma.js/sdk": "^2.5.1",
     "@vueuse/core": "^10.11.0",
     "embla-carousel-vue": "^8.1.5",
     "embla-carousel-wheel-gestures": "^8.0.1",
