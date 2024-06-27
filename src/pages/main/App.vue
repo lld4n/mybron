@@ -21,8 +21,8 @@ onMounted(async () => {
   } catch (e) {}
 
   try {
-    const { initDataRaw } = retrieveLaunchParams();
-    console.log("TMA", initDataRaw);
+    const { initDataRaw, initData } = retrieveLaunchParams();
+    console.log("TMA", initDataRaw, initData);
     const userData = {
       initData: window.Telegram.WebApp.initDataUnsafe,
       initDataRaw: window.Telegram.WebApp.initData,
