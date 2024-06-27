@@ -6,7 +6,6 @@
 import { onMounted } from "vue";
 import ky from "ky";
 import { api, Geo, useStore } from "../../utils";
-import { retrieveLaunchParams } from "@tma.js/sdk";
 const store = useStore();
 onMounted(async () => {
   try {
@@ -21,8 +20,6 @@ onMounted(async () => {
   } catch (e) {}
 
   try {
-    const { initDataRaw, initData } = retrieveLaunchParams();
-    console.log("TMA", initDataRaw, initData);
     const userData = {
       initData: window.Telegram.WebApp.initDataUnsafe,
       initDataRaw: window.Telegram.WebApp.initData,

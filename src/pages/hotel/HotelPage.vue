@@ -14,18 +14,17 @@ import { useRoute, useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 import {
   api,
-  dateToApi,
   HotelRatingsDto,
   HotelRatingsResponse,
   HotelReviewDto,
   HotelReviewsResponse,
   HotelWithOffersDto,
-  SearchHotelAccommodationsResponse,
   useHotel,
   useStore,
 } from "../../utils";
-import { SearchParamsOption } from "ky";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
+import { fetchHotelInfo } from "./fetchHotelInfo.ts";
+
 const data = ref<HotelWithOffersDto | null>(null);
 const reviews = ref<HotelReviewDto[]>([]);
 const ratings = ref<HotelRatingsDto | null>(null);
@@ -43,33 +42,6 @@ onMounted(async () => {
   }
   loading.value = true;
   fetched.value = false;
-  const params: SearchParamsOption = {
-    hotelId: String(route.params.id),
-    arrivalDate: dateToApi(store.in),
-    departureDate: dateToApi(store.out),
-    guests: String(store.adultsCount + store.children.length),
-    // language: "en",
-  };
-  if (store.filters.other.includes("breakfast")) {
-    params.withBreakfast = true;
-  }
-  if (store.filters.other.includes("card")) {
-    params.withCard = true;
-  }
-  if (store.filters.price[0] > 0) {
-    params.minDailyPrice = String(store.filters.price[0]);
-  }
-  if (store.filters.price[1] < 50000) {
-    params.maxDailyPrice = String(store.filters.price[1]);
-  }
-  if (store.filters.stars.length > 0) {
-    params.stars = store.filters.stars.join(",");
-  }
-  if (store.filters.payment.length > 0) {
-    params.paymentRecipients = store.filters.payment
-      .map((e) => e.toLocaleUpperCase())
-      .join(",");
-  }
   api
     .get("hotel/reviews", {
       searchParams: {
@@ -94,22 +66,7 @@ onMounted(async () => {
       ratings.value = res.ratings;
       console.log(res);
     });
-
-  try {
-    const jsonData: SearchHotelAccommodationsResponse = await api
-      .get("hotel/accommodations", {
-        searchParams: params,
-      })
-      .json();
-    if (jsonData.offers.length > 0) {
-      data.value = jsonData.offers[0];
-      hotel.setDescription(jsonData.offers[0].descriptionDetails.description);
-      hotel.setAmenities(
-        jsonData.offers[0].descriptionDetails.availableAmenities.availableAmenities,
-      );
-      console.log(jsonData.offers[0]);
-    }
-  } catch (e) {}
+  data.value = await fetchHotelInfo(route.params.id, store, hotel);
   loading.value = false;
   fetched.value = true;
 });

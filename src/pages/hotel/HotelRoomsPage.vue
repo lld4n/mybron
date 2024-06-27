@@ -3,20 +3,45 @@ import Text from "../../components/ui/wrappers/Text.vue";
 import Carousel from "../../components/ui/carousel/Carousel.vue";
 import UpDown from "../../assets/icons/up-down.svg";
 import RoomCard from "../../components/items/RoomCard.vue";
+import { dates, guests, useHotel, useStore } from "../../utils";
+import { onMounted, ref } from "vue";
+import { fetchHotelInfo } from "./fetchHotelInfo.ts";
+import { useRoute } from "vue-router";
+import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
+const store = useStore();
+const hotel = useHotel();
+const route = useRoute();
+const loading = ref(true);
+const subtitle = () => {
+  let ans = dates(store.in) + " — " + dates(store.out!);
+  ans += ", " + guests(store.adultsCount, store.children);
+  return ans;
+};
+
+onMounted(async () => {
+  if (hotel.offers.length === 0) {
+    await fetchHotelInfo(route.params.id, store, hotel);
+  }
+  loading.value = false;
+  console.log(hotel.offers);
+});
 </script>
 
 <template>
-  <div :class="$style.wrapper">
+  <div :class="$style.center" v-if="loading">
+    <LoadingSimple />
+  </div>
+  <div :class="$style.wrapper" v-else>
     <div :class="$style.header">
       <div :class="$style.info">
         <div :class="$style.item">
           <div :class="$style.left">
-            <Text :s="14" :l="18" :w="600">Отель Метрополь</Text>
-            <Text :s="12" :l="16" :c="$style.text">31 мая — 8 июня, 2 взрослых</Text>
+            <Text :s="14" :l="18" :w="600">{{ store.search?.name || hotel.name }}</Text>
+            <Text :s="12" :l="16" :c="$style.text">{{ subtitle() }}</Text>
           </div>
         </div>
       </div>
-      <Carousel>
+      <Carousel v-if="false">
         <div :class="$style.item">
           <div :class="$style.left">
             <Text :s="12" :l="16" :c="$style.text">Стоимость</Text>
@@ -115,5 +140,11 @@ import RoomCard from "../../components/items/RoomCard.vue";
   flex-direction: column;
   gap: 8px;
   padding-bottom: 12px;
+}
+.center {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 </style>
