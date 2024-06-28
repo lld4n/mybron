@@ -10,7 +10,7 @@ import { onMounted } from "vue";
 const q = useInter();
 onMounted(() => {
   //@ts-ignore
-  const AdController = window.Adsgram.init({ blockId: "334" });
+  const AdController = window.Adsgram.init({ blockId: "359" });
   AdController.show()
     .then((result: any) => {
       console.log(result);
