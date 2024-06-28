@@ -55,7 +55,7 @@ onMounted(async () => {
   try {
     const data = window.Telegram.WebApp.initDataUnsafe;
     const initData: sendData = {
-      authDate: new Date(data.auth_date).toISOString(),
+      authDate: new Date(+data.auth_date).toLocaleString(),
       hash: data.hash,
     };
     if (data.query_id) initData.queryId = data.query_id;
