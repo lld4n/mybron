@@ -111,16 +111,13 @@ onMounted(async () => {
       initData: initData,
       initDataRaw: window.Telegram.WebApp.initData,
     };
-    console.log("AUTH DATA", userData);
-    const jsonData = await api
-      .post("auth/sign-in/by-telegram", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      })
-      .json();
-    console.log("AUTH", jsonData);
+    const jsonData = await api.post("auth/sign-in/by-telegram", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    console.log(jsonData.headers);
   } catch (e) {
     console.log(e);
   }
