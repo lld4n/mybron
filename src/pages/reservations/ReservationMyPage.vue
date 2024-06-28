@@ -5,7 +5,6 @@ import Shape from "../../assets/icons/shape.svg";
 import { useInter } from "../../utils/i18n";
 import Text from "../../components/ui/wrappers/Text.vue";
 import ReservationCard from "../../components/items/ReservationCard.vue";
-import { onMounted } from "vue";
 
 const q = useInter();
 </script>
