@@ -28,6 +28,12 @@ onMounted(async () => {
     await router.push("/");
     return;
   }
+  if (store.hotels.length > 0) {
+    list.value = store.hotels;
+    loading.value = false;
+    fetched.value = true;
+    return;
+  }
   loading.value = true;
   fetched.value = false;
   const URL =
@@ -98,6 +104,7 @@ onMounted(async () => {
       (a, b) => a.geo.distanceToCenter - b.geo.distanceToCenter,
     );
   }
+  store.setHotels(list.value);
   loading.value = false;
   fetched.value = true;
 });

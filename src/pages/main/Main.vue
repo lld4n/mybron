@@ -139,6 +139,7 @@ import ReservationCard from "../../components/items/ReservationCard.vue";
 import { useRouter } from "vue-router";
 const q = useInter();
 const test = ref();
+const router = useRouter();
 console.log(window.Telegram);
 onMounted(() => {
   test.value = window.Telegram.WebApp.initDataUnsafe.start_param;
@@ -150,12 +151,16 @@ onMounted(() => {
   if (window.Telegram.WebApp.colorScheme === "dark") {
     document.documentElement.setAttribute("data-theme", "dark");
   }
+  if (store.checked) return;
+  if (window.Telegram.WebApp.initDataUnsafe.start_param) {
+    router.push("/hotel/" + window.Telegram.WebApp.initDataUnsafe.start_param);
+  }
+  store.check();
 });
 window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   router.go(-1);
 });
 const store = useStore();
-const router = useRouter();
 const handleFind = () => {
   if (!store.search) {
     router.push("/search");

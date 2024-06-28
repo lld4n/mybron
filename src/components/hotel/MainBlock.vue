@@ -5,11 +5,15 @@ import CopyButton from "../ui/CopyButton.vue";
 import Walking from "../../assets/icons/walking.svg";
 import Point from "../../assets/icons/point.svg";
 import Text from "../ui/wrappers/Text.vue";
-// import { YandexMap, YandexMapDefaultSchemeLayer } from "vue-yandex-maps";
 import { onMounted, ref } from "vue";
 import { AvailableAmenityDto } from "../../utils";
 import AmenityCarousel from "./AmenityCarousel.vue";
-// import type { YMapLocationRequest } from "ymaps3";
+import {
+  YandexMap,
+  YandexMapDefaultFeaturesLayer,
+  YandexMapDefaultMarker,
+  YandexMapDefaultSchemeLayer,
+} from "vue-yandex-maps";
 interface Props {
   id: number;
   rating?: number;
@@ -26,22 +30,6 @@ defineProps<Props>();
 const showMap = ref(false);
 onMounted(() => {
   showMap.value = true;
-
-  // async function initMap(): Promise<void> {
-  //   await ymaps3.ready;
-  //
-  //   const LOCATION: YMapLocationRequest = {
-  //     center: [37.623082, 55.75254],
-  //     zoom: 9,
-  //   };
-  //
-  //   const { YMap, YMapDefaultSchemeLayer } = ymaps3;
-  //
-  //   const map = new YMap(document.getElementById("map")!, { location: LOCATION });
-  //   map.addChild(new YMapDefaultSchemeLayer({}));
-  // }
-
-  // initMap();
 });
 </script>
 
@@ -66,22 +54,24 @@ onMounted(() => {
       </Text>
     </div>
     <div :class="$style.map">
-      <!--      <div id="map" style="width: 100%; height: 400px"></div>-->
-      <!--      <yandex-map-->
-      <!--        v-if="showMap"-->
-      <!--        :settings="{-->
-      <!--          location: {-->
-      <!--            center: [longitude, latitude],-->
-      <!--          },-->
-      <!--        }"-->
-      <!--        width="100"-->
-      <!--        height="100"-->
-      <!--      >-->
-      <!--        <yandex-map-default-scheme-layer />-->
-      <!--      </yandex-map>-->
-      <img src="https://i.ibb.co/yNtsMP8/2024-06-21-21-12-03.jpg" :class="$style.img" />
-      <CopyButton :text="address" title="Адрес" />
+      <yandex-map
+        :settings="{
+          location: {
+            center: [longitude, latitude],
+            zoom: 14,
+          },
+        }"
+        width="100%"
+        height="200px"
+      >
+        <yandex-map-default-scheme-layer />
+        <yandex-map-default-features-layer />
+        <yandex-map-default-marker
+          :settings="{ coordinates: [longitude, latitude], title: name }"
+        />
+      </yandex-map>
     </div>
+    <CopyButton :text="address" title="Адрес" :class="$style.copu" />
   </div>
 </template>
 
@@ -141,6 +131,10 @@ onMounted(() => {
   font-weight: 700;
 }
 .map {
+  overflow: hidden;
+  padding: 16px 16px 0 16px;
+}
+.copu {
   padding: 16px;
 }
 .img {
