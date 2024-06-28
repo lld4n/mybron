@@ -8,10 +8,12 @@ import { onMounted, ref } from "vue";
 import { fetchHotelInfo } from "./fetchHotelInfo.ts";
 import { useRoute } from "vue-router";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
+import { RenderRoom, RenderRoomItem } from "./types.ts";
 const store = useStore();
 const hotel = useHotel();
 const route = useRoute();
 const loading = ref(true);
+const render = ref<RenderRoom[]>([]);
 const subtitle = () => {
   let ans = dates(store.in) + " — " + dates(store.out!);
   ans += ", " + guests(store.adultsCount, store.children);
@@ -24,6 +26,31 @@ onMounted(async () => {
   }
   loading.value = false;
   console.log(hotel.offers);
+  const ans: RenderRoom[] = [];
+  for (const item of hotel.offers) {
+    const finded = ans.find((e) => e.id === item.roomId);
+    const one: RenderRoomItem = {
+      price: item.priceDetails.client.clientCurrency.gross.price,
+      currency: item.priceDetails.client.clientCurrency.gross.currency,
+      meals: item.meals.meals,
+      payment: item.paymentRecipient,
+      cancel: item.cancellationPolicies,
+    };
+    if (finded) {
+      finded.rooms.push(one);
+    } else {
+      ans.push({
+        id: item.roomId,
+        name: item.name,
+        images: [],
+        beds: item.availableBedSets?.beds || [],
+        amenities: hotel.amenities,
+        rooms: [one],
+      });
+    }
+    render.value = ans;
+  }
+  console.log(ans);
 });
 </script>
 
@@ -73,9 +100,7 @@ onMounted(async () => {
       </Carousel>
     </div>
     <div :class="$style.content">
-      <RoomCard />
-      <RoomCard />
-      <RoomCard />
+      <RoomCard v-for="item of render" :room="item" />
     </div>
   </div>
 </template>

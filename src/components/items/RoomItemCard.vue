@@ -1,17 +1,40 @@
 <script setup lang="ts">
 import Text from "../ui/wrappers/Text.vue";
+import { RenderRoomItem } from "../../pages/hotel/types.ts";
+import { useStore } from "../../utils";
+interface Props {
+  item: RenderRoomItem;
+}
+const store = useStore();
+
+defineProps<Props>();
 </script>
 
 <template>
   <div :class="$style.wrapper">
     <div :class="$style.top">
-      <Text :s="20" :l="24" :w="600">40 000 ₽</Text>
-      <Text :s="14" :l="18">2 гостя, 7 ночей</Text>
+      <Text :s="20" :l="24" :w="600">{{ item.price }} ₽</Text>
+      <Text :s="14" :l="18" v-if="!!store.out"
+        >{{ store.adultsCount + store.children.length }} гостя,
+        {{
+          Math.ceil((store.out?.getTime() - store.in.getTime()) / (1000 * 60 * 60 * 24))
+        }}
+        ночь</Text
+      >
     </div>
     <div :class="$style.list">
-      <Text :s="14" :l="18">Без питания</Text>
-      <Text :s="14" :l="18" :c="$style.green">Бесплатная отмена</Text>
-      <Text :s="14" :l="18">Предоплата картой</Text>
+      <Text :s="14" :l="18" v-if="item.meals.length === 0">Без питания</Text>
+      <Text :s="14" :l="18" :c="$style.green" v-if="item.meals.length > 0">{{
+        item.meals[0].name
+      }}</Text>
+      <Text :s="14" :l="18" v-if="item.cancel.length > 0">Платная отмена</Text>
+      <Text :s="14" :l="18" v-if="item.cancel.length === 0" :c="$style.green"
+        >Бесплатная отмена</Text
+      >
+      <Text :s="14" :l="18" v-if="item.payment === 'AGENCY'">Предоплата картой</Text>
+      <Text :s="14" :l="18" v-if="item.payment === 'HOTEL'" :c="$style.green"
+        >Оплата на месте</Text
+      >
     </div>
     <button :class="$style.btn" @click="$router.push('/checkout')">
       <Text :s="17" :l="22" :w="600">Выбрать</Text>
@@ -52,5 +75,8 @@ import Text from "../ui/wrappers/Text.vue";
       opacity: 0.85;
     }
   }
+}
+.green {
+  color: #34c759;
 }
 </style>

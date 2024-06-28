@@ -8,6 +8,7 @@ import AmenityView from "../ui/views/AmenityView.vue";
 const q = useInter();
 interface Props {
   am: AvailableAmenityDto[];
+  noShow?: boolean;
 }
 
 defineProps<Props>();
@@ -23,7 +24,13 @@ defineProps<Props>();
         </div>
       </template>
     </Carousel>
-    <Text :s="13" :l="18" :c="$style.link" @click="$router.push('/hotel/amenities')">
+    <Text
+      v-if="!noShow"
+      :s="13"
+      :l="18"
+      :c="$style.link"
+      @click="$router.push('/hotel/amenities')"
+    >
       {{ q.i18n.hotel.amenity }}
       <AmenityArrow />
     </Text>
