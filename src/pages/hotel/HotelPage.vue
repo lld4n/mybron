@@ -102,7 +102,10 @@ onMounted(async () => {
       <a
         :class="$style.share"
         target="_blank"
-        href="https://telegram.me/share/url?url=https://lldan.ru"
+        :href="
+          'https://telegram.me/share/url?url=https://t.me/MoyabronBot/miniapp?startapp=' +
+          route.params.id
+        "
         ><Share
       /></a>
     </div>
