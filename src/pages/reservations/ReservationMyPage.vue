@@ -5,8 +5,24 @@ import Shape from "../../assets/icons/shape.svg";
 import { useInter } from "../../utils/i18n";
 import Text from "../../components/ui/wrappers/Text.vue";
 import ReservationCard from "../../components/items/ReservationCard.vue";
+import { onMounted } from "vue";
 
 const q = useInter();
+onMounted(() => {
+  //@ts-ignore
+  const AdController = window.Adsgram.init({ blockId: "334" });
+  AdController.show()
+    .then((result: any) => {
+      console.log(result);
+      // user watch ad till the end
+      // your code to reward user
+    })
+    .catch((result: any) => {
+      console.log(result);
+      // user skipped video or get error during playing ad
+      // do nothing or whatever you want
+    });
+});
 </script>
 
 <template>
