@@ -70,7 +70,6 @@ onMounted(async () => {
   loading.value = false;
   fetched.value = true;
 });
-const sharePage = () => {};
 </script>
 
 <template>
@@ -100,7 +99,12 @@ const sharePage = () => {};
           alt="Image"
         />
       </CarouselCount>
-      <button :class="$style.share" @click="sharePage"><Share /></button>
+      <a
+        :class="$style.share"
+        target="_blank"
+        href="https://telegram.me/share/url?url=https://lldan.ru"
+        ><Share
+      /></a>
     </div>
     <div :class="$style.content">
       <MainBlock
