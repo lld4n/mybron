@@ -117,7 +117,7 @@ onMounted(async () => {
       },
       body: JSON.stringify(userData),
     });
-    console.log(jsonData.headers.get("Authorization"));
+    store.setAuth(jsonData.headers.get("Authorization") || "");
   } catch (e) {
     console.log(e);
   }

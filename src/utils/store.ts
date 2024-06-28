@@ -38,6 +38,7 @@ interface StoreInterface {
   message: Message;
   geo: Geo | null;
   hotels: HotelWithCheapestOfferDto[];
+  auth: string;
   filters: {
     sort: SortFilters;
     payment: PaymentFilters[];
@@ -67,6 +68,7 @@ export const useStore = defineStore("store", {
       ),
       message: null,
       geo: null,
+      auth: "",
       filters: {
         sort: "default",
         payment: [],
@@ -77,6 +79,9 @@ export const useStore = defineStore("store", {
     };
   },
   actions: {
+    setAuth(t: string) {
+      this.auth = t;
+    },
     check() {
       this.checked = true;
     },

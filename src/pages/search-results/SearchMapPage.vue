@@ -3,14 +3,44 @@
 import FilterView from "../../components/common/FilterView.vue";
 import ShapeIcon from "../../assets/icons/shape.svg";
 import X from "../../assets/icons/x.svg";
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useSwipe } from "@vueuse/core";
+import {
+  YandexMap,
+  YandexMapDefaultFeaturesLayer,
+  YandexMapDefaultMarker,
+  YandexMapDefaultSchemeLayer,
+  YandexMapListener,
+} from "vue-yandex-maps";
+import { HotelWithCheapestOfferDto, nightsRange, router, useStore } from "../../utils";
+import { DomEventHandler, LngLat } from "ymaps3";
+import HotelCard from "../../components/items/HotelCard.vue";
 const viewInfo = ref<"in" | "out" | "default">("default");
 const el = ref(null);
+const store = useStore();
+const item = ref<HotelWithCheapestOfferDto | null>(null);
 const container = ref(null);
 // @ts-ignore
 const height = computed(() => container.value?.offsetHeight);
 const bottom = ref("0");
+
+const coor = computed(() => {
+  let long = 0;
+  let lat = 0;
+  let i = 0;
+  for (const h of store.hotels) {
+    long += h.geo.coordinates.longitude;
+    lat += h.geo.coordinates.latitude;
+    i++;
+  }
+  return [long / i, lat / i] as LngLat;
+});
+
+onMounted(() => {
+  if (store.hotels.length === 0) {
+    router.push("/search/results");
+  }
+});
 
 watch(viewInfo, (value) => {
   if (value) {
@@ -54,6 +84,16 @@ const handleClose = () => {
     }, 450);
   } else viewInfo.value = "in";
 };
+const logMapClick: DomEventHandler = (object) => {
+  if (object && object.type === "marker") {
+    //@ts-ignore
+    const f = store.hotels.find((e) => e.info.name === object.entity._props.title);
+    if (f) {
+      item.value = f;
+      handleClose();
+    }
+  }
+};
 </script>
 
 <template>
@@ -65,7 +105,33 @@ const handleClose = () => {
       </div>
       <FilterView />
     </header>
-    <div :class="$style.map" @click="handleClose">Здесь будет карта</div>
+    <div :class="$style.map">
+      <yandex-map
+        :settings="{
+          location: {
+            center: coor,
+            zoom: 14,
+          },
+        }"
+        width="100%"
+        height="100%"
+      >
+        <yandex-map-default-scheme-layer />
+        <yandex-map-default-features-layer />
+        <template v-for="item of store.hotels">
+          <yandex-map-default-marker
+            :settings="{
+              coordinates: [
+                item.geo.coordinates.longitude,
+                item.geo.coordinates.latitude,
+              ],
+              title: item.info.name,
+            }"
+          />
+        </template>
+        <yandex-map-listener :settings="{ onClick: logMapClick }" />
+      </yandex-map>
+    </div>
     <div
       :class="[
         $style.view,
@@ -84,7 +150,19 @@ const handleClose = () => {
       <button :class="$style.close" @click.prevent="handleClose">
         <X />
       </button>
-      <!--      <HotelCard />-->
+      <HotelCard
+        v-if="!!item"
+        :id="item.id"
+        :images="[item.info.photo.url]"
+        :price="{
+          all: item.minimalPriceDetails.client.clientCurrency.net.price,
+          currency: item.minimalPriceDetails.client.clientCurrency.net.currency,
+          nights: nightsRange(store.in, store.out!),
+        }"
+        :center="Number(item.geo.distanceToCenter.toFixed(2))"
+        :name="item.info.name"
+        :stars="item.info.category"
+      />
     </div>
     <div :class="$style.block">
       <button :class="$style.btn" @click="$router.push('/search/results')">
