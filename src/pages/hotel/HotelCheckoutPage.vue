@@ -6,15 +6,36 @@ import TotalBlock from "../../components/hotel/TotalBlock.vue";
 import WishesBlock from "../../components/hotel/WishesBlock.vue";
 import GuestsBlock from "../../components/hotel/GuestsBlock.vue";
 import DataBlock from "../../components/hotel/DataBlock.vue";
-import { useHotel } from "../../utils";
+import { api, useHotel, useStore } from "../../utils";
 const hotel = useHotel();
+const store = useStore();
 console.log("OFFER", hotel.offer);
-const close = () => {
-  window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
-  // const url = document.createElement("a");
-  // url.href = "tg://resolve?domain=MoyabronBot";
-  // url.target = "_blank";
-  // url.click();
+const close = async () => {
+  if (!hotel.offer || !store.auth) return;
+  const body = {
+    accommodations: [
+      {
+        offerCode: hotel.offer.code,
+        guests: [
+          {
+            firstName: "lldan",
+            lastName: "lldan",
+          },
+        ],
+      },
+    ],
+  };
+  const data = await api
+    .post("order", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: store.auth,
+      },
+      body: JSON.stringify(body),
+    })
+    .json();
+  console.log(data);
+  // window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
 };
 </script>
 
