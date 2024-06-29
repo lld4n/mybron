@@ -12,7 +12,7 @@ console.log("OFFER", hotel.offer);
 const close = () => {
   const url = document.createElement("a");
   url.href = "https://t.me/MoyabronBot";
-  url.target = "_blank";
+  // url.target = "_blank";
   url.click();
 };
 </script>
