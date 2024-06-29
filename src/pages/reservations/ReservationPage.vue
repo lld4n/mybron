@@ -2,9 +2,9 @@
 import StatusBlock from "../../components/hotel/StatusBlock.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import ButtonsBlock from "../../components/hotel/ButtonsBlock.vue";
-import TotalBlock from "../../components/hotel/TotalBlock.vue";
-import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
-import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
+// import TotalBlock from "../../components/hotel/TotalBlock.vue";
+// import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
+// import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
 </script>
 
 <template>
@@ -15,12 +15,12 @@ import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
       <StatusBlock status="cancel" />
       <StatusBlock status="fail" />
       <StatusBlock status="absence" />
-      <EstimatedBlock />
-      <EstimatedBlock :rating="1" />
+      <!--      <EstimatedBlock />-->
+      <!--      <EstimatedBlock :rating="1" />-->
       <ButtonsBlock />
       <ButtonsBlock :no-show-cancel="true" />
-      <SummaryBlock />
-      <TotalBlock />
+      <!--      <SummaryBlock />-->
+      <!--      <TotalBlock />-->
     </div>
   </Wrapper>
 </template>

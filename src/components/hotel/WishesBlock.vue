@@ -2,7 +2,7 @@
 import Block from "../ui/wrappers/Block.vue";
 import Text from "../ui/wrappers/Text.vue";
 import AddWish from "../../assets/icons/add-wish.svg";
-import { onMounted, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import Title from "../ui/wrappers/Title.vue";
 const show = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
