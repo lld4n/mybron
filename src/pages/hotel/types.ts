@@ -15,6 +15,7 @@ export type RenderRoom = {
 };
 
 export type RenderRoomItem = {
+  code: string;
   price: number;
   currency: string;
   meals: AvailableMealDto[];

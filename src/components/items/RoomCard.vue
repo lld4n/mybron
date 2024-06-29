@@ -10,6 +10,7 @@ import { RenderRoom } from "../../pages/hotel/types.ts";
 const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 interface Props {
   room: RenderRoom;
+  click: (code: string) => void;
 }
 
 defineProps<Props>();
@@ -31,7 +32,12 @@ defineProps<Props>();
       </div>
       <AmenityCarousel :am="room.amenities" :no-show="true" />
       <Carousel>
-        <RoomItemCard :class="$style.item" :item="item" v-for="item of room.rooms" />
+        <RoomItemCard
+          :class="$style.item"
+          :item="item"
+          v-for="item of room.rooms"
+          :click="click"
+        />
       </Carousel>
     </div>
   </Block>

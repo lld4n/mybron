@@ -6,8 +6,15 @@ import TotalBlock from "../../components/hotel/TotalBlock.vue";
 import WishesBlock from "../../components/hotel/WishesBlock.vue";
 import GuestsBlock from "../../components/hotel/GuestsBlock.vue";
 import DataBlock from "../../components/hotel/DataBlock.vue";
+import { useHotel } from "../../utils";
+const hotel = useHotel();
+console.log("OFFER", hotel.offer);
 const close = () => {
-  window.Telegram.WebApp.close();
+  // window.Telegram.WebApp.close();
+  const url = document.createElement("a");
+  url.href = "https://t.me/MoyabronBot";
+  url.target = "_blank";
+  url.click();
 };
 </script>
 
@@ -20,12 +27,34 @@ const close = () => {
     }"
   >
     <div :class="$style.wrapper">
-      <EstimatedBlock :rating="5" />
-      <SummaryBlock />
+      <EstimatedBlock
+        v-if="!!hotel.time"
+        :category="hotel.category"
+        :in-time="hotel.time.timeIn"
+        :address="hotel.address"
+        :check-in="hotel.time.checkIn"
+        :name="hotel.name"
+        :check-out="hotel.time.checkOut"
+        :out-time="hotel.time.timeOut"
+      />
+      <SummaryBlock
+        v-if="!!hotel.offer"
+        :cancel="hotel.offer.cancellationPolicies"
+        :name="hotel.offer.name"
+        :payment="hotel.offer.paymentRecipient"
+        :am="hotel.amenities"
+        :meals="hotel.offer.meals.meals"
+        :no-show-guests="true"
+      />
       <DataBlock />
       <GuestsBlock />
       <WishesBlock />
-      <TotalBlock />
+      <TotalBlock
+        v-if="!!hotel.offer"
+        :total="hotel.offer.priceDetails.client.clientCurrency.gross.price"
+        :vat="hotel.offer.priceDetails.client.clientCurrency.gross.vatAmount"
+        :name="hotel.offer.name"
+      />
     </div>
   </Wrapper>
 </template>

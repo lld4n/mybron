@@ -4,6 +4,14 @@ import Title from "../ui/wrappers/Title.vue";
 import { useInter } from "../../utils/i18n";
 import Text from "../ui/wrappers/Text.vue";
 const q = useInter();
+interface Props {
+  currency?: string;
+  vat: number;
+  total: number;
+  name: string;
+}
+
+defineProps<Props>();
 </script>
 
 <template>
@@ -13,18 +21,16 @@ const q = useInter();
     </div>
     <div :class="$style.list">
       <div :class="$style.item">
-        <Text :s="17" :l="22" :c="$style.overflow"
-          >Супериор с двуспальной кроватью</Text
-        >
-        <Text :s="17" :l="22">40 000.00 ₽</Text>
+        <Text :s="17" :l="22" :c="$style.overflow">{{ name }}</Text>
+        <Text :s="17" :l="22">{{ total - vat }} ₽</Text>
       </div>
       <div :class="$style.item">
         <Text :s="17" :l="22">{{ q.i18n.hotel.total.tax }}</Text>
-        <Text :s="17" :l="22">40 000.00 ₽</Text>
+        <Text :s="17" :l="22">{{ vat }} ₽</Text>
       </div>
       <div :class="$style.item">
         <Text :s="17" :l="22">{{ q.i18n.hotel.total.total }}</Text>
-        <Text :s="28" :l="34" :w="700">52 000.00 ₽</Text>
+        <Text :s="28" :l="34" :w="700">{{ total }} ₽</Text>
       </div>
     </div>
   </Block>

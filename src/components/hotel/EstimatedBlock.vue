@@ -7,6 +7,13 @@ import RatingView from "../ui/views/RatingView.vue";
 import { useInter } from "../../utils/i18n";
 interface Props {
   rating?: number;
+  name: string;
+  address: string;
+  inTime: string;
+  outTime: string;
+  checkIn: string;
+  checkOut: string;
+  category: number;
 }
 
 defineProps<Props>();
@@ -16,7 +23,7 @@ const q = useInter();
 <template>
   <Block>
     <div :class="$style.top">
-      <StarsView :level="4" type="small" :class="$style.stars" />
+      <StarsView :level="category" type="small" :class="$style.stars" />
       <Text
         :s="20"
         :l="24"
@@ -24,22 +31,22 @@ const q = useInter();
         @click="$router.push('/hotel/1')"
         v-if="!rating"
         :c="$style.link"
-        >Отель метрополь</Text
+        >{{ name }}</Text
       >
-      <Text :s="28" :l="31" :w="700" v-if="!!rating">Отель метрополь</Text>
-      <CopyButton title="Адрес" text="Театральный пр-д, д.2, Москва" />
+      <Text :s="28" :l="31" :w="700" v-if="!!rating">{{ name }}</Text>
+      <CopyButton v-if="!!address" title="Адрес" :text="address" />
       <RatingView v-if="!!rating" :level="rating" type="big" :c="$style.rating" />
     </div>
     <div :class="$style.dates">
       <div :class="$style.item">
         <Text :s="13" :l="18" :c="$style.header">{{ q.i18n.hotel.estimated.in }}</Text>
-        <Text :s="20" :l="24">1 июня, 2024</Text>
-        <Text :s="14" :l="18">после 15:00</Text>
+        <Text :s="20" :l="24">{{ inTime }}</Text>
+        <Text :s="14" :l="18">после {{ checkIn }}</Text>
       </div>
       <div :class="$style.item">
         <Text :s="13" :l="18" :c="$style.header">{{ q.i18n.hotel.estimated.out }}</Text>
-        <Text :s="20" :l="24">52 июня, 2024</Text>
-        <Text :s="14" :l="18">до 15:00</Text>
+        <Text :s="20" :l="24">{{ outTime }}</Text>
+        <Text :s="14" :l="18">до {{ checkOut }}</Text>
       </div>
     </div>
   </Block>

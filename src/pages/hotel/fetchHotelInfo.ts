@@ -1,5 +1,5 @@
 import { SearchParamsOption } from "ky";
-import { api, dateToApi, SearchHotelAccommodationsResponse } from "../../utils";
+import { api, dates, dateToApi, SearchHotelAccommodationsResponse } from "../../utils";
 
 export async function fetchHotelInfo(id: string | string[], store: any, hotel: any) {
   const params: SearchParamsOption = {
@@ -43,6 +43,14 @@ export async function fetchHotelInfo(id: string | string[], store: any, hotel: a
     if (jsonData.offers[0].offers.offers)
       hotel.setOffers(jsonData.offers[0].offers.offers);
     hotel.setName(jsonData.offers[0].name);
+    hotel.setAddress(jsonData.offers[0].address);
+    hotel.setTime({
+      checkIn: jsonData.offers[0].checkInTime,
+      checkOut: jsonData.offers[0].checkOutTime,
+      timeIn: dates(store.in),
+      timeOut: dates(store.out!),
+    });
+    hotel.setCategory(jsonData.offers[0].category);
     console.log(jsonData.offers[0]);
     return jsonData.offers[0];
   }

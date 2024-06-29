@@ -6,12 +6,13 @@ import RoomCard from "../../components/items/RoomCard.vue";
 import { dates, guests, useHotel, useStore } from "../../utils";
 import { onMounted, ref } from "vue";
 import { fetchHotelInfo } from "./fetchHotelInfo.ts";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 import { RenderRoom, RenderRoomItem } from "./types.ts";
 const store = useStore();
 const hotel = useHotel();
 const route = useRoute();
+const router = useRouter();
 const loading = ref(true);
 const render = ref<RenderRoom[]>([]);
 const subtitle = () => {
@@ -30,6 +31,7 @@ onMounted(async () => {
   for (const item of hotel.offers) {
     const finded = ans.find((e) => e.id === item.roomId);
     const one: RenderRoomItem = {
+      code: item.code,
       price: item.priceDetails.client.clientCurrency.gross.price,
       currency: item.priceDetails.client.clientCurrency.gross.currency,
       meals: item.meals.meals,
@@ -52,6 +54,13 @@ onMounted(async () => {
   }
   console.log(ans);
 });
+const handleClick = (code: string) => {
+  const item = hotel.offers.find((e) => e.code === code);
+  if (item) {
+    hotel.setOffer(item);
+    router.push("/checkout");
+  }
+};
 </script>
 
 <template>
@@ -100,7 +109,7 @@ onMounted(async () => {
       </Carousel>
     </div>
     <div :class="$style.content">
-      <RoomCard v-for="item of render" :room="item" />
+      <RoomCard v-for="item of render" :room="item" :click="handleClick" />
     </div>
   </div>
 </template>

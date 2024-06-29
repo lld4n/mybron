@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 interface Props {
   label: string;
   id: string;
   type?: string;
+  active?: boolean;
 }
 
 const [model] = defineModel();
-const active = ref(false);
 const focus = () => {
   active.value = true;
 };
@@ -16,7 +16,8 @@ const blur = () => {
   // @ts-ignore
   if (model.value.length === 0) active.value = false;
 };
-defineProps<Props>();
+const props = defineProps<Props>();
+const active = ref(props.active || false);
 </script>
 
 <template>

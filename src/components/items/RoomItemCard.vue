@@ -4,6 +4,7 @@ import { RenderRoomItem } from "../../pages/hotel/types.ts";
 import { useStore } from "../../utils";
 interface Props {
   item: RenderRoomItem;
+  click: (code: string) => void;
 }
 const store = useStore();
 
@@ -36,7 +37,7 @@ defineProps<Props>();
         >Оплата на месте</Text
       >
     </div>
-    <button :class="$style.btn" @click="$router.push('/checkout')">
+    <button :class="$style.btn" @click="() => click(item.code)">
       <Text :s="17" :l="22" :w="600">Выбрать</Text>
     </button>
   </div>

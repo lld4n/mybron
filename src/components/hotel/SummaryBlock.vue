@@ -3,7 +3,22 @@ import Block from "../ui/wrappers/Block.vue";
 // import AmenityCarousel from "./AmenityCarousel.vue";
 import Title from "../ui/wrappers/Title.vue";
 import Text from "../ui/wrappers/Text.vue";
+import {
+  AvailableAmenityDto,
+  AvailableMealDto,
+  HotelOfferCancellationPolicyDto,
+} from "../../utils";
 const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
+interface Props {
+  am: AvailableAmenityDto[];
+  name: string;
+  noShowGuests?: boolean;
+  meals: AvailableMealDto[];
+  cancel: HotelOfferCancellationPolicyDto[];
+  payment: string;
+}
+
+defineProps<Props>();
 </script>
 
 <template>
@@ -12,26 +27,33 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
       <div :class="$style.top">
         <img :src="url" :class="$style.img" />
         <div :class="$style.info">
-          <Title>Супериор с двуспальной кроватью</Title>
-          <Text :s="17" :l="22" :c="$style.gray">26 м², одна большая кровать</Text>
+          <Title>{{ name }}</Title>
+          <!--          <Text :s="17" :l="22" :c="$style.gray">26 м², одна большая кровать</Text>-->
         </div>
       </div>
       <div :class="$style.table">
         <div :class="$style.item">
           <Text :s="17" :l="22" :c="$style.left">Питание</Text>
-          <Text :s="17" :l="22" :c="$style.right">Без питания</Text>
+          <Text :s="17" :l="22" v-if="meals.length === 0">Без питания</Text>
+          <Text :s="17" :l="22" :c="$style.green" v-if="meals.length > 0">{{
+            meals[0].name
+          }}</Text>
         </div>
         <div :class="$style.item">
           <Text :s="17" :l="22" :c="$style.left">Отмена брони</Text>
-          <Text :s="17" :l="22" :class="[$style.right, $style.green]"
-            >Бесплатно до 17 июня</Text
+          <Text :s="17" :l="22" v-if="cancel.length > 0">Платная отмена</Text>
+          <Text :s="17" :l="22" v-if="cancel.length === 0" :c="$style.green"
+            >Бесплатная отмена</Text
           >
         </div>
         <div :class="$style.item">
           <Text :s="17" :l="22" :c="$style.left">Оплата</Text>
-          <Text :s="17" :l="22" :c="$style.right">Оплата картой</Text>
+          <Text :s="17" :l="22" v-if="payment === 'AGENCY'">Предоплата картой</Text>
+          <Text :s="17" :l="22" v-if="payment === 'HOTEL'" :c="$style.green"
+            >Оплата на месте</Text
+          >
         </div>
-        <div :class="$style.item">
+        <div :class="$style.item" v-if="!noShowGuests">
           <Text :s="17" :l="22" :c="$style.left">Гости</Text>
           <Text :s="17" :l="22" :c="$style.right"
             >Константин Рыськов, Анна Константинопольская</Text
