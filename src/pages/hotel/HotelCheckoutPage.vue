@@ -10,7 +10,7 @@ import { useHotel } from "../../utils";
 const hotel = useHotel();
 console.log("OFFER", hotel.offer);
 const close = () => {
-  window.Telegram.WebApp.openTelegramLink("t.me/MoyabronBot");
+  window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
   // const url = document.createElement("a");
   // url.href = "tg://resolve?domain=MoyabronBot";
   // url.target = "_blank";
