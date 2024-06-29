@@ -10,10 +10,8 @@ import { useHotel } from "../../utils";
 const hotel = useHotel();
 console.log("OFFER", hotel.offer);
 const close = () => {
-  // window.Telegram.WebApp.close();
   const url = document.createElement("a");
   url.href = "https://t.me/MoyabronBot";
-  url.target = "_blank";
   url.click();
 };
 </script>
