@@ -11,7 +11,7 @@ interface Props {
   click: (item: Item) => void;
   id: number;
   name: string;
-  city?: string;
+  country: string;
   type: ItemType;
   noShow?: boolean;
 }
@@ -38,7 +38,7 @@ defineProps<Props>();
     <div :class="$style.info">
       <div :class="$style.left">
         <Text :s="17" :l="22">{{ name }}</Text>
-        <Text :s="14" :l="18" :g="true" v-if="city">{{ city }}</Text>
+        <Text :s="14" :l="18" :g="true">{{ country }}</Text>
       </div>
     </div>
   </div>

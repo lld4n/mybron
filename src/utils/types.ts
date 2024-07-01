@@ -285,6 +285,7 @@ export type LiveSearchResultDto = {
   type: "CITY" | "HOTEL";
   name: string;
   id: number;
+  country: string;
 };
 
 export type HotelReviewDto = {

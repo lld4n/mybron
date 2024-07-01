@@ -170,6 +170,7 @@ const handleClick = (item: Item) => {
     >
       <SearchCard
         v-for="item of list"
+        :country="item.country"
         :id="item.id"
         :name="item.name"
         :type="item.type === 'CITY' ? 'city' : 'hotel'"
@@ -183,6 +184,7 @@ const handleClick = (item: Item) => {
     >
       <SearchCard
         v-for="item of list"
+        :country="item.country"
         :id="item.id"
         :name="item.name"
         :type="item.type === 'CITY' ? 'city' : 'hotel'"
@@ -199,7 +201,7 @@ const handleClick = (item: Item) => {
         :id="item.id"
         :name="item.info.name"
         :type="item.info.type === 'city' ? 'city' : 'hotel'"
-        :city="item.geo.cityName"
+        :country="item.geo.cityName"
         :click="handleClick"
       />
     </Block>
@@ -220,7 +222,7 @@ const handleClick = (item: Item) => {
         :id="item.id"
         :name="item.name"
         type="city"
-        :city="item.country"
+        :country="item.country"
         :click="handleClick"
       />
     </Block>
