@@ -9,6 +9,7 @@ export async function fetchHotelInfo(id: string | string[], store: any, hotel: a
     guests: String(store.adultsCount + store.children.length),
     // language: "en",
   };
+  hotel.createGuests(store.adultsCount + store.children.length - 1);
   if (store.filters.other.includes("breakfast")) {
     params.withBreakfast = true;
   }

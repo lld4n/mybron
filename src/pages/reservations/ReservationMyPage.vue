@@ -5,6 +5,20 @@ import Shape from "../../assets/icons/shape.svg";
 import { useInter } from "../../utils/i18n";
 import Text from "../../components/ui/wrappers/Text.vue";
 import ReservationCard from "../../components/items/ReservationCard.vue";
+import { onMounted } from "vue";
+import { api, useStore } from "../../utils";
+const store = useStore();
+onMounted(async () => {
+  if (!store.auth) return;
+  const data = await api
+    .get("orders", {
+      headers: {
+        Authorization: store.auth,
+      },
+    })
+    .json();
+  console.log(data);
+});
 
 const q = useInter();
 </script>

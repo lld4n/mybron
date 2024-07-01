@@ -2,15 +2,32 @@
 import Block from "../ui/wrappers/Block.vue";
 import Text from "../ui/wrappers/Text.vue";
 import AddGuest from "../../assets/icons/add-guest.svg";
-import { ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Title from "../ui/wrappers/Title.vue";
 import Input from "../ui/Input.vue";
+import { useHotel } from "../../utils";
 const show = ref(false);
+const hotel = useHotel();
 const name = ref("");
 const surname = ref("");
+interface Props {
+  index: number;
+}
+onMounted(() => {
+  name.value = hotel.guests[props.index].firstName;
+  surname.value = hotel.guests[props.index].lastName;
+  console.log(hotel.guests);
+});
+const props = defineProps<Props>();
 const handleShow = () => {
   show.value = !show.value;
 };
+watch(name, (v) => {
+  hotel.setGuestName(v, props.index, "first");
+});
+watch(surname, (v) => {
+  hotel.setGuestName(v, props.index, "last");
+});
 </script>
 
 <template>

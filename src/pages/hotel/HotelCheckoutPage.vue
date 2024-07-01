@@ -12,28 +12,21 @@ const store = useStore();
 console.log("OFFER", hotel.offer);
 const close = async () => {
   if (!hotel.offer || !store.auth) return;
+  if (store.adultsCount + store.children.length - 1 !== hotel.guests.length) return;
+  let flag = false;
+  for (const item of hotel.guests) {
+    if (item.lastName.length === 0 || item.firstName.length === 0) flag = true;
+  }
+  if (flag) {
+    // не все данные заполнены
+    return;
+  }
+  // нужно добавить и главного чела
   const body = {
     accommodations: [
       {
         offerCode: hotel.offer.code,
-        guests: [
-          {
-            firstName: "lldan",
-            lastName: "lldan",
-          },
-          {
-            firstName: "lldan",
-            lastName: "lldan",
-          },
-          {
-            firstName: "lldan",
-            lastName: "lldan",
-          },
-          {
-            firstName: "lldan",
-            lastName: "lldan",
-          },
-        ],
+        guests: [...hotel.guests],
       },
     ],
   };
@@ -80,7 +73,7 @@ const close = async () => {
         :no-show-guests="true"
       />
       <DataBlock />
-      <GuestsBlock />
+      <GuestsBlock v-for="(_, i) of hotel.guests" :index="i" />
       <WishesBlock />
       <TotalBlock
         v-if="!!hotel.offer"

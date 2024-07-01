@@ -11,6 +11,7 @@ interface StoreInterface {
   offer: HotelOfferDto | null;
   time: Time | null;
   category: number;
+  guests: Guest[];
 }
 
 type Time = {
@@ -18,6 +19,11 @@ type Time = {
   checkOut: string;
   timeIn: string;
   timeOut: string;
+};
+
+type Guest = {
+  firstName: string;
+  lastName: string;
 };
 
 export const useHotel = defineStore("hotel", {
@@ -32,9 +38,24 @@ export const useHotel = defineStore("hotel", {
       offer: null,
       time: null,
       category: 0,
+      guests: [],
     };
   },
   actions: {
+    setGuestName(value: string, index: number, type: "first" | "last") {
+      if (this.guests.length < index + 1) return;
+      if (type === "first") this.guests[index].firstName = value;
+      if (type === "last") this.guests[index].lastName = value;
+    },
+    createGuests(count: number) {
+      this.guests = [];
+      for (let i = 0; i < count; i++) {
+        this.guests.push({
+          firstName: "",
+          lastName: "",
+        });
+      }
+    },
     setCategory(t: number) {
       this.category = t;
     },
