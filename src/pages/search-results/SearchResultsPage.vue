@@ -196,6 +196,9 @@ const subtitle = () => {
   }
 }
 .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 14px;
   font-weight: 600;
   line-height: 18px;

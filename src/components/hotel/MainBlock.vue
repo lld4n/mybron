@@ -3,7 +3,6 @@ import RatingView from "../ui/views/RatingView.vue";
 import StarsView from "../ui/views/StarsView.vue";
 import CopyButton from "../ui/CopyButton.vue";
 import Walking from "../../assets/icons/walking.svg";
-import Point from "../../assets/icons/point.svg";
 import Text from "../ui/wrappers/Text.vue";
 import { onMounted, ref } from "vue";
 import { AvailableAmenityDto } from "../../utils";
@@ -46,11 +45,6 @@ onMounted(() => {
         <Walking />
         ждем время в зависимости от км
         <span>{{ center }} км</span>
-      </Text>
-      <Text :s="14" :l="18" :c="$style.item">
-        <Point />
-        апи не возвращает
-        <span>800 м</span>
       </Text>
     </div>
     <div :class="$style.map">

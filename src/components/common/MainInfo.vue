@@ -91,6 +91,9 @@ defineProps<Props>();
   align-items: center;
 }
 .right {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   flex: 1;
   text-align: end;
   span {

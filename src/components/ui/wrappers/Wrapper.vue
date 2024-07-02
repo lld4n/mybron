@@ -7,6 +7,7 @@ interface Props {
     click: () => void;
     text: string;
     desc?: string;
+    disabled?: boolean;
   };
 }
 defineProps<Props>();
@@ -49,7 +50,9 @@ const handleClose = () => {
       </div>
       <div :class="$style.block" v-if="!!footer">
         <Text :s="12" :l="16" v-if="!!footer.desc">{{ footer.desc }}</Text>
-        <button :class="$style.btn" @click="footer.click">{{ footer.text }}</button>
+        <button :class="$style.btn" @click="footer.click" :disabled="footer.disabled">
+          {{ footer.text }}
+        </button>
       </div>
     </div>
   </div>
@@ -95,6 +98,9 @@ const handleClose = () => {
     &:not([disabled]):hover {
       opacity: 0.85;
     }
+  }
+  &:disabled {
+    opacity: 0.4;
   }
 }
 .message {

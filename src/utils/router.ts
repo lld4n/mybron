@@ -24,6 +24,10 @@ import SettingsCurrencyPage from "../pages/settings/SettingsCurrencyPage.vue";
 import SearchMapPage from "../pages/search-results/SearchMapPage.vue";
 import HotelRoomsPage from "../pages/hotel/HotelRoomsPage.vue";
 import HotelCheckoutPage from "../pages/hotel/HotelCheckoutPage.vue";
+import SettingsPhonePage from "../pages/settings/SettingsPhonePage.vue";
+import SettingsEmailPage from "../pages/settings/SettingsEmailPage.vue";
+import SettingsCountryPage from "../pages/settings/SettingsCountryPage.vue";
+import SettingsCodePage from "../pages/settings/SettingsCodePage.vue";
 const routes = [
   { path: "/", component: Main },
 
@@ -58,6 +62,10 @@ const routes = [
   { path: "/settings", component: SettingsPage },
   { path: "/settings/language", component: SettingsLanguagePage },
   { path: "/settings/currency", component: SettingsCurrencyPage },
+  { path: "/settings/phone", component: SettingsPhonePage },
+  { path: "/settings/email", component: SettingsEmailPage },
+  { path: "/settings/country", component: SettingsCountryPage },
+  { path: "/settings/code/:from", component: SettingsCodePage },
 
   { path: "/rooms/:id", component: HotelRoomsPage },
 
