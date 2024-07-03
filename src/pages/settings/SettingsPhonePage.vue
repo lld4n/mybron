@@ -4,12 +4,12 @@ import Text from "../../components/ui/wrappers/Text.vue";
 import Animation from "../../assets/loading/phone.json";
 import { LottieAnimation } from "lottie-web-vue";
 import { ref, watch } from "vue";
-// import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import FlagView from "../../components/ui/views/FlagView.vue";
 import { api, useStore } from "../../utils";
 const value = ref("");
 const disabled = ref(true);
-// const router = useRouter();
+const router = useRouter();
 const store = useStore();
 function isNumber(str: string) {
   return /^\d+$/.test(str);
@@ -36,17 +36,35 @@ const send = async () => {
   for (const l of value.value) {
     if (isNumber(l)) phone += l;
   }
-  const data = api
-    .post("auth/request-sms-otp", {
-      body: JSON.stringify({ phone }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: store.auth,
+  try {
+    await api
+      .post("auth/request-sms-otp", {
+        body: JSON.stringify({ phone }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: store.auth,
+        },
+      })
+      .json();
+    await router.push("/settings/code/phone");
+  } catch (e) {
+    window.Telegram.WebApp.showPopup(
+      {
+        title: "Номер уже используется",
+        message: "Этот номер уже привязан к другому аккаунта МоейБрони",
+        buttons: [
+          {
+            id: "close",
+            type: "default",
+            text: "Понятно",
+          },
+        ],
       },
-    })
-    .json();
-  console.log(data);
-  // router.push("/settings/code/phone");
+      (button_id) => {
+        console.log(button_id);
+      },
+    );
+  }
 };
 </script>
 
@@ -73,9 +91,9 @@ const send = async () => {
       <Text :s="17" :l="22">На ваш номер поступит SMS с кодом подтверждения</Text>
     </div>
     <div :class="$style.content">
-      <div :class="$style.left">
-        <FlagView code="RU" />
-        <Text :s="20" :l="24">+7</Text>
+      <div :class="$style.left" @click="$router.push('/settings/country')">
+        <FlagView :code="store.phone.code" />
+        <Text :s="20" :l="24">+{{ store.phone.ph }}</Text>
       </div>
       <input
         type="text"

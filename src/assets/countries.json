@@ -1,0 +1,1424 @@
+[
+  {
+    "co": "au",
+    "ph": "61",
+    "na": "Австралия",
+    "na_en": "Australia"
+  },
+  {
+    "co": "at",
+    "ph": "43",
+    "na": "Австрия",
+    "na_en": "Austria"
+  },
+  {
+    "co": "az",
+    "ph": "994",
+    "na": "Азербайджан",
+    "na_en": "Azerbaijan"
+  },
+  {
+    "co": "ax",
+    "ph": "35818",
+    "na": "Аландские о-ва",
+    "na_en": "Aland Islands"
+  },
+  {
+    "co": "al",
+    "ph": "355",
+    "na": "Албания",
+    "na_en": "Albania"
+  },
+  {
+    "co": "dz",
+    "ph": "213",
+    "na": "Алжир",
+    "na_en": "Algeria"
+  },
+  {
+    "co": "ai",
+    "ph": "1264",
+    "na": "Ангилья",
+    "na_en": "Anguilla"
+  },
+  {
+    "co": "ao",
+    "ph": "244",
+    "na": "Ангола",
+    "na_en": "Angola"
+  },
+  {
+    "co": "ad",
+    "ph": "376",
+    "na": "Андорра",
+    "na_en": "Andorra"
+  },
+  {
+    "co": "ag",
+    "ph": "1268",
+    "na": "Антигуа и Барбуда",
+    "na_en": "Antigua and Barbuda"
+  },
+  {
+    "co": "mo",
+    "ph": "853",
+    "na": "Аомынь",
+    "na_en": "Macao"
+  },
+  {
+    "co": "ar",
+    "ph": "54",
+    "na": "Аргентина",
+    "na_en": "Argentina"
+  },
+  {
+    "co": "am",
+    "ph": "374",
+    "na": "Армения",
+    "na_en": "Armenia"
+  },
+  {
+    "co": "aw",
+    "ph": "297",
+    "na": "Аруба",
+    "na_en": "Aruba"
+  },
+  {
+    "co": "af",
+    "ph": "93",
+    "na": "Афганистан",
+    "na_en": "Afghanistan"
+  },
+  {
+    "co": "bs",
+    "ph": "1242",
+    "na": "Багамские острова",
+    "na_en": "Bahamas"
+  },
+  {
+    "co": "bd",
+    "ph": "880",
+    "na": "Бангладеш",
+    "na_en": "Bangladesh"
+  },
+  {
+    "co": "bb",
+    "ph": "1246",
+    "na": "Барбадос",
+    "na_en": "Barbados"
+  },
+  {
+    "co": "bh",
+    "ph": "973",
+    "na": "Бахрейн",
+    "na_en": "Bahrain"
+  },
+  {
+    "co": "by",
+    "ph": "375",
+    "na": "Беларусь",
+    "na_en": "Belarus"
+  },
+  {
+    "co": "bz",
+    "ph": "501",
+    "na": "Белиз",
+    "na_en": "Belize"
+  },
+  {
+    "co": "be",
+    "ph": "32",
+    "na": "Бельгия",
+    "na_en": "Belgium"
+  },
+  {
+    "co": "bj",
+    "ph": "229",
+    "na": "Бенин",
+    "na_en": "Benin"
+  },
+  {
+    "co": "bm",
+    "ph": "1441",
+    "na": "Бермудские о-ва",
+    "na_en": "Bermuda"
+  },
+  {
+    "co": "bg",
+    "ph": "359",
+    "na": "Болгария",
+    "na_en": "Bulgaria"
+  },
+  {
+    "co": "bo",
+    "ph": "591",
+    "na": "Боливия",
+    "na_en": "Bolivia"
+  },
+  {
+    "co": "ba",
+    "ph": "387",
+    "na": "Босния",
+    "na_en": "Bosnia"
+  },
+  {
+    "co": "bw",
+    "ph": "267",
+    "na": "Ботсвана",
+    "na_en": "Botswana"
+  },
+  {
+    "co": "br",
+    "ph": "55",
+    "na": "Бразилия",
+    "na_en": "Brazil"
+  },
+  {
+    "co": "io",
+    "ph": "246",
+    "na": "Британская территория в Индийском океане",
+    "na_en": "British Indian Ocean Territory"
+  },
+  {
+    "co": "vg",
+    "ph": "1284",
+    "na": "Британские Виргинские о-ва",
+    "na_en": "British Virgin Islands"
+  },
+  {
+    "co": "bn",
+    "ph": "673",
+    "na": "Бруней",
+    "na_en": "Brunei"
+  },
+  {
+    "co": "bf",
+    "ph": "226",
+    "na": "Буркина Фасо",
+    "na_en": "Burkina Faso"
+  },
+  {
+    "co": "bi",
+    "ph": "257",
+    "na": "Бурунди",
+    "na_en": "Burundi"
+  },
+  {
+    "co": "bt",
+    "ph": "975",
+    "na": "Бутан",
+    "na_en": "Bhutan"
+  },
+  {
+    "co": "vu",
+    "ph": "678",
+    "na": "Вануату",
+    "na_en": "Vanuatu"
+  },
+  {
+    "co": "va",
+    "ph": "379",
+    "na": "Ватикан",
+    "na_en": "Vatican"
+  },
+  {
+    "co": "gb",
+    "ph": "44",
+    "na": "Великобритания",
+    "na_en": "United Kingdom"
+  },
+  {
+    "co": "hu",
+    "ph": "36",
+    "na": "Венгрия",
+    "na_en": "Hungary"
+  },
+  {
+    "co": "ve",
+    "ph": "58",
+    "na": "Венесуэла",
+    "na_en": "Venezuela"
+  },
+  {
+    "co": "vi",
+    "ph": "1340",
+    "na": "Виргинские о-ва (США)",
+    "na_en": "United States Virgin Islands"
+  },
+  {
+    "co": "um",
+    "ph": "1",
+    "na": "Внешние малые острова (США)",
+    "na_en": "United States Minor Outlying Islands"
+  },
+  {
+    "co": "tl",
+    "ph": "670",
+    "na": "Восточный Тимор",
+    "na_en": "East Timor"
+  },
+  {
+    "co": "vn",
+    "ph": "84",
+    "na": "Вьетнам",
+    "na_en": "Vietnam"
+  },
+  {
+    "co": "ga",
+    "ph": "241",
+    "na": "Габон",
+    "na_en": "Gabon"
+  },
+  {
+    "co": "ht",
+    "ph": "509",
+    "na": "Гаити",
+    "na_en": "Haiti"
+  },
+  {
+    "co": "gy",
+    "ph": "592",
+    "na": "Гайана",
+    "na_en": "Guyana"
+  },
+  {
+    "co": "gm",
+    "ph": "220",
+    "na": "Гамбия",
+    "na_en": "Gambia"
+  },
+  {
+    "co": "gh",
+    "ph": "233",
+    "na": "Гана",
+    "na_en": "Ghana"
+  },
+  {
+    "co": "gp",
+    "ph": "590",
+    "na": "Гваделупа",
+    "na_en": "Guadeloupe"
+  },
+  {
+    "co": "gt",
+    "ph": "502",
+    "na": "Гватемала",
+    "na_en": "Guatemala"
+  },
+  {
+    "co": "gn",
+    "ph": "224",
+    "na": "Гвинея",
+    "na_en": "Guinea"
+  },
+  {
+    "co": "gw",
+    "ph": "245",
+    "na": "Гвинея-Бисау",
+    "na_en": "Guinea-Bissau"
+  },
+  {
+    "co": "de",
+    "ph": "49",
+    "na": "Германия",
+    "na_en": "Germany"
+  },
+  {
+    "co": "gi",
+    "ph": "350",
+    "na": "Гибралтар",
+    "na_en": "Gibraltar"
+  },
+  {
+    "co": "hn",
+    "ph": "504",
+    "na": "Гондурас",
+    "na_en": "Honduras"
+  },
+  {
+    "co": "hk",
+    "ph": "852",
+    "na": "Гонконг",
+    "na_en": "Hong Kong"
+  },
+  {
+    "co": "gd",
+    "ph": "1473",
+    "na": "Гренада",
+    "na_en": "Grenada"
+  },
+  {
+    "co": "gl",
+    "ph": "299",
+    "na": "Гренландия",
+    "na_en": "Greenland"
+  },
+  {
+    "co": "gr",
+    "ph": "30",
+    "na": "Греция",
+    "na_en": "Greece"
+  },
+  {
+    "co": "ge",
+    "ph": "995",
+    "na": "Грузия",
+    "na_en": "Georgia"
+  },
+  {
+    "co": "gu",
+    "ph": "1671",
+    "na": "Гуам",
+    "na_en": "Guam"
+  },
+  {
+    "co": "dk",
+    "ph": "45",
+    "na": "Дания",
+    "na_en": "Denmark"
+  },
+  {
+    "co": "cd",
+    "ph": "243",
+    "na": "Демократическая Республика Конго",
+    "na_en": "Democratic Republic of the Congo"
+  },
+  {
+    "co": "dj",
+    "ph": "253",
+    "na": "Джибути",
+    "na_en": "Djibouti"
+  },
+  {
+    "co": "dm",
+    "ph": "1767",
+    "na": "Доминика",
+    "na_en": "Dominica"
+  },
+  {
+    "co": "do",
+    "ph": "1809",
+    "na": "Доминиканская Республика",
+    "na_en": "Dominican Republic"
+  },
+  {
+    "co": "eg",
+    "ph": "20",
+    "na": "Египет",
+    "na_en": "Egypt"
+  },
+  {
+    "co": "zm",
+    "ph": "260",
+    "na": "Замбия",
+    "na_en": "Zambia"
+  },
+  {
+    "co": "zw",
+    "ph": "263",
+    "na": "Зимбабве",
+    "na_en": "Zimbabwe"
+  },
+  {
+    "co": "il",
+    "ph": "972",
+    "na": "Израиль",
+    "na_en": "Israel"
+  },
+  {
+    "co": "in",
+    "ph": "91",
+    "na": "Индия",
+    "na_en": "India"
+  },
+  {
+    "co": "id",
+    "ph": "62",
+    "na": "Индонезия",
+    "na_en": "Indonesia"
+  },
+  {
+    "co": "jo",
+    "ph": "962",
+    "na": "Иордания",
+    "na_en": "Jordan"
+  },
+  {
+    "co": "iq",
+    "ph": "964",
+    "na": "Ирак",
+    "na_en": "Iraq"
+  },
+  {
+    "co": "ir",
+    "ph": "98",
+    "na": "Иран",
+    "na_en": "Iran"
+  },
+  {
+    "co": "ie",
+    "ph": "353",
+    "na": "Ирландия",
+    "na_en": "Ireland"
+  },
+  {
+    "co": "is",
+    "ph": "354",
+    "na": "Исландия",
+    "na_en": "Iceland"
+  },
+  {
+    "co": "es",
+    "ph": "34",
+    "na": "Испания",
+    "na_en": "Spain"
+  },
+  {
+    "co": "it",
+    "ph": "39",
+    "na": "Италия",
+    "na_en": "Italy"
+  },
+  {
+    "co": "ye",
+    "ph": "967",
+    "na": "Йемен",
+    "na_en": "Yemen"
+  },
+  {
+    "co": "kz",
+    "ph": "7",
+    "na": "Казахстан",
+    "na_en": "Kazakhstan"
+  },
+  {
+    "co": "ky",
+    "ph": "1345",
+    "na": "Каймановы Острова",
+    "na_en": "Cayman Islands"
+  },
+  {
+    "co": "kh",
+    "ph": "855",
+    "na": "Камбоджа",
+    "na_en": "Cambodia"
+  },
+  {
+    "co": "cm",
+    "ph": "237",
+    "na": "Камерун",
+    "na_en": "Cameroon"
+  },
+  {
+    "co": "ca",
+    "ph": "1",
+    "na": "Канада",
+    "na_en": "Canada"
+  },
+  {
+    "co": "qa",
+    "ph": "974",
+    "na": "Катар",
+    "na_en": "Qatar"
+  },
+  {
+    "co": "ke",
+    "ph": "254",
+    "na": "Кения",
+    "na_en": "Kenya"
+  },
+  {
+    "co": "cy",
+    "ph": "357",
+    "na": "Кипр",
+    "na_en": "Cyprus"
+  },
+  {
+    "co": "kg",
+    "ph": "996",
+    "na": "Киргизия",
+    "na_en": "Kyrgyzstan"
+  },
+  {
+    "co": "ki",
+    "ph": "686",
+    "na": "Кирибати",
+    "na_en": "Kiribati"
+  },
+  {
+    "co": "cn",
+    "ph": "86",
+    "na": "Китай",
+    "na_en": "China"
+  },
+  {
+    "co": "cc",
+    "ph": "61",
+    "na": "Кокосовые о-ва",
+    "na_en": "Cocos Islands"
+  },
+  {
+    "co": "co",
+    "ph": "57",
+    "na": "Колумбия",
+    "na_en": "Colombia"
+  },
+  {
+    "co": "km",
+    "ph": "269",
+    "na": "Коморские о-ва",
+    "na_en": "Comoros"
+  },
+  {
+    "co": "cg",
+    "ph": "242",
+    "na": "Конго",
+    "na_en": "Congo"
+  },
+  {
+    "co": "kp",
+    "ph": "850",
+    "na": "Корейская Народно-Демократическая Республика",
+    "na_en": "North Korea"
+  },
+  {
+    "co": "cr",
+    "ph": "506",
+    "na": "Коста-Рика",
+    "na_en": "Costa Rica"
+  },
+  {
+    "co": "ci",
+    "ph": "225",
+    "na": "Кот д’Ивуар",
+    "na_en": "Ivory Coast"
+  },
+  {
+    "co": "cu",
+    "ph": "53",
+    "na": "Куба",
+    "na_en": "Cuba"
+  },
+  {
+    "co": "kw",
+    "ph": "965",
+    "na": "Кувейт",
+    "na_en": "Kuwait"
+  },
+  {
+    "co": "cw",
+    "ph": "599",
+    "na": "Кюрасао",
+    "na_en": "Curacao"
+  },
+  {
+    "co": "la",
+    "ph": "856",
+    "na": "Лаос",
+    "na_en": "Laos"
+  },
+  {
+    "co": "lv",
+    "ph": "371",
+    "na": "Латвия",
+    "na_en": "Latvia"
+  },
+  {
+    "co": "ls",
+    "ph": "266",
+    "na": "Лесото",
+    "na_en": "Lesotho"
+  },
+  {
+    "co": "lr",
+    "ph": "231",
+    "na": "Либерия",
+    "na_en": "Liberia"
+  },
+  {
+    "co": "lb",
+    "ph": "961",
+    "na": "Ливан",
+    "na_en": "Lebanon"
+  },
+  {
+    "co": "ly",
+    "ph": "218",
+    "na": "Ливия",
+    "na_en": "Libya"
+  },
+  {
+    "co": "lt",
+    "ph": "370",
+    "na": "Литва",
+    "na_en": "Lithuania"
+  },
+  {
+    "co": "li",
+    "ph": "423",
+    "na": "Лихтенштейн",
+    "na_en": "Liechtenstein"
+  },
+  {
+    "co": "lu",
+    "ph": "352",
+    "na": "Люксембург",
+    "na_en": "Luxembourg"
+  },
+  {
+    "co": "mu",
+    "ph": "230",
+    "na": "Маврикий",
+    "na_en": "Mauritius"
+  },
+  {
+    "co": "mr",
+    "ph": "222",
+    "na": "Мавритания",
+    "na_en": "Mauritania"
+  },
+  {
+    "co": "mg",
+    "ph": "261",
+    "na": "Мадагаскар",
+    "na_en": "Madagascar"
+  },
+  {
+    "co": "yt",
+    "ph": "262",
+    "na": "Майотта",
+    "na_en": "Mayotte"
+  },
+  {
+    "co": "mk",
+    "ph": "389",
+    "na": "Македония",
+    "na_en": "Macedonia"
+  },
+  {
+    "co": "mw",
+    "ph": "265",
+    "na": "Малави",
+    "na_en": "Malawi"
+  },
+  {
+    "co": "my",
+    "ph": "60",
+    "na": "Малайзия",
+    "na_en": "Malaysia"
+  },
+  {
+    "co": "ml",
+    "ph": "223",
+    "na": "Мали",
+    "na_en": "Mali"
+  },
+  {
+    "co": "mv",
+    "ph": "960",
+    "na": "Мальдивские о-ва",
+    "na_en": "Maldives"
+  },
+  {
+    "co": "mt",
+    "ph": "356",
+    "na": "Мальта",
+    "na_en": "Malta"
+  },
+  {
+    "co": "ma",
+    "ph": "212",
+    "na": "Марокко",
+    "na_en": "Morocco"
+  },
+  {
+    "co": "mq",
+    "ph": "596",
+    "na": "Мартиника",
+    "na_en": "Martinique"
+  },
+  {
+    "co": "mh",
+    "ph": "692",
+    "na": "Маршалловы о-ва",
+    "na_en": "Marshall Islands"
+  },
+  {
+    "co": "mx",
+    "ph": "52",
+    "na": "Мексика",
+    "na_en": "Mexico"
+  },
+  {
+    "co": "fm",
+    "ph": "691",
+    "na": "Микронезия",
+    "na_en": "Micronesia"
+  },
+  {
+    "co": "mz",
+    "ph": "258",
+    "na": "Мозамбик",
+    "na_en": "Mozambique"
+  },
+  {
+    "co": "md",
+    "ph": "373",
+    "na": "Молдавия",
+    "na_en": "Moldova"
+  },
+  {
+    "co": "mc",
+    "ph": "377",
+    "na": "Монако",
+    "na_en": "Monaco"
+  },
+  {
+    "co": "mn",
+    "ph": "976",
+    "na": "Монголия",
+    "na_en": "Mongolia"
+  },
+  {
+    "co": "ms",
+    "ph": "1664",
+    "na": "Монсеррат",
+    "na_en": "Montserrat"
+  },
+  {
+    "co": "mm",
+    "ph": "95",
+    "na": "Мьянма",
+    "na_en": "Myanmar"
+  },
+  {
+    "co": "na",
+    "ph": "264",
+    "na": "Намибия",
+    "na_en": "Namibia"
+  },
+  {
+    "co": "nr",
+    "ph": "674",
+    "na": "Науру",
+    "na_en": "Nauru"
+  },
+  {
+    "co": "np",
+    "ph": "977",
+    "na": "Непал",
+    "na_en": "Nepal"
+  },
+  {
+    "co": "ne",
+    "ph": "227",
+    "na": "Нигер",
+    "na_en": "Niger"
+  },
+  {
+    "co": "ng",
+    "ph": "234",
+    "na": "Нигерия",
+    "na_en": "Nigeria"
+  },
+  {
+    "co": "nl",
+    "ph": "31",
+    "na": "Нидерланды",
+    "na_en": "Netherlands"
+  },
+  {
+    "co": "ni",
+    "ph": "505",
+    "na": "Никарагуа",
+    "na_en": "Nicaragua"
+  },
+  {
+    "co": "nu",
+    "ph": "683",
+    "na": "Ниуе",
+    "na_en": "Niue"
+  },
+  {
+    "co": "nz",
+    "ph": "64",
+    "na": "Новая Зеландия",
+    "na_en": "New Zealand"
+  },
+  {
+    "co": "nc",
+    "ph": "687",
+    "na": "Новая Каледония",
+    "na_en": "New Caledonia"
+  },
+  {
+    "co": "no",
+    "ph": "47",
+    "na": "Норвегия",
+    "na_en": "Norway"
+  },
+  {
+    "co": "ae",
+    "ph": "971",
+    "na": "ОАЭ",
+    "na_en": "United Arab Emirates"
+  },
+  {
+    "co": "om",
+    "ph": "968",
+    "na": "Оман",
+    "na_en": "Oman"
+  },
+  {
+    "co": "nf",
+    "ph": "672",
+    "na": "Остров Норфолк",
+    "na_en": "Norfolk Island"
+  },
+  {
+    "co": "cx",
+    "ph": "61",
+    "na": "Остров Рождества",
+    "na_en": "Christmas Island"
+  },
+  {
+    "co": "bl",
+    "ph": "590",
+    "na": "Остров Святого Бартоломея",
+    "na_en": "Saint Barthélemy"
+  },
+  {
+    "co": "mf",
+    "ph": "590",
+    "na": "Остров Святого Мартина",
+    "na_en": "Saint Martin"
+  },
+  {
+    "co": "sh",
+    "ph": "290",
+    "na": "Остров Святой Елены",
+    "na_en": "Saint Helena"
+  },
+  {
+    "co": "cv",
+    "ph": "238",
+    "na": "Острова Зеленого Мыса",
+    "na_en": "Cape Verde"
+  },
+  {
+    "co": "ck",
+    "ph": "682",
+    "na": "Острова Кука",
+    "na_en": "Cook Islands"
+  },
+  {
+    "co": "tc",
+    "ph": "1649",
+    "na": "Острова Тёркс и Кайкос",
+    "na_en": "Turks and Caicos Islands"
+  },
+  {
+    "co": "wf",
+    "ph": "681",
+    "na": "Острова Уоллис и Футуна",
+    "na_en": "Wallis and Futuna"
+  },
+  {
+    "co": "pk",
+    "ph": "92",
+    "na": "Пакистан",
+    "na_en": "Pakistan"
+  },
+  {
+    "co": "pw",
+    "ph": "680",
+    "na": "Палау",
+    "na_en": "Palau"
+  },
+  {
+    "co": "ps",
+    "ph": "970",
+    "na": "Палестинские территории",
+    "na_en": "Palestinian Territories"
+  },
+  {
+    "co": "pa",
+    "ph": "507",
+    "na": "Панама",
+    "na_en": "Panama"
+  },
+  {
+    "co": "pg",
+    "ph": "675",
+    "na": "Папуа – Новая Гвинея",
+    "na_en": "Papua New Guinea"
+  },
+  {
+    "co": "py",
+    "ph": "595",
+    "na": "Парагвай",
+    "na_en": "Paraguay"
+  },
+  {
+    "co": "pe",
+    "ph": "51",
+    "na": "Перу",
+    "na_en": "Peru"
+  },
+  {
+    "co": "pn",
+    "ph": "870",
+    "na": "Питкэрн",
+    "na_en": "Pitcairn"
+  },
+  {
+    "co": "pl",
+    "ph": "48",
+    "na": "Польша",
+    "na_en": "Poland"
+  },
+  {
+    "co": "pt",
+    "ph": "351",
+    "na": "Португалия",
+    "na_en": "Portugal"
+  },
+  {
+    "co": "pr",
+    "ph": "1787",
+    "na": "Пуэрто-Рико",
+    "na_en": "Puerto Rico"
+  },
+  {
+    "co": "kr",
+    "ph": "82",
+    "na": "Республика Корея",
+    "na_en": "Republic of Korea"
+  },
+  {
+    "co": "re",
+    "ph": "262",
+    "na": "Реюньон",
+    "na_en": "Reunion"
+  },
+  {
+    "co": "ru",
+    "ph": "7",
+    "na": "Российская Федерация",
+    "na_en": "Russian Federation"
+  },
+  {
+    "co": "rw",
+    "ph": "250",
+    "na": "Руанда",
+    "na_en": "Rwanda"
+  },
+  {
+    "co": "ro",
+    "ph": "40",
+    "na": "Румыния",
+    "na_en": "Romania"
+  },
+  {
+    "co": "sv",
+    "ph": "503",
+    "na": "Сальвадор",
+    "na_en": "El Salvador"
+  },
+  {
+    "co": "ws",
+    "ph": "685",
+    "na": "Самоа",
+    "na_en": "Samoa"
+  },
+  {
+    "co": "sm",
+    "ph": "378",
+    "na": "Сан-Марино",
+    "na_en": "San Marino"
+  },
+  {
+    "co": "st",
+    "ph": "239",
+    "na": "Сан-Томе и Принсипе",
+    "na_en": "Sao Tome and Principe"
+  },
+  {
+    "co": "sa",
+    "ph": "966",
+    "na": "Саудовская Аравия",
+    "na_en": "Saudi Arabia"
+  },
+  {
+    "co": "sz",
+    "ph": "268",
+    "na": "Свазиленд",
+    "na_en": "Eswatini"
+  },
+  {
+    "co": "mp",
+    "ph": "1670",
+    "na": "Северные Марианские о-ва",
+    "na_en": "Northern Mariana Islands"
+  },
+  {
+    "co": "sc",
+    "ph": "248",
+    "na": "Сейшелы",
+    "na_en": "Seychelles"
+  },
+  {
+    "co": "pm",
+    "ph": "508",
+    "na": "Сен-Пьер и Микелон",
+    "na_en": "Saint Pierre and Miquelon"
+  },
+  {
+    "co": "sn",
+    "ph": "221",
+    "na": "Сенегал",
+    "na_en": "Senegal"
+  },
+  {
+    "co": "vc",
+    "ph": "1784",
+    "na": "Сент-Винсент и Гренадины",
+    "na_en": "Saint Vincent and the Grenadines"
+  },
+  {
+    "co": "kn",
+    "ph": "1869",
+    "na": "Сент-Китс и Невис",
+    "na_en": "Saint Kitts and Nevis"
+  },
+  {
+    "co": "lc",
+    "ph": "1758",
+    "na": "Сент-Люсия",
+    "na_en": "Saint Lucia"
+  },
+  {
+    "co": "rs",
+    "ph": "381",
+    "na": "Сербия",
+    "na_en": "Serbia"
+  },
+  {
+    "co": "sg",
+    "ph": "65",
+    "na": "Сингапур",
+    "na_en": "Singapore"
+  },
+  {
+    "co": "sx",
+    "ph": "599",
+    "na": "Синт-Мартен",
+    "na_en": "Sint Maarten"
+  },
+  {
+    "co": "sy",
+    "ph": "963",
+    "na": "Сирийская Арабская Республика",
+    "na_en": "Syrian Arab Republic"
+  },
+  {
+    "co": "sk",
+    "ph": "421",
+    "na": "Словакия",
+    "na_en": "Slovakia"
+  },
+  {
+    "co": "si",
+    "ph": "386",
+    "na": "Словения",
+    "na_en": "Slovenia"
+  },
+  {
+    "co": "us",
+    "ph": "1",
+    "na": "Соединенные Штаты",
+    "na_en": "United States"
+  },
+  {
+    "co": "sb",
+    "ph": "677",
+    "na": "Соломоновы Острова",
+    "na_en": "Solomon Islands"
+  },
+  {
+    "co": "so",
+    "ph": "252",
+    "na": "Сомали",
+    "na_en": "Somalia"
+  },
+  {
+    "co": "sd",
+    "ph": "249",
+    "na": "Судан",
+    "na_en": "Sudan"
+  },
+  {
+    "co": "sr",
+    "ph": "597",
+    "na": "Суринам",
+    "na_en": "Suriname"
+  },
+  {
+    "co": "sl",
+    "ph": "232",
+    "na": "Сьерра-Леоне",
+    "na_en": "Sierra Leone"
+  },
+  {
+    "co": "tj",
+    "ph": "992",
+    "na": "Таджикистан",
+    "na_en": "Tajikistan"
+  },
+  {
+    "co": "th",
+    "ph": "66",
+    "na": "Таиланд",
+    "na_en": "Thailand"
+  },
+  {
+    "co": "tw",
+    "ph": "886",
+    "na": "Тайвань",
+    "na_en": "Taiwan"
+  },
+  {
+    "co": "tz",
+    "ph": "255",
+    "na": "Танзания",
+    "na_en": "Tanzania"
+  },
+  {
+    "co": "tg",
+    "ph": "228",
+    "na": "Того",
+    "na_en": "Togo"
+  },
+  {
+    "co": "tk",
+    "ph": "690",
+    "na": "Токелау",
+    "na_en": "Tokelau"
+  },
+  {
+    "co": "to",
+    "ph": "676",
+    "na": "Тонга",
+    "na_en": "Tonga"
+  },
+  {
+    "co": "tt",
+    "ph": "1868",
+    "na": "Тринидад и Тобаго",
+    "na_en": "Trinidad and Tobago"
+  },
+  {
+    "co": "tv",
+    "ph": "688",
+    "na": "Тувалу",
+    "na_en": "Tuvalu"
+  },
+  {
+    "co": "tn",
+    "ph": "216",
+    "na": "Тунис",
+    "na_en": "Tunisia"
+  },
+  {
+    "co": "tm",
+    "ph": "993",
+    "na": "Туркменистан",
+    "na_en": "Turkmenistan"
+  },
+  {
+    "co": "tr",
+    "ph": "90",
+    "na": "Турция",
+    "na_en": "Turkey"
+  },
+  {
+    "co": "ug",
+    "ph": "256",
+    "na": "Уганда",
+    "na_en": "Uganda"
+  },
+  {
+    "co": "uz",
+    "ph": "998",
+    "na": "Узбекистан",
+    "na_en": "Uzbekistan"
+  },
+  {
+    "co": "ua",
+    "ph": "380",
+    "na": "Украина",
+    "na_en": "Ukraine"
+  },
+  {
+    "co": "uy",
+    "ph": "598",
+    "na": "Уругвай",
+    "na_en": "Uruguay"
+  },
+  {
+    "co": "fo",
+    "ph": "298",
+    "na": "Фарерские о-ва",
+    "na_en": "Faroe Islands"
+  },
+  {
+    "co": "fj",
+    "ph": "679",
+    "na": "Фиджи",
+    "na_en": "Fiji"
+  },
+  {
+    "co": "ph",
+    "ph": "63",
+    "na": "Филиппины",
+    "na_en": "Philippines"
+  },
+  {
+    "co": "fi",
+    "ph": "358",
+    "na": "Финляндия",
+    "na_en": "Finland"
+  },
+  {
+    "co": "fk",
+    "ph": "500",
+    "na": "Фолклендские о-ва",
+    "na_en": "Falkland Islands"
+  },
+  {
+    "co": "fr",
+    "ph": "33",
+    "na": "Франция",
+    "na_en": "France"
+  },
+  {
+    "co": "gf",
+    "ph": "594",
+    "na": "Французская Гвиана",
+    "na_en": "French Guiana"
+  },
+  {
+    "co": "pf",
+    "ph": "689",
+    "na": "Французская Полинезия",
+    "na_en": "French Polynesia"
+  },
+  {
+    "co": "hr",
+    "ph": "385",
+    "na": "Хорватия",
+    "na_en": "Croatia"
+  },
+  {
+    "co": "cf",
+    "ph": "236",
+    "na": "ЦАР",
+    "na_en": "Central African Republic"
+  },
+  {
+    "co": "td",
+    "ph": "235",
+    "na": "Чад",
+    "na_en": "Chad"
+  },
+  {
+    "co": "me",
+    "ph": "382",
+    "na": "Черногория",
+    "na_en": "Montenegro"
+  },
+  {
+    "co": "cz",
+    "ph": "420",
+    "na": "Чехия",
+    "na_en": "Czechia"
+  },
+  {
+    "co": "cl",
+    "ph": "56",
+    "na": "Чили",
+    "na_en": "Chile"
+  },
+  {
+    "co": "ch",
+    "ph": "41",
+    "na": "Швейцария",
+    "na_en": "Switzerland"
+  },
+  {
+    "co": "se",
+    "ph": "46",
+    "na": "Швеция",
+    "na_en": "Sweden"
+  },
+  {
+    "co": "lk",
+    "ph": "94",
+    "na": "Шри-Ланка",
+    "na_en": "Sri Lanka"
+  },
+  {
+    "co": "ec",
+    "ph": "593",
+    "na": "Эквадор",
+    "na_en": "Ecuador"
+  },
+  {
+    "co": "gq",
+    "ph": "240",
+    "na": "Экваториальная Гвинея",
+    "na_en": "Equatorial Guinea"
+  },
+  {
+    "co": "er",
+    "ph": "291",
+    "na": "Эритрея",
+    "na_en": "Eritrea"
+  },
+  {
+    "co": "ee",
+    "ph": "372",
+    "na": "Эстония",
+    "na_en": "Estonia"
+  },
+  {
+    "co": "et",
+    "ph": "251",
+    "na": "Эфиопия",
+    "na_en": "Ethiopia"
+  },
+  {
+    "co": "za",
+    "ph": "27",
+    "na": "ЮАР",
+    "na_en": "South Africa"
+  },
+  {
+    "co": "ss",
+    "ph": "211",
+    "na": "Южный Судан",
+    "na_en": "South Sudan"
+  },
+  {
+    "co": "jm",
+    "ph": "1876",
+    "na": "Ямайка",
+    "na_en": "Jamaica"
+  },
+  {
+    "co": "jp",
+    "ph": "81",
+    "na": "Япония",
+    "na_en": "Japan"
+  }
+]

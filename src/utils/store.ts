@@ -22,6 +22,11 @@ export type Message = {
   out?: boolean;
 } | null;
 
+type Phone = {
+  code: string;
+  ph: string;
+};
+
 type Search = {
   type: "city" | "hotel";
   name: string;
@@ -39,6 +44,7 @@ interface StoreInterface {
   geo: Geo | null;
   hotels: HotelWithCheapestOfferDto[];
   auth: string;
+  phone: Phone;
   filters: {
     sort: SortFilters;
     payment: PaymentFilters[];
@@ -69,6 +75,7 @@ export const useStore = defineStore("store", {
       message: null,
       geo: null,
       auth: "",
+      phone: { code: "ru", ph: "7" },
       filters: {
         sort: "default",
         payment: [],
@@ -79,6 +86,9 @@ export const useStore = defineStore("store", {
     };
   },
   actions: {
+    setPhone(p: Phone) {
+      this.phone = p;
+    },
     setAuth(t: string) {
       this.auth = t;
     },
