@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import Text from "../../components/ui/wrappers/Text.vue";
-import Carousel from "../../components/ui/carousel/Carousel.vue";
-import UpDown from "../../assets/icons/up-down.svg";
 import RoomCard from "../../components/items/RoomCard.vue";
-import { dates, guests, useHotel, useStore } from "../../utils";
+import { dates, guests, MealsFiltersValues, useHotel, useStore } from "../../utils";
 import { onMounted, ref } from "vue";
-import { fetchHotelInfo } from "./fetchHotelInfo.ts";
+import { fetchHotelInfo } from "../hotel/fetchHotelInfo.ts";
 import { useRoute, useRouter } from "vue-router";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
-import { RenderRoom, RenderRoomItem } from "./types.ts";
+import { RenderRoom, RenderRoomItem } from "../hotel/types.ts";
+import FilterRoomView from "../../components/common/FilterRoomView.vue";
 const store = useStore();
 const hotel = useHotel();
 const route = useRoute();
@@ -27,7 +26,7 @@ onMounted(async () => {
   }
   loading.value = false;
   console.log(hotel.offers);
-  const ans: RenderRoom[] = [];
+  let ans: RenderRoom[] = [];
   for (const item of hotel.offers) {
     const finded = ans.find((e) => e.id === item.roomId);
     const one: RenderRoomItem = {
@@ -50,9 +49,63 @@ onMounted(async () => {
         rooms: [one],
       });
     }
-    render.value = ans;
   }
-  console.log(ans);
+  if (hotel.filters.price[0] !== 0) {
+    ans = ans.map((card) => {
+      return {
+        id: card.id,
+        images: card.images,
+        name: card.name,
+        beds: card.beds,
+        amenities: card.amenities,
+        rooms: card.rooms.filter((r) => r.price > hotel.filters.price[0]),
+      };
+    });
+  }
+  if (hotel.filters.price[1] !== 50000) {
+    ans = ans.map((card) => {
+      return {
+        id: card.id,
+        images: card.images,
+        name: card.name,
+        beds: card.beds,
+        amenities: card.amenities,
+        rooms: card.rooms.filter((r) => r.price < hotel.filters.price[1]),
+      };
+    });
+  }
+  if (
+    hotel.filters.meals.length !== 0 &&
+    hotel.filters.meals.length !== MealsFiltersValues.length
+  ) {
+    if (hotel.filters.meals.includes("included")) {
+      ans = ans.map((card) => {
+        return {
+          id: card.id,
+          images: card.images,
+          name: card.name,
+          beds: card.beds,
+          amenities: card.amenities,
+          rooms: card.rooms.filter((r) => r.meals.some((e) => e.included)),
+        };
+      });
+    }
+    if (hotel.filters.meals.includes("not included")) {
+      ans = ans.map((card) => {
+        return {
+          id: card.id,
+          images: card.images,
+          name: card.name,
+          beds: card.beds,
+          amenities: card.amenities,
+          rooms: card.rooms.filter((r) => r.meals.some((e) => !e.included)),
+        };
+      });
+    }
+  }
+  // TODO: проверка кроватей
+  // TODO: проверка удобств именно у номера
+  render.value = ans;
 });
 const handleClick = (code: string) => {
   const item = hotel.offers.find((e) => e.code === code);
@@ -70,43 +123,14 @@ const handleClick = (code: string) => {
   <div :class="$style.wrapper" v-else>
     <div :class="$style.header">
       <div :class="$style.info">
-        <div :class="$style.item">
+        <div :class="$style.item" @click="$router.push('/hotel/info')">
           <div :class="$style.left">
             <Text :s="14" :l="18" :w="600">{{ store.search?.name || hotel.name }}</Text>
             <Text :s="12" :l="16" :c="$style.text">{{ subtitle() }}</Text>
           </div>
         </div>
       </div>
-      <Carousel v-if="false">
-        <div :class="$style.item">
-          <div :class="$style.left">
-            <Text :s="12" :l="16" :c="$style.text">Стоимость</Text>
-            <Text :s="14" :l="18" :w="600">Любая</Text>
-          </div>
-          <UpDown />
-        </div>
-        <div :class="$style.item">
-          <div :class="$style.left">
-            <Text :s="12" :l="16" :c="$style.text">Стоимость</Text>
-            <Text :s="14" :l="18" :w="600">Любая</Text>
-          </div>
-          <UpDown />
-        </div>
-        <div :class="$style.item">
-          <div :class="$style.left">
-            <Text :s="12" :l="16" :c="$style.text">Стоимость</Text>
-            <Text :s="14" :l="18" :w="600">Любая</Text>
-          </div>
-          <UpDown />
-        </div>
-        <div :class="$style.item">
-          <div :class="$style.left">
-            <Text :s="12" :l="16" :c="$style.text">Стоимость</Text>
-            <Text :s="14" :l="18" :w="600">Любая</Text>
-          </div>
-          <UpDown />
-        </div>
-      </Carousel>
+      <FilterRoomView />
     </div>
     <div :class="$style.content">
       <RoomCard v-for="item of render" :room="item" :click="handleClick" />
@@ -126,15 +150,6 @@ const handleClick = (code: string) => {
 }
 .info {
   padding: 12px 0;
-  transition: opacity 0.1s ease-out;
-  &:not([disabled]):active {
-    opacity: 0.6 !important;
-  }
-  @media (hover: hover) {
-    &:not([disabled]):hover {
-      opacity: 0.85;
-    }
-  }
 }
 .item {
   flex: 0 0 auto;
@@ -145,8 +160,8 @@ const handleClick = (code: string) => {
   display: flex;
   align-items: center;
   gap: 12px;
-  cursor: pointer;
   margin-right: 8px;
+  cursor: pointer;
   &:first-child {
     margin-left: 16px;
   }

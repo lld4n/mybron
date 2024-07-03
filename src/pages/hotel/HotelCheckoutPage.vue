@@ -3,7 +3,7 @@ import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
 import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
 import TotalBlock from "../../components/hotel/TotalBlock.vue";
-import WishesBlock from "../../components/hotel/WishesBlock.vue";
+// import WishesBlock from "../../components/hotel/WishesBlock.vue";
 import GuestsBlock from "../../components/hotel/GuestsBlock.vue";
 import DataBlock from "../../components/hotel/DataBlock.vue";
 import { api, useHotel, useStore } from "../../utils";
@@ -12,21 +12,37 @@ const store = useStore();
 console.log("OFFER", hotel.offer);
 const close = async () => {
   if (!hotel.offer || !store.auth) return;
-  if (store.adultsCount + store.children.length - 1 !== hotel.guests.length) return;
+  if (store.adultsCount - 1 !== hotel.guests.length) return;
+
+  if (hotel.info.firstName.length === 0 || hotel.info.lastName.length === 0) {
+    store.setMessage({
+      type: "contact",
+      text: "Укажите ваши контактные данные",
+      desc: "чтобы перейти к оплате",
+    });
+    return;
+  }
   let flag = false;
   for (const item of hotel.guests) {
     if (item.lastName.length === 0 || item.firstName.length === 0) flag = true;
   }
+  let guests;
   if (flag) {
-    // не все данные заполнены
-    return;
+    guests = [hotel.info];
+    for (const _ of hotel.guests) {
+      guests.push(hotel.info);
+    }
+  } else {
+    guests = [hotel.info];
+    for (const item of hotel.guests) {
+      guests.push(item);
+    }
   }
-  // нужно добавить и главного чела
   const body = {
     accommodations: [
       {
         offerCode: hotel.offer.code,
-        guests: [...hotel.guests],
+        guests: guests,
       },
     ],
   };
@@ -74,7 +90,7 @@ const close = async () => {
       />
       <DataBlock />
       <GuestsBlock v-for="(_, i) of hotel.guests" :index="i" />
-      <WishesBlock />
+      <!--      <WishesBlock />-->
       <TotalBlock
         v-if="!!hotel.offer"
         :total="hotel.offer.priceDetails.client.clientCurrency.gross.price"

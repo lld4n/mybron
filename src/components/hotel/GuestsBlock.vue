@@ -34,7 +34,15 @@ watch(surname, (v) => {
   <Block>
     <div :class="$style.link" v-if="!show" @click="handleShow">
       <AddGuest />
-      <Text :s="17" :l="22">Добавить второго гостя</Text>
+      <Text :s="17" :l="22">
+        <template v-if="index === 0">Добавить второго гостя</template>
+        <template v-if="index === 1">Добавить третьего гостя</template>
+        <template v-if="index === 2">Добавить четвертого гостя</template>
+        <template v-if="index === 3">Добавить пятого гостя</template>
+        <template v-if="index === 4">Добавить шестого гостя</template>
+        <template v-if="index === 5">Добавить седьмого гостя</template>
+        <template v-if="index === 6">Добавить восьмого гостя</template>
+      </Text>
     </div>
     <div :class="$style.top" v-if="show">
       <Title>Второй гость</Title>

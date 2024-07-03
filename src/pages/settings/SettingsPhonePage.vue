@@ -125,6 +125,9 @@ const send = async () => {
   align-items: center;
   max-width: 320px;
   text-align: center;
+  path {
+    fill: var(--tg-theme-hint-color);
+  }
 }
 .wrapper {
   display: flex;

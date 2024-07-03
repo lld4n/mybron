@@ -13,6 +13,7 @@ import {
   YandexMapDefaultMarker,
   YandexMapDefaultSchemeLayer,
 } from "vue-yandex-maps";
+import MinutesFromDistanceView from "../ui/views/MinutesFromDistanceView.vue";
 interface Props {
   id: number;
   rating?: number;
@@ -43,8 +44,8 @@ onMounted(() => {
     <div :class="$style.meters">
       <Text :s="14" :l="18" :c="$style.item">
         <Walking />
-        ждем время в зависимости от км
-        <span>{{ center }} км</span>
+        <MinutesFromDistanceView :d="center" />
+        <span :class="$style.gray">{{ center }} км</span>
       </Text>
     </div>
     <div :class="$style.map">
@@ -76,13 +77,13 @@ onMounted(() => {
   flex-direction: column;
   gap: 8px;
 }
+.gray {
+  color: var(--tg-theme-hint-color);
+}
 .item {
   display: flex;
   align-items: center;
   gap: 4px;
-  span {
-    color: var(--tg-theme-hint-color);
-  }
   path {
     fill: var(--tg-theme-text-color);
   }

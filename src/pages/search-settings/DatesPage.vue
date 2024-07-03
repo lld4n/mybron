@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DateView from "../../components/ui/views/DateView.vue";
-import { months, useStore, dates as reformatDates } from "../../utils";
+import { months, useStore, dates as reformatDates, useHotel } from "../../utils";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 
@@ -8,6 +8,7 @@ const weeks = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 const dates = months();
 
 const store = useStore();
+const hotel = useHotel();
 const inDate = computed(() => store.in);
 const outDate = computed(() => store.out);
 const areConsecutiveDates = (inDate: Date, outDate: Date) => {
@@ -63,7 +64,12 @@ const handleClick = () => {
                     areConsecutiveDates(inDate, outDate),
                 }"
                 :disabled="day.disabled"
-                @click="store.changeDate(day.real)"
+                @click="
+                  () => {
+                    hotel.setOffers([]);
+                    store.changeDate(day.real);
+                  }
+                "
               >
                 {{ day.day }}
               </button>

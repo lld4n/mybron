@@ -2,11 +2,25 @@
 import Block from "../ui/wrappers/Block.vue";
 import Title from "../ui/wrappers/Title.vue";
 import Input from "../ui/Input.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useHotel } from "../../utils";
 const name = ref("");
 const surname = ref("");
-const phone = ref("");
-const email = ref("");
+const hotel = useHotel();
+// const phone = ref("");
+// const email = ref("");
+watch(name, (v) => {
+  hotel.setInfo({
+    firstName: v,
+    lastName: surname.value,
+  });
+});
+watch(surname, (v) => {
+  hotel.setInfo({
+    firstName: name.value,
+    lastName: v,
+  });
+});
 </script>
 
 <template>
@@ -17,8 +31,8 @@ const email = ref("");
     <div :class="$style.list">
       <Input id="name" label="Имя" v-model="name" />
       <Input id="surname" label="Фамилия" v-model="surname" />
-      <Input id="phone" label="Телефон" v-model="phone" />
-      <Input id="email" label="Почта" v-model="email" type="email" />
+      <!--      <Input id="phone" label="Телефон" v-model="phone" />-->
+      <!--      <Input id="email" label="Почта" v-model="email" type="email" />-->
     </div>
   </Block>
 </template>

@@ -27,7 +27,7 @@ defineProps({
 
 <style module lang="scss">
 .wrapper {
-  padding: 12px 16px;
+  padding: 12px 16px 80px 16px;
 }
 .main {
   display: flex;

@@ -17,7 +17,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <Block>
+  <Block v-if="room.rooms.length > 0">
     <CarouselCount>
       <img :src="url" :class="$style.img" />
       <img :src="url" :class="$style.img" />

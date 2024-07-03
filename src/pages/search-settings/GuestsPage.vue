@@ -3,11 +3,12 @@ import Block from "../../components/ui/wrappers/Block.vue";
 import Minus from "../../assets/icons/minus.svg";
 import Plus from "../../assets/icons/plus.svg";
 import CircleX from "../../assets/icons/x-circle.svg";
-import { ages, useStore } from "../../utils";
+import { ages, useHotel, useStore } from "../../utils";
 import { computed } from "vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import Title from "../../components/ui/wrappers/Title.vue";
 const store = useStore();
+const hotel = useHotel();
 const adultsCount = computed(() => store.adultsCount);
 const children = computed(() => store.children);
 </script>
@@ -31,7 +32,12 @@ const children = computed(() => store.children);
               <button
                 :class="$style.circle"
                 :disabled="adultsCount === 1"
-                @click="store.changeAdults(adultsCount - 1)"
+                @click="
+                  () => {
+                    hotel.setOffers([]);
+                    store.changeAdults(adultsCount - 1);
+                  }
+                "
               >
                 <Minus />
               </button>
@@ -39,7 +45,12 @@ const children = computed(() => store.children);
               <button
                 :class="$style.circle"
                 :disabled="adultsCount === 4"
-                @click="store.changeAdults(adultsCount + 1)"
+                @click="
+                  () => {
+                    hotel.setOffers([]);
+                    store.changeAdults(adultsCount + 1);
+                  }
+                "
               >
                 <Plus />
               </button>

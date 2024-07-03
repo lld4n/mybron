@@ -6,7 +6,7 @@ import SearchResultsPage from "../pages/search-results/SearchResultsPage.vue";
 import GuestsPage from "../pages/search-settings/GuestsPage.vue";
 import GuestsChildrenPage from "../pages/search-settings/GuestsChildrenPage.vue";
 import SearchFilterSortPage from "../pages/search-results/SearchFilterSortPage.vue";
-import SearchFilterPricePage from "../pages/search-results/SearchFilterPricePage.vue";
+import FilterPricePage from "../pages/main/FilterPricePage.vue";
 import SearchFilterPaymentPage from "../pages/search-results/SearchFilterPaymentPage.vue";
 import SearchFilterStarsPage from "../pages/search-results/SearchFilterStarsPage.vue";
 import SearchFilterOtherPage from "../pages/search-results/SearchFilterOtherPage.vue";
@@ -22,12 +22,17 @@ import SettingsPage from "../pages/settings/SettingsPage.vue";
 import SettingsLanguagePage from "../pages/settings/SettingsLanguagePage.vue";
 import SettingsCurrencyPage from "../pages/settings/SettingsCurrencyPage.vue";
 import SearchMapPage from "../pages/search-results/SearchMapPage.vue";
-import HotelRoomsPage from "../pages/hotel/HotelRoomsPage.vue";
+import HotelRoomsPage from "../pages/rooms/HotelRoomsPage.vue";
 import HotelCheckoutPage from "../pages/hotel/HotelCheckoutPage.vue";
 import SettingsPhonePage from "../pages/settings/SettingsPhonePage.vue";
 import SettingsEmailPage from "../pages/settings/SettingsEmailPage.vue";
 import SettingsCountryPage from "../pages/settings/SettingsCountryPage.vue";
 import SettingsCodePage from "../pages/settings/SettingsCodePage.vue";
+import RoomsFilterSortPage from "../pages/rooms/RoomsFilterSortPage.vue";
+import RoomsFilterAmenitiesPage from "../pages/rooms/RoomsFilterAmenitiesPage.vue";
+import RoomsFilterBedsPage from "../pages/rooms/RoomsFilterBedsPage.vue";
+import RoomsFilterMealsPage from "../pages/rooms/RoomsFilterMealsPage.vue";
+import RoomsFilterPaymentPage from "../pages/rooms/RoomsFilterPaymentPage.vue";
 const routes = [
   { path: "/", component: Main },
 
@@ -41,7 +46,7 @@ const routes = [
   { path: "/search/results", component: SearchResultsPage },
   { path: "/search/map", component: SearchMapPage },
   { path: "/search/filter/sort", component: SearchFilterSortPage },
-  { path: "/search/filter/price", component: SearchFilterPricePage },
+  { path: "/search/filter/price", component: FilterPricePage },
   { path: "/search/filter/other", component: SearchFilterOtherPage },
   { path: "/search/filter/payment", component: SearchFilterPaymentPage },
   { path: "/search/filter/stars", component: SearchFilterStarsPage },
@@ -67,7 +72,14 @@ const routes = [
   { path: "/settings/country", component: SettingsCountryPage },
   { path: "/settings/code/:from", component: SettingsCodePage },
 
+  // страница с комнатами и его фильтрами
   { path: "/rooms/:id", component: HotelRoomsPage },
+  { path: "/rooms/filter/sort", component: RoomsFilterSortPage },
+  { path: "/rooms/filter/price", component: FilterPricePage },
+  { path: "/rooms/filter/amenities", component: RoomsFilterAmenitiesPage },
+  { path: "/rooms/filter/beds", component: RoomsFilterBedsPage },
+  { path: "/rooms/filter/meals", component: RoomsFilterMealsPage },
+  { path: "/rooms/filter/payment", component: RoomsFilterPaymentPage },
 
   { path: "/checkout", component: HotelCheckoutPage },
 ];

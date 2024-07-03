@@ -2,17 +2,26 @@
 import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import Slider from "primevue/slider";
 import { onMounted, ref, watch } from "vue";
-import { useStore } from "../../utils";
-
+import { useHotel, useStore } from "../../utils";
+import { useRoute } from "vue-router";
+const route = useRoute();
 const numbers = ref([0, 50000]);
 const inputs = ref(["0 ₽", "50 000 ₽"]);
 const store = useStore();
-
+const hotel = useHotel();
+const room = route.fullPath.includes("rooms");
 onMounted(() => {
-  numbers.value[0] = store.filters.price[0];
-  numbers.value[1] = store.filters.price[1];
-  inputs.value[0] = toRender(store.filters.price[0]);
-  inputs.value[1] = toRender(store.filters.price[1]);
+  if (room) {
+    numbers.value[0] = hotel.filters.price[0];
+    numbers.value[1] = hotel.filters.price[1];
+    inputs.value[0] = toRender(hotel.filters.price[0]);
+    inputs.value[1] = toRender(hotel.filters.price[1]);
+  } else {
+    numbers.value[0] = store.filters.price[0];
+    numbers.value[1] = store.filters.price[1];
+    inputs.value[0] = toRender(store.filters.price[0]);
+    inputs.value[1] = toRender(store.filters.price[1]);
+  }
 });
 
 const toRender = (v: number) => {
@@ -36,7 +45,11 @@ const toRender = (v: number) => {
 watch(numbers, (list) => {
   inputs.value[0] = toRender(list[0]);
   inputs.value[1] = toRender(list[1]);
-  store.changeFiltersPrice(numbers.value as [number, number]);
+  if (room) {
+    hotel.changeFiltersPrice(numbers.value as [number, number]);
+  } else {
+    store.changeFiltersPrice(numbers.value as [number, number]);
+  }
 });
 watch(
   () => inputs.value[0],
@@ -51,7 +64,11 @@ watch(
       inputs.value[0] = toRender(v);
       numbers.value[0] = v;
     }
-    store.changeFiltersPrice(numbers.value as [number, number]);
+    if (room) {
+      hotel.changeFiltersPrice(numbers.value as [number, number]);
+    } else {
+      store.changeFiltersPrice(numbers.value as [number, number]);
+    }
   },
 );
 watch(
@@ -67,7 +84,11 @@ watch(
       inputs.value[1] = toRender(v);
       numbers.value[1] = v;
     }
-    store.changeFiltersPrice(numbers.value as [number, number]);
+    if (room) {
+      hotel.changeFiltersPrice(numbers.value as [number, number]);
+    } else {
+      store.changeFiltersPrice(numbers.value as [number, number]);
+    }
   },
 );
 
@@ -79,7 +100,6 @@ const focus = () => {
 
 <template>
   <FilterTemplate title="Цена">
-    <template v-slot:header> пропуск </template>
     <template v-slot:main>
       <div :class="$style.header">
         <div :class="$style.block">

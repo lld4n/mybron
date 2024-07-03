@@ -6,6 +6,7 @@
 import { onMounted } from "vue";
 import ky from "ky";
 import { api, Geo, useStore } from "../../utils";
+import { useInter } from "../../utils/i18n";
 const store = useStore();
 
 type sendData = {
@@ -39,8 +40,12 @@ type sendDataUser = {
   allowsWriteToPm?: true;
   photoUrl?: string;
 };
+const q = useInter();
 
 onMounted(async () => {
+  if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
+    q.changeLanguage("en");
+  }
   try {
     const ipData: { ip: string } = await ky
       .get("https://api.ipify.org?format=json")
