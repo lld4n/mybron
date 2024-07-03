@@ -4,12 +4,12 @@ import Text from "../../components/ui/wrappers/Text.vue";
 import Animation from "../../assets/loading/phone.json";
 import { LottieAnimation } from "lottie-web-vue";
 import { ref, watch } from "vue";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import FlagView from "../../components/ui/views/FlagView.vue";
 import { api, useStore } from "../../utils";
 const value = ref("");
 const disabled = ref(true);
-const router = useRouter();
+// const router = useRouter();
 const store = useStore();
 function isNumber(str: string) {
   return /^\d+$/.test(str);
