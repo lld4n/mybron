@@ -6,9 +6,11 @@ import { LottieAnimation } from "lottie-web-vue";
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import FlagView from "../../components/ui/views/FlagView.vue";
+import { api, useStore } from "../../utils";
 const value = ref("");
 const disabled = ref(true);
 const router = useRouter();
+const store = useStore();
 function isNumber(str: string) {
   return /^\d+$/.test(str);
 }
@@ -28,13 +30,31 @@ watch(value, (v, o) => {
     value.value = ans;
   }
 });
+const send = async () => {
+  if (value.value.length < 11 || !store.auth) return;
+  let phone = "+7";
+  for (const l of value.value) {
+    if (isNumber(l)) phone += l;
+  }
+  const data = api
+    .post("auth/request-sms-otp", {
+      body: JSON.stringify({ phone }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: store.auth,
+      },
+    })
+    .json();
+  console.log(data);
+  // router.push("/settings/code/phone");
+};
 </script>
 
 <template>
   <Wrapper
     :footer="{
       text: 'Применить',
-      click: () => router.push('/settings/code/phone'),
+      click: () => send(),
       disabled,
     }"
     :class="$style.wrapper"
