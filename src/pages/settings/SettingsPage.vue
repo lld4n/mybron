@@ -78,7 +78,7 @@ const q = useInter();
         <div :class="$style.item" @click="$router.push('/settings/phone')">
           <PhoneIcon />
           <div :class="$style.right">
-            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.phone }}</Text>
+            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.phone2 }}</Text>
             <Text :s="17" :l="22" :w="400" :c="$style.info"
               >{{ q.i18n.settings.add }} <ChevronRight
             /></Text>
@@ -87,7 +87,7 @@ const q = useInter();
         <div :class="$style.item" @click="$router.push('/settings/email')">
           <EmailIcon />
           <div :class="$style.right">
-            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.email }}</Text>
+            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.email2 }}</Text>
             <Text :s="17" :l="22" :w="400" :c="$style.info"
               >{{ q.i18n.settings.add }} <ChevronRight
             /></Text>

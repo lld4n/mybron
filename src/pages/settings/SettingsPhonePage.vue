@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import Text from "../../components/ui/wrappers/Text.vue";
-import Animation from "../../assets/loading/phone.json";
-import { LottieAnimation } from "lottie-web-vue";
-import { ref, watch } from "vue";
+import { defineAsyncComponent, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import FlagView from "../../components/ui/views/FlagView.vue";
 import { api, useStore } from "../../utils";
+import { useInter } from "../../utils/i18n";
+const Animation = defineAsyncComponent(
+  () => import("../../components/ui/Animation.vue"),
+);
 const value = ref("");
 const disabled = ref(true);
 const router = useRouter();
 const store = useStore();
+
+const q = useInter();
 function isNumber(str: string) {
   return /^\d+$/.test(str);
 }
@@ -50,13 +54,13 @@ const send = async () => {
   } catch (e) {
     window.Telegram.WebApp.showPopup(
       {
-        title: "Номер уже используется",
-        message: "Этот номер уже привязан к другому аккаунта МоейБрони",
+        title: "{{ q.i18n.settings.phone.page.artlpk }}",
+        message: "{{ q.i18n.settings.phone.page.upokil }}",
         buttons: [
           {
             id: "close",
             type: "default",
-            text: "Понятно",
+            text: "{{ q.i18n.settings.phone.page.xwkfmw }}",
           },
         ],
       },
@@ -71,24 +75,23 @@ const send = async () => {
 <template>
   <Wrapper
     :footer="{
-      text: 'Применить',
+      text: '{{ q.i18n.settings.phone.page.hfkqed }}',
       click: () => send(),
       disabled,
     }"
     :class="$style.wrapper"
   >
     <div :class="$style.block">
-      <LottieAnimation
-        :animation-data="Animation"
-        :auto-play="true"
-        :loop="false"
-        :speed="1"
-        :class="$style.animation"
-      />
+      <Animation type="phone" :c="$style.animation" :loop="false" />
     </div>
     <div :class="$style.top">
-      <Text :s="28" :l="34" :w="700">Привязать номер</Text>
-      <Text :s="17" :l="22">На ваш номер поступит SMS с кодом подтверждения</Text>
+      <Text :s="28" :l="34" :w="700">{{ q.i18n.settings.phone.page.qcwalw }}</Text>
+      <Text :s="17" :l="22"
+        >{{ q.i18n.settings.phone.page.eggtgy }}SMS
+        {{ q.i18n.settings.phone.page.smrxbi }} {{
+          q.i18n.settings.phone.page.bhgrhf
+        }}</Text
+      >
     </div>
     <div :class="$style.content">
       <div :class="$style.left" @click="$router.push('/settings/country')">

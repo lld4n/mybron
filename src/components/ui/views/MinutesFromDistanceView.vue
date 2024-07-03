@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { useInter } from "../../../utils/i18n";
 
 const list: [number, number, string][] = [
   [0, 0.1, "1"],
@@ -29,16 +30,16 @@ interface Props {
   d: number;
 }
 const render = ref("");
-
+const q = useInter();
 onMounted(() => {
   for (const item of list) {
     if (props.d >= item[0] && props.d <= item[1]) {
-      render.value = item[2] + " минут пешком до центра";
+      render.value = item[2] + " q.i18n.minutes.from.distance.view.oczppy";
       break;
     }
   }
   if (render.value.length === 0) {
-    render.value = "до центра больше часа";
+    render.value = q.i18n.minutes.from.distance.view.rxgpud;
   }
 });
 const props = defineProps<Props>();

@@ -4,11 +4,13 @@ import Slider from "primevue/slider";
 import { onMounted, ref, watch } from "vue";
 import { useHotel, useStore } from "../../utils";
 import { useRoute } from "vue-router";
+import { useInter } from "../../utils/i18n";
 const route = useRoute();
 const numbers = ref([0, 50000]);
 const inputs = ref(["0 ₽", "50 000 ₽"]);
 const store = useStore();
 const hotel = useHotel();
+const q = useInter();
 const room = route.fullPath.includes("rooms");
 onMounted(() => {
   if (room) {
@@ -99,11 +101,11 @@ const focus = () => {
 </script>
 
 <template>
-  <FilterTemplate title="Цена">
+  <FilterTemplate :title="q.i18n.filter.price.page.appvei">
     <template v-slot:main>
       <div :class="$style.header">
         <div :class="$style.block">
-          <div :class="$style.title">От</div>
+          <div :class="$style.title">{{ q.i18n.filter.price.page.baffkd }}</div>
           <input
             type="text"
             :class="$style.input"
@@ -112,7 +114,7 @@ const focus = () => {
           />
         </div>
         <div :class="$style.block">
-          <div :class="$style.title">До</div>
+          <div :class="$style.title">{{ q.i18n.filter.price.page.wyzrfe }}</div>
           <input
             type="text"
             :class="$style.input"

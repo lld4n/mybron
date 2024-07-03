@@ -34,19 +34,23 @@ const q = useInter();
         >{{ name }}</Text
       >
       <Text :s="28" :l="31" :w="700" v-if="!!rating">{{ name }}</Text>
-      <CopyButton v-if="!!address" title="Адрес" :text="address" />
+      <CopyButton
+        v-if="!!address"
+        title="{{ q.i18n.estimated.block.tjeayh }}"
+        :text="address"
+      />
       <RatingView v-if="!!rating" :level="rating" type="big" :c="$style.rating" />
     </div>
     <div :class="$style.dates">
       <div :class="$style.item">
         <Text :s="13" :l="18" :c="$style.header">{{ q.i18n.hotel.estimated.in }}</Text>
         <Text :s="20" :l="24">{{ inTime }}</Text>
-        <Text :s="14" :l="18">после {{ checkIn }}</Text>
+        <Text :s="14" :l="18">{{ q.i18n.estimated.block.nfjayo }}{{ checkIn }}</Text>
       </div>
       <div :class="$style.item">
         <Text :s="13" :l="18" :c="$style.header">{{ q.i18n.hotel.estimated.out }}</Text>
         <Text :s="20" :l="24">{{ outTime }}</Text>
-        <Text :s="14" :l="18">до {{ checkOut }}</Text>
+        <Text :s="14" :l="18">{{ q.i18n.estimated.block.prkdhu }}{{ checkOut }}</Text>
       </div>
     </div>
   </Block>

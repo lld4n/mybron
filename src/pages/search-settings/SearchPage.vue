@@ -20,38 +20,38 @@ import { useRouter } from "vue-router";
 // import ky from "ky";
 import Title from "../../components/ui/wrappers/Title.vue";
 import SearchCard, { Item } from "../../components/items/SearchCard.vue";
-
+const q = useInter();
 const countries = ["RU", "KZ", "UZ", "KG", "TM", "GE", "BY", "AZ", "MD", "TJ", "AM"];
 const popular: { id: number; type: "CITY"; name: string; country: string }[] = [
   {
     id: 6,
     type: "CITY",
-    name: "Москва",
-    country: "Россия",
+    name: q.i18n.search.page.qagyer,
+    country: q.i18n.search.page.igvhim,
   },
   {
     id: 37,
     type: "CITY",
-    name: "Санкт-Петербург",
-    country: "Россия",
+    name: q.i18n.search.page.cmkcai + "-" + q.i18n.search.page.krgrey,
+    country: q.i18n.search.page.wyfpra,
   },
   {
     id: 48,
     type: "CITY",
-    name: "Сочи",
-    country: "Россия",
+    name: q.i18n.search.page.cihpga,
+    country: q.i18n.search.page.qkhvgl,
   },
   {
     id: 575,
     type: "CITY",
-    name: "Ереван",
-    country: "Армения",
+    name: q.i18n.search.page.huhfsj,
+    country: q.i18n.search.page.wmnclz,
   },
   {
     id: 35,
     type: "CITY",
-    name: "Калининград",
-    country: "Россия",
+    name: q.i18n.search.page.zleofg,
+    country: q.i18n.search.page.xviwil,
   },
 ];
 
@@ -62,7 +62,7 @@ const input = ref<HTMLInputElement | null>(null);
 const fetched = ref(false);
 const loadingGeo = ref(true);
 const loadingSearch = ref(false);
-const q = useInter();
+
 const store = useStore();
 const router = useRouter();
 
@@ -155,8 +155,10 @@ const handleClick = (item: Item) => {
       />
     </label>
     <div :class="$style.unfind" v-if="fetched && list.length === 0">
-      <Text :s="17" :l="22" :w="600">Ничего не найдено</Text>
-      <Text :s="17" :l="22" :g="true">Но вот, что вам может подойти</Text>
+      <Text :s="17" :l="22" :w="600">{{ q.i18n.search.page.gwfosk }}</Text>
+      <Text :s="17" :l="22" :g="true"
+        >{{ q.i18n.search.page.ewirkw }}, {{ q.i18n.search.page.tragrx }}</Text
+      >
     </div>
     <div :class="$style.loading__geo" v-if="loadingGeo && list.length === 0">
       <LoadingSimple />
@@ -194,7 +196,7 @@ const handleClick = (item: Item) => {
     </Block>
     <Block v-if="geoList.length > 0 && list.length === 0" :class="$style.content">
       <div :class="$style.top">
-        <Title>Рядом с вами</Title>
+        <Title>{{ q.i18n.search.page.jszwxj }}</Title>
       </div>
       <SearchCard
         v-for="item of geoList"
@@ -211,11 +213,11 @@ const handleClick = (item: Item) => {
       :l="18"
       :g="true"
       :c="$style.add"
-      >Основано на выбранном языке и вашем IP</Text
+      >{{ q.i18n.search.page.qxwhns }}IP</Text
     >
     <Block v-if="list.length === 0" :class="$style.content">
       <div :class="$style.top">
-        <Title>Популярное</Title>
+        <Title>{{ q.i18n.search.page.nitwfy }}</Title>
       </div>
       <SearchCard
         v-for="item of popular"
@@ -236,6 +238,7 @@ const handleClick = (item: Item) => {
   padding: 16px;
   min-height: 100%;
 }
+
 .header {
   margin-bottom: 20px;
   display: flex;
@@ -244,10 +247,12 @@ const handleClick = (item: Item) => {
   background: var(--tertiary-fill-background);
   gap: 6px;
   align-items: center;
+
   path {
     fill: var(--tg-theme-hint-color);
   }
 }
+
 .input {
   flex: 1;
   width: 100%;
@@ -261,10 +266,12 @@ const handleClick = (item: Item) => {
     color: var(--tg-theme-hint-color);
   }
 }
+
 .content {
   margin-bottom: 8px;
   overflow: initial !important;
 }
+
 .top {
   padding: 16px 16px 4px 16px;
 }
@@ -278,6 +285,7 @@ const handleClick = (item: Item) => {
     justify-content: center;
     align-items: center;
   }
+
   &__search {
     flex: 1;
     height: 100%;
@@ -288,9 +296,11 @@ const handleClick = (item: Item) => {
     align-items: center;
   }
 }
+
 .add {
   padding: 5px 16px;
 }
+
 .unfind {
   padding: 16px 32px;
   display: flex;

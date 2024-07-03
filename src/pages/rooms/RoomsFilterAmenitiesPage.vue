@@ -2,11 +2,13 @@
 import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { useHotel } from "../../utils";
+import { useInter } from "../../utils/i18n";
 const hotel = useHotel();
+const q = useInter();
 </script>
 
 <template>
-  <FilterTemplate title="Способ оплаты">
+  <FilterTemplate :title="q.i18n.rooms.filter.amenities.page.xowbsr">
     <template v-slot:main>
       <div
         :class="$style.btn"
@@ -20,8 +22,10 @@ const hotel = useHotel();
           }
         "
       >
-        <template v-if="hotel.filters.amenities.length > 0">Сбросить</template>
-        <template v-else>Выбрать все</template>
+        <template v-if="hotel.filters.amenities.length > 0">{{
+          q.i18n.rooms.filter.amenities.page.nnikpw
+        }}</template>
+        <template v-else>{{ q.i18n.rooms.filter.amenities.page.qerkur }}</template>
       </div>
       <div :class="$style.bar" />
       <template v-for="(item, index) of hotel.amenities">

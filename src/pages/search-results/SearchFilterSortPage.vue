@@ -2,34 +2,36 @@
 import Check from "../../assets/icons/check.svg";
 import { useStore } from "../../utils";
 import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
+import { useInter } from "../../utils/i18n";
 const store = useStore();
+const q = useInter();
 </script>
 
 <template>
-  <FilterTemplate title="Сортировка">
+  <FilterTemplate :title="q.i18n.search.filter.sort.page.yalmsm">
     <template v-slot:main>
       <div :class="$style.item" @click="store.changeFiltersSort('default')">
-        <div :class="$style.title">По оценке гостей</div>
+        <div :class="$style.title">{{ q.i18n.search.filter.sort.page.wwwnqs }}</div>
         <Check v-if="store.filters.sort === 'default'" />
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="store.changeFiltersSort('stars')">
-        <div :class="$style.title">По звездности</div>
+        <div :class="$style.title">{{ q.i18n.search.filter.sort.page.tynstc }}</div>
         <Check v-if="store.filters.sort === 'stars'" />
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="store.changeFiltersSort('cheap')">
-        <div :class="$style.title">Сначала дешевые</div>
+        <div :class="$style.title">{{ q.i18n.search.filter.sort.page.awghfo }}</div>
         <Check v-if="store.filters.sort === 'cheap'" />
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="store.changeFiltersSort('expensive')">
-        <div :class="$style.title">Сначала дорогие</div>
+        <div :class="$style.title">{{ q.i18n.search.filter.sort.page.mixjqi }}</div>
         <Check v-if="store.filters.sort === 'expensive'" />
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="store.changeFiltersSort('closeness')">
-        <div :class="$style.title">По близости к центру</div>
+        <div :class="$style.title">{{ q.i18n.search.filter.sort.page.fnwwwk }}</div>
         <Check v-if="store.filters.sort === 'closeness'" />
       </div>
     </template>

@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, splitVendorChunkPlugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import svgLoader from "vite-svg-loader";
 import PrettyModuleClassnames from "vite-plugin-pretty-module-classnames";
@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [
     vue(),
     PrettyModuleClassnames(),
+    splitVendorChunkPlugin(),
     svgLoader({
       svgoConfig: {
         multipass: true,

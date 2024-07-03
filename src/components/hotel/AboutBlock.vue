@@ -2,22 +2,26 @@
 import Block from "../ui/wrappers/Block.vue";
 import HotelButton from "./HotelButton.vue";
 import Title from "../ui/wrappers/Title.vue";
+import { useInter } from "../../utils/i18n";
 interface Props {
   text: string;
 }
-
+const q = useInter();
 defineProps<Props>();
 </script>
 
 <template>
   <Block>
     <div :class="$style.top">
-      <Title> Об отеле </Title>
+      <Title> {{ q.i18n.about.block.zzitbi }}</Title>
     </div>
     <div :class="$style.text">
       {{ text }}
     </div>
-    <HotelButton text="Полное описание" :click="() => $router.push('/hotel/about')" />
+    <HotelButton
+      :text="q.i18n.about.block.fkjnvt"
+      :click="() => $router.push('/hotel/about')"
+    />
   </Block>
 </template>
 

@@ -2,17 +2,19 @@
 import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { MealsFiltersValues, useHotel } from "../../utils";
+import { useInter } from "../../utils/i18n";
 const hotel = useHotel();
+const q = useInter();
 </script>
 
 <template>
-  <FilterTemplate title="Способ оплаты">
+  <FilterTemplate :title="q.i18n.rooms.filter.meals.page.famnos">
     <template v-slot:main>
       <div :class="$style.btn" @click="hotel.allFilters('meals', MealsFiltersValues)">
-        <template v-if="hotel.filters.meals.length === MealsFiltersValues.length"
-          >Сбросить</template
-        >
-        <template v-else>Выбрать все</template>
+        <template v-if="hotel.filters.meals.length === MealsFiltersValues.length">{{
+          q.i18n.rooms.filter.meals.page.ygownp
+        }}</template>
+        <template v-else>{{ q.i18n.rooms.filter.meals.page.ebjpmf }}</template>
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="hotel.changeFilters('meals', 'included')">
@@ -24,7 +26,7 @@ const hotel = useHotel();
         >
           <CheckBox v-if="hotel.filters.meals.includes('included')" />
         </div>
-        <div :class="$style.value">Питание включено</div>
+        <div :class="$style.value">{{ q.i18n.rooms.filter.meals.page.optqxy }}</div>
       </div>
       <div :class="$style.item" @click="hotel.changeFilters('meals', 'not included')">
         <div
@@ -35,7 +37,7 @@ const hotel = useHotel();
         >
           <CheckBox v-if="hotel.filters.meals.includes('not included')" />
         </div>
-        <div :class="$style.value">Без питания</div>
+        <div :class="$style.value">{{ q.i18n.rooms.filter.meals.page.zykoel }}</div>
       </div>
     </template>
   </FilterTemplate>

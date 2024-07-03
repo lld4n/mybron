@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import Text from "../../components/ui/wrappers/Text.vue";
-import Animation from "../../assets/loading/mailbox.json";
-import { LottieAnimation } from "lottie-web-vue";
-import { ref, watch } from "vue";
+const Animation = defineAsyncComponent(
+  () => import("../../components/ui/Animation.vue"),
+);
+import { defineAsyncComponent, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { useInter } from "../../utils/i18n";
 const value = ref("");
 const disabled = ref(true);
 const router = useRouter();
+const q = useInter();
 watch(value, (v) => {
   disabled.value = v.length === 0;
 });
@@ -16,24 +19,22 @@ watch(value, (v) => {
 <template>
   <Wrapper
     :footer="{
-      text: 'Применить',
+      text: q.i18n.settings.email.page.zsilhn,
       click: () => router.push('/settings/code/email'),
       disabled,
     }"
     :class="$style.wrapper"
   >
     <div :class="$style.block">
-      <LottieAnimation
-        :animation-data="Animation"
-        :auto-play="true"
-        :loop="false"
-        :speed="1"
-        :class="$style.animation"
-      />
+      <Animation type="mailbox" :c="$style.animation" :loop="false" />
     </div>
     <div :class="$style.top">
-      <Text :s="28" :l="34" :w="700">Привязать почту</Text>
-      <Text :s="17" :l="22">На вашу почту поступит письмо с кодом подтверждения</Text>
+      <Text :s="28" :l="34" :w="700">{{ q.i18n.settings.email.page.sljjhv }}</Text>
+      <Text :s="17" :l="22"
+        >{{ q.i18n.settings.email.page.yqngtq }} {{
+          q.i18n.settings.email.page.mxqrmc
+        }}</Text
+      >
     </div>
     <div :class="$style.content">
       <input

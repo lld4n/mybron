@@ -1,19 +1,19 @@
 import { defineStore } from "pinia";
-import { CurrencyType, i18nType, SlugType } from "./type.ts";
-import { ru } from "./ru.ts";
+import { CurrencyType, SlugType } from "./type.ts";
+import { i18nTypeRU, ru } from "./ru.ts";
 import { en } from "./en.ts";
 
 export const currencies: CurrencyType[] = ["RUB", "USD", "EUR"];
 
 export const languages: {
-  [key in SlugType]: i18nType;
+  [key in SlugType]: i18nTypeRU;
 } = {
   ru: ru,
   en: en,
 };
 
 interface StoreInterface {
-  i18n: i18nType;
+  i18n: i18nTypeRU;
   currency: CurrencyType;
 }
 

@@ -14,6 +14,7 @@ import {
   YandexMapDefaultSchemeLayer,
 } from "vue-yandex-maps";
 import MinutesFromDistanceView from "../ui/views/MinutesFromDistanceView.vue";
+import { useInter } from "../../utils/i18n";
 interface Props {
   id: number;
   rating?: number;
@@ -31,6 +32,7 @@ const showMap = ref(false);
 onMounted(() => {
   showMap.value = true;
 });
+const q = useInter()
 </script>
 
 <template>
@@ -45,28 +47,22 @@ onMounted(() => {
       <Text :s="14" :l="18" :c="$style.item">
         <Walking />
         <MinutesFromDistanceView :d="center" />
-        <span :class="$style.gray">{{ center }} км</span>
+        <span :class="$style.gray">{{ center }} {{ q.i18n.main.block.gbhcow }}</span>
       </Text>
     </div>
     <div :class="$style.map">
-      <yandex-map
-        :settings="{
-          location: {
-            center: [longitude, latitude],
-            zoom: 14,
-          },
-        }"
-        width="100%"
-        height="200px"
-      >
+      <yandex-map :settings="{
+        location: {
+          center: [longitude, latitude],
+          zoom: 14,
+        },
+      }" width="100%" height="200px">
         <yandex-map-default-scheme-layer />
         <yandex-map-default-features-layer />
-        <yandex-map-default-marker
-          :settings="{ coordinates: [longitude, latitude], title: name }"
-        />
+        <yandex-map-default-marker :settings="{ coordinates: [longitude, latitude], title: name }" />
       </yandex-map>
     </div>
-    <CopyButton :text="address" title="Адрес" :class="$style.copu" />
+    <CopyButton :text="address" title="{{ q.i18n.main.block.envksx }}" :class="$style.copu" />
   </div>
 </template>
 
@@ -77,61 +73,75 @@ onMounted(() => {
   flex-direction: column;
   gap: 8px;
 }
+
 .gray {
   color: var(--tg-theme-hint-color);
 }
+
 .item {
   display: flex;
   align-items: center;
   gap: 4px;
+
   path {
     fill: var(--tg-theme-text-color);
   }
+
   &:last-child {
     svg {
       width: 13px;
       height: 15px;
     }
   }
+
   svg {
     flex: 0 0 16px;
   }
 }
+
 .wrapper {
   border-radius: 16px;
   background-color: var(--tg-theme-bg-color);
   position: relative;
 }
+
 .rating {
   position: absolute;
   top: 0;
   right: 16px;
 }
+
 .top {
   padding: 16px 16px 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+
   svg {
     width: 12px;
     height: 12px;
   }
+
   path {
     fill: #ff9500;
   }
 }
+
 .title {
   font-size: 28px;
   line-height: 31px;
   font-weight: 700;
 }
+
 .map {
   overflow: hidden;
   padding: 16px 16px 0 16px;
 }
+
 .copu {
   padding: 16px;
 }
+
 .img {
   width: 100%;
   height: auto;

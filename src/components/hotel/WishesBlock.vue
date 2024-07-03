@@ -4,6 +4,7 @@ import Text from "../ui/wrappers/Text.vue";
 import AddWish from "../../assets/icons/add-wish.svg";
 import { ref, watch } from "vue";
 import Title from "../ui/wrappers/Title.vue";
+import { useInter } from "../../utils/i18n";
 const show = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const wish = ref("");
@@ -19,21 +20,24 @@ watch(wish, () => {
     textareaRef.value.style.height = `300px`;
   }
 });
+const q = useInter();
 </script>
 
 <template>
   <Block>
     <div :class="$style.link" v-if="!show" @click="handleShow">
       <AddWish />
-      <Text :s="17" :l="22">Добавить пожелания</Text>
+      <Text :s="17" :l="22">{{ q.i18n.wishes.block.tvddck }}</Text>
     </div>
     <div :class="$style.top" v-if="show">
-      <Title>Второй гость</Title>
-      <Text :c="$style.link" :s="17" :l="22" @click="handleShow">Свернуть</Text>
+      <Title>{{ q.i18n.wishes.block.bxygfb }}</Title>
+      <Text :c="$style.link" :s="17" :l="22" @click="handleShow">{{
+        q.i18n.wishes.block.iiqkxh
+      }}</Text>
     </div>
     <Text v-if="show" :s="17" :l="22" :g="true" :c="$style.add"
-      >Например, если нужен детский стул в номер. Ваши пожелания постараются
-      учесть.</Text
+      >{{ q.i18n.wishes.block.iutezy }}, {{ q.i18n.wishes.block.snktll }}.
+      {{ q.i18n.wishes.block.dqnkzv }} {{ q.i18n.wishes.block.jwzsyk }}.</Text
     >
     <div :class="$style.block" v-if="show">
       <textarea
@@ -41,7 +45,7 @@ watch(wish, () => {
         ref="textareaRef"
         v-model="wish"
         :class="$style.textarea"
-        placeholder="Ваши пожелания"
+        placeholder="{{ q.i18n.wishes.block.aifvgs }}"
       ></textarea>
     </div>
   </Block>
@@ -56,15 +60,18 @@ watch(wish, () => {
   padding: 11px 16px;
   color: var(--tg-theme-link-color);
   transition: opacity 0.1s ease-out;
+
   &:not([disabled]):active {
     opacity: 0.6 !important;
   }
+
   @media (hover: hover) {
     &:not([disabled]):hover {
       opacity: 0.85;
     }
   }
 }
+
 .top {
   display: flex;
   gap: 5px;
@@ -72,12 +79,15 @@ watch(wish, () => {
   align-items: center;
   padding: 24px 16px 0 16px;
 }
+
 .add {
   padding: 4px 16px 0 16px;
 }
+
 .block {
   padding: 16px;
 }
+
 .textarea {
   padding: 12px;
   border-radius: 12px;
@@ -88,6 +98,7 @@ watch(wish, () => {
   font-size: 17px;
   font-weight: 400;
   line-height: 22px;
+
   &::placeholder {
     color: var(--tg-theme-hint-color);
   }

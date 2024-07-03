@@ -2,17 +2,19 @@
 import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { BedsFiltersValues, useHotel } from "../../utils";
+import { useInter } from "../../utils/i18n";
 const hotel = useHotel();
+const q = useInter();
 </script>
 
 <template>
-  <FilterTemplate title="Способ оплаты">
+  <FilterTemplate :title="q.i18n.rooms.filter.beds.page.ztzdcp">
     <template v-slot:main>
       <div :class="$style.btn" @click="hotel.allFilters('beds', BedsFiltersValues)">
-        <template v-if="hotel.filters.beds.length === BedsFiltersValues.length"
-          >Сбросить</template
-        >
-        <template v-else>Выбрать все</template>
+        <template v-if="hotel.filters.beds.length === BedsFiltersValues.length">{{
+          q.i18n.rooms.filter.beds.page.amfics
+        }}</template>
+        <template v-else>{{ q.i18n.rooms.filter.beds.page.nfkezq }}</template>
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="hotel.changeFilters('beds', 'double')">
@@ -24,7 +26,7 @@ const hotel = useHotel();
         >
           <CheckBox v-if="hotel.filters.beds.includes('double')" />
         </div>
-        <div :class="$style.value">Двуспальная</div>
+        <div :class="$style.value">{{ q.i18n.rooms.filter.beds.page.neabjh }}</div>
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="hotel.changeFilters('beds', 'single')">
@@ -36,7 +38,7 @@ const hotel = useHotel();
         >
           <CheckBox v-if="hotel.filters.beds.includes('single')" />
         </div>
-        <div :class="$style.value">Односпальная</div>
+        <div :class="$style.value">{{ q.i18n.rooms.filter.beds.page.uzgdqa }}</div>
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="hotel.changeFilters('beds', 'bunk')">
@@ -48,7 +50,7 @@ const hotel = useHotel();
         >
           <CheckBox v-if="hotel.filters.beds.includes('bunk')" />
         </div>
-        <div :class="$style.value">Двухярусная</div>
+        <div :class="$style.value">{{ q.i18n.rooms.filter.beds.page.gmlowz }}</div>
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="hotel.changeFilters('beds', 'sofa')">
@@ -60,7 +62,7 @@ const hotel = useHotel();
         >
           <CheckBox v-if="hotel.filters.beds.includes('sofa')" />
         </div>
-        <div :class="$style.value">Диван</div>
+        <div :class="$style.value">{{ q.i18n.rooms.filter.beds.page.ifkzxp }}</div>
       </div>
     </template>
   </FilterTemplate>

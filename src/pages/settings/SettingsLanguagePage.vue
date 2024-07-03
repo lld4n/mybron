@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Text from "../../components/ui/wrappers/Text.vue";
 import Title from "../../components/ui/wrappers/Title.vue";
-import { languages, useInter } from "../../utils/i18n";
+import { languages, SlugType, useInter } from "../../utils/i18n";
 import Block from "../../components/ui/wrappers/Block.vue";
 import Check from "../../assets/icons/check.svg";
 const q = useInter();
@@ -17,7 +17,7 @@ const q = useInter();
         <div
           :class="$style.item"
           v-for="item in languages"
-          @click="q.changeLanguage(item.slug)"
+          @click="q.changeLanguage(item.slug as SlugType)"
         >
           <div :class="$style.right">
             <Text :s="17" :l="22">{{ item.name }}</Text>

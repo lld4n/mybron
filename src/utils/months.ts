@@ -1,3 +1,5 @@
+import { i18nTypeRU } from "./i18n";
+
 interface Months {
   type: "line" | "name";
   name: string;
@@ -11,7 +13,7 @@ type MonthsValue = {
   position: "left" | "middle" | "right";
 } | null;
 
-export function months() {
+export function months(q: i18nTypeRU) {
   const currentDate = new Date();
   const currentDateStart = new Date();
   currentDateStart.setHours(0, 0, 0, 0);
@@ -34,10 +36,13 @@ export function months() {
   }
   const ans: Months[] = [];
   for (const month of allMonths) {
-    const monthName = month[0].toLocaleDateString("RU-ru", {
-      month: "long",
-      year: "numeric",
-    });
+    const monthName = month[0].toLocaleDateString(
+      q.slug.toUpperCase() + "_" + q.slug.toLowerCase(),
+      {
+        month: "long",
+        year: "numeric",
+      },
+    );
     ans.push({
       type: "name",
       name: monthName,
@@ -110,30 +115,15 @@ export function line(value: MonthsValue[]) {
 
 export function dates(
   date: Date,
+  q: i18nTypeRU,
   options?: {
     week?: boolean;
     sameMonth?: boolean;
   },
 ) {
-  const monthsNames = [
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря",
-  ];
-  const weekNames = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
-
   const dayName = date.getDate();
-  const weekName = weekNames[date.getDay()];
-  const monthName = monthsNames[date.getMonth()];
+  const weekName = q.weeks[date.getDay()];
+  const monthName = q.months[date.getMonth()];
 
   let ans = dayName + " ";
   if (!options?.sameMonth) {

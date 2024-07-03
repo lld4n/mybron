@@ -6,6 +6,7 @@ import { AvailableAmenityDto } from "../../utils";
 import { computed } from "vue";
 import AmenityView from "../ui/views/AmenityView.vue";
 import Text from "../ui/wrappers/Text.vue";
+import { useInter } from "../../utils/i18n";
 interface Props {
   am: AvailableAmenityDto[];
 }
@@ -22,12 +23,13 @@ const list = computed(() => {
   console.log(ans);
   return ans;
 });
+const q = useInter();
 </script>
 
 <template>
   <Block>
     <div :class="$style.top">
-      <Title>Удобства</Title>
+      <Title>{{ q.i18n.amenity.block.iaizlt }}</Title>
     </div>
     <div :class="$style.list">
       <div :class="$style.item" v-for="item of list">
@@ -38,7 +40,10 @@ const list = computed(() => {
         </div>
       </div>
     </div>
-    <HotelButton text="Все удобства" :click="() => $router.push('/hotel/amenities')" />
+    <HotelButton
+      :text="q.i18n.amenity.block.bcgjhw"
+      :click="() => $router.push('/hotel/amenities')"
+    />
   </Block>
 </template>
 

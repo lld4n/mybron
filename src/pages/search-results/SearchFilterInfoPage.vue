@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import MainInfo from "../../components/common/MainInfo.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
+import { useInter } from "../../utils/i18n";
+const q = useInter();
 </script>
 
 <template>
   <Wrapper
     :footer="{
-      text: 'Применить',
+      text: q.i18n.done,
       click: () => $router.go(-1),
     }"
   >

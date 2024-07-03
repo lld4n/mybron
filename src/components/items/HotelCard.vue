@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Carousel from "../ui/carousel/Carousel.vue";
 import StarsSmall from "../../assets/icons/stars/star-small.svg";
+import { useInter } from "../../utils/i18n";
 // import RatingView from "../ui/views/RatingView.vue";
 interface Props {
   images: string[];
@@ -16,6 +17,7 @@ interface Props {
 }
 
 defineProps<Props>();
+const q = useInter()
 </script>
 
 <template>
@@ -26,19 +28,22 @@ defineProps<Props>();
     <div :class="$style.middle">
       <div :class="$style.name">
         <div>{{ name }}</div>
-        <span>{{ stars }} <StarsSmall /></span>
+        <span>{{ stars }}
+          <StarsSmall />
+        </span>
       </div>
       <div :class="$style.text">
         <!--        <RatingView :level="9" type="small" />-->
-        <!--        <span>7829 отзывов</span>-->
+        <!--        <span>7829 {{ q.i18n.hotel.card.kipbzq }}</span>-->
         <!--        <span>•</span>-->
-        <span>{{ center }} км от центра</span>
+        <span>{{ center }} {{ q.i18n.hotel.card.ygbsng }}</span>
       </div>
     </div>
     <div :class="$style.bottom">
       <div :class="$style.price">{{ price.all }} ₽</div>
       <div :class="$style.day" v-if="price.nights > 1">
-        ~{{ Math.floor(price.all / (price.nights || 1)) }} ₽ за 1 ночь
+        ~{{ Math.floor(price.all / (price.nights || 1)) }} ₽ {{ q.i18n.hotel.card.omcues }}1 {{ q.i18n.hotel.card.ztzlwh
+        }}
       </div>
     </div>
   </div>
@@ -52,6 +57,7 @@ defineProps<Props>();
   gap: 2px;
   padding-left: 16px;
 }
+
 .name {
   font-size: 17px;
   font-weight: 600;
@@ -62,19 +68,23 @@ defineProps<Props>();
   align-items: center;
   overflow: hidden;
   padding-right: 16px;
+
   path {
     fill: var(--tg-theme-text-color);
   }
+
   div {
     //flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   span {
     white-space: nowrap;
   }
 }
+
 .text {
   display: flex;
   gap: 6px;
@@ -82,29 +92,34 @@ defineProps<Props>();
   line-height: 22px;
   font-weight: 400;
 }
+
 .day {
   font-size: 13px;
   line-height: 24px;
   font-weight: 400;
 }
+
 .bottom {
   display: flex;
   gap: 6px;
   align-items: flex-end;
   padding-left: 16px;
 }
+
 .price {
   font-size: 22px;
   line-height: 28px;
   font-weight: 600;
   letter-spacing: -0.26px;
 }
+
 .card {
   cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 .image {
   flex: 0 0 340px;
   min-width: 0;
@@ -112,6 +127,7 @@ defineProps<Props>();
   height: 240px;
   object-fit: cover;
   border-radius: 8px;
+
   &:first-child {
     margin-left: 16px;
   }

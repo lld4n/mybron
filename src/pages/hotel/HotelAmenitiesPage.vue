@@ -6,8 +6,9 @@ import AmenityView from "../../components/ui/views/AmenityView.vue";
 import Title from "../../components/ui/wrappers/Title.vue";
 import Ellipse from "../../assets/amenities/ellipse.svg";
 import Text from "../../components/ui/wrappers/Text.vue";
+import { useInter } from "../../utils/i18n";
 const hotel = useHotel();
-
+const q = useInter();
 const list = computed(() => {
   const ans: { group: string; content: AvailableAmenityDto[] }[] = [];
   for (const a of hotel.amenities) {
@@ -37,7 +38,9 @@ const list = computed(() => {
             <Text :s="14" :l="18" v-if="!item.included && !!item.price" :g="true"
               >{{ item.price }} ₽</Text
             >
-            <Text :s="14" :l="18" v-if="item.included" :g="true">Бесплатно</Text>
+            <Text :s="14" :l="18" v-if="item.included" :g="true">{{
+              q.i18n.hotel.amenities.page.zwjabc
+            }}</Text>
           </div>
         </div>
       </div>

@@ -2,20 +2,22 @@
 import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { PaymentFiltersValues, useStore } from "../../utils";
+import { useInter } from "../../utils/i18n";
 const store = useStore();
+const q = useInter();
 </script>
 
 <template>
-  <FilterTemplate title="Способ оплаты">
+  <FilterTemplate :title="q.i18n.search.filter.payment.page.zlpmfw">
     <template v-slot:main>
       <div
         :class="$style.btn"
         @click="store.allFilters('payment', PaymentFiltersValues)"
       >
-        <template v-if="store.filters.payment.length === PaymentFiltersValues.length"
-          >Сбросить</template
-        >
-        <template v-else>Выбрать все</template>
+        <template v-if="store.filters.payment.length === PaymentFiltersValues.length">{{
+          q.i18n.search.filter.payment.page.cvberu
+        }}</template>
+        <template v-else>{{ q.i18n.search.filter.payment.page.axvqrq }}</template>
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="store.changeFilters('payment', 'hotel')">
@@ -27,7 +29,7 @@ const store = useStore();
         >
           <CheckBox v-if="store.filters.payment.includes('hotel')" />
         </div>
-        <div :class="$style.value">Оплата в отеле</div>
+        <div :class="$style.value">{{ q.i18n.search.filter.payment.page.ntzncs }}</div>
       </div>
       <div :class="$style.item" @click="store.changeFilters('payment', 'agency')">
         <div
@@ -38,7 +40,7 @@ const store = useStore();
         >
           <CheckBox v-if="store.filters.payment.includes('agency')" />
         </div>
-        <div :class="$style.value">Оплата агенству</div>
+        <div :class="$style.value">{{ q.i18n.search.filter.payment.page.ergcip }}</div>
       </div>
     </template>
   </FilterTemplate>

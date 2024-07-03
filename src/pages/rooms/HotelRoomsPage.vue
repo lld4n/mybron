@@ -8,21 +8,23 @@ import { useRoute, useRouter } from "vue-router";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 import { RenderRoom, RenderRoomItem } from "../hotel/types.ts";
 import FilterRoomView from "../../components/common/FilterRoomView.vue";
+import { useInter } from "../../utils/i18n";
 const store = useStore();
 const hotel = useHotel();
 const route = useRoute();
+const q = useInter();
 const router = useRouter();
 const loading = ref(true);
 const render = ref<RenderRoom[]>([]);
 const subtitle = () => {
-  let ans = dates(store.in) + " — " + dates(store.out!);
-  ans += ", " + guests(store.adultsCount, store.children);
+  let ans = dates(store.in, q.i18n) + " — " + dates(store.out!, q.i18n);
+  ans += ", " + guests(store.adultsCount, store.children, q.i18n);
   return ans;
 };
 
 onMounted(async () => {
   if (hotel.offers.length === 0) {
-    await fetchHotelInfo(route.params.id, store, hotel);
+    await fetchHotelInfo(route.params.id, store, hotel, q.i18n);
   }
   loading.value = false;
   console.log(hotel.offers);

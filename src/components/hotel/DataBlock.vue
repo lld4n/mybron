@@ -4,6 +4,7 @@ import Title from "../ui/wrappers/Title.vue";
 import Input from "../ui/Input.vue";
 import { ref, watch } from "vue";
 import { useHotel } from "../../utils";
+import { useInter } from "../../utils/i18n";
 const name = ref("");
 const surname = ref("");
 const hotel = useHotel();
@@ -21,18 +22,19 @@ watch(surname, (v) => {
     lastName: v,
   });
 });
+const q = useInter();
 </script>
 
 <template>
   <Block>
     <div :class="$style.top">
-      <Title>Ваши данные</Title>
+      <Title>{{ q.i18n.data.block.kzzaxu }}</Title>
     </div>
     <div :class="$style.list">
-      <Input id="name" label="Имя" v-model="name" />
-      <Input id="surname" label="Фамилия" v-model="surname" />
-      <!--      <Input id="phone" label="Телефон" v-model="phone" />-->
-      <!--      <Input id="email" label="Почта" v-model="email" type="email" />-->
+      <Input id="name" label="{{ q.i18n.data.block.gwiaje }}" v-model="name" />
+      <Input id="surname" label="{{ q.i18n.data.block.bmjznr }}" v-model="surname" />
+      <!--      <Input id="phone" label="{{ q.i18n.data.block.xzpwek }}" v-model="phone" />-->
+      <!--      <Input id="email" label="{{ q.i18n.data.block.stnbmb }}" v-model="email" type="email" />-->
     </div>
   </Block>
 </template>

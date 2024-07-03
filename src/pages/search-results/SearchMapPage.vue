@@ -12,9 +12,17 @@ import {
   YandexMapDefaultSchemeLayer,
   YandexMapListener,
 } from "vue-yandex-maps";
-import { HotelWithCheapestOfferDto, nightsRange, router, useStore } from "../../utils";
+import {
+  dates,
+  guests,
+  HotelWithCheapestOfferDto,
+  nightsRange,
+  router,
+  useStore,
+} from "../../utils";
 import { DomEventHandler, LngLat } from "ymaps3";
 import HotelCard from "../../components/items/HotelCard.vue";
+import { useInter } from "../../utils/i18n";
 const viewInfo = ref<"in" | "out" | "default">("default");
 const el = ref(null);
 const store = useStore();
@@ -23,7 +31,7 @@ const container = ref(null);
 // @ts-ignore
 const height = computed(() => container.value?.offsetHeight);
 const bottom = ref("0");
-
+const q = useInter();
 const coor = computed(() => {
   let long = 0;
   let lat = 0;
@@ -94,14 +102,20 @@ const logMapClick: DomEventHandler = (object) => {
     }
   }
 };
+
+const subtitle = () => {
+  let ans = dates(store.in, q.i18n) + " — " + dates(store.out!, q.i18n);
+  ans += ", " + guests(store.adultsCount, store.children, q.i18n);
+  return ans;
+};
 </script>
 
 <template>
   <div :class="$style.wrapper">
     <header :class="$style.header">
       <div :class="$style.info" @click="$router.push('/search/filter/info')">
-        <div :class="$style.title">Адлер, Россия</div>
-        <div :class="$style.subtitle">31 мая — 8 июня, 2 взрослых</div>
+        <div :class="$style.title">{{ store.search?.name }}</div>
+        <div :class="$style.subtitle">{{ subtitle() }}</div>
       </div>
       <FilterView />
     </header>
@@ -166,7 +180,7 @@ const logMapClick: DomEventHandler = (object) => {
     </div>
     <div :class="$style.block">
       <button :class="$style.btn" @click="$router.push('/search/results')">
-        <ShapeIcon /> Список
+        <ShapeIcon /> {{ q.i18n.search.map.page.veddgm }}
       </button>
     </div>
   </div>

@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import Wrapper from "./Wrapper.vue";
+import { useInter } from "../../../utils/i18n";
 
 defineProps({
   title: { type: String, required: true },
 });
+const q = useInter();
 </script>
 
 <template>
   <Wrapper
     :footer="{
-      text: 'Применить',
+      text: q.i18n.filter.template.ncsjqh,
       click: () => $router.go(-1),
     }"
   >

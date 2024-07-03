@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import Block from "../ui/wrappers/Block.vue";
 import Title from "../ui/wrappers/Title.vue";
+import { useInter } from "../../utils/i18n";
 interface Props {
   data: string[];
 }
 
 defineProps<Props>();
+const q = useInter();
 </script>
 
 <template>
   <Block>
     <div :class="$style.top">
-      <Title>Дополнительная информация</Title>
+      <Title>{{ q.i18n.additional.block.sfxyym }}</Title>
     </div>
     <div :class="$style.text">
       <span v-for="text of data">{{ text }}</span>

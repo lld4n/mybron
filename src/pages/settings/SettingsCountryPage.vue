@@ -44,7 +44,7 @@ watch(v, (n) => {
         id="find"
         v-model="v"
         :class="$style.input"
-        placeholder="Поиск страны"
+        :placeholder="q.i18n.settings.findCountry"
       />
     </label>
     <Block>

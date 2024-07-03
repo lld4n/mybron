@@ -24,6 +24,7 @@ import {
 } from "../../utils";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 import { fetchHotelInfo } from "./fetchHotelInfo.ts";
+import { useInter } from "../../utils/i18n";
 
 const data = ref<HotelWithOffersDto | null>(null);
 const reviews = ref<HotelReviewDto[]>([]);
@@ -34,6 +35,7 @@ const route = useRoute();
 const store = useStore();
 const hotel = useHotel();
 const router = useRouter();
+const q = useInter();
 
 onMounted(async () => {
   if (!store.out) {
@@ -66,7 +68,7 @@ onMounted(async () => {
       ratings.value = res.ratings;
       console.log(res);
     });
-  data.value = await fetchHotelInfo(route.params.id, store, hotel);
+  data.value = await fetchHotelInfo(route.params.id, store, hotel, q.i18n);
   loading.value = false;
   fetched.value = true;
 });

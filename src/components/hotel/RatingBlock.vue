@@ -2,6 +2,8 @@
 import Block from "../ui/wrappers/Block.vue";
 import RatingView from "../ui/views/RatingView.vue";
 import Title from "../ui/wrappers/Title.vue";
+import { useInter } from "../../utils/i18n";
+const q = useInter()
 const backgrounds: { [percent: number]: string } = {
   10: "#FF3B30",
   20: "#FD5F28",
@@ -14,45 +16,20 @@ const backgrounds: { [percent: number]: string } = {
   90: "#34C759",
   100: "#34C759",
 };
+
 const titles = [
-  "Плохо",
-  "Плохо",
-  "Плохо",
-  "Плохо",
-  "Плохо",
-  "Удовлетворительно",
-  "Удовлетворительно",
-  "Хорошо",
-  "Отлично",
-  "Превосходно",
-  "Превосходно",
+  q.i18n.rating.block.ywhbqt,
+  q.i18n.rating.block.bceyma,
+  q.i18n.rating.block.rlamyx,
+  q.i18n.rating.block.nvcefp,
+  q.i18n.rating.block.fccxkt,
+  q.i18n.rating.block.ktolhh,
+  q.i18n.rating.block.hgglao,
+  q.i18n.rating.block.ikmiwg,
+  q.i18n.rating.block.bdibqe,
+  q.i18n.rating.block.phnyej,
+  q.i18n.rating.block.ayhzlk,
 ];
-// const ratings = [
-//   {
-//     name: "Питание",
-//     percent: 100,
-//   },
-//   {
-//     name: "Расположение",
-//     percent: 90,
-//   },
-//   {
-//     name: "Удобство парковки",
-//     percent: 80,
-//   },
-//   {
-//     name: "Обслуживание",
-//     percent: 70,
-//   },
-//   {
-//     name: "Чистота номеров",
-//     percent: 60,
-//   },
-//   {
-//     name: "Завтрак",
-//     percent: 50,
-//   },
-// ];
 interface Props {
   ratings: { name: string; percent: number }[];
   count: number;
@@ -65,13 +42,13 @@ defineProps<Props>();
 <template>
   <Block>
     <div :class="$style.header">
-      <Title>Оценка гостей</Title>
+      <Title>{{ q.i18n.rating.block.hhsqkl }}</Title>
     </div>
     <div :class="$style.rating">
       <RatingView :level="rating" type="big" />
       <div :class="$style.right">
-        <div :class="$style.title">{{ titles[rating] || "Превосходно" }}</div>
-        <div :class="$style.subtitle">{{ count }} отзывов на Tripadvisor</div>
+        <div :class="$style.title">{{ titles[rating] || q.i18n.rating.block.ubbrda }}</div>
+        <div :class="$style.subtitle">{{ count }} {{ q.i18n.rating.block.jbgljg }}Tripadvisor</div>
       </div>
     </div>
     <div :class="$style.percents">
@@ -81,13 +58,10 @@ defineProps<Props>();
           <div :class="$style.text">{{ item.percent }}%</div>
         </div>
         <div :class="$style.line">
-          <div
-            :class="$style.active"
-            :style="{
-              backgroundColor: backgrounds[item.percent],
-              width: item.percent + '%',
-            }"
-          />
+          <div :class="$style.active" :style="{
+            backgroundColor: backgrounds[item.percent],
+            width: item.percent + '%',
+          }" />
         </div>
       </div>
     </div>
@@ -98,34 +72,40 @@ defineProps<Props>();
 .header {
   padding: 24px 16px 20px;
 }
+
 .rating {
   display: flex;
   gap: 10px;
   padding: 0 16px;
 }
+
 .right {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
+
 .title {
   font-size: 17px;
   line-height: 22px;
   font-weight: 500;
   color: var(--tg-theme-text-color);
 }
+
 .subtitle {
   color: var(--tg-theme-hint-color);
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
 }
+
 .percents {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   padding: 24px 16px 20px;
 }
+
 .item {
   flex: 1;
   min-width: 150px;
@@ -133,6 +113,7 @@ defineProps<Props>();
   flex-direction: column;
   gap: 2px;
 }
+
 .top {
   display: flex;
   gap: 5px;
@@ -140,12 +121,14 @@ defineProps<Props>();
   width: 100%;
   align-items: center;
 }
+
 .text {
   font-size: 12px;
   line-height: 16px;
   font-weight: 400;
   color: var(--tg-theme-text-color);
 }
+
 .line {
   border-radius: 2px;
   width: 100%;
@@ -153,6 +136,7 @@ defineProps<Props>();
   background-color: var(--tg-theme-secondary-bg-color);
   position: relative;
 }
+
 .active {
   position: absolute;
   border-radius: 2px;

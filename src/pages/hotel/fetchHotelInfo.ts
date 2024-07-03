@@ -1,7 +1,13 @@
 import { SearchParamsOption } from "ky";
 import { api, dates, dateToApi, SearchHotelAccommodationsResponse } from "../../utils";
+import { i18nTypeRU } from "../../utils/i18n";
 
-export async function fetchHotelInfo(id: string | string[], store: any, hotel: any) {
+export async function fetchHotelInfo(
+  id: string | string[],
+  store: any,
+  hotel: any,
+  q: i18nTypeRU,
+) {
   const params: SearchParamsOption = {
     hotelId: String(id),
     arrivalDate: dateToApi(store.in),
@@ -48,8 +54,8 @@ export async function fetchHotelInfo(id: string | string[], store: any, hotel: a
     hotel.setTime({
       checkIn: jsonData.offers[0].checkInTime,
       checkOut: jsonData.offers[0].checkOutTime,
-      timeIn: dates(store.in),
-      timeOut: dates(store.out!),
+      timeIn: dates(store.in, q),
+      timeOut: dates(store.out!, q),
     });
     hotel.setCategory(jsonData.offers[0].category);
     console.log(jsonData.offers[0]);

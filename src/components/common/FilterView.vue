@@ -9,7 +9,9 @@ import Carousel from "../ui/carousel/Carousel.vue";
 import Sort from "../../assets/icons/sort.svg";
 import UpDown from "../../assets/icons/up-down.svg";
 import StarsView from "../ui/views/StarsView.vue";
+import { useInter } from "../../utils/i18n";
 const store = useStore();
+const q = useInter();
 const toRenderPrice = (v: number) => {
   let ans = "";
   let i = 0;
@@ -38,19 +40,23 @@ const toRenderPrice = (v: number) => {
     </div>
     <div :class="$style.filter" @click="$router.push('/search/filter/price')">
       <div :class="$style.left">
-        <div :class="$style.subtitle">Цена</div>
+        <div :class="$style.subtitle">{{ q.i18n.filter.view.aysudn }}</div>
         <div :class="$style.title">
           <template
             v-if="store.filters.price[0] === 0 && store.filters.price[1] === 50000"
-            >Любая</template
+            >{{ q.i18n.filter.view.tyirpm }}</template
           >
           <template
             v-if="store.filters.price[0] === 0 && store.filters.price[1] !== 50000"
-            >{{ "до " + toRenderPrice(store.filters.price[1]) }}</template
+            >{{
+              q.i18n.filter.view.adfrpm + toRenderPrice(store.filters.price[1])
+            }}</template
           >
           <template
             v-if="store.filters.price[0] !== 0 && store.filters.price[1] === 50000"
-            >{{ "от " + toRenderPrice(store.filters.price[0]) }}</template
+            >{{
+              q.i18n.filter.view.wnmwqu + toRenderPrice(store.filters.price[0])
+            }}</template
           >
           <template
             v-if="store.filters.price[0] !== 0 && store.filters.price[1] !== 50000"
@@ -66,20 +72,22 @@ const toRenderPrice = (v: number) => {
     </div>
     <div :class="$style.filter" @click="$router.push('/search/filter/payment')">
       <div :class="$style.left">
-        <div :class="$style.subtitle">Оплата</div>
+        <div :class="$style.subtitle">{{ q.i18n.filter.view.uevpog }}</div>
         <div :class="$style.title">
-          <template v-if="store.filters.payment.length === 0">Любая</template>
+          <template v-if="store.filters.payment.length === 0">{{
+            q.i18n.filter.view.yqpwnj
+          }}</template>
           <template
             v-else-if="store.filters.payment.length === PaymentFiltersValues.length"
-            >Любая</template
+            >{{ q.i18n.filter.view.thupvw }}</template
           >
           <template v-else-if="store.filters.payment.length === 1">
-            <template v-if="store.filters.payment[0] === 'hotel'"
-              >Оплата в отеле</template
-            >
-            <template v-if="store.filters.payment[0] === 'agency'"
-              >Оплата в агентстве</template
-            >
+            <template v-if="store.filters.payment[0] === 'hotel'">{{
+              q.i18n.filter.view.iesmcl
+            }}</template>
+            <template v-if="store.filters.payment[0] === 'agency'">{{
+              q.i18n.filter.view.hyeegq
+            }}</template>
           </template>
         </div>
       </div>
@@ -87,14 +95,14 @@ const toRenderPrice = (v: number) => {
     </div>
     <div :class="$style.filter" @click="$router.push('/search/filter/stars')">
       <div :class="$style.left">
-        <div :class="$style.subtitle">Звезды</div>
+        <div :class="$style.subtitle">{{ q.i18n.filter.view.jkbbhl }}</div>
         <div :class="$style.title">
           <template
             v-if="
               store.filters.stars.length === 0 ||
               store.filters.stars.length === StarsFiltersValues.length
             "
-            >Все</template
+            >{{ q.i18n.filter.view.iqzxtp }}</template
           >
           <template v-if="store.filters.stars.length === 1">
             <StarsView :level="store.filters.stars[0]" type="small" />
@@ -104,7 +112,7 @@ const toRenderPrice = (v: number) => {
               store.filters.stars.length > 1 &&
               store.filters.stars.length < StarsFiltersValues.length
             "
-            >{{ store.filters.stars.length }} варианта</template
+            >{{ store.filters.stars.length }} {{ q.i18n.filter.view.zhucrk }}</template
           >
         </div>
       </div>
@@ -112,22 +120,22 @@ const toRenderPrice = (v: number) => {
     </div>
     <div :class="$style.filter" @click="$router.push('/search/filter/other')">
       <div :class="$style.left">
-        <div :class="$style.subtitle">Другое</div>
+        <div :class="$style.subtitle">{{ q.i18n.filter.view.fhofps }}</div>
         <div :class="$style.title">
           <template
             v-if="
               store.filters.other.length === 0 ||
               store.filters.other.length === OtherFiltersValues.length
             "
-            >Все</template
+            >{{ q.i18n.filter.view.xrcyhv }}</template
           >
           <template v-else-if="store.filters.other.length === 1">
-            <template v-if="store.filters.other[0] === 'card'"
-              >С данными карты</template
-            >
-            <template v-if="store.filters.other[0] === 'breakfast'"
-              >С завтраком</template
-            >
+            <template v-if="store.filters.other[0] === 'card'">{{
+              q.i18n.filter.view.bsuffg
+            }}</template>
+            <template v-if="store.filters.other[0] === 'breakfast'">{{
+              q.i18n.filter.view.yzjxmq
+            }}</template>
           </template>
         </div>
       </div>

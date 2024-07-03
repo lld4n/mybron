@@ -18,11 +18,13 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import Text from "../../components/ui/wrappers/Text.vue";
 import LoadingLottie from "../../components/ui/loading/LoadingLottie.vue";
+import { useInter } from "../../utils/i18n";
 const loading = ref(true);
 const fetched = ref(false);
 const list = ref<HotelWithCheapestOfferDto[]>([]);
 const store = useStore();
 const router = useRouter();
+const q = useInter();
 onMounted(async () => {
   if (!store.search || !store.out) {
     await router.push("/");
@@ -110,8 +112,8 @@ onMounted(async () => {
 });
 
 const subtitle = () => {
-  let ans = dates(store.in) + " — " + dates(store.out!);
-  ans += ", " + guests(store.adultsCount, store.children);
+  let ans = dates(store.in, q.i18n) + " — " + dates(store.out!, q.i18n);
+  ans += ", " + guests(store.adultsCount, store.children, q.i18n);
   return ans;
 };
 </script>
@@ -144,10 +146,8 @@ const subtitle = () => {
       <LoadingLottie />
     </div>
     <div :class="$style.center" v-if="fetched && list.length === 0">
-      <Text :s="17" :l="22" :w="600">Ничего не найдено</Text>
-      <Text :s="17" :l="22" :g="true"
-        >Попробуйте изменить фильтры или выбрать другое направление</Text
-      >
+      <Text :s="17" :l="22" :w="600">{{ q.i18n.search.results.page.xxanha }}</Text>
+      <Text :s="17" :l="22" :g="true">{{ q.i18n.search.results.page.ltuaar }}</Text>
     </div>
     <div :class="$style.block">
       <button
@@ -155,7 +155,7 @@ const subtitle = () => {
         :disabled="(fetched && list.length === 0) || loading"
         @click="$router.push('/search/map')"
       >
-        <MapIcon /> На карте
+        <MapIcon /> {{ q.i18n.search.results.page.vkwokh }}
       </button>
     </div>
   </div>
@@ -167,6 +167,7 @@ const subtitle = () => {
   flex-direction: column;
   min-height: 100%;
 }
+
 .header {
   position: fixed;
   top: 0;
@@ -179,6 +180,7 @@ const subtitle = () => {
   gap: 8px;
   padding: 12px 0 8px 0;
 }
+
 .info {
   cursor: pointer;
   margin: 0 16px;
@@ -186,15 +188,18 @@ const subtitle = () => {
   border-radius: 8px;
   background-color: var(--quarternary-fill-background);
   transition: opacity 0.1s ease-out;
+
   &:not([disabled]):active {
     opacity: 0.6 !important;
   }
+
   @media (hover: hover) {
     &:not([disabled]):hover {
       opacity: 0.85;
     }
   }
 }
+
 .title {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -204,12 +209,14 @@ const subtitle = () => {
   line-height: 18px;
   color: var(--tg-theme-text-color);
 }
+
 .subtitle {
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
   color: var(--tg-theme-hint-color);
 }
+
 .block {
   display: flex;
   justify-content: center;
@@ -220,6 +227,7 @@ const subtitle = () => {
   right: 12px;
   border-radius: 12px;
 }
+
 .btn {
   display: flex;
   padding: 13px 24px;
@@ -231,23 +239,29 @@ const subtitle = () => {
   background-color: var(--tg-theme-button-color);
   color: var(--tg-theme-button-text-color);
   gap: 6px;
+
   path {
     fill: var(--tg-theme-button-text-color);
   }
+
   transition: opacity 0.1s ease-out;
+
   &:not([disabled]):active {
     opacity: 0.6 !important;
   }
+
   @media (hover: hover) {
     &:not([disabled]):hover {
       opacity: 0.85;
     }
   }
+
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
   }
 }
+
 .list {
   background-color: var(--tg-theme-bg-color);
   margin-top: 116px;
@@ -256,6 +270,7 @@ const subtitle = () => {
   gap: 24px;
   padding: 12px 0 62px;
 }
+
 .center {
   text-align: center;
   flex: 1;

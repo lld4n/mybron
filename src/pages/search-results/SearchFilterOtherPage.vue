@@ -2,17 +2,19 @@
 import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { OtherFiltersValues, useStore } from "../../utils";
+import { useInter } from "../../utils/i18n";
 const store = useStore();
+const q = useInter();
 </script>
 
 <template>
-  <FilterTemplate title="Другое">
+  <FilterTemplate :title="q.i18n.search.filter.other.page.jtfuxr">
     <template v-slot:main>
       <div :class="$style.btn" @click="store.allFilters('other', OtherFiltersValues)">
-        <template v-if="store.filters.other.length === OtherFiltersValues.length"
-          >Сбросить</template
-        >
-        <template v-else>Выбрать все</template>
+        <template v-if="store.filters.other.length === OtherFiltersValues.length">{{
+          q.i18n.search.filter.other.page.rstggl
+        }}</template>
+        <template v-else>{{ q.i18n.search.filter.other.page.slzlik }}</template>
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="store.changeFilters('other', 'card')">
@@ -24,7 +26,7 @@ const store = useStore();
         >
           <CheckBox v-if="store.filters.other.includes('card')" />
         </div>
-        <div :class="$style.value">С данными карты</div>
+        <div :class="$style.value">{{ q.i18n.search.filter.other.page.sgnohc }}</div>
       </div>
       <div :class="$style.item" @click="store.changeFilters('other', 'breakfast')">
         <div
@@ -35,7 +37,7 @@ const store = useStore();
         >
           <CheckBox v-if="store.filters.other.includes('breakfast')" />
         </div>
-        <div :class="$style.value">С завтраком</div>
+        <div :class="$style.value">{{ q.i18n.search.filter.other.page.qzfooj }}</div>
       </div>
     </template>
   </FilterTemplate>

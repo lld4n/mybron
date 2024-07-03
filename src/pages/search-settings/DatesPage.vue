@@ -3,9 +3,18 @@ import DateView from "../../components/ui/views/DateView.vue";
 import { months, useStore, dates as reformatDates, useHotel } from "../../utils";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-
-const weeks = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
-const dates = months();
+import { useInter } from "../../utils/i18n";
+const q = useInter();
+const weeks = [
+  q.i18n.dates.page.tlvult,
+  q.i18n.dates.page.pleyud,
+  q.i18n.dates.page.qmosdc,
+  q.i18n.dates.page.yahyge,
+  q.i18n.dates.page.uxhcto,
+  q.i18n.dates.page.ebrcli,
+  q.i18n.dates.page.rdvlgy,
+];
+const dates = months(q.i18n);
 
 const store = useStore();
 const hotel = useHotel();
@@ -85,16 +94,16 @@ const handleClick = () => {
         :disabled="!inDate || !outDate"
       >
         <span class="dates__footer__day" v-if="!outDate">
-          {{ reformatDates(inDate) }}
+          {{ reformatDates(inDate, q.i18n) }}
         </span>
         <DateView
           v-if="!!inDate && !!outDate"
           :left="
-            reformatDates(inDate, {
+            reformatDates(inDate, q.i18n, {
               sameMonth: inDate.getMonth() === outDate.getMonth(),
             })
           "
-          :right="reformatDates(outDate)"
+          :right="reformatDates(outDate, q.i18n)"
         />
       </button>
     </div>

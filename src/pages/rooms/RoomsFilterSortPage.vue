@@ -2,19 +2,21 @@
 import Check from "../../assets/icons/check.svg";
 import { useHotel } from "../../utils";
 import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
+import { useInter } from "../../utils/i18n";
 const hotel = useHotel();
+const q = useInter();
 </script>
 
 <template>
-  <FilterTemplate title="Сортировка">
+  <FilterTemplate :title="q.i18n.rooms.filter.sort.page.oyswlx">
     <template v-slot:main>
       <div :class="$style.item" @click="hotel.changeFiltersSort('cheap')">
-        <div :class="$style.title">Сначала дешевые</div>
+        <div :class="$style.title">{{ q.i18n.rooms.filter.sort.page.supjmu }}</div>
         <Check v-if="hotel.filters.sort === 'cheap'" />
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="hotel.changeFiltersSort('expensive')">
-        <div :class="$style.title">Сначала дорогие</div>
+        <div :class="$style.title">{{ q.i18n.rooms.filter.sort.page.qavtmp }}</div>
         <Check v-if="hotel.filters.sort === 'expensive'" />
       </div>
     </template>

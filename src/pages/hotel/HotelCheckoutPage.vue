@@ -7,7 +7,9 @@ import TotalBlock from "../../components/hotel/TotalBlock.vue";
 import GuestsBlock from "../../components/hotel/GuestsBlock.vue";
 import DataBlock from "../../components/hotel/DataBlock.vue";
 import { api, useHotel, useStore } from "../../utils";
+import { useInter } from "../../utils/i18n";
 const hotel = useHotel();
+const q = useInter();
 const store = useStore();
 console.log("OFFER", hotel.offer);
 const close = async () => {
@@ -17,8 +19,8 @@ const close = async () => {
   if (hotel.info.firstName.length === 0 || hotel.info.lastName.length === 0) {
     store.setMessage({
       type: "contact",
-      text: "Укажите ваши контактные данные",
-      desc: "чтобы перейти к оплате",
+      text: q.i18n.hotel.checkout.page.vliqps,
+      desc: q.i18n.hotel.checkout.page.uaudli,
     });
     return;
   }
@@ -63,9 +65,10 @@ const close = async () => {
 <template>
   <Wrapper
     :footer="{
-      text: 'Оплатить',
+      text: q.i18n.hotel.checkout.page.qxmzpt,
       click: () => close(),
-      desc: 'Приложение закроется, бот пришлет ссылку на оплату',
+      desc:
+        q.i18n.hotel.checkout.page.wtqrbn + ' ,' + q.i18n.hotel.checkout.page.gimmdn,
     }"
   >
     <div :class="$style.wrapper">

@@ -3,17 +3,19 @@ import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { StarsFiltersValues, useStore } from "../../utils";
 import StarsView from "../../components/ui/views/StarsView.vue";
+import { useInter } from "../../utils/i18n";
 const store = useStore();
+const q = useInter();
 </script>
 
 <template>
-  <FilterTemplate title="Звезды">
+  <FilterTemplate :title="q.i18n.search.filter.stars.page.uprkpw">
     <template v-slot:main>
       <div :class="$style.btn" @click="store.allFilters('stars', StarsFiltersValues)">
-        <template v-if="store.filters.stars.length === StarsFiltersValues.length"
-          >Сбросить</template
-        >
-        <template v-else>Выбрать все</template>
+        <template v-if="store.filters.stars.length === StarsFiltersValues.length">{{
+          q.i18n.search.filter.stars.page.wgktmc
+        }}</template>
+        <template v-else>{{ q.i18n.search.filter.stars.page.buqpij }}</template>
       </div>
       <div :class="$style.bar" />
       <div :class="$style.item" @click="store.changeFilters('stars', 5)">

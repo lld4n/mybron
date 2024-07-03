@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Block from "../../components/ui/wrappers/Block.vue";
 import Title from "../../components/ui/wrappers/Title.vue";
-import { ages, useStore } from "../../utils";
-
+import { useStore } from "../../utils";
+import { useInter } from "../../utils/i18n";
+const q = useInter();
 const store = useStore();
 </script>
 
@@ -10,9 +11,9 @@ const store = useStore();
   <div :class="$style.wrapper">
     <Block>
       <div :class="$style.top">
-        <Title>Выберите возраст ребёнка</Title>
+        <Title>{{ q.i18n.guests.children.page.vabosk }}</Title>
       </div>
-      <template v-for="(age, index) of ages">
+      <template v-for="(age, index) of q.i18n.ages">
         <div
           :class="$style.item"
           @click="
@@ -22,7 +23,7 @@ const store = useStore();
         >
           {{ age }}
         </div>
-        <div :class="$style.bar" v-if="index < ages.length - 1" />
+        <div :class="$style.bar" v-if="index < q.i18n.ages.length - 1" />
       </template>
     </Block>
   </div>

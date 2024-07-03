@@ -24,10 +24,10 @@ defineProps<Props>();
     <div :class="$style.top">
       <img :src="avatar" :class="$style.img" alt="avatar" />
       <div :class="$style.info">
-        <Text :s="17" :l="22" :w="500">Сергей</Text>
-        <Text :s="12" :l="16" :c="$style.gray">02.09.2024</Text>
+        <Text :s="17" :l="22" :w="500">{{ name }}</Text>
+        <Text :s="12" :l="16" :c="$style.gray">{{ date }}</Text>
       </div>
-      <ReviewView :rating="4" />
+      <ReviewView :rating="rating" />
     </div>
     <Text
       :s="mini ? 14 : 16"
@@ -39,8 +39,7 @@ defineProps<Props>();
           [$style.mini]: !!mini,
         },
       ]"
-      >непрофессиональные администраторы на стойке регистрации работали 20.05.2023,
-      после того, как заказали завтрак в номер нам сказали, что завтрака не будет</Text
+      >{{ title }}</Text
     >
     <div
       :class="{
@@ -56,10 +55,7 @@ defineProps<Props>();
             [$style.mini]: !!mini,
           },
         ]"
-        >Большие номера, хорошая уборка в номерах, питание плохое.Инвалидам лучше не
-        посещать этот отель, так как муж инвалид, мы просили завтрак в номер, у нас
-        номер с полупансионом, но они брали с нас деньги за завтрак в номер к
-        инвалиду.</Text
+        >{{ text }}</Text
       >
     </div>
   </Block>

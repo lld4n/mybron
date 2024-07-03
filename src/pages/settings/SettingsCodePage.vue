@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import Animation from "../../assets/loading/speech.json";
-import { LottieAnimation } from "lottie-web-vue";
 import Text from "../../components/ui/wrappers/Text.vue";
-import { onMounted, ref, watch } from "vue";
+import { defineAsyncComponent, onMounted, ref, watch } from "vue";
+import { useInter } from "../../utils/i18n";
+const Animation = defineAsyncComponent(
+  () => import("../../components/ui/Animation.vue"),
+);
 const n1 = ref("");
 const n2 = ref("");
 const n3 = ref("");
@@ -12,6 +14,7 @@ const i1 = ref<HTMLInputElement>();
 const i2 = ref<HTMLInputElement>();
 const i3 = ref<HTMLInputElement>();
 const i4 = ref<HTMLInputElement>();
+const q = useInter();
 onMounted(() => {
   setInterval(() => {
     timer.value--;
@@ -65,16 +68,13 @@ watch(n4, (v) => {
 <template>
   <div :class="$style.wrapper">
     <div :class="$style.top">
-      <LottieAnimation
-        :animation-data="Animation"
-        :auto-play="true"
-        :loop="false"
-        :speed="1"
-        :class="$style.animation"
-      />
+      <Animation type="speech" :c="$style.animation" :loop="false" />
       <div :class="$style.info">
-        <Text :s="28" :l="34" :w="700">Введите код</Text>
-        <Text :s="17" :l="22">Отправили код на почту [TODO: ПОЧТА]</Text>
+        <Text :s="28" :l="34" :w="700">{{ q.i18n.settings.code.page.bbvtdi }}</Text>
+        <Text :s="17" :l="22"
+          >{{ q.i18n.settings.code.page.zwnapv }}[TODO:
+          {{ q.i18n.settings.code.page.mqrdfk }}]</Text
+        >
       </div>
       <div :class="$style.inputs">
         <input
@@ -117,7 +117,8 @@ watch(n4, (v) => {
           [$style.disabled]: timer > 0,
         },
       ]"
-      >Отправить код повторно
+    >
+      {{ q.i18n.settings.code.page.immkek }}
       <template v-if="timer > 0">0:{{ timer > 10 ? timer : "0" + timer }}</template>
     </Text>
   </div>

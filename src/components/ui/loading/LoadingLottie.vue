@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import Luggage from "../../../assets/loading/luggage.json";
-import { LottieAnimation } from "lottie-web-vue";
+import { defineAsyncComponent } from "vue";
+const Animation = defineAsyncComponent(() => import("../Animation.vue"));
 </script>
 
 <template>
-  <LottieAnimation
-    :animation-data="Luggage"
-    :auto-play="true"
-    :loop="true"
-    :speed="1"
-    :class="$style.loading"
-  />
+  <Animation type="luggage" :c="$style.loading" :loop="true" />
 </template>
 
 <style module lang="scss">
