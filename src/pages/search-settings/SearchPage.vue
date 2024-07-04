@@ -32,7 +32,7 @@ const popular: { id: number; type: "CITY"; name: string; country: string }[] = [
   {
     id: 37,
     type: "CITY",
-    name: q.i18n.search.page.cmkcai + "-" + q.i18n.search.page.krgrey,
+    name: q.i18n.search.page.cmkcai + q.i18n.search.page.krgrey,
     country: q.i18n.search.page.wyfpra,
   },
   {
@@ -156,9 +156,7 @@ const handleClick = (item: Item) => {
     </label>
     <div :class="$style.unfind" v-if="fetched && list.length === 0">
       <Text :s="17" :l="22" :w="600">{{ q.i18n.search.page.gwfosk }}</Text>
-      <Text :s="17" :l="22" :g="true"
-        >{{ q.i18n.search.page.ewirkw }}, {{ q.i18n.search.page.tragrx }}</Text
-      >
+      <Text :s="17" :l="22" :g="true">{{ q.i18n.search.page.ewirkw }}</Text>
     </div>
     <div :class="$style.loading__geo" v-if="loadingGeo && list.length === 0">
       <LoadingSimple />

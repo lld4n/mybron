@@ -68,7 +68,7 @@ const close = async () => {
       text: q.i18n.hotel.checkout.page.qxmzpt,
       click: () => close(),
       desc:
-        q.i18n.hotel.checkout.page.wtqrbn + ' ,' + q.i18n.hotel.checkout.page.gimmdn,
+        q.i18n.hotel.checkout.page.wtqrbn + ', ' + q.i18n.hotel.checkout.page.gimmdn,
     }"
   >
     <div :class="$style.wrapper">

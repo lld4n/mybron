@@ -36,13 +36,10 @@ export function months(q: i18nTypeRU) {
   }
   const ans: Months[] = [];
   for (const month of allMonths) {
-    const monthName = month[0].toLocaleDateString(
-      q.slug.toUpperCase() + "_" + q.slug.toLowerCase(),
-      {
-        month: "long",
-        year: "numeric",
-      },
-    );
+    const monthName = month[0].toLocaleDateString(q.slug.toUpperCase(), {
+      month: "long",
+      year: "numeric",
+    });
     ans.push({
       type: "name",
       name: monthName,

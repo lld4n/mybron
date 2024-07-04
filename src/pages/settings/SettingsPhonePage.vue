@@ -54,13 +54,13 @@ const send = async () => {
   } catch (e) {
     window.Telegram.WebApp.showPopup(
       {
-        title: "{{ q.i18n.settings.phone.page.artlpk }}",
-        message: "{{ q.i18n.settings.phone.page.upokil }}",
+        title: q.i18n.settings.phone.page.artlpk,
+        message: q.i18n.settings.phone.page.upokil,
         buttons: [
           {
             id: "close",
             type: "default",
-            text: "{{ q.i18n.settings.phone.page.xwkfmw }}",
+            text: q.i18n.settings.phone.page.xwkfmw,
           },
         ],
       },
@@ -75,7 +75,7 @@ const send = async () => {
 <template>
   <Wrapper
     :footer="{
-      text: '{{ q.i18n.settings.phone.page.hfkqed }}',
+      text: q.i18n.settings.phone.page.hfkqed,
       click: () => send(),
       disabled,
     }"

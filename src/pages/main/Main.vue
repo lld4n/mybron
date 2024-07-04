@@ -46,8 +46,8 @@
                 <Text :w="600" :s="14" :l="18">{{ q.i18n.main.lfyaua }}</Text>
                 <Text :s="12" :l="16" :c="$style.card__date"
                   ><DateView
-                    left="29 {{ q.i18n.main.nbhqzz }}"
-                    right="18 {{ q.i18n.main.jqgdhw }}"
+                    :left="'29 ' + q.i18n.main.nbhqzz"
+                    :right="'18 ' + q.i18n.main.jqgdhw"
                   />, 2 {{ q.i18n.main.lnlijg }}</Text
                 >
               </div>
@@ -58,27 +58,12 @@
                 :class="$style.card__img"
               />
               <div :class="$style.card__right">
-                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.sqjwij }}</Text>
+                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.lfyaua }}</Text>
                 <Text :s="12" :l="16" :c="$style.card__date"
                   ><DateView
-                    left="29 {{ q.i18n.main.jsgsmb }}"
-                    right="18 {{ q.i18n.main.atjeog }}"
-                  />, 2 {{ q.i18n.main.spwriz }}</Text
-                >
-              </div>
-            </div>
-            <div :class="$style.card" @click="$router.push('/hotel/1')">
-              <img
-                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                :class="$style.card__img"
-              />
-              <div :class="$style.card__right">
-                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.lhhxwj }}</Text>
-                <Text :s="12" :l="16" :c="$style.card__date"
-                  ><DateView
-                    left="29 {{ q.i18n.main.xlrfue }}"
-                    right="18 {{ q.i18n.main.soxqxv }}"
-                  />, 2 {{ q.i18n.main.kqfpfy }}</Text
+                    :left="'29 ' + q.i18n.main.nbhqzz"
+                    :right="'18 ' + q.i18n.main.jqgdhw"
+                  />, 2 {{ q.i18n.main.lnlijg }}</Text
                 >
               </div>
             </div>
@@ -105,7 +90,7 @@
                 :class="$style.popular__img"
               />
               <Text :w="600" :s="14" :l="18">{{ q.i18n.main.cyrumt }}</Text>
-              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.zeijdo }}4800 ₽</Text>
+              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
             </div>
             <div :class="$style.popular" @click="$router.push('/search/results')">
               <img
@@ -113,7 +98,7 @@
                 :class="$style.popular__img"
               />
               <Text :w="600" :s="14" :l="18">{{ q.i18n.main.hdwtlq }}</Text>
-              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.wmzpdx }}4800 ₽</Text>
+              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
             </div>
             <div :class="$style.popular" @click="$router.push('/search/results')">
               <img
@@ -121,7 +106,7 @@
                 :class="$style.popular__img"
               />
               <Text :w="600" :s="14" :l="18">{{ q.i18n.main.qnctit }}</Text>
-              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.rdhsjn }}4800 ₽</Text>
+              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
             </div>
           </Carousel>
         </div>

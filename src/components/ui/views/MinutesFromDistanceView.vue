@@ -34,7 +34,7 @@ const q = useInter();
 onMounted(() => {
   for (const item of list) {
     if (props.d >= item[0] && props.d <= item[1]) {
-      render.value = item[2] + " q.i18n.minutes.from.distance.view.oczppy";
+      render.value = item[2] + " " + q.i18n.minutes.from.distance.view.oczppy;
       break;
     }
   }

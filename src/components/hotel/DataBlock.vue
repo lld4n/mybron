@@ -31,8 +31,8 @@ const q = useInter();
       <Title>{{ q.i18n.data.block.kzzaxu }}</Title>
     </div>
     <div :class="$style.list">
-      <Input id="name" label="{{ q.i18n.data.block.gwiaje }}" v-model="name" />
-      <Input id="surname" label="{{ q.i18n.data.block.bmjznr }}" v-model="surname" />
+      <Input id="name" :label="q.i18n.data.block.gwiaje" v-model="name" />
+      <Input id="surname" :label="q.i18n.data.block.bmjznr" v-model="surname" />
       <!--      <Input id="phone" label="{{ q.i18n.data.block.xzpwek }}" v-model="phone" />-->
       <!--      <Input id="email" label="{{ q.i18n.data.block.stnbmb }}" v-model="email" type="email" />-->
     </div>

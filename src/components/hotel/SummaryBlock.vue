@@ -20,7 +20,7 @@ interface Props {
 }
 
 defineProps<Props>();
-const q = useInter()
+const q = useInter();
 </script>
 
 <template>
@@ -35,26 +35,45 @@ const q = useInter()
       </div>
       <div :class="$style.table">
         <div :class="$style.item">
-          <Text :s="17" :l="22" :c="$style.left">{{ q.i18n.summary.block.fbpnbk }}</Text>
-          <Text :s="17" :l="22" v-if="meals.length === 0">{{ q.i18n.summary.block.czujdc }}</Text>
+          <Text :s="17" :l="22" :c="$style.left">{{
+            q.i18n.summary.block.fbpnbk
+          }}</Text>
+          <Text :s="17" :l="22" v-if="meals.length === 0">{{
+            q.i18n.summary.block.czujdc
+          }}</Text>
           <Text :s="17" :l="22" :c="$style.green" v-if="meals.length > 0">{{
             meals[0].name
           }}</Text>
         </div>
         <div :class="$style.item">
-          <Text :s="17" :l="22" :c="$style.left">{{ q.i18n.summary.block.zxlnsu }}</Text>
-          <Text :s="17" :l="22" v-if="cancel.length > 0">{{ q.i18n.summary.block.mfkxgq }}</Text>
-          <Text :s="17" :l="22" v-if="cancel.length === 0" :c="$style.green">{{ q.i18n.summary.block.izfvdh }}</Text>
+          <Text :s="17" :l="22" :c="$style.left">{{
+            q.i18n.summary.block.zxlnsu
+          }}</Text>
+          <Text :s="17" :l="22" v-if="cancel.length > 0">{{
+            q.i18n.summary.block.mfkxgq
+          }}</Text>
+          <Text :s="17" :l="22" v-if="cancel.length === 0" :c="$style.green">{{
+            q.i18n.summary.block.izfvdh
+          }}</Text>
         </div>
         <div :class="$style.item">
-          <Text :s="17" :l="22" :c="$style.left">{{ q.i18n.summary.block.xbjwiw }}</Text>
-          <Text :s="17" :l="22" v-if="payment === 'AGENCY'">{{ q.i18n.summary.block.tlgtug }}</Text>
-          <Text :s="17" :l="22" v-if="payment === 'HOTEL'" :c="$style.green">{{ q.i18n.summary.block.rnamwt }}</Text>
+          <Text :s="17" :l="22" :c="$style.left">{{
+            q.i18n.summary.block.xbjwiw
+          }}</Text>
+          <Text :s="17" :l="22" v-if="payment === 'AGENCY'">{{
+            q.i18n.summary.block.tlgtug
+          }}</Text>
+          <Text :s="17" :l="22" v-if="payment === 'HOTEL'" :c="$style.green">{{
+            q.i18n.summary.block.rnamwt
+          }}</Text>
         </div>
         <div :class="$style.item" v-if="!noShowGuests">
-          <Text :s="17" :l="22" :c="$style.left">{{ q.i18n.summary.block.qlgaid }}</Text>
-          <Text :s="17" :l="22" :c="$style.right">{{ q.i18n.summary.block.gkvzfd }}, {{ q.i18n.summary.block.nsrwni
-            }}</Text>
+          <Text :s="17" :l="22" :c="$style.left">{{
+            q.i18n.summary.block.qlgaid
+          }}</Text>
+          <Text :s="17" :l="22" :c="$style.right"
+            >{{ q.i18n.summary.block.gkvzfd }}, {{ q.i18n.summary.block.nsrwni }}</Text
+          >
         </div>
       </div>
       <!--      <AmenityCarousel />-->
@@ -107,7 +126,7 @@ const q = useInter()
 }
 
 .left {
-  min-width: 120px;
+  min-width: 160px;
   color: var(--tg-theme-hint-color);
 }
 

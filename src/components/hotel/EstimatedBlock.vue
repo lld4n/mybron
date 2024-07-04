@@ -36,7 +36,7 @@ const q = useInter();
       <Text :s="28" :l="31" :w="700" v-if="!!rating">{{ name }}</Text>
       <CopyButton
         v-if="!!address"
-        title="{{ q.i18n.estimated.block.tjeayh }}"
+        :title="q.i18n.estimated.block.tjeayh"
         :text="address"
       />
       <RatingView v-if="!!rating" :level="rating" type="big" :c="$style.rating" />

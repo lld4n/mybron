@@ -5,7 +5,7 @@ export const ru = {
     page: {
       qagyer: "Москва",
       igvhim: "Россия",
-      cmkcai: "Санкт",
+      cmkcai: "Санкт-",
       krgrey: "Петербург",
       wyfpra: "Россия",
       cihpga: "Сочи",
@@ -15,8 +15,7 @@ export const ru = {
       zleofg: "Калининград",
       xviwil: "Россия",
       gwfosk: "Ничего не найдено",
-      ewirkw: "Но вот",
-      tragrx: "что вам может подойти",
+      ewirkw: "Но вот, что вам может подойти",
       jszwxj: "Рядом с вами",
       qxwhns: "Основано на выбранном языке и вашем ",
       nitwfy: "Популярное",

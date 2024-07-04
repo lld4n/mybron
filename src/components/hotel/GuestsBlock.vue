@@ -29,7 +29,7 @@ watch(name, (v) => {
 watch(surname, (v) => {
   hotel.setGuestName(v, props.index, "last");
 });
-const q = useInter()
+const q = useInter();
 </script>
 
 <template>
@@ -48,11 +48,23 @@ const q = useInter()
     </div>
     <div :class="$style.top" v-if="show">
       <Title>{{ q.i18n.guests.block.idjerd }}</Title>
-      <Text :c="$style.link" :s="17" :l="22" @click="handleShow">{{ q.i18n.guests.block.ijdraj }}</Text>
+      <Text :c="$style.link" :s="17" :l="22" @click="handleShow">{{
+        q.i18n.guests.block.ijdraj
+      }}</Text>
     </div>
     <div :class="$style.list" v-if="show">
-      <Input :active="name.length > 0" id="name" label="{{ q.i18n.guests.block.hkjmir }}" v-model="name" />
-      <Input :active="surname.length > 0" id="surname" label="{{ q.i18n.guests.block.fyxknp }}" v-model="surname" />
+      <Input
+        :active="name.length > 0"
+        id="name"
+        :label="q.i18n.guests.block.hkjmir"
+        v-model="name"
+      />
+      <Input
+        :active="surname.length > 0"
+        id="surname"
+        :label="q.i18n.guests.block.fyxknp"
+        v-model="surname"
+      />
     </div>
   </Block>
 </template>

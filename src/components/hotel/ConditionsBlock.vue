@@ -94,6 +94,6 @@ const q = useInter();
   gap: 20px;
 }
 .fix {
-  width: 52px;
+  width: 80px;
 }
 </style>

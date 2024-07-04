@@ -62,7 +62,7 @@ const q = useInter();
           <template v-for="(age, i) of children">
             <div :class="$style.children">
               <div :class="$style.left">
-                {{ q.i18n.guests.page.iqcmgp }} {{ +q.i18n.ages[age] }}
+                {{ q.i18n.guests.page.iqcmgp }} {{ q.i18n.ages[age] }}
               </div>
               <div :class="$style.right">
                 <div :class="$style.delete" @click="store.removeChildren(i)">
