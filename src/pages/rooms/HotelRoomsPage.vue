@@ -1,4 +1,6 @@
 <script setup lang="ts">
+//TODO: удобства и фотографии
+//TODO: сами карточки и хедер
 import Text from "../../components/ui/wrappers/Text.vue";
 import RoomCard from "../../components/items/RoomCard.vue";
 import { dates, guests, MealsFiltersValues, useHotel, useStore } from "../../utils";

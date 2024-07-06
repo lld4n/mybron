@@ -34,6 +34,7 @@ const q = useInter();
         <Pencil />
       </button>
     </div>
+    <!--    TODO: валюта-->
     <HotelButton
       :text="offersCount + ' ' + q.i18n.info.block.quazcu + minPrice + ' ₽'"
       :click="() => $router.push('/rooms/' + route.params.id)"

@@ -301,6 +301,7 @@ export const en: i18nTypeRU = {
       jebbqr: "Guests",
     },
     block: {
+      ya: "Open in Yandex Maps",
       gbhcow: "km",
       envksx: "Address",
     },

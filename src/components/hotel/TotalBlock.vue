@@ -22,14 +22,17 @@ defineProps<Props>();
     <div :class="$style.list">
       <div :class="$style.item">
         <Text :s="17" :l="22" :c="$style.overflow">{{ name }}</Text>
+        <!--TODO: валюта-->
         <Text :s="17" :l="22">{{ total - vat }} ₽</Text>
       </div>
       <div :class="$style.item">
         <Text :s="17" :l="22">{{ q.i18n.hotel.total.tax }}</Text>
+        <!--TODO: валюта-->
         <Text :s="17" :l="22">{{ vat }} ₽</Text>
       </div>
       <div :class="$style.item">
         <Text :s="17" :l="22">{{ q.i18n.hotel.total.total }}</Text>
+        <!--TODO: валюта-->
         <Text :s="28" :l="34" :w="700">{{ total }} ₽</Text>
       </div>
     </div>

@@ -53,10 +53,12 @@ const q = useInter();
     <div :class="$style.fail" v-if="status === 'fail'">
       <div :class="$style.first">
         <Text :s="17" :l="22">{{ q.i18n.hotel.status.hold }}</Text>
+        <!--TODO: валюта-->
         <Text :s="17" :l="22">52 000.52 ₽</Text>
       </div>
       <div :class="$style.first">
         <Text :s="17" :l="22">{{ q.i18n.hotel.status.return }}</Text>
+        <!--TODO: валюта-->
         <Text :s="17" :l="22">25 000.29 ₽</Text>
       </div>
       <Text :s="17" :l="22" :c="$style.link">{{ q.i18n.hotel.status.dft }}</Text>

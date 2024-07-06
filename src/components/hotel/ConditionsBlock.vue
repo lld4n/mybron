@@ -46,6 +46,7 @@ const q = useInter();
         <Shape />
         <div :class="$style.right">
           <Text :s="17" :l="22" :w="600">{{ q.i18n.conditions.block.xfqgkq }}</Text>
+          <!--TODO: валюта-->
           <Text :s="17" :l="22"
             >{{ deposit.amount }} ₽ {{ q.i18n.conditions.block.vvuhrj }}</Text
           >
@@ -55,6 +56,7 @@ const q = useInter();
         <Umbrella />
         <div :class="$style.right">
           <Text :s="17" :l="22" :w="600">{{ q.i18n.conditions.block.rzocgb }}</Text>
+          <!--TODO: валюта-->
           <Text :s="17" :l="22"
             >{{ fee.amount }} ₽ {{ q.i18n.conditions.block.kioiwm }}</Text
           >

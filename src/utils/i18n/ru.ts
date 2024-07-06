@@ -299,6 +299,7 @@ export const ru = {
       jebbqr: "Гости",
     },
     block: {
+      ya: "Открыть в Яндекс Картах",
       gbhcow: "км",
       envksx: "Адрес",
     },

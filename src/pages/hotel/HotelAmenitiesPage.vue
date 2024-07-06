@@ -35,6 +35,7 @@ const list = computed(() => {
           <Ellipse />
           <div :class="$style.right">
             <Text :s="17" :l="22">{{ item.name }}</Text>
+            <!--TODO: валюта-->
             <Text :s="14" :l="18" v-if="!item.included && !!item.price" :g="true"
               >{{ item.price }} ₽</Text
             >

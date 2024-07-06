@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ArrowRight from "../../assets/icons/amenity-arrow.svg";
 import RatingView from "../ui/views/RatingView.vue";
 import StarsView from "../ui/views/StarsView.vue";
 import CopyButton from "../ui/CopyButton.vue";
@@ -32,7 +33,7 @@ const showMap = ref(false);
 onMounted(() => {
   showMap.value = true;
 });
-const q = useInter()
+const q = useInter();
 </script>
 
 <template>
@@ -51,22 +52,51 @@ const q = useInter()
       </Text>
     </div>
     <div :class="$style.map">
-      <yandex-map :settings="{
-        location: {
-          center: [longitude, latitude],
-          zoom: 14,
-        },
-      }" width="100%" height="200px">
+      <yandex-map
+        :settings="{
+          location: {
+            center: [longitude, latitude],
+            zoom: 14,
+          },
+        }"
+        width="100%"
+        height="200px"
+      >
         <yandex-map-default-scheme-layer />
         <yandex-map-default-features-layer />
-        <yandex-map-default-marker :settings="{ coordinates: [longitude, latitude], title: name }" />
+        <yandex-map-default-marker
+          :settings="{ coordinates: [longitude, latitude], title: name }"
+        />
       </yandex-map>
     </div>
-    <CopyButton :text="address" title="{{ q.i18n.main.block.envksx }}" :class="$style.copu" />
+    <CopyButton
+      :text="address"
+      :title="q.i18n.main.block.envksx"
+      :class="$style.copu"
+    />
+    <a
+      :href="'https://maps.yandex.ru/?text=' + latitude + '+' + longitude"
+      :class="$style.ya"
+    >
+      {{ q.i18n.main.block.ya }}
+      <ArrowRight />
+    </a>
   </div>
 </template>
 
 <style module lang="scss">
+.ya {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--tg-theme-link-color);
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0 0 16px 16px;
+  path {
+    stroke: var(--tg-theme-link-color);
+  }
+}
 .meters {
   display: flex;
   padding: 20px 16px 0;

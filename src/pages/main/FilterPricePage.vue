@@ -7,6 +7,7 @@ import { useRoute } from "vue-router";
 import { useInter } from "../../utils/i18n";
 const route = useRoute();
 const numbers = ref([0, 50000]);
+//TODO: валюта
 const inputs = ref(["0 ₽", "50 000 ₽"]);
 const store = useStore();
 const hotel = useHotel();
@@ -41,6 +42,7 @@ const toRender = (v: number) => {
     }
   }
   ans = ans.split("").reverse().join("");
+  //TODO: валюта
   ans += " ₽";
   return ans.trim();
 };
@@ -56,6 +58,7 @@ watch(numbers, (list) => {
 watch(
   () => inputs.value[0],
   (value, oldValue) => {
+    //TODO: валюта
     if (!oldValue.includes("₽")) {
       const s = value.replace(/\D/g, "").slice(0, -1);
       const v = Number(s) || 0;
@@ -76,6 +79,7 @@ watch(
 watch(
   () => inputs.value[1],
   (value, oldValue) => {
+    //TODO: валюта
     if (!oldValue.includes("₽")) {
       const s = value.replace(/\D/g, "").slice(0, -1);
       const v = Number(s) || 0;

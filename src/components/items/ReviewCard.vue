@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Block from "../ui/wrappers/Block.vue";
 import Text from "../ui/wrappers/Text.vue";
+import Tripadvisor from "../../assets/tripadvisor.svg";
 import ReviewView from "../ui/views/ReviewView.vue";
 interface Props {
   mini?: boolean;
@@ -27,7 +28,11 @@ defineProps<Props>();
         <Text :s="17" :l="22" :w="500">{{ name }}</Text>
         <Text :s="12" :l="16" :c="$style.gray">{{ date }}</Text>
       </div>
-      <ReviewView :rating="rating" />
+      <Text :s="17" :l="22" :w="500" :c="$style.rating">
+        <Tripadvisor />
+        <ReviewView :rating="rating" />
+        {{ rating }}
+      </Text>
     </div>
     <Text
       :s="mini ? 14 : 16"
@@ -62,6 +67,11 @@ defineProps<Props>();
 </template>
 
 <style module lang="scss">
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 .top {
   padding: 12px 16px;
   display: flex;

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CarouselCount from "../../components/ui/carousel/CarouselCount.vue";
 import Share from "../../assets/icons/share.svg";
+import Like from "../../assets/icons/like.svg";
 import RatingBlock from "../../components/hotel/RatingBlock.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import AboutBlock from "../../components/hotel/AboutBlock.vue";
@@ -72,12 +73,15 @@ onMounted(async () => {
   loading.value = false;
   fetched.value = true;
 });
+// TODO: пофиксить новый запрос, после возврата на эту страницу
+// TODO: добавить страницу, если ничего не нашлось
 </script>
 
 <template>
   <div :class="$style.center" v-if="loading">
     <LoadingSimple />
   </div>
+  <!--  TODO: перевод и валюта-->
   <Wrapper
     :footer="{
       text:
@@ -110,6 +114,9 @@ onMounted(async () => {
         "
         ><Share
       /></a>
+      <div :class="$style.like">
+        <Like />
+      </div>
     </div>
     <div :class="$style.content">
       <MainBlock
@@ -193,6 +200,19 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.like {
+  position: absolute;
+  top: 12px;
+  right: 56px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #00000066;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 .image {
   flex: 0 0 100%;

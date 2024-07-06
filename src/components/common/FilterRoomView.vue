@@ -19,6 +19,7 @@ const toRenderPrice = (v: number) => {
     }
   }
   ans = ans.split("").reverse().join("");
+  //TODO: валюта
   ans += " ₽";
   return ans.trim();
 };

@@ -85,6 +85,7 @@
                 :class="$style.popular__img"
               />
               <Text :w="600" :s="14" :l="18">{{ q.i18n.main.sjqrco }}</Text>
+              <!--TODO: валюта-->
               <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
             </div>
             <div :class="$style.popular" @click="$router.push('/search/results')">
@@ -93,6 +94,7 @@
                 :class="$style.popular__img"
               />
               <Text :w="600" :s="14" :l="18">{{ q.i18n.main.cyrumt }}</Text>
+              <!--TODO: валюта-->
               <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
             </div>
             <div :class="$style.popular" @click="$router.push('/search/results')">
@@ -101,6 +103,7 @@
                 :class="$style.popular__img"
               />
               <Text :w="600" :s="14" :l="18">{{ q.i18n.main.hdwtlq }}</Text>
+              <!--TODO: валюта-->
               <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
             </div>
             <div :class="$style.popular" @click="$router.push('/search/results')">
@@ -109,6 +112,7 @@
                 :class="$style.popular__img"
               />
               <Text :w="600" :s="14" :l="18">{{ q.i18n.main.qnctit }}</Text>
+              <!--TODO: валюта-->
               <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
             </div>
           </Carousel>

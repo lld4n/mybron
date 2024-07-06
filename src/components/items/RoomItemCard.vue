@@ -16,6 +16,7 @@ const q = useInter();
 <template>
   <div :class="$style.wrapper">
     <div :class="$style.top">
+      <!--TODO: валюта-->
       <Text :s="20" :l="24" :w="600">{{ item.price }} ₽</Text>
       <Text :s="14" :l="18" v-if="!!store.out"
         >{{ store.adultsCount + store.children.length }}

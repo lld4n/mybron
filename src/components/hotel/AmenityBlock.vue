@@ -34,6 +34,7 @@ const q = useInter();
     <div :class="$style.list">
       <div :class="$style.item" v-for="item of list">
         <AmenityView :group="item.groupName" />
+        <!--TODO: валюта-->
         <div :class="$style.right">
           <Text :s="17" :l="22" :c="$style.overflow">{{ item.name }}</Text>
           <Text :s="14" :l="18" :g="true" v-if="!!item.price">{{ item.price }} ₽</Text>

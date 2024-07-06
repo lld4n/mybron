@@ -238,6 +238,11 @@ const subtitle = () => {
   flex-direction: column;
   flex: 1;
   overflow: hidden;
+  div {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .title {
