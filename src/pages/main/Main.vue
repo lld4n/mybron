@@ -22,6 +22,7 @@
       </div>
     </main>
     <div :class="$style.content">
+      <!--          TODO: мои бронирования на главной-->
       <Block>
         <div :class="$style.top">
           <Title>{{ q.i18n.main.bqbral }}</Title>
@@ -31,6 +32,7 @@
         </div>
         <ReservationCard status="loading" />
       </Block>
+      <!--          TODO: последний поиск на главной-->
       <Block>
         <div :class="$style.top">
           <Title>{{ q.i18n.main.bzrkjs }}</Title>
@@ -70,6 +72,7 @@
           </Carousel>
         </div>
       </Block>
+      <!--          TODO: популярное на главной-->
       <Block>
         <div :class="$style.top">
           <Title>{{ q.i18n.main.xmcsqq }}</Title>

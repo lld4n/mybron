@@ -1,16 +1,14 @@
 <script setup lang="ts">
-// import HotelCard from "../../components/items/HotelCard.vue";
 import FilterView from "../../components/common/FilterView.vue";
 import ShapeIcon from "../../assets/icons/shape.svg";
 import X from "../../assets/icons/x.svg";
-import { computed, onMounted, ref, watch } from "vue";
-import { useSwipe } from "@vueuse/core";
+import { computed, onMounted, ref } from "vue";
+import Marker from "../../assets/icons/marker.svg";
 import {
   YandexMap,
   YandexMapDefaultFeaturesLayer,
-  YandexMapDefaultMarker,
   YandexMapDefaultSchemeLayer,
-  YandexMapListener,
+  YandexMapMarker,
 } from "vue-yandex-maps";
 import {
   dates,
@@ -20,17 +18,13 @@ import {
   router,
   useStore,
 } from "../../utils";
-import { DomEventHandler, LngLat } from "ymaps3";
+import { LngLat } from "ymaps3";
 import HotelCard from "../../components/items/HotelCard.vue";
 import { useInter } from "../../utils/i18n";
-const viewInfo = ref<"in" | "out" | "default">("default");
-const el = ref(null);
+import Text from "../../components/ui/wrappers/Text.vue";
+import Search from "../../assets/icons/search.svg";
 const store = useStore();
 const item = ref<HotelWithCheapestOfferDto | null>(null);
-const container = ref(null);
-// @ts-ignore
-const height = computed(() => container.value?.offsetHeight);
-const bottom = ref("0");
 const q = useInter();
 const coor = computed(() => {
   let long = 0;
@@ -50,57 +44,8 @@ onMounted(() => {
   }
 });
 
-watch(viewInfo, (value) => {
-  if (value) {
-    bottom.value = "0";
-  }
-});
-
-const { isSwiping, lengthY } = useSwipe(el, {
-  passive: false,
-  onSwipe() {
-    if (height.value) {
-      if (lengthY.value < 0) {
-        const length = Math.abs(lengthY.value);
-        bottom.value = `-${length}px`;
-      } else {
-        bottom.value = "0";
-      }
-    }
-  },
-  onSwipeEnd() {
-    if (
-      lengthY.value < 0 &&
-      height.value &&
-      Math.abs(lengthY.value) / height.value >= 0.5
-    ) {
-      bottom.value = "-100%";
-      setTimeout(() => {
-        viewInfo.value = "default";
-      }, 300);
-    } else {
-      bottom.value = "0";
-    }
-  },
-});
-
-const handleClose = () => {
-  if (viewInfo.value === "in") {
-    viewInfo.value = "out";
-    setTimeout(() => {
-      viewInfo.value = "default";
-    }, 450);
-  } else viewInfo.value = "in";
-};
-const logMapClick: DomEventHandler = (object) => {
-  if (object && object.type === "marker") {
-    //@ts-ignore
-    const f = store.hotels.find((e) => e.info.name === object.entity._props.title);
-    if (f) {
-      item.value = f;
-      handleClose();
-    }
-  }
+const handleMarker = (f: HotelWithCheapestOfferDto | null) => {
+  item.value = f;
 };
 
 const subtitle = () => {
@@ -108,14 +53,21 @@ const subtitle = () => {
   ans += ", " + guests(store.adultsCount, store.children, q.i18n);
   return ans;
 };
+
+const theme = computed(() => {
+  return window.Telegram.WebApp.colorScheme || "light";
+});
 </script>
 
 <template>
   <div :class="$style.wrapper">
     <header :class="$style.header">
-      <div :class="$style.info" @click="$router.push('/search/filter/info')">
-        <div :class="$style.title">{{ store.search?.name }}</div>
-        <div :class="$style.subtitle">{{ subtitle() }}</div>
+      <div :class="$style.info">
+        <div :class="$style.left">
+          <Text :s="14" :l="18" :w="600">{{ store.search?.name }}</Text>
+          <Text :s="13" :l="18">{{ subtitle() }}</Text>
+        </div>
+        <Search />
       </div>
       <FilterView />
     </header>
@@ -126,46 +78,43 @@ const subtitle = () => {
             center: coor,
             zoom: 14,
           },
+          theme,
         }"
         width="100%"
         height="100%"
       >
         <yandex-map-default-scheme-layer />
         <yandex-map-default-features-layer />
-        <template v-for="item of store.hotels">
-          <yandex-map-default-marker
+        <template v-for="e of store.hotels">
+          <yandex-map-marker
             :settings="{
-              coordinates: [
-                item.geo.coordinates.longitude,
-                item.geo.coordinates.latitude,
-              ],
-              title: item.info.name,
+              coordinates: [e.geo.coordinates.longitude, e.geo.coordinates.latitude],
             }"
-          />
+          >
+            <div
+              :class="[$style.marker, { [$style.active]: item && item.id === e.id }]"
+              @click="() => handleMarker(e)"
+            >
+              <Text :s="14" :l="18" :w="600">
+                <!--                TODO: Валюта-->
+                {{ e.minimalPriceDetails.client.clientCurrency.gross.price }} ₽
+              </Text>
+              <Marker :class="$style.bottom" />
+            </div>
+          </yandex-map-marker>
         </template>
-        <yandex-map-listener :settings="{ onClick: logMapClick }" />
       </yandex-map>
     </div>
-    <div
-      :class="[
-        $style.view,
-        {
-          [$style.animated]: !isSwiping,
-          [$style.out]: viewInfo === 'out',
-        },
-      ]"
-      v-if="viewInfo !== 'default'"
-      ref="container"
-      :style="{ bottom }"
-    >
-      <div :class="$style.top" ref="el">
+    <div v-if="!!item" :class="$style.view">
+      <div :class="$style.top">
         <div :class="$style.line" />
       </div>
-      <button :class="$style.close" @click.prevent="handleClose">
+      <button :class="$style.close" @click.prevent="() => handleMarker(null)">
         <X />
       </button>
       <HotelCard
         v-if="!!item"
+        :left="true"
         :id="item.id"
         :images="[item.info.photo.url]"
         :price="{
@@ -206,10 +155,17 @@ const subtitle = () => {
 }
 .info {
   cursor: pointer;
+  display: flex;
+  gap: 12px;
+  align-items: center;
   margin: 0 16px;
   padding: 5px 10px;
   border-radius: 8px;
   background-color: var(--quarternary-fill-background);
+}
+.left {
+  flex: 1;
+  overflow: hidden;
 }
 .title {
   font-size: 14px;
@@ -227,10 +183,10 @@ const subtitle = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--tg-theme-bg-color);
   position: fixed;
   bottom: 12px;
-  right: 12px;
+  right: 0;
+  left: 0;
   border-radius: 12px;
 }
 .btn {
@@ -258,7 +214,6 @@ const subtitle = () => {
   }
 }
 .map {
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -276,22 +231,8 @@ const subtitle = () => {
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
   animation: in_anim 0.5s ease;
-  &.animated {
-    transition: all 0.2s ease-in-out;
-  }
-  &.out {
-    animation: out_anim 0.5s ease;
-  }
 }
 
-@keyframes out_anim {
-  from {
-    bottom: 0;
-  }
-  to {
-    bottom: -100%;
-  }
-}
 @keyframes in_anim {
   from {
     bottom: -100%;
@@ -302,7 +243,7 @@ const subtitle = () => {
 }
 
 .top {
-  height: 24px;
+  height: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -310,7 +251,7 @@ const subtitle = () => {
 .line {
   height: 3px;
   width: 24px;
-  background-color: var(--tg-theme-hint-color);
+  background-color: var(--tertiary-fill-background);
   border-radius: 2px;
 }
 .close {
@@ -348,5 +289,34 @@ const subtitle = () => {
       }
     }
   }
+}
+.marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  padding: 3px 8px;
+  box-shadow:
+    0 4px 12px 0 #00000029,
+    0 1px 1px 0 #00000029;
+  border-radius: 12px;
+  position: relative;
+  background-color: white;
+}
+.active {
+  background-color: var(--tg-theme-button-color);
+  div {
+    color: var(--tg-theme-button-text-color);
+  }
+  path {
+    fill: var(--tg-theme-button-color);
+  }
+}
+.bottom {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
 }
 </style>

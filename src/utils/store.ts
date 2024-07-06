@@ -66,7 +66,12 @@ export const useStore = defineStore("store", {
     return {
       checked: false,
       hotels: [],
-      search: null,
+      // TODO: Удалить
+      search: {
+        id: 3,
+        type: "city",
+        name: "Казань",
+      },
       adultsCount: 2,
       children: [],
       in: new Date(new Date().setHours(0, 0, 0, 0)),

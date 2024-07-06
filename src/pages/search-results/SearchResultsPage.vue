@@ -2,6 +2,7 @@
 import FilterView from "../../components/common/FilterView.vue";
 import MapIcon from "../../assets/icons/map.svg";
 import HotelCard from "../../components/items/HotelCard.vue";
+import Search from "../../assets/icons/search.svg";
 import {
   api,
   dates,
@@ -18,6 +19,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import Text from "../../components/ui/wrappers/Text.vue";
 import LoadingLottie from "../../components/ui/loading/LoadingLottie.vue";
+import ProgressBar from "../../components/ui/loading/ProgressBar.vue";
 import { useInter } from "../../utils/i18n";
 const loading = ref(true);
 const fetched = ref(false);
@@ -25,6 +27,7 @@ const list = ref<HotelWithCheapestOfferDto[]>([]);
 const store = useStore();
 const router = useRouter();
 const q = useInter();
+const progress = ref(0);
 onMounted(async () => {
   if (!store.search || !store.out) {
     await router.push("/");
@@ -38,6 +41,10 @@ onMounted(async () => {
   }
   loading.value = true;
   fetched.value = false;
+  progress.value = 0;
+  const timer = setInterval(() => {
+    progress.value++;
+  }, 500);
   const URL =
     store.search.type === "city" ? "hotels/search/by-city" : "hotels/search/by-hotel";
 
@@ -48,7 +55,6 @@ onMounted(async () => {
       numberOfGuests: store.adultsCount + store.children.length,
     },
   };
-
   if (store.search.type === "city") {
     data.cityId = store.search.id;
   } else {
@@ -84,31 +90,35 @@ onMounted(async () => {
       },
     })
     .json();
+  clearInterval(timer);
+  progress.value = 100;
   console.log(jsonData.hotels);
-  if (store.filters.sort === "default") {
-    list.value = jsonData.hotels;
-  } else if (store.filters.sort === "stars") {
-    list.value = jsonData.hotels.sort((a, b) => b.info.category - a.info.category);
-  } else if (store.filters.sort === "cheap") {
-    list.value = jsonData.hotels.sort(
-      (a, b) =>
-        a.minimalPriceDetails.client.clientCurrency.net.price -
-        b.minimalPriceDetails.client.clientCurrency.net.price,
-    );
-  } else if (store.filters.sort === "expensive") {
-    list.value = jsonData.hotels.sort(
-      (a, b) =>
-        b.minimalPriceDetails.client.clientCurrency.net.price -
-        a.minimalPriceDetails.client.clientCurrency.net.price,
-    );
-  } else if (store.filters.sort === "closeness") {
-    list.value = jsonData.hotels.sort(
-      (a, b) => a.geo.distanceToCenter - b.geo.distanceToCenter,
-    );
-  }
-  store.setHotels(list.value);
-  loading.value = false;
-  fetched.value = true;
+  setTimeout(() => {
+    if (store.filters.sort === "default") {
+      list.value = jsonData.hotels;
+    } else if (store.filters.sort === "stars") {
+      list.value = jsonData.hotels.sort((a, b) => b.info.category - a.info.category);
+    } else if (store.filters.sort === "cheap") {
+      list.value = jsonData.hotels.sort(
+        (a, b) =>
+          a.minimalPriceDetails.client.clientCurrency.net.price -
+          b.minimalPriceDetails.client.clientCurrency.net.price,
+      );
+    } else if (store.filters.sort === "expensive") {
+      list.value = jsonData.hotels.sort(
+        (a, b) =>
+          b.minimalPriceDetails.client.clientCurrency.net.price -
+          a.minimalPriceDetails.client.clientCurrency.net.price,
+      );
+    } else if (store.filters.sort === "closeness") {
+      list.value = jsonData.hotels.sort(
+        (a, b) => a.geo.distanceToCenter - b.geo.distanceToCenter,
+      );
+    }
+    store.setHotels(list.value);
+    loading.value = false;
+    fetched.value = true;
+  }, 500);
 });
 
 const subtitle = () => {
@@ -122,12 +132,25 @@ const subtitle = () => {
   <div :class="$style.wrapper">
     <header :class="$style.header">
       <div :class="$style.info" @click="$router.push('/search/filter/info')">
-        <div :class="$style.title">{{ store.search?.name }}</div>
-        <div :class="$style.subtitle">{{ subtitle() }}</div>
+        <div :class="$style.left">
+          <Text :s="14" :l="18" :w="600">{{ store.search?.name }}</Text>
+          <Text :s="13" :l="18">{{ subtitle() }}</Text>
+        </div>
+        <Search />
       </div>
-      <FilterView />
     </header>
     <div :class="$style.list" v-if="list.length > 0">
+      <FilterView />
+      <Text
+        :c="$style.count"
+        :s="14"
+        :l="18"
+        :g="true"
+        v-if="fetched && list.length > 0"
+      >
+        {{ q.i18n.search.results.page.qqqqqq }} {{ list.length }}
+        {{ q.i18n.search.results.page.wwwwww }}
+      </Text>
       <HotelCard
         v-for="item of list"
         :id="item.id"
@@ -144,6 +167,8 @@ const subtitle = () => {
     </div>
     <div :class="$style.center" v-if="loading">
       <LoadingLottie />
+      <Text :s="16" :l="22" :w="500">{{ q.i18n.search.results.page.ffffff }}</Text>
+      <ProgressBar :width="progress" />
     </div>
     <div :class="$style.center" v-if="fetched && list.length === 0">
       <Text :s="17" :l="22" :w="600">{{ q.i18n.search.results.page.xxanha }}</Text>
@@ -179,6 +204,7 @@ const subtitle = () => {
   flex-direction: column;
   gap: 8px;
   padding: 12px 0 8px 0;
+  //box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
 .info {
@@ -188,6 +214,14 @@ const subtitle = () => {
   border-radius: 8px;
   background-color: var(--quarternary-fill-background);
   transition: opacity 0.1s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+
+  path {
+    fill: var(--tg-theme-hint-color);
+  }
 
   &:not([disabled]):active {
     opacity: 0.6 !important;
@@ -198,6 +232,12 @@ const subtitle = () => {
       opacity: 0.85;
     }
   }
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
 }
 
 .title {
@@ -221,10 +261,11 @@ const subtitle = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--tg-theme-bg-color);
+  //background-color: var(--tg-theme-bg-color);
   position: fixed;
   bottom: 12px;
-  right: 12px;
+  right: 0;
+  left: 0;
   border-radius: 12px;
 }
 
@@ -264,11 +305,11 @@ const subtitle = () => {
 
 .list {
   background-color: var(--tg-theme-bg-color);
-  margin-top: 116px;
+  margin-top: 64px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 12px 0 62px;
+  gap: 12px;
+  padding: 0 0 62px;
 }
 
 .center {
@@ -278,6 +319,11 @@ const subtitle = () => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+}
+.count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

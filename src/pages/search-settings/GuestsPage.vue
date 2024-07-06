@@ -18,7 +18,7 @@ const q = useInter();
 <template>
   <Wrapper
     :footer="{
-      text: '{{ q.i18n.guests.page.favgen }}',
+      text: q.i18n.guests.page.favgen,
       click: () => $router.go(-1),
     }"
   >

@@ -31,6 +31,9 @@ export const en: i18nTypeRU = {
     },
     results: {
       page: {
+        ffffff: "We are looking for the best hotels...",
+        qqqqqq: "",
+        wwwwww: "variants found",
         xxanha: "Nothing found",
         ltuaar: "Try changing filters or selecting a different destination",
         vkwokh: "On Map",
@@ -142,6 +145,10 @@ export const en: i18nTypeRU = {
       ygbsng: "km from center",
       omcues: "per ",
       ztzlwh: "night",
+      n: "night",
+      nm: "night",
+      g: "guest",
+      gn: "guest",
     },
     reviews: {
       name: "reviews",

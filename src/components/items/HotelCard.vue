@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import Carousel from "../ui/carousel/Carousel.vue";
-import StarsSmall from "../../assets/icons/stars/star-small.svg";
 import { useInter } from "../../utils/i18n";
-// import RatingView from "../ui/views/RatingView.vue";
+import Like from "../../assets/icons/like.svg";
+import StarsView from "../ui/views/StarsView.vue";
+import Text from "../ui/wrappers/Text.vue";
+import RatingView from "../ui/views/RatingView.vue";
+import { useStore } from "../../utils";
+import { computed } from "vue";
 interface Props {
   images: string[];
   id: number;
@@ -14,37 +18,51 @@ interface Props {
   };
   center: number;
   price: { all: number; currency: string; nights: number };
+  left?: boolean;
 }
 
 defineProps<Props>();
-const q = useInter()
+const q = useInter();
+const store = useStore();
+const nights = computed(() => {
+  if (!store.out) return 0;
+  return Math.ceil(
+    Math.abs(store.in.getTime() - store.out.getTime()) / (1000 * 3600 * 24),
+  );
+});
 </script>
 
 <template>
   <div :class="$style.card" @click="$router.push('/hotel/' + id)">
-    <Carousel>
+    <div :class="[$style.like, { [$style.like__left]: left }]">
+      <Like />
+    </div>
+    <div :class="$style.full">
+      <img :src="images[0]" alt="Image" v-if="images.length === 1" />
+    </div>
+    <Carousel v-if="images.length > 1">
       <img v-for="url of images" :src="url" alt="Image" :class="$style.image" />
     </Carousel>
     <div :class="$style.middle">
-      <div :class="$style.name">
-        <div>{{ name }}</div>
-        <span>{{ stars }}
-          <StarsSmall />
-        </span>
+      <div :class="$style.left">
+        <StarsView :level="3" type="very small" />
+        <Text :s="17" :l="22" :w="600">{{ name }}</Text>
+        <Text :c="$style.gap" :s="13" :l="18">
+          <!--          TODO: Количество отзывов в поиске by--->
+          <Text>{{ center }} {{ q.i18n.hotel.card.ygbsng }}</Text>
+        </Text>
       </div>
-      <div :class="$style.text">
-        <!--        <RatingView :level="9" type="small" />-->
-        <!--        <span>7829 {{ q.i18n.hotel.card.kipbzq }}</span>-->
-        <!--        <span>•</span>-->
-        <span>{{ center }} {{ q.i18n.hotel.card.ygbsng }}</span>
-      </div>
+      <!--      TODO: Рейтинг из tripadvisor в поиске by--->
+      <RatingView :level="10" type="big" />
     </div>
     <div :class="$style.bottom">
-      <div :class="$style.price">{{ price.all }} ₽</div>
-      <div :class="$style.day" v-if="price.nights > 1">
-        ~{{ Math.floor(price.all / (price.nights || 1)) }} ₽ {{ q.i18n.hotel.card.omcues }}1 {{ q.i18n.hotel.card.ztzlwh
-        }}
-      </div>
+      <!--      TODO: Валюта-->
+      <Text :s="22" :l="28" :w="600">{{ price.all }} ₽</Text>
+      <Text :s="13" :l="18" v-if="nights > 0"
+        >{{ nights }} {{ nights > 1 ? q.i18n.hotel.card.nm : q.i18n.hotel.card.n }},
+        {{ store.adultsCount }}
+        {{ store.adultsCount > 1 ? q.i18n.hotel.card.gn : q.i18n.hotel.card.g }}</Text
+      >
     </div>
   </div>
 </template>
@@ -53,50 +71,22 @@ const q = useInter()
 .middle {
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-left: 16px;
+  padding: 0 16px;
+  gap: 12px;
 }
-
-.name {
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 22px;
-  letter-spacing: -0.43px;
+.gap {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 6px;
+}
+.left {
+  flex: 1;
   overflow: hidden;
-  padding-right: 16px;
-
-  path {
-    fill: var(--tg-theme-text-color);
-  }
-
   div {
-    //flex: 1;
+    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
-
-  span {
-    white-space: nowrap;
-  }
-}
-
-.text {
-  display: flex;
-  gap: 6px;
-  font-size: 13px;
-  line-height: 22px;
-  font-weight: 400;
-}
-
-.day {
-  font-size: 13px;
-  line-height: 24px;
-  font-weight: 400;
 }
 
 .bottom {
@@ -118,18 +108,54 @@ const q = useInter()
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
 .image {
   flex: 0 0 340px;
   min-width: 0;
   margin-right: 8px;
-  height: 240px;
+  height: 180px;
   object-fit: cover;
   border-radius: 8px;
 
   &:first-child {
     margin-left: 16px;
+  }
+}
+.full {
+  padding: 0 16px;
+  img {
+    border-radius: 8px;
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+.like {
+  background-color: #00000066;
+  border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  right: 24px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.1s ease-out;
+  &__left {
+    right: auto;
+    left: 24px;
+  }
+  &:not([disabled]):active {
+    opacity: 0.6 !important;
+  }
+
+  @media (hover: hover) {
+    &:not([disabled]):hover {
+      opacity: 0.85;
+    }
   }
 }
 </style>
