@@ -3,25 +3,19 @@ import Search from "../../assets/icons/search.svg";
 import { onMounted, ref, watch } from "vue";
 import {
   api,
-  dateToApi,
   debounce,
-  HotelWithCheapestOfferDto,
   LiveSearchResponse,
   LiveSearchResultDto,
-  SearchHotelByGeolocationRequest,
-  SearchHotelResponse,
   useStore,
 } from "../../utils";
 import Text from "../../components/ui/wrappers/Text.vue";
 import Block from "../../components/ui/wrappers/Block.vue";
-import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 import { useInter } from "../../utils/i18n";
 import { useRouter } from "vue-router";
-// import ky from "ky";
 import Title from "../../components/ui/wrappers/Title.vue";
 import SearchCard, { Item } from "../../components/items/SearchCard.vue";
 const q = useInter();
-const countries = ["RU", "KZ", "UZ", "KG", "TM", "GE", "BY", "AZ", "MD", "TJ", "AM"];
+// const countries = ["RU", "KZ", "UZ", "KG", "TM", "GE", "BY", "AZ", "MD", "TJ", "AM"];
 const popular: { id: number; type: "CITY"; name: string; country: string }[] = [
   {
     id: 6,
@@ -57,64 +51,27 @@ const popular: { id: number; type: "CITY"; name: string; country: string }[] = [
 
 const value = defineModel<string>("value");
 const list = ref<LiveSearchResultDto[]>([]);
-const geoList = ref<HotelWithCheapestOfferDto[]>([]);
 const input = ref<HTMLInputElement | null>(null);
 const fetched = ref(false);
-const loadingGeo = ref(true);
-const loadingSearch = ref(false);
 
 const store = useStore();
 const router = useRouter();
 
 onMounted(async () => {
   input.value?.focus();
-
-  try {
-    if (!store.geo || !countries.includes(store.geo.country_code)) {
-      loadingGeo.value = false;
-      return;
-    }
-    const today = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const todayFormatted = dateToApi(today);
-    const tomorrowFormatted = dateToApi(tomorrow);
-    const data: SearchHotelByGeolocationRequest = {
-      checkInDate: todayFormatted,
-      checkOutDate: tomorrowFormatted,
-      geolocation: {
-        latitude: store.geo.latitude,
-        longitude: store.geo.longitude,
-        radius: 25.25,
-      },
-      filters: {},
-    };
-    const locatedHotel: SearchHotelResponse = await api
-      .post("hotels/search/by-geolocation", {
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .json();
-    geoList.value = locatedHotel.hotels.slice(0, 6);
-    loadingGeo.value = false;
-  } catch (e) {}
 });
 
-const fetch = async (q: string) => {
+const fetch = async (value: string) => {
   try {
-    loadingSearch.value = true;
     fetched.value = false;
     const data = await api.get("live-search", {
       searchParams: {
-        q,
+        q: value,
       },
     });
     const parsed: LiveSearchResponse = await data.json();
     list.value = parsed.liveSearchResults;
     console.log(parsed);
-    loadingSearch.value = false;
     fetched.value = true;
   } catch (e) {}
 };
@@ -158,17 +115,12 @@ const handleClick = (item: Item) => {
       <Text :s="17" :l="22" :w="600">{{ q.i18n.search.page.gwfosk }}</Text>
       <Text :s="17" :l="22" :g="true">{{ q.i18n.search.page.ewirkw }}</Text>
     </div>
-    <div :class="$style.loading__geo" v-if="loadingGeo && list.length === 0">
-      <LoadingSimple />
-    </div>
-    <div :class="$style.loading__search" v-if="loadingSearch">
-      <LoadingSimple />
-    </div>
     <Block
       v-if="fetched && list.map((e) => e.type).includes('CITY')"
       :class="$style.content"
     >
       <SearchCard
+        :key="item.id"
         v-for="item of list"
         :country="item.country"
         :id="item.id"
@@ -183,6 +135,7 @@ const handleClick = (item: Item) => {
       :class="$style.content"
     >
       <SearchCard
+        :key="item.id"
         v-for="item of list"
         :country="item.country"
         :id="item.id"
@@ -192,21 +145,22 @@ const handleClick = (item: Item) => {
         :no-show="item.type === 'CITY'"
       />
     </Block>
-    <Block v-if="geoList.length > 0 && list.length === 0" :class="$style.content">
+    <Block v-if="store.near.length > 0 && list.length === 0" :class="$style.content">
       <div :class="$style.top">
         <Title>{{ q.i18n.search.page.jszwxj }}</Title>
       </div>
       <SearchCard
-        v-for="item of geoList"
+        :key="item.id"
+        v-for="item of store.near"
         :id="item.id"
-        :name="item.info.name"
-        :type="item.info.type === 'city' ? 'city' : 'hotel'"
-        :country="item.geo.cityName"
+        :name="item.name"
+        :type="item.type === 'CITY' ? 'city' : 'hotel'"
+        :country="item.country"
         :click="handleClick"
       />
     </Block>
     <Text
-      v-if="geoList.length > 0 && list.length === 0"
+      v-if="store.near.length > 0 && list.length === 0"
       :s="13"
       :l="18"
       :g="true"
@@ -297,6 +251,7 @@ const handleClick = (item: Item) => {
 
 .add {
   padding: 5px 16px;
+  margin-bottom: 8px;
 }
 
 .unfind {

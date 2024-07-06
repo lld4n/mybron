@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { HotelWithCheapestOfferDto } from "./types.ts";
+import { HotelWithCheapestOfferDto, LiveSearchResultDto } from "./types.ts";
 
 export const OtherFiltersValues: OtherFilters[] = ["card", "breakfast"];
 export type OtherFilters = "card" | "breakfast";
@@ -41,10 +41,10 @@ interface StoreInterface {
   in: Date;
   out: null | Date;
   message: Message;
-  geo: Geo | null;
   hotels: HotelWithCheapestOfferDto[];
   auth: string;
   phone: Phone;
+  near: LiveSearchResultDto[];
   filters: {
     sort: SortFilters;
     payment: PaymentFilters[];
@@ -55,6 +55,7 @@ interface StoreInterface {
 }
 
 export type Geo = {
+  city: string;
   latitude: number;
   longitude: number;
   country_code: string;
@@ -73,9 +74,9 @@ export const useStore = defineStore("store", {
         new Date(new Date().setHours(0, 0, 0, 0)).setDate(new Date().getDate() + 1),
       ),
       message: null,
-      geo: null,
       auth: "",
       phone: { code: "ru", ph: "7" },
+      near: [],
       filters: {
         sort: "default",
         payment: [],
@@ -86,6 +87,9 @@ export const useStore = defineStore("store", {
     };
   },
   actions: {
+    setNear(n: LiveSearchResultDto[]) {
+      this.near = n;
+    },
     setPhone(p: Phone) {
       this.phone = p;
     },
@@ -97,9 +101,6 @@ export const useStore = defineStore("store", {
     },
     setHotels(list: HotelWithCheapestOfferDto[]) {
       this.hotels = list;
-    },
-    setGeo(g: Geo) {
-      this.geo = g;
     },
     setSearch(c: Search) {
       this.search = c;

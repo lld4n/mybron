@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import ky from "ky";
-import { api, Geo, useStore } from "../../utils";
+import { api, Geo, LiveSearchResponse, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
 const store = useStore();
 
@@ -53,8 +53,13 @@ onMounted(async () => {
     const coorData: Geo = await ky
       .get("https://ipapi.co/" + ipData.ip + "/json/")
       .json();
-    store.setGeo(coorData);
-    console.log(coorData);
+    const data = await api.get("live-search", {
+      searchParams: {
+        q: coorData.city.replace(/[^a-zA-Z]/g, ""),
+      },
+    });
+    const parsed: LiveSearchResponse = await data.json();
+    store.setNear(parsed.liveSearchResults);
   } catch (e) {}
 
   try {
