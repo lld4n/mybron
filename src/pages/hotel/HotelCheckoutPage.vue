@@ -9,13 +9,14 @@ import GuestsBlock from "../../components/hotel/GuestsBlock.vue";
 import DataBlock from "../../components/hotel/DataBlock.vue";
 import { api, useHotel, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
+import { useRouter } from "vue-router";
 const hotel = useHotel();
 const q = useInter();
 const store = useStore();
+const router = useRouter();
 console.log("OFFER", hotel.offer);
 const close = async () => {
   if (!hotel.offer || !store.auth) return;
-
   if (hotel.info.firstName.length === 0 || hotel.info.lastName.length === 0) {
     store.setMessage({
       type: "contact",
@@ -24,6 +25,7 @@ const close = async () => {
     });
     return;
   }
+  window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
   let guests;
   guests = [hotel.info];
   if (
@@ -45,7 +47,9 @@ const close = async () => {
       },
     ],
   };
-  const data = await api
+  const data: {
+    orderId: number;
+  } = await api
     .post("order", {
       headers: {
         "Content-Type": "application/json",
@@ -54,8 +58,9 @@ const close = async () => {
       body: JSON.stringify(body),
     })
     .json();
-  console.log(data);
-  window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
+  if (data && data.orderId) {
+    await router.push("/reservation/" + data.orderId);
+  }
 };
 </script>
 
