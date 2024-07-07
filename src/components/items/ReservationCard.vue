@@ -2,17 +2,28 @@
 import Text from "../ui/wrappers/Text.vue";
 import DateView from "../ui/views/DateView.vue";
 import StatusView from "../ui/views/StatusView.vue";
+import { dates } from "../../utils";
+import { useInter } from "../../utils/i18n";
+// Новый, В обработке, Ожидает подтверждения, Не подтвержден, Ожидает подтверждения клиента, Ожидает аннуляции
+// Подтвержден
+// Аннулировано, без штрафа Аннулировано, штраф
 interface Props {
-  status: "success" | "loading" | "fail";
-  // id: number;
+  status: "success" | "fail" | "loading";
+  id: number;
   // photo: string;
+  inDate: Date;
+  outDate: Date;
+  city: string;
+  name: string;
+  // guests: number;
 }
 defineProps<Props>();
+const q = useInter();
 const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 </script>
 
 <template>
-  <div :class="$style.wrapper" @click="$router.push('/reservation/1')">
+  <div :class="$style.wrapper" @click="$router.push('/reservation/' + id)">
     <div :class="$style.left">
       <div :class="$style.status">
         <StatusView :status="status" />
@@ -21,14 +32,17 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
     </div>
     <div :class="$style.right">
       <Text :s="17" :l="22" :w="500">
-        <DateView left="1 июня, чт" right="28 июня, вт" />
+        <DateView
+          :left="dates(inDate, q.i18n, { week: true })"
+          :right="dates(outDate, q.i18n, { week: true })"
+        />
       </Text>
       <div :class="$style.info">
-        <Text :s="13" :l="18">Япония</Text>
+        <Text :s="13" :l="18">{{ city }}</Text>
         <Text :s="13" :l="18">•</Text>
-        <Text :s="13" :l="18">Бета отель</Text>
+        <Text :s="13" :l="18">{{ name }}</Text>
       </div>
-      <Text :s="11" :l="13" :c="$style.bottom">1 номер для 2 взрослых</Text>
+      <!--      <Text :s="11" :l="13" :c="$style.bottom">1 номер для 2 взрослых</Text>-->
     </div>
   </div>
 </template>
@@ -64,6 +78,7 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
 .right {
   padding: 12px 0;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 2px;
   border-bottom: 1px solid var(--tg-theme-secondary-bg-color);

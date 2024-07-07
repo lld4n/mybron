@@ -23,14 +23,29 @@
     </main>
     <div :class="$style.content">
       <!--          TODO: мои бронирования на главной-->
-      <Block>
+      <Block v-if="list.length > 0">
         <div :class="$style.top">
           <Title>{{ q.i18n.main.bqbral }}</Title>
           <div :class="$style.link" @click="$router.push('/reservation/my')">
             {{ q.i18n.main.grrgsf }}
           </div>
         </div>
-        <ReservationCard status="loading" />
+        <ReservationCard
+          :id="list[0].id"
+          :in-date="new Date(list[0].checkInDate)"
+          :out-date="new Date(list[0].checkOutDate)"
+          :city="list[0].hotel.city.name"
+          :name="list[0].hotel.name"
+          :status="
+            list[0].status === 'Подтвержден'
+              ? 'success'
+              : ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(
+                    list[0].status,
+                  )
+                ? 'fail'
+                : 'loading'
+          "
+        />
       </Block>
       <!--          TODO: последний поиск на главной-->
       <Block>
@@ -127,8 +142,8 @@ import Case from "../../assets/icons/case.svg";
 import Settings from "../../assets/icons/settings.svg";
 import Logo from "../../assets/logo.svg";
 
-import { useStore } from "../../utils";
-import { onMounted, ref } from "vue";
+import { fetchOrders, GetOrderDto, useStore } from "../../utils";
+import { onMounted, ref, watch } from "vue";
 
 import Block from "../../components/ui/wrappers/Block.vue";
 import DateView from "../../components/ui/views/DateView.vue";
@@ -140,12 +155,11 @@ import MainInfo from "../../components/common/MainInfo.vue";
 import ReservationCard from "../../components/items/ReservationCard.vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
-const test = ref();
+const list = ref<GetOrderDto[]>([]);
 const q = useInter();
 const router = useRouter();
 console.log(window.Telegram);
 onMounted(() => {
-  test.value = window.Telegram.WebApp.initDataUnsafe.start_param;
   console.log(window.Telegram.WebApp.initDataUnsafe.user?.language_code);
   window.Telegram.WebApp.expand();
   if (window.Telegram.WebApp.colorScheme === "dark") {
@@ -170,6 +184,14 @@ const handleFind = () => {
     router.push("/search/results");
   }
 };
+
+watch(
+  () => store.auth,
+  async (auth) => {
+    if (!auth) return;
+    list.value = await fetchOrders(store.auth);
+  },
+);
 </script>
 
 <style lang="scss" module>

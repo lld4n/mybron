@@ -6,41 +6,14 @@ import { useInter } from "../../utils/i18n";
 import Text from "../../components/ui/wrappers/Text.vue";
 import ReservationCard from "../../components/items/ReservationCard.vue";
 import { onMounted, ref } from "vue";
-import {
-  api,
-  GetOrderDto,
-  GetOrdersResponse,
-  OrderDetailsResponse,
-  OrderDto,
-  useStore,
-} from "../../utils";
+import { fetchOrders, GetOrderDto, useStore } from "../../utils";
+
 const store = useStore();
 const list = ref<GetOrderDto[]>([]);
-const detailsMap = ref<{ [key: number]: OrderDto }>({});
-async function fetchOrders() {
-  const data: GetOrdersResponse = await api
-    .get("orders", {
-      headers: {
-        Authorization: store.auth,
-      },
-    })
-    .json();
-  list.value = data.orders;
-  console.log(data);
-}
+
 onMounted(async () => {
   if (!store.auth) return;
-  await fetchOrders();
-  for (const item of list.value) {
-    const details: OrderDetailsResponse = await api
-      .get("order/details?orderId=" + item.id, {
-        headers: {
-          Authorization: store.auth,
-        },
-      })
-      .json();
-    detailsMap.value[item.id] = details.order;
-  }
+  list.value = await fetchOrders(store.auth);
 });
 
 const q = useInter();
@@ -57,9 +30,24 @@ const q = useInter();
         <Text :s="17" :l="22">{{ q.i18n.reservation.zero }}</Text>
       </div>
       <div :class="$style.content">
-        <ReservationCard status="success" />
-        <ReservationCard status="fail" />
-        <ReservationCard status="loading" />
+        <template v-for="item of list">
+          <ReservationCard
+            :id="item.id"
+            :in-date="new Date(item.checkInDate)"
+            :out-date="new Date(item.checkOutDate)"
+            :city="item.hotel.city.name"
+            :name="item.hotel.name"
+            :status="
+              item.status === 'Подтвержден'
+                ? 'success'
+                : ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(
+                      item.status,
+                    )
+                  ? 'fail'
+                  : 'loading'
+            "
+          />
+        </template>
       </div>
     </Block>
   </div>
