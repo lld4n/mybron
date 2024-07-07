@@ -76,6 +76,9 @@ const q = useInter();
       opacity: 0.85;
     }
   }
+  path {
+    fill: var(--tg-theme-link-color);
+  }
 }
 
 .top {

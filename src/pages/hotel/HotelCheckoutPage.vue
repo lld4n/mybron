@@ -55,7 +55,7 @@ const close = async () => {
     })
     .json();
   console.log(data);
-  window.Telegram.WebApp.openTelegramLink("t.me/MoyabronBot");
+  window.Telegram.WebApp.openTelegramLink("/MoyabronBot");
 };
 </script>
 

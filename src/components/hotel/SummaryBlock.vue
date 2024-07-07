@@ -143,5 +143,8 @@ const q = useInter();
   display: flex;
   align-items: center;
   gap: 5px;
+  path {
+    fill: var(--tg-theme-text-color);
+  }
 }
 </style>
