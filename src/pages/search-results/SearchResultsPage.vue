@@ -81,7 +81,6 @@ onMounted(async () => {
   if (store.filters.other.includes("card")) {
     data.filters.guaranteeTypeCardIncluded = true;
   }
-
   const jsonData: SearchHotelResponse = await api
     .post(URL, {
       body: JSON.stringify(data),
@@ -165,10 +164,15 @@ const subtitle = () => {
         :stars="item.info.category"
       />
     </div>
-    <div :class="$style.center" v-if="loading">
-      <LoadingLottie />
-      <Text :s="16" :l="22" :w="500">{{ q.i18n.search.results.page.ffffff }}</Text>
-      <ProgressBar :width="progress" />
+    <div :class="$style.loading" v-if="loading">
+      <FilterView />
+      <div :class="$style.center">
+        <LoadingLottie />
+        <Text :s="16" :l="22" :w="500" :c="$style.margin">{{
+          q.i18n.search.results.page.ffffff
+        }}</Text>
+        <ProgressBar :width="progress" />
+      </div>
     </div>
     <div :class="$style.center" v-if="fetched && list.length === 0">
       <Text :s="17" :l="22" :w="600">{{ q.i18n.search.results.page.xxanha }}</Text>
@@ -317,14 +321,24 @@ const subtitle = () => {
   padding: 0 0 62px;
 }
 
-.center {
-  text-align: center;
+.loading {
+  background-color: var(--tg-theme-bg-color);
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  margin-top: 64px;
+}
+.center {
+  flex: 1;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 8px;
+}
+.margin {
+  margin-top: 8px;
 }
 .count {
   display: flex;
