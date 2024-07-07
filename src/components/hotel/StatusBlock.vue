@@ -42,7 +42,7 @@ const handle = () => {
     <HotelButton
       v-if="status === 'Новый'"
       :text="q.i18n.hotel.status.button"
-      :click="handle"
+      :click="() => handle()"
     />
     <!--    <div :class="$style.fail" v-if="status === 'fail'">-->
     <!--      <div :class="$style.first">-->

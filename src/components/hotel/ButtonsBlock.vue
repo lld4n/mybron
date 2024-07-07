@@ -58,6 +58,10 @@ const handleCancel = () => {
     },
   );
 };
+
+const handleBot = () => {
+  window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
+};
 </script>
 
 <template>
@@ -75,7 +79,7 @@ const handleCancel = () => {
         </div>
         <Text :s="14" :l="18">{{ q.i18n.hotel.buttons.call }}</Text>
       </div>
-      <div :class="$style.item">
+      <div :class="$style.item" @click="() => handleBot()">
         <div :class="$style.icon">
           <Chat />
         </div>
