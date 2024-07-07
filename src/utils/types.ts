@@ -608,3 +608,16 @@ export type OrderDto = {
 export type OrderServicesDto = {
   services: OrderServiceAccommodationDto[];
 };
+
+export type OrderInfoResponse = {
+  order: OrderInfoDto;
+};
+
+export type OrderInfoDto = {
+  id: number;
+  hotel: HotelDto;
+  status: string;
+  checkInDate: string;
+  checkOutDate: string;
+  // freeCancellationDate
+};

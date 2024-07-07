@@ -42,7 +42,7 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
         <Text :s="13" :l="18">•</Text>
         <Text :s="13" :l="18">{{ name }}</Text>
       </div>
-      <!--      <Text :s="11" :l="13" :c="$style.bottom">1 номер для 2 взрослых</Text>-->
+      <Text :s="11" :l="13" :c="$style.bottom">1 номер для 2 взрослых</Text>
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
 <style module lang="scss">
 .wrapper {
   cursor: pointer;
-  padding: 0 16px;
+  padding: 0 0 0 16px;
   display: flex;
   gap: 12px;
   align-items: center;
@@ -76,7 +76,7 @@ const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jp
   object-fit: cover;
 }
 .right {
-  padding: 12px 0;
+  padding: 12px 16px 12px 0;
   display: flex;
   flex: 1;
   flex-direction: column;

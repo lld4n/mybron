@@ -8,61 +8,55 @@ import CopyButton from "../ui/CopyButton.vue";
 import HotelButton from "./HotelButton.vue";
 
 interface Props {
-  status: "success" | "fail" | "loading" | "absence" | "cancel";
+  status: string;
+  id: number;
 }
 
 defineProps<Props>();
 const q = useInter();
+const handle = () => {
+  window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
+};
 </script>
 
 <template>
   <Block>
     <div :class="$style.top">
       <div :class="$style.info">
-        <template v-if="status === 'loading'">
-          <StatusView status="loading" />
-          <Title>{{ q.i18n.hotel.status.loading }}</Title>
-        </template>
-        <template v-if="status === 'cancel'">
-          <StatusView status="loading" />
-          <Title>{{ q.i18n.hotel.status.cancel }}</Title>
-        </template>
-        <template v-if="status === 'success'">
-          <StatusView status="success" />
-          <Title>{{ q.i18n.hotel.status.payed }}</Title>
-        </template>
-        <template v-if="status === 'fail'">
-          <StatusView status="fail" />
-          <Title>{{ q.i18n.hotel.status.fail }}</Title>
-        </template>
-        <template v-if="status === 'absence'">
-          <StatusView status="fail" />
-          <Title>{{ q.i18n.hotel.status.absence }}</Title>
-        </template>
+        <StatusView
+          :status="
+            status === 'Ожидает подтверждения'
+              ? 'success'
+              : ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(status)
+                ? 'fail'
+                : 'loading'
+          "
+        />
+        <Title>{{ status }}</Title>
       </div>
       <Text :s="14" :l="18" :c="$style.copy">
         {{ q.i18n.hotel.status.number }}
-        <CopyButton text="52525252" :title="q.i18n.hotel.status.copy" />
+        <CopyButton :text="String(id)" :title="q.i18n.hotel.status.copy" />
       </Text>
     </div>
     <HotelButton
-      v-if="status === 'loading'"
+      v-if="status === 'Новый'"
       :text="q.i18n.hotel.status.button"
-      :click="() => console.log('идет работа')"
+      :click="handle"
     />
-    <div :class="$style.fail" v-if="status === 'fail'">
-      <div :class="$style.first">
-        <Text :s="17" :l="22">{{ q.i18n.hotel.status.hold }}</Text>
-        <!--TODO: валюта-->
-        <Text :s="17" :l="22">52 000.52 ₽</Text>
-      </div>
-      <div :class="$style.first">
-        <Text :s="17" :l="22">{{ q.i18n.hotel.status.return }}</Text>
-        <!--TODO: валюта-->
-        <Text :s="17" :l="22">25 000.29 ₽</Text>
-      </div>
-      <Text :s="17" :l="22" :c="$style.link">{{ q.i18n.hotel.status.dft }}</Text>
-    </div>
+    <!--    <div :class="$style.fail" v-if="status === 'fail'">-->
+    <!--      <div :class="$style.first">-->
+    <!--        <Text :s="17" :l="22">{{ q.i18n.hotel.status.hold }}</Text>-->
+    <!--        &lt;!&ndash;TODO: валюта&ndash;&gt;-->
+    <!--        <Text :s="17" :l="22">52 000.52 ₽</Text>-->
+    <!--      </div>-->
+    <!--      <div :class="$style.first">-->
+    <!--        <Text :s="17" :l="22">{{ q.i18n.hotel.status.return }}</Text>-->
+    <!--        &lt;!&ndash;TODO: валюта&ndash;&gt;-->
+    <!--        <Text :s="17" :l="22">25 000.29 ₽</Text>-->
+    <!--      </div>-->
+    <!--      <Text :s="17" :l="22" :c="$style.link">{{ q.i18n.hotel.status.dft }}</Text>-->
+    <!--    </div>-->
   </Block>
 </template>
 
