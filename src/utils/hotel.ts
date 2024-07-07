@@ -1,5 +1,10 @@
 import { defineStore } from "pinia";
-import { AvailableAmenityDto, HotelOfferDto, HotelReviewDto } from "./types.ts";
+import {
+  AvailableAmenityDto,
+  HotelOfferDto,
+  HotelReviewDto,
+  RoomDto,
+} from "./types.ts";
 import { PaymentFilters } from "./store.ts";
 
 export const MealsFiltersValues: MealsFilters[] = ["included", "not included"];
@@ -20,9 +25,10 @@ interface StoreInterface {
   name: string;
   address: string;
   offer: HotelOfferDto | null;
+  room: RoomDto | null;
   time: Time | null;
   category: number;
-  guests: Guest[];
+  guests: Guest;
   info: Guest;
   filters: {
     sort: SortFilters;
@@ -56,9 +62,13 @@ export const useHotel = defineStore("hotel", {
       amenities: [],
       offers: [],
       offer: null,
+      room: null,
       time: null,
       category: 0,
-      guests: [],
+      guests: {
+        firstName: "",
+        lastName: "",
+      },
       info: {
         firstName: "",
         lastName: "",
@@ -107,19 +117,9 @@ export const useHotel = defineStore("hotel", {
     setInfo(c: Guest) {
       this.info = c;
     },
-    setGuestName(value: string, index: number, type: "first" | "last") {
-      if (this.guests.length < index + 1) return;
-      if (type === "first") this.guests[index].firstName = value;
-      if (type === "last") this.guests[index].lastName = value;
-    },
-    createGuests(count: number) {
-      this.guests = [];
-      for (let i = 0; i < count; i++) {
-        this.guests.push({
-          firstName: "",
-          lastName: "",
-        });
-      }
+    setGuestName(value: string, type: "first" | "last") {
+      if (type === "first") this.guests.firstName = value;
+      if (type === "last") this.guests.lastName = value;
     },
     setCategory(t: number) {
       this.category = t;
@@ -132,6 +132,9 @@ export const useHotel = defineStore("hotel", {
     },
     setOffer(offer: HotelOfferDto) {
       this.offer = offer;
+    },
+    setRoom(r: RoomDto) {
+      this.room = r;
     },
     setName(n: string) {
       this.name = n;

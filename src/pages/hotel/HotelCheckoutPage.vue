@@ -15,7 +15,6 @@ const store = useStore();
 console.log("OFFER", hotel.offer);
 const close = async () => {
   if (!hotel.offer || !store.auth) return;
-  if (store.adultsCount - 1 !== hotel.guests.length) return;
 
   if (hotel.info.firstName.length === 0 || hotel.info.lastName.length === 0) {
     store.setMessage({
@@ -25,20 +24,17 @@ const close = async () => {
     });
     return;
   }
-  let flag = false;
-  for (const item of hotel.guests) {
-    if (item.lastName.length === 0 || item.firstName.length === 0) flag = true;
-  }
   let guests;
-  if (flag) {
-    guests = [hotel.info];
-    for (const _ of hotel.guests) {
-      guests.push(hotel.info);
-    }
+  guests = [hotel.info];
+  if (
+    hotel.guests.lastName.length > 0 &&
+    hotel.guests.firstName.length > 0 &&
+    store.adultsCount === 2
+  ) {
+    guests.push(hotel.guests);
   } else {
-    guests = [hotel.info];
-    for (const item of hotel.guests) {
-      guests.push(item);
+    for (let i = 1; i <= store.adultsCount; i++) {
+      guests.push(hotel.info);
     }
   }
   const body = {
@@ -59,7 +55,7 @@ const close = async () => {
     })
     .json();
   console.log(data);
-  // window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
+  window.Telegram.WebApp.openTelegramLink("t.me/MoyabronBot");
 };
 </script>
 
@@ -88,12 +84,14 @@ const close = async () => {
         :cancel="hotel.offer.cancellationPolicies"
         :name="hotel.offer.name"
         :payment="hotel.offer.paymentRecipient"
-        :am="hotel.amenities"
+        :am="hotel.room?.availableAmenities.availableAmenities || []"
         :meals="hotel.offer.meals.meals"
         :no-show-guests="true"
+        :image="hotel.room?.photos.photos[0].url || ''"
+        :size="hotel.room?.size"
       />
       <DataBlock />
-      <GuestsBlock v-for="(_, i) of hotel.guests" :index="i" />
+      <GuestsBlock v-if="store.adultsCount > 1" />
       <!--      <WishesBlock />-->
       <TotalBlock
         v-if="!!hotel.offer"

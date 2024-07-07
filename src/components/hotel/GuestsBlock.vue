@@ -3,31 +3,27 @@ import Block from "../ui/wrappers/Block.vue";
 import Text from "../ui/wrappers/Text.vue";
 import AddGuest from "../../assets/icons/add-guest.svg";
 import { onMounted, ref, watch } from "vue";
-import Title from "../ui/wrappers/Title.vue";
 import Input from "../ui/Input.vue";
 import { useHotel } from "../../utils";
+import Title from "../ui/wrappers/Title.vue";
 import { useInter } from "../../utils/i18n";
 const show = ref(false);
 const hotel = useHotel();
 const name = ref("");
 const surname = ref("");
-interface Props {
-  index: number;
-}
 onMounted(() => {
-  name.value = hotel.guests[props.index].firstName;
-  surname.value = hotel.guests[props.index].lastName;
+  name.value = hotel.guests.firstName;
+  surname.value = hotel.guests.lastName;
   console.log(hotel.guests);
 });
-const props = defineProps<Props>();
 const handleShow = () => {
   show.value = !show.value;
 };
 watch(name, (v) => {
-  hotel.setGuestName(v, props.index, "first");
+  hotel.setGuestName(v, "first");
 });
 watch(surname, (v) => {
-  hotel.setGuestName(v, props.index, "last");
+  hotel.setGuestName(v, "last");
 });
 const q = useInter();
 </script>
@@ -37,13 +33,7 @@ const q = useInter();
     <div :class="$style.link" v-if="!show" @click="handleShow">
       <AddGuest />
       <Text :s="17" :l="22">
-        <template v-if="index === 0">{{ q.i18n.guests.block.xxgqpx }}</template>
-        <template v-if="index === 1">{{ q.i18n.guests.block.qsroav }}</template>
-        <template v-if="index === 2">{{ q.i18n.guests.block.woecie }}</template>
-        <template v-if="index === 3">{{ q.i18n.guests.block.bzmksh }}</template>
-        <template v-if="index === 4">{{ q.i18n.guests.block.jrvswm }}</template>
-        <template v-if="index === 5">{{ q.i18n.guests.block.dodklk }}</template>
-        <template v-if="index === 6">{{ q.i18n.guests.block.hqbrvr }}</template>
+        {{ q.i18n.guests.block.xxgqpx }}
       </Text>
     </div>
     <div :class="$style.top" v-if="show">
@@ -54,15 +44,13 @@ const q = useInter();
     </div>
     <div :class="$style.list" v-if="show">
       <Input
-        :active="name.length > 0"
-        id="name"
-        :label="q.i18n.guests.block.hkjmir"
+        :name="q.i18n.guests.block.hkjmir"
+        :placeholder="q.i18n.data.block.req"
         v-model="name"
       />
       <Input
-        :active="surname.length > 0"
-        id="surname"
-        :label="q.i18n.guests.block.fyxknp"
+        :placeholder="q.i18n.data.block.req"
+        :name="q.i18n.guests.block.fyxknp"
         v-model="surname"
       />
     </div>
@@ -101,7 +89,6 @@ const q = useInter();
 .list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 0 16px 16px;
+  padding: 0 0 16px 16px;
 }
 </style>

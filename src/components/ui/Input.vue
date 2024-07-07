@@ -1,77 +1,56 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import Text from "./wrappers/Text.vue";
 
 interface Props {
-  label: string;
-  id: string;
-  type?: string;
-  active?: boolean;
+  name: string;
+  placeholder: string;
 }
 
+defineProps<Props>();
+
 const [model] = defineModel();
-const focus = () => {
-  active.value = true;
-};
-const blur = () => {
-  // @ts-ignore
-  if (model.value.length === 0) active.value = false;
-};
-const props = defineProps<Props>();
-const active = ref(props.active || false);
 </script>
 
 <template>
-  <label :for="id" :class="$style.label">
-    <span
-      :class="[
-        $style.placeholder,
-        {
-          [$style.active]: active,
-        },
-      ]"
-      >{{ label }}</span
-    >
-    <input
-      :type="type ? type : 'text'"
-      :id="id"
-      :class="$style.input"
-      v-model="model"
-      @focus="focus"
-      @blur="blur"
-    />
-  </label>
+  <div :class="$style.label">
+    <Text :s="17" :l="22" :c="$style.left">{{ name }}</Text>
+    <div :class="$style.right">
+      <input
+        type="text"
+        v-model="model"
+        :placeholder="placeholder"
+        :class="$style.input"
+      />
+    </div>
+  </div>
 </template>
 
 <style module lang="scss">
 .label {
-  width: 100%;
-  background-color: var(--tg-theme-bg-color);
-  height: 48px;
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  &:last-child {
+    .right {
+      border-bottom: none;
+    }
+  }
+}
+.left {
+  min-width: 90px;
+}
+.right {
+  flex: 1;
+  padding: 11px 16px 11px 0;
+  border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
 }
 .input {
   width: 100%;
   background-color: var(--tg-theme-bg-color);
-  padding: 18px 0 8px;
   font-size: 17px;
   line-height: 22px;
-  color: var(--tg-theme-text-color);
-  border-bottom: 1px solid var(--tg-theme-hint-color);
-}
-.placeholder {
-  color: var(--tg-theme-hint-color);
-  position: absolute;
-  font-size: 17px;
-  line-height: 22px;
-  font-weight: 400;
-  transition: all 0.3s ease;
-  top: 18px;
-  left: 0;
-}
-.active {
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 400;
-  top: 0;
+  &::placeholder {
+    color: var(--tg-theme-hint-color);
+  }
 }
 </style>

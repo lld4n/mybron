@@ -553,3 +553,41 @@ export type TripTypeDto = {
   name: string;
   count: number;
 };
+
+export type RoomDto = {
+  id: number;
+  name: string;
+  availableAmenities: {
+    availableAmenities: {
+      id: number;
+      name: string;
+      groupName: string;
+      price: number;
+      currency: string;
+      included: boolean;
+    }[];
+  };
+  description: string;
+  photos: {
+    photos: {
+      guid: string;
+      url: string;
+    }[];
+  };
+  roomCapacity: number;
+  size: number;
+  availableBedSets: {
+    bedSets: {
+      beds: {
+        type: string;
+        amount: number;
+      }[];
+    }[];
+  };
+  buildingPart: string;
+  bedroomAmount: number;
+  withWindow: boolean;
+  windowViews: {
+    names: string[];
+  };
+};

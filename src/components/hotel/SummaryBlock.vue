@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Block from "../ui/wrappers/Block.vue";
-// import AmenityCarousel from "./AmenityCarousel.vue";
+import Size from "../../assets/size.svg";
 import Title from "../ui/wrappers/Title.vue";
 import Text from "../ui/wrappers/Text.vue";
 import {
@@ -9,7 +9,7 @@ import {
   HotelOfferCancellationPolicyDto,
 } from "../../utils";
 import { useInter } from "../../utils/i18n";
-const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
+import AmenityCarousel from "./AmenityCarousel.vue";
 interface Props {
   am: AvailableAmenityDto[];
   name: string;
@@ -17,6 +17,8 @@ interface Props {
   meals: AvailableMealDto[];
   cancel: HotelOfferCancellationPolicyDto[];
   payment: string;
+  image?: string;
+  size?: number;
 }
 
 defineProps<Props>();
@@ -27,9 +29,13 @@ const q = useInter();
   <Block>
     <div :class="$style.wrapper">
       <div :class="$style.top">
-        <img :src="url" :class="$style.img" />
+        <img :src="image" :class="$style.img" v-if="image" />
         <div :class="$style.info">
           <Title>{{ name }}</Title>
+          <Text :s="14" :l="18" :c="$style.gap">
+            <Size />
+            {{ size }} {{ q.i18n.summary.block.fmwogv }}²</Text
+          >
           <!--          <Text :s="17" :l="22" :c="$style.gray">26 {{ q.i18n.summary.block.fmwogv }}², {{ q.i18n.summary.block.xtyqso }}</Text>-->
         </div>
       </div>
@@ -76,7 +82,7 @@ const q = useInter();
           >
         </div>
       </div>
-      <!--      <AmenityCarousel />-->
+      <AmenityCarousel :no-show="true" :am="am" />
     </div>
   </Block>
 </template>
@@ -132,5 +138,10 @@ const q = useInter();
 
 .green {
   color: #34c759;
+}
+.gap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 </style>

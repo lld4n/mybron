@@ -8,8 +8,6 @@ import { useInter } from "../../utils/i18n";
 const name = ref("");
 const surname = ref("");
 const hotel = useHotel();
-// const phone = ref("");
-// const email = ref("");
 watch(name, (v) => {
   hotel.setInfo({
     firstName: v,
@@ -31,22 +29,27 @@ const q = useInter();
       <Title>{{ q.i18n.data.block.kzzaxu }}</Title>
     </div>
     <div :class="$style.list">
-      <Input id="name" :label="q.i18n.data.block.gwiaje" v-model="name" />
-      <Input id="surname" :label="q.i18n.data.block.bmjznr" v-model="surname" />
-      <!--      <Input id="phone" label="{{ q.i18n.data.block.xzpwek }}" v-model="phone" />-->
-      <!--      <Input id="email" label="{{ q.i18n.data.block.stnbmb }}" v-model="email" type="email" />-->
+      <Input
+        v-model="name"
+        :name="q.i18n.data.block.gwiaje"
+        :placeholder="q.i18n.data.block.req"
+      />
+      <Input
+        v-model="surname"
+        :name="q.i18n.data.block.bmjznr"
+        :placeholder="q.i18n.data.block.req"
+      />
     </div>
   </Block>
 </template>
 
 <style module lang="scss">
 .top {
-  padding: 24px 16px 20px;
+  padding: 24px 16px 12px;
 }
 .list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 0 16px 16px;
+  padding: 0 0 16px 16px;
 }
 </style>

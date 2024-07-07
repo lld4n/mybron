@@ -1,16 +1,12 @@
 import {
-  AvailableAmenityDto,
   AvailableMealDto,
-  BedDto,
   HotelOfferCancellationPolicyDto,
+  RoomDto,
 } from "../../utils";
 
 export type RenderRoom = {
   id: number;
-  images: string[];
-  name: string;
-  beds: BedDto[];
-  amenities: AvailableAmenityDto[];
+  room: RoomDto;
   rooms: RenderRoomItem[];
 };
 

@@ -3,7 +3,14 @@
 //TODO: сами карточки и хедер
 import Text from "../../components/ui/wrappers/Text.vue";
 import RoomCard from "../../components/items/RoomCard.vue";
-import { dates, guests, MealsFiltersValues, useHotel, useStore } from "../../utils";
+import {
+  dates,
+  guests,
+  MealsFiltersValues,
+  RoomDto,
+  useHotel,
+  useStore,
+} from "../../utils";
 import { onMounted, ref } from "vue";
 import { fetchHotelInfo } from "../hotel/fetchHotelInfo.ts";
 import { useRoute, useRouter } from "vue-router";
@@ -11,9 +18,11 @@ import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 import { RenderRoom, RenderRoomItem } from "../hotel/types.ts";
 import FilterRoomView from "../../components/common/FilterRoomView.vue";
 import { useInter } from "../../utils/i18n";
+import { fetchRooms } from "../hotel/fetchRooms.ts";
 const store = useStore();
 const hotel = useHotel();
 const route = useRoute();
+const roomsList = ref<RoomDto[]>([]);
 const q = useInter();
 const router = useRouter();
 const loading = ref(true);
@@ -28,8 +37,9 @@ onMounted(async () => {
   if (hotel.offers.length === 0) {
     await fetchHotelInfo(route.params.id, store, hotel, q.i18n);
   }
+  const rooms = await fetchRooms(route.params.id as string);
+  roomsList.value = rooms;
   loading.value = false;
-  console.log(hotel.offers);
   let ans: RenderRoom[] = [];
   for (const item of hotel.offers) {
     const finded = ans.find((e) => e.id === item.roomId);
@@ -44,24 +54,21 @@ onMounted(async () => {
     if (finded) {
       finded.rooms.push(one);
     } else {
-      ans.push({
-        id: item.roomId,
-        name: item.name,
-        images: [],
-        beds: item.availableBedSets?.beds || [],
-        amenities: hotel.amenities,
-        rooms: [one],
-      });
+      const roomById = rooms.find((e) => e.id === item.roomId);
+      if (roomById) {
+        ans.push({
+          id: item.roomId,
+          room: roomById,
+          rooms: [one],
+        });
+      }
     }
   }
   if (hotel.filters.price[0] !== 0) {
     ans = ans.map((card) => {
       return {
         id: card.id,
-        images: card.images,
-        name: card.name,
-        beds: card.beds,
-        amenities: card.amenities,
+        room: card.room,
         rooms: card.rooms.filter((r) => r.price > hotel.filters.price[0]),
       };
     });
@@ -70,10 +77,7 @@ onMounted(async () => {
     ans = ans.map((card) => {
       return {
         id: card.id,
-        images: card.images,
-        name: card.name,
-        beds: card.beds,
-        amenities: card.amenities,
+        room: card.room,
         rooms: card.rooms.filter((r) => r.price < hotel.filters.price[1]),
       };
     });
@@ -86,10 +90,7 @@ onMounted(async () => {
       ans = ans.map((card) => {
         return {
           id: card.id,
-          images: card.images,
-          name: card.name,
-          beds: card.beds,
-          amenities: card.amenities,
+          room: card.room,
           rooms: card.rooms.filter((r) => r.meals.some((e) => e.included)),
         };
       });
@@ -98,10 +99,7 @@ onMounted(async () => {
       ans = ans.map((card) => {
         return {
           id: card.id,
-          images: card.images,
-          name: card.name,
-          beds: card.beds,
-          amenities: card.amenities,
+          room: card.room,
           rooms: card.rooms.filter((r) => r.meals.some((e) => !e.included)),
         };
       });
@@ -110,11 +108,15 @@ onMounted(async () => {
   // TODO: проверка кроватей
   // TODO: проверка удобств именно у номера
   render.value = ans;
+  console.log(ans);
 });
+
 const handleClick = (code: string) => {
   const item = hotel.offers.find((e) => e.code === code);
   if (item) {
+    const room = roomsList.value.find((e) => e.id === item.roomId);
     hotel.setOffer(item);
+    if (room) hotel.setRoom(room);
     router.push("/checkout");
   }
 };

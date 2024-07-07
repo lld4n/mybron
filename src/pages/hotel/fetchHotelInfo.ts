@@ -15,7 +15,6 @@ export async function fetchHotelInfo(
     guests: String(store.adultsCount + store.children.length),
     // language: "en",
   };
-  hotel.createGuests(store.adultsCount - 1);
   if (store.filters.other.includes("breakfast")) {
     params.withBreakfast = true;
   }

@@ -4,10 +4,8 @@ import CarouselCount from "../ui/carousel/CarouselCount.vue";
 import Carousel from "../ui/carousel/Carousel.vue";
 import Text from "../ui/wrappers/Text.vue";
 import AmenityCarousel from "../hotel/AmenityCarousel.vue";
-import Beds from "../../assets/icons/beds.svg";
 import RoomItemCard from "./RoomItemCard.vue";
 import { RenderRoom } from "../../pages/hotel/types.ts";
-const url = "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg";
 interface Props {
   room: RenderRoom;
   click: (code: string) => void;
@@ -19,18 +17,19 @@ defineProps<Props>();
 <template>
   <Block v-if="room.rooms.length > 0">
     <CarouselCount>
-      <img :src="url" :class="$style.img" />
-      <img :src="url" :class="$style.img" />
-      <img :src="url" :class="$style.img" />
+      <img :src="url.url" :class="$style.img" v-for="url of room.room.photos.photos" />
     </CarouselCount>
     <div :class="$style.content">
       <div :class="$style.header">
-        <Text :s="22" :l="28" :w="600">{{ room.name }}</Text>
-        <Text :s="17" :l="22" :c="$style.text" v-if="room.beds.length > 0"
-          ><Beds />x{{ room.beds[0].amount }} {{ room.beds[0].type }}</Text
-        >
+        <Text :s="22" :l="28" :w="600">{{ room.room.name }}</Text>
+        <!--        <Text :s="17" :l="22" :c="$style.text" v-if="room.beds.length > 0"-->
+        <!--          ><Beds />x{{ room.beds[0].amount }} {{ room.beds[0].type }}</Text-->
+        <!--        >-->
       </div>
-      <AmenityCarousel :am="room.amenities" :no-show="true" />
+      <AmenityCarousel
+        :am="room.room.availableAmenities.availableAmenities"
+        :no-show="true"
+      />
       <Carousel>
         <RoomItemCard
           :class="$style.item"

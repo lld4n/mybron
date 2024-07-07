@@ -151,7 +151,7 @@ export const en: i18nTypeRU = {
       gn: "guest",
     },
     reviews: {
-      name: "reviews",
+      name: "Reviews",
       button: "reviews",
     },
     estimated: {
@@ -342,6 +342,7 @@ export const en: i18nTypeRU = {
       bmjznr: "Surname",
       xzpwek: "Phone",
       stnbmb: "Mail",
+      req: "Required",
     },
   },
   estimated: {
@@ -409,7 +410,7 @@ export const en: i18nTypeRU = {
   },
   summary: {
     block: {
-      fmwogv: "м",
+      fmwogv: "m",
       xtyqso: "one large bed",
       fbpnbk: "Meals",
       czujdc: "no meals",

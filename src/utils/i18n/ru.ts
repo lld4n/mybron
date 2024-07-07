@@ -340,6 +340,7 @@ export const ru = {
       bmjznr: "Фамилия",
       xzpwek: "Телефон",
       stnbmb: "Почта",
+      req: "Обязательно",
     },
   },
   estimated: {
