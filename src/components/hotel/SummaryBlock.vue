@@ -32,7 +32,7 @@ const q = useInter();
         <img :src="image" :class="$style.img" v-if="image" />
         <div :class="$style.info">
           <Title>{{ name }}</Title>
-          <Text :s="14" :l="18" :c="$style.gap">
+          <Text :s="14" :l="18" :c="$style.gap" v-if="size">
             <Size />
             {{ size }} {{ q.i18n.summary.block.fmwogv }}²</Text
           >

@@ -2,7 +2,7 @@
 import StatusBlock from "../../components/hotel/StatusBlock.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import ButtonsBlock from "../../components/hotel/ButtonsBlock.vue";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import {
   api,
@@ -15,11 +15,10 @@ import {
 import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
 import TotalBlock from "../../components/hotel/TotalBlock.vue";
 import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
-// import TotalBlock from "../../components/hotel/TotalBlock.vue";
-// import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
-// import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
+import { useInter } from "../../utils/i18n";
 const route = useRoute();
 const store = useStore();
+const q = useInter();
 const info = ref<OrderInfoDto | null>(null);
 const details = ref<OrderServiceAccommodationDto | null>(null);
 onMounted(async () => {
@@ -41,6 +40,36 @@ onMounted(async () => {
     .json();
   details.value = bufferDetails.order.services.services[0];
 });
+const inOutDate = computed(() => {
+  const ans = {
+    inTime: "",
+    outTime: "",
+    inCheck: "",
+    outCheck: "",
+  };
+  if (!info.value) return ans;
+  const inDate = new Date(info.value.checkInDate);
+  const outDate = new Date(info.value.checkOutDate);
+  ans.inTime = inDate.toLocaleDateString(q.i18n.slug, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  ans.outTime = outDate.toLocaleDateString(q.i18n.slug, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  ans.inCheck = inDate.toLocaleTimeString(q.i18n.slug, {
+    hour: "numeric",
+    minute: "numeric",
+  });
+  ans.outCheck = outDate.toLocaleTimeString(q.i18n.slug, {
+    hour: "numeric",
+    minute: "numeric",
+  });
+  return ans;
+});
 </script>
 
 <template>
@@ -50,19 +79,20 @@ onMounted(async () => {
       <StatusBlock :id="info.id" :status="info.status" />
       <!--      TODO: категория-->
       <EstimatedBlock
-        :in-time="info.checkInDate"
+        :in-time="inOutDate.inTime"
         :address="info.hotel.address"
-        :check-in="info.checkInDate"
+        :check-in="inOutDate.inCheck"
         :name="info.hotel.name"
-        :check-out="info.checkOutDate"
+        :check-out="inOutDate.outTime"
         :category="3"
-        :out-time="info.checkOutDate"
+        :out-time="inOutDate.outTime"
       />
       <ButtonsBlock
         :no-show-cancel="
           ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(info.status)
         "
       />
+      <!--      TODO: удобства-->
       <SummaryBlock
         :cancel="details.cancellationPolicies"
         :name="details.offerName"
