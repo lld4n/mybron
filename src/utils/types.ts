@@ -254,6 +254,7 @@ export type CityDto = {
 };
 
 export type GetOrderDto = {
+  id: number;
   hotel: HotelDto;
   checkInDate: string;
   checkOutDate: string;
@@ -590,4 +591,20 @@ export type RoomDto = {
   windowViews: {
     names: string[];
   };
+};
+
+export type OrderDetailsResponse = {
+  order: OrderDto;
+};
+export type OrderDto = {
+  id: number;
+  contactPhone: string;
+  contactPerson: string;
+  contactEmail: string;
+  comment: string;
+  services: OrderServicesDto;
+};
+
+export type OrderServicesDto = {
+  services: OrderServiceAccommodationDto[];
 };

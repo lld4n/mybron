@@ -2,9 +2,33 @@
 import StatusBlock from "../../components/hotel/StatusBlock.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import ButtonsBlock from "../../components/hotel/ButtonsBlock.vue";
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { api, useStore } from "../../utils";
 // import TotalBlock from "../../components/hotel/TotalBlock.vue";
 // import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
 // import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
+const route = useRoute();
+const store = useStore();
+onMounted(async () => {
+  if (!store.auth) return;
+  const info = await api
+    .get("order/" + route.params.id, {
+      headers: {
+        Authorization: store.auth,
+      },
+    })
+    .json();
+  const details = await api
+    .get("order/details?orderId=" + route.params.id, {
+      headers: {
+        Authorization: store.auth,
+      },
+    })
+    .json();
+
+  console.log(info, details);
+});
 </script>
 
 <template>
