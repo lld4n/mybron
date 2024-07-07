@@ -83,11 +83,12 @@ const inOutDate = computed(() => {
         :address="info.hotel.address"
         :check-in="inOutDate.inCheck"
         :name="info.hotel.name"
-        :check-out="inOutDate.outTime"
+        :check-out="inOutDate.outCheck"
         :category="3"
         :out-time="inOutDate.outTime"
       />
       <ButtonsBlock
+        :id="info.id"
         :no-show-cancel="
           ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(info.status)
         "
@@ -112,7 +113,7 @@ const inOutDate = computed(() => {
 <style module lang="scss">
 .wrapper {
   display: flex;
-  padding-bottom: 16px;
+  padding: 8px 0 16px 0;
   flex-direction: column;
   gap: 8px;
 }

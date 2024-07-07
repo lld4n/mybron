@@ -5,19 +5,23 @@ import Phone from "../../assets/hotel-buttons/phone.svg";
 import Chat from "../../assets/hotel-buttons/chat.svg";
 import { useInter } from "../../utils/i18n";
 import Text from "../ui/wrappers/Text.vue";
-import { useStore } from "../../utils";
+import { api, useStore } from "../../utils";
+import { useRouter } from "vue-router";
 interface Props {
+  id: number;
   noShowCancel?: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 const q = useInter();
 const store = useStore();
+const router = useRouter();
 const handleCancel = () => {
+  if (!store.auth) return;
   window.Telegram.WebApp.showPopup(
     {
       title: q.i18n.hotel.buttons.cancel,
-      message: "Бесплатная отмена",
+      message: q.i18n.hotel.buttons.popup.nnn,
       buttons: [
         {
           id: "cancel",
@@ -33,12 +37,24 @@ const handleCancel = () => {
     },
     (button_id) => {
       if (button_id === "cancel") {
-        store.setMessage({
-          type: "cancel",
-          text: q.i18n.hotel.buttons.message.canceled,
-        });
+        api
+          .post("order/" + props.id + "/cancel", {
+            headers: {
+              Authorization: store.auth,
+            },
+          })
+          .json()
+          .then(() => {
+            store.setMessage({
+              type: "cancel",
+              text: q.i18n.hotel.buttons.message.canceled,
+            });
+            router.push("/reservation/my");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       }
-      console.log(button_id);
     },
   );
 };

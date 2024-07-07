@@ -159,7 +159,7 @@ const list = ref<GetOrderDto[]>([]);
 const q = useInter();
 const router = useRouter();
 console.log(window.Telegram);
-onMounted(() => {
+onMounted(async () => {
   console.log(window.Telegram.WebApp.initDataUnsafe.user?.language_code);
   window.Telegram.WebApp.expand();
   if (window.Telegram.WebApp.colorScheme === "dark") {
@@ -170,6 +170,8 @@ onMounted(() => {
     router.push("/hotel/" + window.Telegram.WebApp.initDataUnsafe.start_param);
   }
   store.check();
+  if (!store.auth) return;
+  list.value = await fetchOrders(store.auth);
 });
 window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   router.go(-1);

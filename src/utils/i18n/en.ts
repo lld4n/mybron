@@ -186,6 +186,7 @@ export const en: i18nTypeRU = {
         canceled: "Reservation canceled",
       },
       popup: {
+        nnn: "This action cannot be undone",
         close: "Close",
         cancel: "Cancel",
       },
