@@ -33,7 +33,7 @@ const close = async () => {
   ) {
     guests.push(hotel.guests);
   } else {
-    for (let i = 1; i <= store.adultsCount; i++) {
+    for (let i = 1; i < store.adultsCount; i++) {
       guests.push(hotel.info);
     }
   }
