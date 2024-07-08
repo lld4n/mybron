@@ -21,10 +21,11 @@ onMounted(() => {
     if (!props.footer) return;
     props.footer.click();
   });
+  console.log(window.Telegram.WebApp.MainButton);
   window.Telegram.WebApp.MainButton.enable();
 });
 onUnmounted(() => {
-  window.Telegram.WebApp.MainButton.disable();
+  // window.Telegram.WebApp.MainButton.disable();
 });
 const handleClose = () => {
   if (store.message)
