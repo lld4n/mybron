@@ -2,7 +2,7 @@
 import { useStore } from "../../../utils";
 import Copy from "../../../assets/icons/copy.svg";
 import Text from "./Text.vue";
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, watch } from "vue";
 interface Props {
   footer?: {
     click: () => void;
@@ -13,6 +13,22 @@ interface Props {
 }
 const props = defineProps<Props>();
 const store = useStore();
+
+watch(
+  () => props,
+  () => {
+    if (!props.footer) {
+      window.Telegram.WebApp.MainButton.onClick(() => {});
+      return;
+    }
+    window.Telegram.WebApp.MainButton.text = props.footer.text;
+    window.Telegram.WebApp.MainButton.onClick(() => {
+      if (!props.footer) return;
+      props.footer.click();
+    });
+    window.Telegram.WebApp.MainButton.show();
+  },
+);
 
 onMounted(() => {
   if (!props.footer) return;
