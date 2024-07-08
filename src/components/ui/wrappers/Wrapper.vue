@@ -2,6 +2,7 @@
 import { useStore } from "../../../utils";
 import Copy from "../../../assets/icons/copy.svg";
 import Text from "./Text.vue";
+import { onMounted, onUnmounted } from "vue";
 interface Props {
   footer?: {
     click: () => void;
@@ -10,8 +11,21 @@ interface Props {
     disabled?: boolean;
   };
 }
-defineProps<Props>();
+const props = defineProps<Props>();
 const store = useStore();
+
+onMounted(() => {
+  if (!props.footer) return;
+  window.Telegram.WebApp.MainButton.text = props.footer.text;
+  window.Telegram.WebApp.MainButton.onClick(() => {
+    if (!props.footer) return;
+    props.footer.click();
+  });
+  window.Telegram.WebApp.MainButton.enable();
+});
+onUnmounted(() => {
+  window.Telegram.WebApp.MainButton.disable();
+});
 const handleClose = () => {
   if (store.message)
     store.setMessage({
@@ -48,12 +62,12 @@ const handleClose = () => {
           </div>
         </div>
       </div>
-      <div :class="$style.block" v-if="!!footer">
-        <Text :s="12" :l="16" v-if="!!footer.desc">{{ footer.desc }}</Text>
-        <button :class="$style.btn" @click="footer.click" :disabled="footer.disabled">
-          {{ footer.text }}
-        </button>
-      </div>
+      <!--      <div :class="$style.block" v-if="!!footer">-->
+      <!--        <Text :s="12" :l="16" v-if="!!footer.desc">{{ footer.desc }}</Text>-->
+      <!--        <button :class="$style.btn" @click="footer.click" :disabled="footer.disabled">-->
+      <!--          {{ footer.text }}-->
+      <!--        </button>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>
