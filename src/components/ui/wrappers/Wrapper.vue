@@ -22,10 +22,10 @@ onMounted(() => {
     props.footer.click();
   });
   console.log(window.Telegram.WebApp.MainButton);
-  window.Telegram.WebApp.MainButton.enable();
+  window.Telegram.WebApp.MainButton.show();
 });
 onUnmounted(() => {
-  // window.Telegram.WebApp.MainButton.disable();
+  window.Telegram.WebApp.MainButton.hide();
 });
 const handleClose = () => {
   if (store.message)
