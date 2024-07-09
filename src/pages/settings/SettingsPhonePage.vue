@@ -43,7 +43,7 @@ const send = async () => {
   }
   try {
     settings.setPhone(phone);
-    await api
+    const data = await api
       .post("auth/request-sms-otp", {
         body: JSON.stringify({ phone }),
         headers: {
@@ -52,8 +52,7 @@ const send = async () => {
         },
       })
       .json();
-
-    await router.push("/settings/code/phone");
+    if (data) await router.push("/settings/code/phone");
   } catch (e) {
     window.Telegram.WebApp.showPopup(
       {
