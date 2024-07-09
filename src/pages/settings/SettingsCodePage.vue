@@ -5,6 +5,7 @@ import { useInter } from "../../utils/i18n";
 import { useRoute, useRouter } from "vue-router";
 import { api, useStore } from "../../utils";
 import { useSettings } from "../../utils/settings.ts";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
@@ -132,6 +133,10 @@ const authSms = async () => {
       })
       .json();
     await router.push("/settings");
+    store.setMessage({
+      type: "linked",
+      text: q.i18n.settings.code.page.pp,
+    });
   } catch (e) {
     window.Telegram.WebApp.HapticFeedback.notificationOccurred("error");
     error.value = true;
@@ -160,102 +165,104 @@ const sendAgain = async () => {
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <div :class="$style.top">
-      <Animation type="speech" :c="$style.animation" :loop="false" />
-      <div :class="$style.info">
-        <Text :s="28" :l="34" :w="700">{{ q.i18n.settings.code.page.bbvtdi }}</Text>
-        <Text :s="17" :l="22">
-          <template v-if="route.params.from === 'phone'">
-            {{ q.i18n.settings.code.page.phone }}
-            {{ settings.phone }}
-          </template>
-          <template v-if="route.params.from === 'email'">
-            {{ q.i18n.settings.code.page.email }}
-            {{ settings.email }}
-          </template>
-        </Text>
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <div :class="$style.top">
+        <Animation type="speech" :c="$style.animation" :loop="false" />
+        <div :class="$style.info">
+          <Text :s="28" :l="34" :w="700">{{ q.i18n.settings.code.page.bbvtdi }}</Text>
+          <Text :s="17" :l="22">
+            <template v-if="route.params.from === 'phone'">
+              {{ q.i18n.settings.code.page.phone }}
+              {{ settings.phone }}
+            </template>
+            <template v-if="route.params.from === 'email'">
+              {{ q.i18n.settings.code.page.email }}
+              {{ settings.email }}
+            </template>
+          </Text>
+        </div>
+        <div :class="$style.inputs">
+          <input
+            type="text"
+            v-model="n1"
+            inputmode="numeric"
+            :class="[
+              $style.input,
+              {
+                [$style.error]: error,
+              },
+            ]"
+            ref="i1"
+          />
+          <input
+            type="text"
+            v-model="n2"
+            inputmode="numeric"
+            :class="[
+              $style.input,
+              {
+                [$style.error]: error,
+              },
+            ]"
+            ref="i2"
+          />
+          <input
+            type="text"
+            v-model="n3"
+            inputmode="numeric"
+            :class="[
+              $style.input,
+              {
+                [$style.error]: error,
+              },
+            ]"
+            ref="i3"
+          />
+          <input
+            type="text"
+            v-model="n4"
+            inputmode="numeric"
+            :class="[
+              $style.input,
+              {
+                [$style.error]: error,
+              },
+            ]"
+            ref="i4"
+          />
+          <input
+            v-if="route.params.from === 'phone'"
+            type="text"
+            v-model="n5"
+            inputmode="numeric"
+            :class="[
+              $style.input,
+              {
+                [$style.error]: error,
+              },
+            ]"
+            ref="i5"
+          />
+        </div>
       </div>
-      <div :class="$style.inputs">
-        <input
-          type="text"
-          v-model="n1"
-          inputmode="numeric"
-          :class="[
-            $style.input,
-            {
-              [$style.error]: error,
-            },
-          ]"
-          ref="i1"
-        />
-        <input
-          type="text"
-          v-model="n2"
-          inputmode="numeric"
-          :class="[
-            $style.input,
-            {
-              [$style.error]: error,
-            },
-          ]"
-          ref="i2"
-        />
-        <input
-          type="text"
-          v-model="n3"
-          inputmode="numeric"
-          :class="[
-            $style.input,
-            {
-              [$style.error]: error,
-            },
-          ]"
-          ref="i3"
-        />
-        <input
-          type="text"
-          v-model="n4"
-          inputmode="numeric"
-          :class="[
-            $style.input,
-            {
-              [$style.error]: error,
-            },
-          ]"
-          ref="i4"
-        />
-        <input
-          v-if="route.params.from === 'phone'"
-          type="text"
-          v-model="n5"
-          inputmode="numeric"
-          :class="[
-            $style.input,
-            {
-              [$style.error]: error,
-            },
-          ]"
-          ref="i5"
-        />
-      </div>
+      <Text
+        :s="17"
+        :l="22"
+        :w="600"
+        :class="[
+          $style.link,
+          {
+            [$style.disabled]: timer > 0,
+          },
+        ]"
+        @click="sendAgain"
+      >
+        {{ q.i18n.settings.code.page.immkek }}
+        <template v-if="timer > 0">0:{{ timer >= 10 ? timer : "0" + timer }}</template>
+      </Text>
     </div>
-    <Text
-      :s="17"
-      :l="22"
-      :w="600"
-      :class="[
-        $style.link,
-        {
-          [$style.disabled]: timer > 0,
-        },
-      ]"
-      @click="sendAgain"
-    >
-      {{ q.i18n.settings.code.page.immkek }}
-      <template v-if="timer > 0">0:{{ timer >= 10 ? timer : "0" + timer }}</template>
-    </Text>
-  </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

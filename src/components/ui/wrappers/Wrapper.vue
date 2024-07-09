@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useStore } from "../../../utils";
 import Copy from "../../../assets/icons/copy.svg";
+import CircleCheck from "../../../assets/cicle-check.svg";
 import Text from "./Text.vue";
 import { onMounted, onUnmounted, watch } from "vue";
 interface Props {
@@ -56,26 +57,25 @@ const handleClose = () => {
 <template>
   <div>
     <slot></slot>
-    <div :class="$style.footer">
-      <div
-        :class="[
-          $style.message,
-          {
-            [$style.out]: store.message.out,
-          },
-        ]"
-        v-if="!!store.message"
-      >
-        <div :class="$style.content" @click="handleClose">
-          <Copy v-if="store.message.type === 'copy'" />
-          <div :class="$style.right">
-            <Text :s="14" :l="18" :w="600" v-if="!!store.message.text">{{
-              store.message.text
-            }}</Text>
-            <Text :s="14" :l="18" :w="400" v-if="!!store.message.desc">{{
-              store.message.desc
-            }}</Text>
-          </div>
+    <div
+      :class="[
+        $style.message,
+        {
+          [$style.out]: store.message.out,
+        },
+      ]"
+      v-if="!!store.message"
+    >
+      <div :class="$style.content" @click="handleClose">
+        <Copy v-if="store.message.type === 'copy'" />
+        <CircleCheck v-if="store.message.type === 'linked'" />
+        <div :class="$style.right">
+          <Text :s="14" :l="18" :w="600" v-if="!!store.message.text">{{
+            store.message.text
+          }}</Text>
+          <Text :s="14" :l="18" :w="400" v-if="!!store.message.desc">{{
+            store.message.desc
+          }}</Text>
         </div>
       </div>
     </div>
@@ -83,18 +83,6 @@ const handleClose = () => {
 </template>
 
 <style module lang="scss">
-.footer {
-  min-height: 1px;
-  z-index: 100;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .block {
   display: flex;
   flex-direction: column;
@@ -128,8 +116,8 @@ const handleClose = () => {
   }
 }
 .message {
-  position: absolute;
-  top: -80px;
+  position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 99;
@@ -157,18 +145,18 @@ const handleClose = () => {
 
 @keyframes in_anim {
   from {
-    top: 100%;
+    bottom: -100%;
   }
   to {
-    top: -64px;
+    bottom: 0;
   }
 }
 @keyframes out_anim {
   from {
-    top: -64px;
+    bottom: 0;
   }
   to {
-    top: 100%;
+    bottom: -100%;
   }
 }
 </style>

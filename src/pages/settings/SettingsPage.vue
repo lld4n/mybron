@@ -13,6 +13,7 @@ import Block from "../../components/ui/wrappers/Block.vue";
 import Text from "../../components/ui/wrappers/Text.vue";
 import { onMounted, ref } from "vue";
 import { useInter } from "../../utils/i18n";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 
 const name = ref("");
 onMounted(() => {
@@ -26,93 +27,95 @@ const q = useInter();
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <Block>
-      <div :class="$style.item" @click="$router.push('/settings/language')">
-        <InterIcon />
-        <div :class="$style.right">
-          <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.language }}</Text>
-          <Text :s="17" :l="22" :w="400" :c="$style.info"
-            >{{ q.i18n.name }} <ChevronRight
-          /></Text>
-        </div>
-      </div>
-      <div :class="$style.item" @click="$router.push('/settings/currency')">
-        <CurrencyIcon />
-        <div :class="$style.right">
-          <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.currency }}</Text>
-          <Text :s="17" :l="22" :w="400" :c="$style.info"
-            >{{ q.currency }} <ChevronRight
-          /></Text>
-        </div>
-      </div>
-    </Block>
-    <div>
-      <Text :s="13" :l="18" :c="$style.title">{{ q.i18n.settings.methods }}</Text>
+  <Wrapper>
+    <div :class="$style.wrapper">
       <Block>
-        <div :class="$style.item">
-          <TelegramIcon />
+        <div :class="$style.item" @click="$router.push('/settings/language')">
+          <InterIcon />
           <div :class="$style.right">
-            <Text :s="17" :l="22" :w="400">Telegram</Text>
-            <Text :s="17" :l="22" :w="400" :c="$style.info">{{ name }}</Text>
-          </div>
-        </div>
-        <div :class="$style.item">
-          <VKIcon />
-          <div :class="$style.right">
-            <Text :s="17" :l="22" :w="400">VK</Text>
+            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.language }}</Text>
             <Text :s="17" :l="22" :w="400" :c="$style.info"
-              >{{ q.i18n.settings.add }} <ChevronRight
+              >{{ q.i18n.name }} <ChevronRight
             /></Text>
           </div>
         </div>
-        <div :class="$style.item">
-          <YandexIcon />
+        <div :class="$style.item" @click="$router.push('/settings/currency')">
+          <CurrencyIcon />
           <div :class="$style.right">
-            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.yandex }}</Text>
+            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.currency }}</Text>
             <Text :s="17" :l="22" :w="400" :c="$style.info"
-              >{{ q.i18n.settings.add }} <ChevronRight
-            /></Text>
-          </div>
-        </div>
-        <div :class="$style.item" @click="$router.push('/settings/phone')">
-          <PhoneIcon />
-          <div :class="$style.right">
-            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.phone2 }}</Text>
-            <Text :s="17" :l="22" :w="400" :c="$style.info"
-              >{{ q.i18n.settings.add }} <ChevronRight
-            /></Text>
-          </div>
-        </div>
-        <div :class="$style.item" @click="$router.push('/settings/email')">
-          <EmailIcon />
-          <div :class="$style.right">
-            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.email2 }}</Text>
-            <Text :s="17" :l="22" :w="400" :c="$style.info"
-              >{{ q.i18n.settings.add }} <ChevronRight
+              >{{ q.currency }} <ChevronRight
             /></Text>
           </div>
         </div>
       </Block>
+      <div>
+        <Text :s="13" :l="18" :c="$style.title">{{ q.i18n.settings.methods }}</Text>
+        <Block>
+          <div :class="$style.item">
+            <TelegramIcon />
+            <div :class="$style.right">
+              <Text :s="17" :l="22" :w="400">Telegram</Text>
+              <Text :s="17" :l="22" :w="400" :c="$style.info">{{ name }}</Text>
+            </div>
+          </div>
+          <div :class="$style.item">
+            <VKIcon />
+            <div :class="$style.right">
+              <Text :s="17" :l="22" :w="400">VK</Text>
+              <Text :s="17" :l="22" :w="400" :c="$style.info"
+                >{{ q.i18n.settings.add }} <ChevronRight
+              /></Text>
+            </div>
+          </div>
+          <div :class="$style.item">
+            <YandexIcon />
+            <div :class="$style.right">
+              <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.yandex }}</Text>
+              <Text :s="17" :l="22" :w="400" :c="$style.info"
+                >{{ q.i18n.settings.add }} <ChevronRight
+              /></Text>
+            </div>
+          </div>
+          <div :class="$style.item" @click="$router.push('/settings/phone')">
+            <PhoneIcon />
+            <div :class="$style.right">
+              <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.phone2 }}</Text>
+              <Text :s="17" :l="22" :w="400" :c="$style.info"
+                >{{ q.i18n.settings.add }} <ChevronRight
+              /></Text>
+            </div>
+          </div>
+          <div :class="$style.item" @click="$router.push('/settings/email')">
+            <EmailIcon />
+            <div :class="$style.right">
+              <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.email2 }}</Text>
+              <Text :s="17" :l="22" :w="400" :c="$style.info"
+                >{{ q.i18n.settings.add }} <ChevronRight
+              /></Text>
+            </div>
+          </div>
+        </Block>
+      </div>
+      <Block>
+        <div :class="$style.item">
+          <HelpIcon />
+          <div :class="$style.right">
+            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.help }}</Text>
+          </div>
+        </div>
+        <div :class="$style.item">
+          <StarIcon />
+          <div :class="$style.right">
+            <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.news }}</Text>
+          </div>
+        </div>
+      </Block>
+      <Block>
+        <Text :c="$style.link" :s="17" :l="22">{{ q.i18n.settings.juristic }}</Text>
+      </Block>
     </div>
-    <Block>
-      <div :class="$style.item">
-        <HelpIcon />
-        <div :class="$style.right">
-          <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.help }}</Text>
-        </div>
-      </div>
-      <div :class="$style.item">
-        <StarIcon />
-        <div :class="$style.right">
-          <Text :s="17" :l="22" :w="400">{{ q.i18n.settings.news }}</Text>
-        </div>
-      </div>
-    </Block>
-    <Block>
-      <Text :c="$style.link" :s="17" :l="22">{{ q.i18n.settings.juristic }}</Text>
-    </Block>
-  </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">
