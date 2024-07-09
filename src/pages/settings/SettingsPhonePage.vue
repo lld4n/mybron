@@ -52,6 +52,7 @@ const send = async () => {
         },
       })
       .json();
+    console.log(data);
     if (data) await router.push("/settings/code/phone");
   } catch (e) {
     window.Telegram.WebApp.showPopup(
