@@ -88,7 +88,27 @@ watch(n5, (v) => {
     n5.value = v;
   }
   if (route.params.from === "phone") authSms();
+  else authEmail();
 });
+
+const authEmail = async () => {
+  if (!settings.email) return;
+  if (n1.value.length === 0) return;
+  if (n2.value.length === 0) return;
+  if (n3.value.length === 0) return;
+  if (n4.value.length === 0) return;
+  // const otp = n1.value + n2.value + n3.value + n4.value;
+  try {
+    // TODO: запрос, уточнить
+    throw new Error();
+  } catch (e) {
+    window.Telegram.WebApp.HapticFeedback.notificationOccurred("error");
+    error.value = true;
+    setTimeout(() => {
+      error.value = false;
+    }, 1000);
+  }
+};
 
 const authSms = async () => {
   if (!settings.phone) return;
