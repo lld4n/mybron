@@ -17,8 +17,8 @@ const q = useInter();
 
 const send = async () => {
   if (value.value.length === 0 || !store.auth) return;
+  settings.setEmail(value.value);
   try {
-    settings.setEmail(value.value);
     const data = await api
       .post("/user/email-activation/request-activation-email/by-code", {
         body: JSON.stringify({ email: value.value }),
@@ -31,20 +31,21 @@ const send = async () => {
     console.log(data);
     if (data) await router.push("/settings/code/email");
   } catch (e) {
-    window.Telegram.WebApp.showPopup(
-      {
-        title: q.i18n.settings.phone.page.artlpke,
-        message: q.i18n.settings.phone.page.upokile,
-        buttons: [
-          {
-            id: "close",
-            type: "default",
-            text: q.i18n.settings.phone.page.xwkfmw,
-          },
-        ],
-      },
-      () => {},
-    );
+    console.log(e);
+    // window.Telegram.WebApp.showPopup(
+    //   {
+    //     title: q.i18n.settings.phone.page.artlpke,
+    //     message: q.i18n.settings.phone.page.upokile,
+    //     buttons: [
+    //       {
+    //         id: "close",
+    //         type: "default",
+    //         text: q.i18n.settings.phone.page.xwkfmw,
+    //       },
+    //     ],
+    //   },
+    //   () => {},
+    // );
   }
 };
 </script>
