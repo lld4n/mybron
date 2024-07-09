@@ -76,7 +76,8 @@ watch(n4, (v) => {
   } else {
     n4.value = v;
   }
-  if (i5.value) i5.value.focus();
+  if (route.params.from === "email") authEmail();
+  if (route.params.from === "phone" && i5.value) i5.value.focus();
 });
 watch(n5, (v) => {
   if (!isNumber(v)) {
@@ -88,7 +89,6 @@ watch(n5, (v) => {
     n5.value = v;
   }
   if (route.params.from === "phone") authSms();
-  else authEmail();
 });
 
 const authEmail = async () => {
