@@ -16,7 +16,7 @@ const settings = useSettings();
 const q = useInter();
 
 const send = async () => {
-  if (value.value.length !== 0 || !store.auth) return;
+  if (value.value.length === 0 || !store.auth) return;
   try {
     settings.setEmail(value.value);
     const data = await api
