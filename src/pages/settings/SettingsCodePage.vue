@@ -48,6 +48,7 @@ watch(n1, (v) => {
 watch(n2, (v) => {
   if (!isNumber(v)) {
     n2.value = "";
+    if (i1.value) i1.value.focus();
     return;
   } else if (v.length > 1) {
     n2.value = v[v.length - 1];
@@ -59,6 +60,7 @@ watch(n2, (v) => {
 watch(n3, (v) => {
   if (!isNumber(v)) {
     n3.value = "";
+    if (i2.value) i2.value.focus();
     return;
   } else if (v.length > 1) {
     n3.value = v[v.length - 1];
@@ -70,6 +72,7 @@ watch(n3, (v) => {
 watch(n4, (v) => {
   if (!isNumber(v)) {
     n4.value = "";
+    if (i3.value) i3.value.focus();
     return;
   } else if (v.length > 1) {
     n4.value = v[v.length - 1];
@@ -82,6 +85,7 @@ watch(n4, (v) => {
 watch(n5, (v) => {
   if (!isNumber(v)) {
     n5.value = "";
+    if (i4.value) i4.value.focus();
     return;
   } else if (v.length > 1) {
     n5.value = v[v.length - 1];
