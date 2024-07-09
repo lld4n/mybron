@@ -2,7 +2,8 @@
 import Text from "../ui/wrappers/Text.vue";
 import { RenderRoomItem } from "../../pages/hotel/types.ts";
 import { useStore } from "../../utils";
-import { useInter } from "../../utils/i18n/store.ts";
+import { useInter } from "../../utils/i18n";
+// TODO: сделать карточку комнаты
 interface Props {
   item: RenderRoomItem;
   click: (code: string) => void;
@@ -58,6 +59,10 @@ const q = useInter();
   padding: 12px;
   border: 1px solid var(--tg-theme-secondary-bg-color);
   border-radius: 12px;
+  margin-right: 10px;
+  &:first-child {
+    margin-left: 16px;
+  }
 }
 
 .top {
