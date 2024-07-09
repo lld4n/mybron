@@ -4,24 +4,56 @@ import Text from "../../components/ui/wrappers/Text.vue";
 const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
-import { defineAsyncComponent, ref, watch } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
+import { api, useStore } from "../../utils";
+import { useSettings } from "../../utils/settings.ts";
 const value = ref("");
-const disabled = ref(true);
 const router = useRouter();
+const store = useStore();
+const settings = useSettings();
 const q = useInter();
-watch(value, (v) => {
-  disabled.value = v.length === 0;
-});
+
+const send = async () => {
+  if (value.value.length !== 0 || !store.auth) return;
+  try {
+    settings.setEmail(value.value);
+    const data = await api
+      .post("/user/email-activation/request-activation-email/by-code", {
+        body: JSON.stringify({ email: value.value }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: store.auth,
+        },
+      })
+      .json();
+    console.log(data);
+    if (data) await router.push("/settings/code/email");
+  } catch (e) {
+    window.Telegram.WebApp.showPopup(
+      {
+        title: q.i18n.settings.phone.page.artlpke,
+        message: q.i18n.settings.phone.page.upokile,
+        buttons: [
+          {
+            id: "close",
+            type: "default",
+            text: q.i18n.settings.phone.page.xwkfmw,
+          },
+        ],
+      },
+      () => {},
+    );
+  }
+};
 </script>
 
 <template>
   <Wrapper
     :footer="{
       text: q.i18n.settings.email.page.zsilhn,
-      click: () => router.push('/settings/code/email'),
-      disabled,
+      click: () => send(),
     }"
     :class="$style.wrapper"
   >

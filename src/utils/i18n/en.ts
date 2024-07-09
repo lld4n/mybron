@@ -117,6 +117,8 @@ export const en: i18nTypeRU = {
       page: {
         artlpk: "The number is already in use",
         upokil: "This number is already linked to another MyBron account",
+        artlpke: "The email is already in use",
+        upokile: "This email is already linked to another MyBron account",
         xwkfmw: "Got it",
         hfkqed: "Apply",
         qcwalw: "Bind Number",

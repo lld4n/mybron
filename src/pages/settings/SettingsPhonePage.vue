@@ -11,7 +11,6 @@ const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
 const value = ref("");
-const disabled = ref(true);
 const router = useRouter();
 const store = useStore();
 const settings = useSettings();
@@ -20,7 +19,6 @@ function isNumber(str: string) {
   return /^\d+$/.test(str);
 }
 watch(value, (v, o) => {
-  disabled.value = v.length === 0;
   if (v.length > o.length) {
     let ans = "";
     let i = 0;
@@ -80,7 +78,6 @@ const send = async () => {
     :footer="{
       text: q.i18n.settings.phone.page.hfkqed,
       click: () => send(),
-      disabled,
     }"
     :class="$style.wrapper"
   >
