@@ -6,6 +6,7 @@ import { useRouter } from "vue-router";
 import FlagView from "../../components/ui/views/FlagView.vue";
 import { api, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
+import { useSettings } from "../../utils/settings.ts";
 const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
@@ -13,7 +14,7 @@ const value = ref("");
 const disabled = ref(true);
 const router = useRouter();
 const store = useStore();
-
+const settings = useSettings();
 const q = useInter();
 function isNumber(str: string) {
   return /^\d+$/.test(str);
@@ -41,6 +42,7 @@ const send = async () => {
     if (isNumber(l)) phone += l;
   }
   try {
+    settings.setPhone(phone);
     await api
       .post("auth/request-sms-otp", {
         body: JSON.stringify({ phone }),
@@ -50,6 +52,7 @@ const send = async () => {
         },
       })
       .json();
+
     await router.push("/settings/code/phone");
   } catch (e) {
     window.Telegram.WebApp.showPopup(

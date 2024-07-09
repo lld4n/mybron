@@ -2,19 +2,27 @@
 import Text from "../../components/ui/wrappers/Text.vue";
 import { defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { useInter } from "../../utils/i18n";
+import { useRoute } from "vue-router";
+import { api, useStore } from "../../utils";
+import { useSettings } from "../../utils/settings.ts";
 const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
+const store = useStore();
+const settings = useSettings();
 const n1 = ref("");
 const n2 = ref("");
 const n3 = ref("");
 const n4 = ref("");
+const n5 = ref("");
 const timer = ref(30);
 const i1 = ref<HTMLInputElement>();
 const i2 = ref<HTMLInputElement>();
 const i3 = ref<HTMLInputElement>();
 const i4 = ref<HTMLInputElement>();
+const i5 = ref<HTMLInputElement>();
 const q = useInter();
+const route = useRoute();
 onMounted(() => {
   setInterval(() => {
     timer.value--;
@@ -27,6 +35,7 @@ function isNumber(str: string) {
 watch(n1, (v) => {
   if (!isNumber(v)) {
     n1.value = "";
+    return;
   } else if (v.length > 1) {
     n1.value = v[v.length - 1];
   } else {
@@ -37,6 +46,7 @@ watch(n1, (v) => {
 watch(n2, (v) => {
   if (!isNumber(v)) {
     n2.value = "";
+    return;
   } else if (v.length > 1) {
     n2.value = v[v.length - 1];
   } else {
@@ -47,6 +57,7 @@ watch(n2, (v) => {
 watch(n3, (v) => {
   if (!isNumber(v)) {
     n3.value = "";
+    return;
   } else if (v.length > 1) {
     n3.value = v[v.length - 1];
   } else {
@@ -57,12 +68,41 @@ watch(n3, (v) => {
 watch(n4, (v) => {
   if (!isNumber(v)) {
     n4.value = "";
+    return;
   } else if (v.length > 1) {
     n4.value = v[v.length - 1];
   } else {
     n4.value = v;
   }
+  if (i5.value) i5.value.focus();
 });
+watch(n5, (v) => {
+  if (!isNumber(v)) {
+    n5.value = "";
+    return;
+  } else if (v.length > 1) {
+    n5.value = v[v.length - 1];
+  } else {
+    n5.value = v;
+  }
+});
+
+const sendAgain = async () => {
+  if (!store.auth) return;
+  if (route.params.from === "phone") {
+    if (!settings.phone) return;
+    await api
+      .post("auth/request-sms-otp", {
+        body: JSON.stringify({ phone: settings.phone }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: store.auth,
+        },
+      })
+      .json();
+    timer.value = 30;
+  }
+};
 </script>
 
 <template>
@@ -105,6 +145,14 @@ watch(n4, (v) => {
           :class="$style.input"
           ref="i4"
         />
+        <input
+          v-if="route.params.from === 'phone'"
+          type="text"
+          v-model="n5"
+          inputmode="numeric"
+          :class="$style.input"
+          ref="i5"
+        />
       </div>
     </div>
     <Text
@@ -117,9 +165,10 @@ watch(n4, (v) => {
           [$style.disabled]: timer > 0,
         },
       ]"
+      @click="sendAgain"
     >
       {{ q.i18n.settings.code.page.immkek }}
-      <template v-if="timer > 0">0:{{ timer > 10 ? timer : "0" + timer }}</template>
+      <template v-if="timer > 0">0:{{ timer >= 10 ? timer : "0" + timer }}</template>
     </Text>
   </div>
 </template>
