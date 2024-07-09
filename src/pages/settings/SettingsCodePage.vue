@@ -2,7 +2,7 @@
 import Text from "../../components/ui/wrappers/Text.vue";
 import { defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { useInter } from "../../utils/i18n";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { api, useStore } from "../../utils";
 import { useSettings } from "../../utils/settings.ts";
 const Animation = defineAsyncComponent(
@@ -21,8 +21,10 @@ const i2 = ref<HTMLInputElement>();
 const i3 = ref<HTMLInputElement>();
 const i4 = ref<HTMLInputElement>();
 const i5 = ref<HTMLInputElement>();
+const error = ref(false);
 const q = useInter();
 const route = useRoute();
+const router = useRouter();
 onMounted(() => {
   setInterval(() => {
     timer.value--;
@@ -96,16 +98,24 @@ const authSms = async () => {
   if (n4.value.length === 0) return;
   if (n5.value.length === 0) return;
   const otp = n1.value + n2.value + n3.value + n4.value + n5.value;
-
-  await api
-    .post("user/authorization-methods/sms-otp", {
-      body: JSON.stringify({ phone: settings.phone, otp }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: store.auth,
-      },
-    })
-    .json();
+  try {
+    await api
+      .post("user/authorization-methods/sms-otp", {
+        body: JSON.stringify({ phone: settings.phone, otp }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: store.auth,
+        },
+      })
+      .json();
+    await router.push("/settings");
+  } catch (e) {
+    window.Telegram.WebApp.HapticFeedback.notificationOccurred("error");
+    error.value = true;
+    setTimeout(() => {
+      error.value = false;
+    }, 1000);
+  }
 };
 
 const sendAgain = async () => {
@@ -148,28 +158,48 @@ const sendAgain = async () => {
           type="text"
           v-model="n1"
           inputmode="numeric"
-          :class="$style.input"
+          :class="[
+            $style.input,
+            {
+              [$style.error]: error,
+            },
+          ]"
           ref="i1"
         />
         <input
           type="text"
           v-model="n2"
           inputmode="numeric"
-          :class="$style.input"
+          :class="[
+            $style.input,
+            {
+              [$style.error]: error,
+            },
+          ]"
           ref="i2"
         />
         <input
           type="text"
           v-model="n3"
           inputmode="numeric"
-          :class="$style.input"
+          :class="[
+            $style.input,
+            {
+              [$style.error]: error,
+            },
+          ]"
           ref="i3"
         />
         <input
           type="text"
           v-model="n4"
           inputmode="numeric"
-          :class="$style.input"
+          :class="[
+            $style.input,
+            {
+              [$style.error]: error,
+            },
+          ]"
           ref="i4"
         />
         <input
@@ -177,7 +207,12 @@ const sendAgain = async () => {
           type="text"
           v-model="n5"
           inputmode="numeric"
-          :class="$style.input"
+          :class="[
+            $style.input,
+            {
+              [$style.error]: error,
+            },
+          ]"
           ref="i5"
         />
       </div>
@@ -270,5 +305,8 @@ const sendAgain = async () => {
   &:focus {
     border: 2px solid var(--tg-theme-button-color);
   }
+}
+.error {
+  border: 2px solid var(--tg-theme-destructive-text-color);
 }
 </style>
