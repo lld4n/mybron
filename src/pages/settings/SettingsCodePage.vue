@@ -98,16 +98,15 @@ const authEmail = async () => {
   if (n3.value.length === 0) return;
   if (n4.value.length === 0) return;
   // const otp = n1.value + n2.value + n3.value + n4.value;
-  try {
-    // TODO: запрос, уточнить
-    throw new Error();
-  } catch (e) {
-    window.Telegram.WebApp.HapticFeedback.notificationOccurred("error");
-    error.value = true;
-    setTimeout(() => {
-      error.value = false;
-    }, 1000);
-  }
+  // try {
+  // TODO: запрос, уточнить
+  // } catch (e) {
+  window.Telegram.WebApp.HapticFeedback.notificationOccurred("error");
+  error.value = true;
+  setTimeout(() => {
+    error.value = false;
+  }, 1000);
+  // }
 };
 
 const authSms = async () => {
