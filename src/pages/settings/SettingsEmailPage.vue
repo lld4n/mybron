@@ -28,8 +28,7 @@ const send = async () => {
         },
       })
       .json();
-    console.log(data);
-    if (data) await router.push("/settings/code/email");
+    await router.push("/settings/code/email");
   } catch (e) {
     console.log(e);
     window.Telegram.WebApp.showPopup(
