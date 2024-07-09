@@ -85,7 +85,28 @@ watch(n5, (v) => {
   } else {
     n5.value = v;
   }
+  if (route.params.from === "phone") authSms();
 });
+
+const authSms = async () => {
+  if (!settings.phone) return;
+  if (n1.value.length === 0) return;
+  if (n2.value.length === 0) return;
+  if (n3.value.length === 0) return;
+  if (n4.value.length === 0) return;
+  if (n5.value.length === 0) return;
+  const otp = n1.value + n2.value + n3.value + n4.value + n5.value;
+
+  await api
+    .post("user/authorization-methods/sms-otp", {
+      body: JSON.stringify({ phone: settings.phone, otp }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: store.auth,
+      },
+    })
+    .json();
+};
 
 const sendAgain = async () => {
   if (!store.auth) return;
@@ -111,10 +132,16 @@ const sendAgain = async () => {
       <Animation type="speech" :c="$style.animation" :loop="false" />
       <div :class="$style.info">
         <Text :s="28" :l="34" :w="700">{{ q.i18n.settings.code.page.bbvtdi }}</Text>
-        <Text :s="17" :l="22"
-          >{{ q.i18n.settings.code.page.zwnapv }}[TODO:
-          {{ q.i18n.settings.code.page.mqrdfk }}]</Text
-        >
+        <Text :s="17" :l="22">
+          <template v-if="route.params.from === 'phone'">
+            {{ q.i18n.settings.code.page.phone }}
+            {{ settings.phone }}
+          </template>
+          <template v-if="route.params.from === 'email'">
+            {{ q.i18n.settings.code.page.email }}
+            {{ settings.email }}
+          </template>
+        </Text>
       </div>
       <div :class="$style.inputs">
         <input

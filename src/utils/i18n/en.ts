@@ -97,6 +97,8 @@ export const en: i18nTypeRU = {
     findCountry: "Country Search",
     code: {
       page: {
+        phone: "Code sent to number",
+        email: "Code sent to mail",
         bbvtdi: "Enter code",
         zwnapv: "Send code to mail",
         mqrdfk: "MAIL",

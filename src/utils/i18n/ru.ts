@@ -95,6 +95,8 @@ export const ru = {
     findCountry: "Поиск страны",
     code: {
       page: {
+        phone: "Отправили код на номер",
+        email: "Отправили код на почту",
         bbvtdi: "Введите код",
         zwnapv: "Отправили код на почту ",
         mqrdfk: "ПОЧТА",
