@@ -19,7 +19,7 @@ const send = async () => {
   if (value.value.length === 0 || !store.auth) return;
   settings.setEmail(value.value);
   try {
-    const data = await api
+    await api
       .post("user/email-activation/request-activation-email/by-code", {
         body: JSON.stringify({ email: value.value }),
         headers: {
