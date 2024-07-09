@@ -20,7 +20,7 @@ const send = async () => {
   settings.setEmail(value.value);
   try {
     const data = await api
-      .post("/user/email-activation/request-activation-email/by-code", {
+      .post("user/email-activation/request-activation-email/by-code", {
         body: JSON.stringify({ email: value.value }),
         headers: {
           "Content-Type": "application/json",
@@ -32,20 +32,20 @@ const send = async () => {
     if (data) await router.push("/settings/code/email");
   } catch (e) {
     console.log(e);
-    // window.Telegram.WebApp.showPopup(
-    //   {
-    //     title: q.i18n.settings.phone.page.artlpke,
-    //     message: q.i18n.settings.phone.page.upokile,
-    //     buttons: [
-    //       {
-    //         id: "close",
-    //         type: "default",
-    //         text: q.i18n.settings.phone.page.xwkfmw,
-    //       },
-    //     ],
-    //   },
-    //   () => {},
-    // );
+    window.Telegram.WebApp.showPopup(
+      {
+        title: q.i18n.settings.phone.page.artlpke,
+        message: q.i18n.settings.phone.page.upokile,
+        buttons: [
+          {
+            id: "close",
+            type: "default",
+            text: q.i18n.settings.phone.page.xwkfmw,
+          },
+        ],
+      },
+      () => {},
+    );
   }
 };
 </script>
