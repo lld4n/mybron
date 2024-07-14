@@ -40,7 +40,9 @@ onMounted(() => {
   window.Telegram.WebApp.MainButton.show();
 });
 onUnmounted(() => {
-  window.Telegram.WebApp.MainButton.hide();
+  setTimeout(() => {
+    window.Telegram.WebApp.MainButton.hide();
+  }, 100);
 });
 const handleClose = () => {
   if (store.message)
