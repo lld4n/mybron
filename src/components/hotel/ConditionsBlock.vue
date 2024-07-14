@@ -32,13 +32,13 @@ const q = useInter();
             <Text :s="17" :l="22" :g="true" :c="$style.fix">{{
               q.i18n.conditions.block.vjmyje
             }}</Text>
-            <Text :s="17" :l="22">{{ inTime }}</Text>
+            <Text :s="17" :l="22">{{ inTime.split(":").slice(0, 2).join(":") }}</Text>
           </div>
           <div :class="$style.line">
             <Text :s="17" :l="22" :g="true" :c="$style.fix">{{
               q.i18n.conditions.block.gyebhz
             }}</Text>
-            <Text :s="17" :l="22">{{ outTime }}</Text>
+            <Text :s="17" :l="22">{{ outTime.split(":").slice(0, 2).join(":") }}</Text>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@ const q = useInter();
 
 <style module lang="scss">
 .top {
-  padding: 24px 16px 20px;
+  padding: 24px 16px 6px;
 }
 .item {
   padding: 12px 0 0 16px;
@@ -96,6 +96,6 @@ const q = useInter();
   gap: 20px;
 }
 .fix {
-  width: 80px;
+  width: 60px;
 }
 </style>
