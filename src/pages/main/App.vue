@@ -43,7 +43,6 @@ type sendDataUser = {
 const q = useInter();
 
 onMounted(async () => {
-  localStorage.setItem("item", new Date().toLocaleTimeString());
   if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
     q.changeLanguage("en");
   }
