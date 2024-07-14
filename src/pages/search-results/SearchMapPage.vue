@@ -184,7 +184,7 @@ const theme = computed(() => {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 12px;
+  bottom: 24px;
   right: 0;
   left: 0;
   border-radius: 12px;

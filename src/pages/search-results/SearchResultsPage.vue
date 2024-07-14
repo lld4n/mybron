@@ -45,6 +45,7 @@ onMounted(async () => {
   const timer = setInterval(() => {
     progress.value++;
   }, 500);
+  return;
   const URL =
     store.search.type === "city" ? "hotels/search/by-city" : "hotels/search/by-hotel";
 
@@ -273,7 +274,7 @@ const subtitle = () => {
   align-items: center;
   //background-color: var(--tg-theme-bg-color);
   position: fixed;
-  bottom: 12px;
+  bottom: 24px;
   right: 0;
   left: 0;
   border-radius: 12px;
@@ -337,6 +338,7 @@ const subtitle = () => {
   align-items: center;
   flex-direction: column;
   gap: 8px;
+  margin-bottom: 72px;
 }
 .margin {
   margin-top: 8px;
