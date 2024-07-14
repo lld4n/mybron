@@ -45,7 +45,6 @@ onMounted(async () => {
   const timer = setInterval(() => {
     progress.value++;
   }, 500);
-  return;
   const URL =
     store.search.type === "city" ? "hotels/search/by-city" : "hotels/search/by-hotel";
 
