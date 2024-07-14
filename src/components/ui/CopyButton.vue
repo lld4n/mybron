@@ -27,18 +27,24 @@ const copy = async () => {
 
 <style module lang="scss">
 .btn {
-  display: flex;
-  align-items: center;
+  display: inline-flex;
+  align-items: flex-end;
   gap: 5px;
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
   span {
     color: var(--tg-theme-link-color);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   svg {
+    margin-bottom: 2px;
     width: 16px;
     height: 16px;
+    flex: 0 0 16px;
   }
   path {
     fill: var(--tg-theme-link-color);

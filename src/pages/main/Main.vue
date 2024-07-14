@@ -8,6 +8,7 @@
         <Settings />
       </button>
     </header>
+
     <main :class="$style.main">
       <Logo />
       <div :class="$style.title">
