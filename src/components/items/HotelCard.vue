@@ -92,7 +92,7 @@ const nights = computed(() => {
 .bottom {
   display: flex;
   gap: 6px;
-  align-items: flex-end;
+  align-items: baseline;
   padding-left: 16px;
 }
 
@@ -109,6 +109,10 @@ const nights = computed(() => {
   flex-direction: column;
   gap: 8px;
   position: relative;
+  margin-bottom: 12px;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .image {

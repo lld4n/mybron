@@ -12,7 +12,7 @@ interface Props {
 const props = defineProps<Props>();
 const array: boolean[] = [];
 let i = 1;
-while (i <= 5) {
+while (i <= props.level) {
   array.push(i <= props.level);
   i++;
 }

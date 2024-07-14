@@ -215,7 +215,7 @@ const subtitle = () => {
 .info {
   cursor: pointer;
   margin: 0 16px;
-  padding: 5px 10px;
+  padding: 5px 12px;
   border-radius: 8px;
   background-color: var(--quarternary-fill-background);
   transition: opacity 0.1s ease-out;
@@ -224,9 +224,9 @@ const subtitle = () => {
   gap: 12px;
   overflow: hidden;
 
-  path {
-    fill: var(--tg-theme-hint-color);
-  }
+  //path {
+  //  fill: var(--tg-theme-hint-color);
+  //}
 
   &:not([disabled]):active {
     opacity: 0.6 !important;
@@ -319,7 +319,7 @@ const subtitle = () => {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 0 0 62px;
+  padding: 0 0 80px;
 }
 
 .loading {
