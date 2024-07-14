@@ -200,6 +200,7 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(10px);
 }
 .like {
   position: absolute;
@@ -213,6 +214,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  backdrop-filter: blur(10px);
 }
 .image {
   flex: 0 0 100%;

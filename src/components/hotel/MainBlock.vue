@@ -34,6 +34,16 @@ onMounted(() => {
   showMap.value = true;
 });
 const q = useInter();
+
+const meter = (v: number) => {
+  if (v > 1) return Math.floor(v) + " км";
+  if (v < 1) {
+    const m = Math.floor(v * 1000);
+    // TODO: перевод
+    if (m <= 99) return "В центре";
+    return m + " м";
+  }
+};
 </script>
 
 <template>
@@ -48,7 +58,7 @@ const q = useInter();
       <Text :s="14" :l="18" :c="$style.item">
         <Walking />
         <MinutesFromDistanceView :d="center" />
-        <span :class="$style.gray">{{ center }} {{ q.i18n.main.block.gbhcow }}</span>
+        <span :class="$style.gray">{{ meter(center) }}</span>
       </Text>
     </div>
     <div :class="$style.map">
@@ -166,10 +176,14 @@ const q = useInter();
 .map {
   overflow: hidden;
   padding: 16px 16px 0 16px;
+  border-radius: 8px;
+  canvas {
+    border-radius: 8px;
+  }
 }
 
 .copu {
-  padding: 16px;
+  padding: 8px 16px;
 }
 
 .img {

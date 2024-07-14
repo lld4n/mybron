@@ -12,7 +12,7 @@ interface Props {
 const props = defineProps<Props>();
 const array: boolean[] = [];
 let i = 1;
-while (i <= props.level) {
+while (i <= 5) {
   array.push(i <= props.level);
   i++;
 }
@@ -24,9 +24,7 @@ while (i <= props.level) {
       <StarsBig v-if="type === 'big' && flag" />
       <StarsBigOutLine v-if="type === 'big' && !flag" />
       <StarsSmall v-if="type === 'small' && flag" />
-      <StarsSmallOutLine v-if="type === 'small' && !flag" />
       <StarsVerySmall v-if="type === 'very small' && flag" />
-      <StarsVerySmallOutLine v-if="type === 'very small' && !flag" />
     </template>
   </div>
 </template>
