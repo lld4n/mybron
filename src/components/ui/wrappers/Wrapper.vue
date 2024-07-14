@@ -8,7 +8,6 @@ interface Props {
   footer?: {
     click: () => void;
     text: string;
-    desc?: string;
   };
 }
 const props = defineProps<Props>();

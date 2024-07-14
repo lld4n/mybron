@@ -5,16 +5,22 @@ import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
 import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
 import TotalBlock from "../../components/hotel/TotalBlock.vue";
 // import WishesBlock from "../../components/hotel/WishesBlock.vue";
+import CrossGreen from "../../assets/icons/cross-green.svg";
 import GuestsBlock from "../../components/hotel/GuestsBlock.vue";
 import DataBlock from "../../components/hotel/DataBlock.vue";
 import { api, useHotel, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
 import { useRouter } from "vue-router";
+import Text from "../../components/ui/wrappers/Text.vue";
+import { ref } from "vue";
 const hotel = useHotel();
 const q = useInter();
 const store = useStore();
 const router = useRouter();
-console.log("OFFER", hotel.offer);
+const handleShow = () => {
+  show.value = false;
+};
+const show = ref(true);
 const close = async () => {
   if (!hotel.offer || !store.auth) return;
   if (hotel.info.firstName.length === 0 || hotel.info.lastName.length === 0) {
@@ -69,8 +75,6 @@ const close = async () => {
     :footer="{
       text: q.i18n.hotel.checkout.page.qxmzpt,
       click: () => close(),
-      desc:
-        q.i18n.hotel.checkout.page.wtqrbn + ', ' + q.i18n.hotel.checkout.page.gimmdn,
     }"
   >
     <div :class="$style.wrapper">
@@ -105,6 +109,12 @@ const close = async () => {
         :name="hotel.offer.name"
       />
     </div>
+    <div :class="$style.footer" v-if="show">
+      <Text :s="14" :l="18" :w="600" :c="$style.green"
+        >Бот пришлет ссылку на оплату в чат</Text
+      >
+      <CrossGreen @click="handleShow" />
+    </div>
   </Wrapper>
 </template>
 
@@ -114,5 +124,25 @@ const close = async () => {
   flex-direction: column;
   padding: 12px 0 110px;
   gap: 8px;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 11px 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #0094114d;
+  background-color: #f1fff4;
+  justify-content: space-between;
+  svg {
+    cursor: pointer;
+  }
+}
+.green {
+  color: #009411;
 }
 </style>
