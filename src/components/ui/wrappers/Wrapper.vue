@@ -137,6 +137,7 @@ const handleClose = () => {
   align-items: center;
   gap: 12px;
   color: white;
+  backdrop-filter: blur(20px);
 }
 .right {
   display: flex;
