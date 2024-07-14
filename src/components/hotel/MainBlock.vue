@@ -62,12 +62,24 @@ const meter = (v: number) => {
       </Text>
     </div>
     <div :class="$style.map">
+      <!--      TODO: цветовая тема-->
       <yandex-map
         :settings="{
           location: {
             center: [longitude, latitude],
             zoom: 14,
           },
+          behaviors: [
+            'drag',
+            'pinchZoom',
+            'dblClick',
+            'magnifier',
+            'oneFingerZoom',
+            'mouseRotate',
+            'mouseTilt',
+            'pinchRotate',
+            'panTilt',
+          ],
         }"
         width="100%"
         height="200px"

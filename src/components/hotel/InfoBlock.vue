@@ -74,6 +74,9 @@ const q = useInter();
 }
 
 .btn {
+  path {
+    fill: var(--tg-theme-button-color);
+  }
   transition: opacity 0.1s ease-out;
 
   &:not([disabled]):active {

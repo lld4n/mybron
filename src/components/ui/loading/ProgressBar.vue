@@ -14,7 +14,7 @@ defineProps<Props>();
 
 <style module lang="scss">
 .wrapper {
-  overflow: hidden;
+  overflow: hidden !important;
   border-radius: 8px;
   display: flex;
   width: 230px;
