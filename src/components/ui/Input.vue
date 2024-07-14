@@ -30,11 +30,6 @@ const [model] = defineModel();
   display: flex;
   align-items: center;
   gap: 10px;
-  &:last-child {
-    .right {
-      border-bottom: none;
-    }
-  }
 }
 .left {
   min-width: 90px;
