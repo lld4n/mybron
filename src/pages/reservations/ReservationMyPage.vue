@@ -21,10 +21,8 @@ const q = useInter();
 
 <template>
   <div :class="$style.wrapper">
+    <Text :s="28" :l="34" :w="700" :c="$style.top">{{ q.i18n.reservation.my }}</Text>
     <Block>
-      <div :class="$style.top">
-        <Title>{{ q.i18n.reservation.my }}</Title>
-      </div>
       <div :class="$style.center" v-if="list.length === 0">
         <Shape />
         <Text :s="17" :l="22">{{ q.i18n.reservation.zero }}</Text>
@@ -54,14 +52,11 @@ const q = useInter();
 </template>
 
 <style module lang="scss">
-.top {
-  padding: 24px 16px 4px;
-}
 .wrapper {
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
 }
 .center {
   color: var(--tg-theme-hint-color);
