@@ -61,6 +61,9 @@ const list = computed(() => {
   display: flex;
   align-items: center;
   gap: 10px;
+  path {
+    fill: var(--tg-theme-text-color);
+  }
 }
 .item {
   padding-left: 29px;

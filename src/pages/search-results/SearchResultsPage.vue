@@ -192,6 +192,7 @@ const subtitle = () => {
 
 <style module lang="scss">
 .wrapper {
+  background-color: var(--tg-theme-bg-color);
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -314,7 +315,7 @@ const subtitle = () => {
 
 .list {
   background-color: var(--tg-theme-bg-color);
-  margin-top: 64px;
+  margin-top: 66px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -326,7 +327,7 @@ const subtitle = () => {
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin-top: 64px;
+  margin-top: 66px;
 }
 .center {
   flex: 1;

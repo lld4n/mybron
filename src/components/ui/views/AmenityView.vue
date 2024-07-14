@@ -15,6 +15,7 @@ import Shield from "../../../assets/amenities/shield.svg";
 import Teddy from "../../../assets/amenities/teddy.svg";
 import Heart from "../../../assets/amenities/heart.svg";
 import Exc from "../../../assets/amenities/exc.svg";
+import Swim from "../../../assets/amenities/swim.svg";
 interface Props {
   group: string;
 }
@@ -39,6 +40,7 @@ defineProps<Props>();
   <Disabled v-if="group === 'Доступная среда'" :class="$style.icon" />
   <Shield v-if="group === 'Безопасность'" :class="$style.icon" />
   <Teddy v-if="group === 'Детям'" :class="$style.icon" />
+  <Swim v-if="group === 'Бассейн'" :class="$style.icon" />
 </template>
 
 <style module lang="scss">

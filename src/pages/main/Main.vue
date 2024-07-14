@@ -22,7 +22,6 @@
       </div>
     </main>
     <div :class="$style.content">
-      <!--          TODO: мои бронирования на главной-->
       <Block v-if="list.length > 0">
         <div :class="$style.top">
           <Title>{{ q.i18n.main.bqbral }}</Title>
@@ -217,7 +216,7 @@ watch(
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: var(--tg-theme-bg-color);
+  background-color: var(--tertiary-fill-background);
   path {
     fill: var(--tg-theme-text-color);
   }
