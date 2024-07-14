@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Block from "../../components/ui/wrappers/Block.vue";
-import Title from "../../components/ui/wrappers/Title.vue";
 import Shape from "../../assets/icons/shape.svg";
 import { useInter } from "../../utils/i18n";
 import Text from "../../components/ui/wrappers/Text.vue";
