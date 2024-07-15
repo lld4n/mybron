@@ -33,6 +33,7 @@ import RoomsFilterAmenitiesPage from "../pages/rooms/RoomsFilterAmenitiesPage.vu
 import RoomsFilterBedsPage from "../pages/rooms/RoomsFilterBedsPage.vue";
 import RoomsFilterMealsPage from "../pages/rooms/RoomsFilterMealsPage.vue";
 import RoomsFilterPaymentPage from "../pages/rooms/RoomsFilterPaymentPage.vue";
+import SettingsPasswordPage from "../pages/settings/SettingsPasswordPage.vue";
 const routes = [
   { path: "/", component: Main },
 
@@ -69,6 +70,7 @@ const routes = [
   { path: "/settings/currency", component: SettingsCurrencyPage },
   { path: "/settings/phone", component: SettingsPhonePage },
   { path: "/settings/email", component: SettingsEmailPage },
+  { path: "/settings/password", component: SettingsPasswordPage },
   { path: "/settings/country", component: SettingsCountryPage },
   { path: "/settings/code/:from", component: SettingsCodePage },
 

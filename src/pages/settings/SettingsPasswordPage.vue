@@ -4,19 +4,56 @@ import Text from "../../components/ui/wrappers/Text.vue";
 const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
-import { defineAsyncComponent, ref } from "vue";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
+import { api, useStore } from "../../utils";
 import { useSettings } from "../../utils/settings.ts";
 const value = ref("");
 const router = useRouter();
+const store = useStore();
 const settings = useSettings();
 const q = useInter();
 
-const send = () => {
-  if (value.value.length === 0) return;
-  settings.setEmail(value.value);
-  router.push("/settings/password");
+onMounted(() => {
+  if (settings.email.length === 0) {
+    router.push("/settings/email");
+  }
+});
+
+const send = async () => {
+  if (value.value.length === 0 || !store.auth) return;
+  // try {
+  const data = await api.post("user/authorization-methods/email-password", {
+    body: JSON.stringify({
+      email: value.value,
+      password: value.value,
+      activationMethod: "BY_CODE",
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: store.auth,
+    },
+  });
+  console.log(data.status);
+  // await router.push("/settings/code/email");
+  // } catch (e) {
+  //   console.log(e);
+  //   window.Telegram.WebApp.showPopup(
+  //     {
+  //       title: q.i18n.settings.phone.page.artlpke,
+  //       message: q.i18n.settings.phone.page.upokile,
+  //       buttons: [
+  //         {
+  //           id: "close",
+  //           type: "default",
+  //           text: q.i18n.settings.phone.page.xwkfmw,
+  //         },
+  //       ],
+  //     },
+  //     () => {},
+  //   );
+  // }
 };
 </script>
 
@@ -28,24 +65,20 @@ const send = () => {
     }"
     :class="$style.wrapper"
   >
-    <div @click="send">send</div>
     <div :class="$style.block">
-      <Animation type="mailbox" :c="$style.animation" :loop="false" />
+      <Animation type="locker" :c="$style.animation" :loop="false" />
     </div>
     <div :class="$style.top">
-      <Text :s="28" :l="34" :w="700">{{ q.i18n.settings.email.page.sljjhv }}</Text>
-      <Text :s="17" :l="22"
-        >{{ q.i18n.settings.email.page.yqngtq }} {{
-          q.i18n.settings.email.page.mxqrmc
-        }}</Text
-      >
+      <!--      TODO: перевод-->
+      <Text :s="28" :l="34" :w="700">Придумайте пароль</Text>
+      <Text :s="17" :l="22">От 6 символов. Пароль понадобится для входа на сайт</Text>
     </div>
     <div :class="$style.content">
       <input
-        type="email"
+        type="password"
         :class="$style.input"
         v-model="value"
-        placeholder="name@example.com"
+        placeholder="Пароль"
       />
     </div>
   </Wrapper>
