@@ -102,16 +102,27 @@ const authEmail = async () => {
   if (n2.value.length === 0) return;
   if (n3.value.length === 0) return;
   if (n4.value.length === 0) return;
-  // const otp = n1.value + n2.value + n3.value + n4.value;
-  // try {
-  // TODO: запрос, уточнить
-  // } catch (e) {
-  window.Telegram.WebApp.HapticFeedback.notificationOccurred("error");
-  error.value = true;
-  setTimeout(() => {
-    error.value = false;
-  }, 1000);
-  // }
+  const otp = n1.value + n2.value + n3.value + n4.value;
+  try {
+    await api.post("user/email-activation/activate/by-code", {
+      body: JSON.stringify({ code: otp }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: store.auth,
+      },
+    });
+    await router.push("/settings");
+    store.setMessage({
+      type: "linked",
+      text: q.i18n.settings.code.page.pp,
+    });
+  } catch (e) {
+    window.Telegram.WebApp.HapticFeedback.notificationOccurred("error");
+    error.value = true;
+    setTimeout(() => {
+      error.value = false;
+    }, 1000);
+  }
 };
 
 const authSms = async () => {

@@ -39,8 +39,9 @@ const send = async () => {
   for (const l of value.value) {
     if (isNumber(l)) phone += l;
   }
+  settings.setPhone(phone);
+  let flag = true;
   try {
-    settings.setPhone(phone);
     const data = await api
       .post("auth/request-sms-otp", {
         body: JSON.stringify({ phone }),
@@ -50,9 +51,8 @@ const send = async () => {
         },
       })
       .json();
-    console.log(data);
-    if (data) await router.push("/settings/code/phone");
   } catch (e) {
+    flag = false;
     window.Telegram.WebApp.showPopup(
       {
         title: q.i18n.settings.phone.page.artlpk,
@@ -70,6 +70,7 @@ const send = async () => {
       },
     );
   }
+  if (flag) await router.push("/settings/code/phone");
 };
 </script>
 

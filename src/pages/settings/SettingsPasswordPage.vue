@@ -23,45 +23,62 @@ onMounted(() => {
 
 const send = async () => {
   if (value.value.length === 0 || !store.auth) return;
-  // try {
-  await api.post("user/authorization-methods/email-password", {
-    body: JSON.stringify({
-      email: settings.email,
-      password: value.value,
-      activationMethod: "BY_CODE",
-    }),
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: store.auth,
-    },
-  });
-  const data = await api.post(
-    "user/email-activation/request-activation-email/by-code",
-    {
+  let flag = true;
+  try {
+    await api.post("user/authorization-methods/email-password", {
+      body: JSON.stringify({
+        email: settings.email,
+        password: value.value,
+        activationMethod: "BY_CODE",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: store.auth,
+      },
+    });
+  } catch (e) {
+    flag = false;
+    window.Telegram.WebApp.showPopup(
+      {
+        title: q.i18n.settings.phone.page.artlpke,
+        message: q.i18n.settings.phone.page.upokile,
+        buttons: [
+          {
+            id: "close",
+            type: "default",
+            text: q.i18n.settings.phone.page.xwkfmw,
+          },
+        ],
+      },
+      () => {},
+    );
+  }
+  try {
+    await api.post("user/email-activation/request-activation-email/by-code", {
       headers: {
         Authorization: store.auth,
       },
-    },
-  );
-  console.log("ЗАПРОС", data);
-  // await router.push("/settings/code/email");
-  // } catch (e) {
-  //   console.log(e);
-  //   window.Telegram.WebApp.showPopup(
-  //     {
-  //       title: q.i18n.settings.phone.page.artlpke,
-  //       message: q.i18n.settings.phone.page.upokile,
-  //       buttons: [
-  //         {
-  //           id: "close",
-  //           type: "default",
-  //           text: q.i18n.settings.phone.page.xwkfmw,
-  //         },
-  //       ],
-  //     },
-  //     () => {},
-  //   );
-  // }
+    });
+  } catch (e) {
+    flag = false;
+    window.Telegram.WebApp.showPopup(
+      {
+        title: q.i18n.settings.phone.page.artlpke,
+        message: q.i18n.settings.phone.page.upokile,
+        buttons: [
+          {
+            id: "close",
+            type: "default",
+            text: q.i18n.settings.phone.page.xwkfmw,
+          },
+        ],
+      },
+      () => {},
+    );
+  }
+  if (flag) {
+    await router.push("/settings/code/email");
+  }
 };
 </script>
 
