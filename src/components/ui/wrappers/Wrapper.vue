@@ -14,12 +14,12 @@ const store = useStore();
 watch(
   () => props,
   (newValue) => {
+    console.log("wrapper изменился", newValue);
     if (!newValue.footer || !newValue.text) {
       window.Telegram.WebApp.MainButton.onClick(() => {});
       window.Telegram.WebApp.MainButton.hide();
       return;
     }
-    console.log("wrapper изменился");
     window.Telegram.WebApp.MainButton.text = newValue.text;
     window.Telegram.WebApp.MainButton.onClick(() => {
       if (!newValue.footer) return;
