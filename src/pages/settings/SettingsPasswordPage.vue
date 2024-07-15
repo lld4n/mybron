@@ -54,6 +54,7 @@ const send = async () => {
     );
   }
   try {
+    if (!flag) return;
     await api.post("user/email-activation/request-activation-email/by-code", {
       headers: {
         Authorization: store.auth,
