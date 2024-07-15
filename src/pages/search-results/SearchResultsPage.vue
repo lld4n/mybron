@@ -22,6 +22,7 @@ import Text from "../../components/ui/wrappers/Text.vue";
 import LoadingLottie from "../../components/ui/loading/LoadingLottie.vue";
 import ProgressBar from "../../components/ui/loading/ProgressBar.vue";
 import { useInter } from "../../utils/i18n";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const loading = ref(true);
 const fetched = ref(false);
 const list = ref<HotelWithCheapestOfferDto[]>([]);
@@ -138,66 +139,68 @@ const subtitle = () => {
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <header :class="$style.header">
-      <div :class="$style.info" @click="$router.push('/search/filter/info')">
-        <div :class="$style.left">
-          <Text :s="14" :l="18" :w="600">{{ store.search?.name }}</Text>
-          <Text :s="13" :l="18">{{ subtitle() }}</Text>
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <header :class="$style.header">
+        <div :class="$style.info" @click="$router.push('/search/filter/info')">
+          <div :class="$style.left">
+            <Text :s="14" :l="18" :w="600">{{ store.search?.name }}</Text>
+            <Text :s="13" :l="18">{{ subtitle() }}</Text>
+          </div>
+          <Search />
         </div>
-        <Search />
+      </header>
+      <div :class="$style.list" v-if="list.length > 0">
+        <FilterView />
+        <Text
+          :c="$style.count"
+          :s="14"
+          :l="18"
+          :g="true"
+          v-if="fetched && list.length > 0"
+        >
+          {{ q.i18n.search.results.page.qqqqqq }} {{ list.length }}
+          {{ q.i18n.search.results.page.wwwwww }}
+        </Text>
+        <HotelCard
+          v-for="item of list"
+          :id="item.id"
+          :images="[item.info.photo.url]"
+          :price="{
+            all: item.minimalPriceDetails.client.clientCurrency.net.price,
+            currency: item.minimalPriceDetails.client.clientCurrency.net.currency,
+            nights: nightsRange(store.in, store.out!),
+          }"
+          :center="Number(item.geo.distanceToCenter.toFixed(2))"
+          :name="item.info.name"
+          :stars="item.info.category"
+        />
       </div>
-    </header>
-    <div :class="$style.list" v-if="list.length > 0">
-      <FilterView />
-      <Text
-        :c="$style.count"
-        :s="14"
-        :l="18"
-        :g="true"
-        v-if="fetched && list.length > 0"
-      >
-        {{ q.i18n.search.results.page.qqqqqq }} {{ list.length }}
-        {{ q.i18n.search.results.page.wwwwww }}
-      </Text>
-      <HotelCard
-        v-for="item of list"
-        :id="item.id"
-        :images="[item.info.photo.url]"
-        :price="{
-          all: item.minimalPriceDetails.client.clientCurrency.net.price,
-          currency: item.minimalPriceDetails.client.clientCurrency.net.currency,
-          nights: nightsRange(store.in, store.out!),
-        }"
-        :center="Number(item.geo.distanceToCenter.toFixed(2))"
-        :name="item.info.name"
-        :stars="item.info.category"
-      />
-    </div>
-    <div :class="$style.loading" v-if="loading">
-      <FilterView />
-      <div :class="$style.center">
-        <LoadingLottie />
-        <Text :s="16" :l="22" :w="500" :c="$style.margin">{{
-          q.i18n.search.results.page.ffffff
-        }}</Text>
-        <ProgressBar :width="progress" />
+      <div :class="$style.loading" v-if="loading">
+        <FilterView />
+        <div :class="$style.center">
+          <LoadingLottie />
+          <Text :s="16" :l="22" :w="500" :c="$style.margin">{{
+            q.i18n.search.results.page.ffffff
+          }}</Text>
+          <ProgressBar :width="progress" />
+        </div>
+      </div>
+      <div :class="$style.center" v-if="fetched && list.length === 0">
+        <Text :s="17" :l="22" :w="600">{{ q.i18n.search.results.page.xxanha }}</Text>
+        <Text :s="17" :l="22" :g="true">{{ q.i18n.search.results.page.ltuaar }}</Text>
+      </div>
+      <div :class="$style.block">
+        <button
+          :class="$style.btn"
+          :disabled="(fetched && list.length === 0) || loading"
+          @click="$router.push('/search/map')"
+        >
+          <MapIcon /> {{ q.i18n.search.results.page.vkwokh }}
+        </button>
       </div>
     </div>
-    <div :class="$style.center" v-if="fetched && list.length === 0">
-      <Text :s="17" :l="22" :w="600">{{ q.i18n.search.results.page.xxanha }}</Text>
-      <Text :s="17" :l="22" :g="true">{{ q.i18n.search.results.page.ltuaar }}</Text>
-    </div>
-    <div :class="$style.block">
-      <button
-        :class="$style.btn"
-        :disabled="(fetched && list.length === 0) || loading"
-        @click="$router.push('/search/map')"
-      >
-        <MapIcon /> {{ q.i18n.search.results.page.vkwokh }}
-      </button>
-    </div>
-  </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

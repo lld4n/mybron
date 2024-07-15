@@ -3,30 +3,33 @@ import Block from "../../components/ui/wrappers/Block.vue";
 import Title from "../../components/ui/wrappers/Title.vue";
 import { useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const q = useInter();
 const store = useStore();
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <Block>
-      <div :class="$style.top">
-        <Title>{{ q.i18n.guests.children.page.vabosk }}</Title>
-      </div>
-      <template v-for="(age, index) of q.i18n.ages">
-        <div
-          :class="$style.item"
-          @click="
-            store.addChildren(index);
-            $router.go(-1);
-          "
-        >
-          {{ age }}
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <Block>
+        <div :class="$style.top">
+          <Title>{{ q.i18n.guests.children.page.vabosk }}</Title>
         </div>
-        <div :class="$style.bar" v-if="index < q.i18n.ages.length - 1" />
-      </template>
-    </Block>
-  </div>
+        <template v-for="(age, index) of q.i18n.ages">
+          <div
+            :class="$style.item"
+            @click="
+              store.addChildren(index);
+              $router.go(-1);
+            "
+          >
+            {{ age }}
+          </div>
+          <div :class="$style.bar" v-if="index < q.i18n.ages.length - 1" />
+        </template>
+      </Block>
+    </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

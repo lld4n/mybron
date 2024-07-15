@@ -7,6 +7,7 @@ import Title from "../../components/ui/wrappers/Title.vue";
 import Ellipse from "../../assets/amenities/ellipse.svg";
 import Text from "../../components/ui/wrappers/Text.vue";
 import { useInter } from "../../utils/i18n";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const hotel = useHotel();
 const q = useInter();
 const list = computed(() => {
@@ -24,29 +25,31 @@ const list = computed(() => {
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <Block v-for="block of list">
-      <div :class="$style.top">
-        <AmenityView :group="block.group" />
-        <Title>{{ block.group }}</Title>
-      </div>
-      <div :class="$style.content">
-        <div :class="$style.item" v-for="item of block.content">
-          <Ellipse />
-          <div :class="$style.right">
-            <Text :s="17" :l="22">{{ item.name }}</Text>
-            <!--TODO: валюта-->
-            <Text :s="14" :l="18" v-if="!item.included && !!item.price" :g="true"
-              >{{ item.price }} ₽</Text
-            >
-            <Text :s="14" :l="18" v-if="item.included" :g="true">{{
-              q.i18n.hotel.amenities.page.zwjabc
-            }}</Text>
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <Block v-for="block of list">
+        <div :class="$style.top">
+          <AmenityView :group="block.group" />
+          <Title>{{ block.group }}</Title>
+        </div>
+        <div :class="$style.content">
+          <div :class="$style.item" v-for="item of block.content">
+            <Ellipse />
+            <div :class="$style.right">
+              <Text :s="17" :l="22">{{ item.name }}</Text>
+              <!--TODO: валюта-->
+              <Text :s="14" :l="18" v-if="!item.included && !!item.price" :g="true"
+                >{{ item.price }} ₽</Text
+              >
+              <Text :s="14" :l="18" v-if="item.included" :g="true">{{
+                q.i18n.hotel.amenities.page.zwjabc
+              }}</Text>
+            </div>
           </div>
         </div>
-      </div>
-    </Block>
-  </div>
+      </Block>
+    </div></Wrapper
+  >
 </template>
 
 <style module lang="scss">

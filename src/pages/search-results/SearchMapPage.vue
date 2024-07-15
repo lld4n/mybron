@@ -23,6 +23,7 @@ import HotelCard from "../../components/items/HotelCard.vue";
 import { useInter } from "../../utils/i18n";
 import Text from "../../components/ui/wrappers/Text.vue";
 import Search from "../../assets/icons/search.svg";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const store = useStore();
 const item = ref<HotelWithCheapestOfferDto | null>(null);
 const q = useInter();
@@ -60,79 +61,81 @@ const theme = computed(() => {
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <header :class="$style.header">
-      <div :class="$style.info">
-        <div :class="$style.left">
-          <Text :s="14" :l="18" :w="600">{{ store.search?.name }}</Text>
-          <Text :s="13" :l="18">{{ subtitle() }}</Text>
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <header :class="$style.header">
+        <div :class="$style.info">
+          <div :class="$style.left">
+            <Text :s="14" :l="18" :w="600">{{ store.search?.name }}</Text>
+            <Text :s="13" :l="18">{{ subtitle() }}</Text>
+          </div>
+          <Search />
         </div>
-        <Search />
-      </div>
-      <FilterView />
-    </header>
-    <div :class="$style.map">
-      <yandex-map
-        :settings="{
-          location: {
-            center: coor,
-            zoom: 14,
-          },
-          theme,
-        }"
-        width="100%"
-        height="100%"
-      >
-        <yandex-map-default-scheme-layer />
-        <yandex-map-default-features-layer />
-        <template v-for="e of store.hotels">
-          <yandex-map-marker
-            :settings="{
-              coordinates: [e.geo.coordinates.longitude, e.geo.coordinates.latitude],
-            }"
-          >
-            <div
-              :class="[$style.marker, { [$style.active]: item && item.id === e.id }]"
-              @click="() => handleMarker(e)"
+        <FilterView />
+      </header>
+      <div :class="$style.map">
+        <yandex-map
+          :settings="{
+            location: {
+              center: coor,
+              zoom: 14,
+            },
+            theme,
+          }"
+          width="100%"
+          height="100%"
+        >
+          <yandex-map-default-scheme-layer />
+          <yandex-map-default-features-layer />
+          <template v-for="e of store.hotels">
+            <yandex-map-marker
+              :settings="{
+                coordinates: [e.geo.coordinates.longitude, e.geo.coordinates.latitude],
+              }"
             >
-              <Text :s="14" :l="18" :w="600">
-                <!--                TODO: Валюта-->
-                {{ e.minimalPriceDetails.client.clientCurrency.gross.price }} ₽
-              </Text>
-              <Marker :class="$style.bottom" />
-            </div>
-          </yandex-map-marker>
-        </template>
-      </yandex-map>
-    </div>
-    <div v-if="!!item" :class="$style.view">
-      <div :class="$style.top">
-        <div :class="$style.line" />
+              <div
+                :class="[$style.marker, { [$style.active]: item && item.id === e.id }]"
+                @click="() => handleMarker(e)"
+              >
+                <Text :s="14" :l="18" :w="600">
+                  <!--                TODO: Валюта-->
+                  {{ e.minimalPriceDetails.client.clientCurrency.gross.price }} ₽
+                </Text>
+                <Marker :class="$style.bottom" />
+              </div>
+            </yandex-map-marker>
+          </template>
+        </yandex-map>
       </div>
-      <button :class="$style.close" @click.prevent="() => handleMarker(null)">
-        <X />
-      </button>
-      <HotelCard
-        v-if="!!item"
-        :left="true"
-        :id="item.id"
-        :images="[item.info.photo.url]"
-        :price="{
-          all: item.minimalPriceDetails.client.clientCurrency.net.price,
-          currency: item.minimalPriceDetails.client.clientCurrency.net.currency,
-          nights: nightsRange(store.in, store.out!),
-        }"
-        :center="Number(item.geo.distanceToCenter.toFixed(2))"
-        :name="item.info.name"
-        :stars="item.info.category"
-      />
-    </div>
-    <div :class="$style.block">
-      <button :class="$style.btn" @click="$router.push('/search/results')">
-        <ShapeIcon /> {{ q.i18n.search.map.page.veddgm }}
-      </button>
-    </div>
-  </div>
+      <div v-if="!!item" :class="$style.view">
+        <div :class="$style.top">
+          <div :class="$style.line" />
+        </div>
+        <button :class="$style.close" @click.prevent="() => handleMarker(null)">
+          <X />
+        </button>
+        <HotelCard
+          v-if="!!item"
+          :left="true"
+          :id="item.id"
+          :images="[item.info.photo.url]"
+          :price="{
+            all: item.minimalPriceDetails.client.clientCurrency.net.price,
+            currency: item.minimalPriceDetails.client.clientCurrency.net.currency,
+            nights: nightsRange(store.in, store.out!),
+          }"
+          :center="Number(item.geo.distanceToCenter.toFixed(2))"
+          :name="item.info.name"
+          :stars="item.info.category"
+        />
+      </div>
+      <div :class="$style.block">
+        <button :class="$style.btn" @click="$router.push('/search/results')">
+          <ShapeIcon /> {{ q.i18n.search.map.page.veddgm }}
+        </button>
+      </div>
+    </div></Wrapper
+  >
 </template>
 
 <style module lang="scss">

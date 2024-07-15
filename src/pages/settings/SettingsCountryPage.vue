@@ -8,6 +8,7 @@ import Text from "../../components/ui/wrappers/Text.vue";
 import { useInter } from "../../utils/i18n";
 import { useStore } from "../../utils";
 import { useRouter } from "vue-router";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const v = ref("");
 const q = useInter();
 const router = useRouter();
@@ -36,38 +37,40 @@ watch(v, (n) => {
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <label for="find" :class="$style.top">
-      <Search />
-      <input
-        type="text"
-        id="find"
-        v-model="v"
-        :class="$style.input"
-        :placeholder="q.i18n.settings.findCountry"
-      />
-    </label>
-    <Block>
-      <div
-        :class="$style.item"
-        v-for="item of filtered"
-        @click="
-          () => {
-            store.setPhone({ code: item.co, ph: item.ph });
-            router.replace('/settings/phone');
-          }
-        "
-      >
-        <FlagView :code="item.co" />
-        <div :class="$style.right">
-          <Text :s="17" :l="22" :c="$style.content">{{
-            q.i18n.slug === "en" ? item.na_en : item.na
-          }}</Text>
-          <Text :s="17" :l="22" :g="true">+{{ item.ph }}</Text>
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <label for="find" :class="$style.top">
+        <Search />
+        <input
+          type="text"
+          id="find"
+          v-model="v"
+          :class="$style.input"
+          :placeholder="q.i18n.settings.findCountry"
+        />
+      </label>
+      <Block>
+        <div
+          :class="$style.item"
+          v-for="item of filtered"
+          @click="
+            () => {
+              store.setPhone({ code: item.co, ph: item.ph });
+              router.replace('/settings/phone');
+            }
+          "
+        >
+          <FlagView :code="item.co" />
+          <div :class="$style.right">
+            <Text :s="17" :l="22" :c="$style.content">{{
+              q.i18n.slug === "en" ? item.na_en : item.na
+            }}</Text>
+            <Text :s="17" :l="22" :g="true">+{{ item.ph }}</Text>
+          </div>
         </div>
-      </div>
-    </Block>
-  </div>
+      </Block>
+    </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

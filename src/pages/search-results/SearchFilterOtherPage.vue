@@ -3,6 +3,7 @@ import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { OtherFiltersValues, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const store = useStore();
 const q = useInter();
 </script>

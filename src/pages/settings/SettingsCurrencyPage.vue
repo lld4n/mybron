@@ -4,30 +4,33 @@ import Title from "../../components/ui/wrappers/Title.vue";
 import { currencies, useInter } from "../../utils/i18n";
 import Block from "../../components/ui/wrappers/Block.vue";
 import Check from "../../assets/icons/check.svg";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const q = useInter();
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <Block>
-      <div :class="$style.top">
-        <Title>{{ q.i18n.settings.currency }}</Title>
-      </div>
-      <div :class="$style.list">
-        <div
-          :class="$style.item"
-          v-for="item of currencies"
-          @click="q.changeCurrency(item)"
-        >
-          <Text :s="17" :l="22" :c="$style.text">{{ item }}</Text>
-          <div :class="$style.right">
-            <Text :s="17" :l="22">{{ q.i18n.currency[item] }}</Text>
-            <Check v-if="q.currency === item" />
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <Block>
+        <div :class="$style.top">
+          <Title>{{ q.i18n.settings.currency }}</Title>
+        </div>
+        <div :class="$style.list">
+          <div
+            :class="$style.item"
+            v-for="item of currencies"
+            @click="q.changeCurrency(item)"
+          >
+            <Text :s="17" :l="22" :c="$style.text">{{ item }}</Text>
+            <div :class="$style.right">
+              <Text :s="17" :l="22">{{ q.i18n.currency[item] }}</Text>
+              <Check v-if="q.currency === item" />
+            </div>
           </div>
         </div>
-      </div>
-    </Block>
-  </div>
+      </Block>
+    </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

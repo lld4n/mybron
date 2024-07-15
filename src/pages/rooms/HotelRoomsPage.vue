@@ -19,6 +19,7 @@ import { RenderRoom, RenderRoomItem } from "../hotel/types.ts";
 import FilterRoomView from "../../components/common/FilterRoomView.vue";
 import { useInter } from "../../utils/i18n";
 import { fetchRooms } from "../hotel/fetchRooms.ts";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const store = useStore();
 const hotel = useHotel();
 const route = useRoute();
@@ -123,25 +124,29 @@ const handleClick = (code: string) => {
 </script>
 
 <template>
-  <div :class="$style.center" v-if="loading">
-    <LoadingSimple />
-  </div>
-  <div :class="$style.wrapper" v-else>
-    <div :class="$style.header">
-      <div :class="$style.info">
-        <div :class="$style.item" @click="$router.push('/hotel/info')">
-          <div :class="$style.left">
-            <Text :s="14" :l="18" :w="600">{{ store.search?.name || hotel.name }}</Text>
-            <Text :s="12" :l="16" :c="$style.text">{{ subtitle() }}</Text>
+  <Wrapper>
+    <div :class="$style.center" v-if="loading">
+      <LoadingSimple />
+    </div>
+    <div :class="$style.wrapper" v-else>
+      <div :class="$style.header">
+        <div :class="$style.info">
+          <div :class="$style.item" @click="$router.push('/hotel/info')">
+            <div :class="$style.left">
+              <Text :s="14" :l="18" :w="600">{{
+                store.search?.name || hotel.name
+              }}</Text>
+              <Text :s="12" :l="16" :c="$style.text">{{ subtitle() }}</Text>
+            </div>
           </div>
         </div>
+        <FilterRoomView />
       </div>
-      <FilterRoomView />
+      <div :class="$style.content">
+        <RoomCard v-for="item of render" :room="item" :click="handleClick" />
+      </div>
     </div>
-    <div :class="$style.content">
-      <RoomCard v-for="item of render" :room="item" :click="handleClick" />
-    </div>
-  </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

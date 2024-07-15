@@ -5,6 +5,7 @@ import { onMounted, ref, watch } from "vue";
 import { useHotel, useStore } from "../../utils";
 import { useRoute } from "vue-router";
 import { useInter } from "../../utils/i18n";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const route = useRoute();
 const numbers = ref([0, 50000]);
 //TODO: валюта
@@ -105,35 +106,37 @@ const focus = () => {
 </script>
 
 <template>
-  <FilterTemplate :title="q.i18n.filter.price.page.appvei">
-    <template v-slot:main>
-      <div :class="$style.header">
-        <div :class="$style.block">
-          <div :class="$style.title">{{ q.i18n.filter.price.page.baffkd }}</div>
-          <input
-            type="text"
-            :class="$style.input"
-            v-model="inputs[0]"
-            inputmode="numeric"
-          />
+  <Wrapper>
+    <FilterTemplate :title="q.i18n.filter.price.page.appvei">
+      <template v-slot:main>
+        <div :class="$style.header">
+          <div :class="$style.block">
+            <div :class="$style.title">{{ q.i18n.filter.price.page.baffkd }}</div>
+            <input
+              type="text"
+              :class="$style.input"
+              v-model="inputs[0]"
+              inputmode="numeric"
+            />
+          </div>
+          <div :class="$style.block">
+            <div :class="$style.title">{{ q.i18n.filter.price.page.wyzrfe }}</div>
+            <input
+              type="text"
+              :class="$style.input"
+              v-model="inputs[1]"
+              inputmode="numeric"
+              @focus="focus"
+            />
+          </div>
         </div>
-        <div :class="$style.block">
-          <div :class="$style.title">{{ q.i18n.filter.price.page.wyzrfe }}</div>
-          <input
-            type="text"
-            :class="$style.input"
-            v-model="inputs[1]"
-            inputmode="numeric"
-            @focus="focus"
-          />
+        <div :class="$style.wrapper">
+          <div :class="$style.line" />
+          <Slider v-model="numbers" range :min="0" :max="50000" />
         </div>
-      </div>
-      <div :class="$style.wrapper">
-        <div :class="$style.line" />
-        <Slider v-model="numbers" range :min="0" :max="50000" />
-      </div>
-    </template>
-  </FilterTemplate>
+      </template>
+    </FilterTemplate>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

@@ -6,6 +6,7 @@ import Text from "../../components/ui/wrappers/Text.vue";
 import ReservationCard from "../../components/items/ReservationCard.vue";
 import { onMounted, ref } from "vue";
 import { fetchOrders, GetOrderDto, useStore } from "../../utils";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 
 const store = useStore();
 const list = ref<GetOrderDto[]>([]);
@@ -19,35 +20,37 @@ const q = useInter();
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <Text :s="28" :l="34" :w="700" :c="$style.top">{{ q.i18n.reservation.my }}</Text>
-    <Block>
-      <div :class="$style.center" v-if="list.length === 0">
-        <Shape />
-        <Text :s="17" :l="22">{{ q.i18n.reservation.zero }}</Text>
-      </div>
-      <div :class="$style.content">
-        <template v-for="item of list">
-          <ReservationCard
-            :id="item.id"
-            :in-date="new Date(item.checkInDate)"
-            :out-date="new Date(item.checkOutDate)"
-            :city="item.hotel.city.name"
-            :name="item.hotel.name"
-            :status="
-              item.status === 'Подтвержден'
-                ? 'success'
-                : ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(
-                      item.status,
-                    )
-                  ? 'fail'
-                  : 'loading'
-            "
-          />
-        </template>
-      </div>
-    </Block>
-  </div>
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <Text :s="28" :l="34" :w="700" :c="$style.top">{{ q.i18n.reservation.my }}</Text>
+      <Block>
+        <div :class="$style.center" v-if="list.length === 0">
+          <Shape />
+          <Text :s="17" :l="22">{{ q.i18n.reservation.zero }}</Text>
+        </div>
+        <div :class="$style.content">
+          <template v-for="item of list">
+            <ReservationCard
+              :id="item.id"
+              :in-date="new Date(item.checkInDate)"
+              :out-date="new Date(item.checkOutDate)"
+              :city="item.hotel.city.name"
+              :name="item.hotel.name"
+              :status="
+                item.status === 'Подтвержден'
+                  ? 'success'
+                  : ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(
+                        item.status,
+                      )
+                    ? 'fail'
+                    : 'loading'
+              "
+            />
+          </template>
+        </div>
+      </Block>
+    </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

@@ -14,6 +14,7 @@ import { useInter } from "../../utils/i18n";
 import { useRouter } from "vue-router";
 import Title from "../../components/ui/wrappers/Title.vue";
 import SearchCard, { Item } from "../../components/items/SearchCard.vue";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const q = useInter();
 // const countries = ["RU", "KZ", "UZ", "KG", "TM", "GE", "BY", "AZ", "MD", "TJ", "AM"];
 const popular: { id: number; type: "CITY"; name: string; country: string }[] = [
@@ -98,89 +99,91 @@ const handleClick = (item: Item) => {
 </script>
 
 <template>
-  <div :class="$style.wrapper">
-    <label :class="$style.header" for="search">
-      <Search />
-      <input
-        id="search"
-        type="text"
-        :placeholder="q.i18n.search.input"
-        :class="$style.input"
-        autocomplete="off"
-        v-model="value"
-        ref="input"
-      />
-    </label>
-    <div :class="$style.unfind" v-if="fetched && list.length === 0">
-      <Text :s="17" :l="22" :w="600">{{ q.i18n.search.page.gwfosk }}</Text>
-      <Text :s="17" :l="22" :g="true">{{ q.i18n.search.page.ewirkw }}</Text>
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <label :class="$style.header" for="search">
+        <Search />
+        <input
+          id="search"
+          type="text"
+          :placeholder="q.i18n.search.input"
+          :class="$style.input"
+          autocomplete="off"
+          v-model="value"
+          ref="input"
+        />
+      </label>
+      <div :class="$style.unfind" v-if="fetched && list.length === 0">
+        <Text :s="17" :l="22" :w="600">{{ q.i18n.search.page.gwfosk }}</Text>
+        <Text :s="17" :l="22" :g="true">{{ q.i18n.search.page.ewirkw }}</Text>
+      </div>
+      <Block
+        v-if="fetched && list.map((e) => e.type).includes('CITY')"
+        :class="$style.content"
+      >
+        <SearchCard
+          :key="item.id"
+          v-for="item of list"
+          :country="item.country"
+          :id="item.id"
+          :name="item.name"
+          :type="item.type === 'CITY' ? 'city' : 'hotel'"
+          :click="handleClick"
+          :no-show="item.type === 'HOTEL'"
+        />
+      </Block>
+      <Block
+        v-if="fetched && list.map((e) => e.type).includes('HOTEL')"
+        :class="$style.content"
+      >
+        <SearchCard
+          :key="item.id"
+          v-for="item of list"
+          :country="item.country"
+          :id="item.id"
+          :name="item.name"
+          :type="item.type === 'CITY' ? 'city' : 'hotel'"
+          :click="handleClick"
+          :no-show="item.type === 'CITY'"
+        />
+      </Block>
+      <Block v-if="store.near.length > 0 && list.length === 0" :class="$style.content">
+        <div :class="$style.top">
+          <Title>{{ q.i18n.search.page.jszwxj }}</Title>
+        </div>
+        <SearchCard
+          :key="item.id"
+          v-for="item of store.near"
+          :id="item.id"
+          :name="item.name"
+          :type="item.type === 'CITY' ? 'city' : 'hotel'"
+          :country="item.country"
+          :click="handleClick"
+        />
+      </Block>
+      <Text
+        v-if="store.near.length > 0 && list.length === 0"
+        :s="13"
+        :l="18"
+        :g="true"
+        :c="$style.add"
+        >{{ q.i18n.search.page.qxwhns }}IP</Text
+      >
+      <Block v-if="list.length === 0" :class="$style.content">
+        <div :class="$style.top">
+          <Title>{{ q.i18n.search.page.nitwfy }}</Title>
+        </div>
+        <SearchCard
+          v-for="item of popular"
+          :id="item.id"
+          :name="item.name"
+          type="city"
+          :country="item.country"
+          :click="handleClick"
+        />
+      </Block>
     </div>
-    <Block
-      v-if="fetched && list.map((e) => e.type).includes('CITY')"
-      :class="$style.content"
-    >
-      <SearchCard
-        :key="item.id"
-        v-for="item of list"
-        :country="item.country"
-        :id="item.id"
-        :name="item.name"
-        :type="item.type === 'CITY' ? 'city' : 'hotel'"
-        :click="handleClick"
-        :no-show="item.type === 'HOTEL'"
-      />
-    </Block>
-    <Block
-      v-if="fetched && list.map((e) => e.type).includes('HOTEL')"
-      :class="$style.content"
-    >
-      <SearchCard
-        :key="item.id"
-        v-for="item of list"
-        :country="item.country"
-        :id="item.id"
-        :name="item.name"
-        :type="item.type === 'CITY' ? 'city' : 'hotel'"
-        :click="handleClick"
-        :no-show="item.type === 'CITY'"
-      />
-    </Block>
-    <Block v-if="store.near.length > 0 && list.length === 0" :class="$style.content">
-      <div :class="$style.top">
-        <Title>{{ q.i18n.search.page.jszwxj }}</Title>
-      </div>
-      <SearchCard
-        :key="item.id"
-        v-for="item of store.near"
-        :id="item.id"
-        :name="item.name"
-        :type="item.type === 'CITY' ? 'city' : 'hotel'"
-        :country="item.country"
-        :click="handleClick"
-      />
-    </Block>
-    <Text
-      v-if="store.near.length > 0 && list.length === 0"
-      :s="13"
-      :l="18"
-      :g="true"
-      :c="$style.add"
-      >{{ q.i18n.search.page.qxwhns }}IP</Text
-    >
-    <Block v-if="list.length === 0" :class="$style.content">
-      <div :class="$style.top">
-        <Title>{{ q.i18n.search.page.nitwfy }}</Title>
-      </div>
-      <SearchCard
-        v-for="item of popular"
-        :id="item.id"
-        :name="item.name"
-        type="city"
-        :country="item.country"
-        :click="handleClick"
-      />
-    </Block>
-  </div>
+  </Wrapper>
 </template>
 
 <style module lang="scss">

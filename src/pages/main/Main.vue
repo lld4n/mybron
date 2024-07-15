@@ -1,129 +1,131 @@
 <template>
-  <div :class="$style.wrapper">
-    <header :class="$style.header">
-      <button :class="$style.btn" @click="$router.push('/reservation/my')">
-        <Case />
-      </button>
-      <button :class="$style.btn" @click="$router.push('/settings')">
-        <Settings />
-      </button>
-    </header>
-
-    <main :class="$style.main">
-      <Logo />
-      <div :class="$style.title">
-        <div>{{ q.i18n.main.fzchhj }}</div>
-        <span :class="$style.animate">{{ q.i18n.main.ojanrn }}</span>
-      </div>
-      <div :class="$style.list">
-        <MainInfo :search="true" />
-        <button :class="$style.find" @click="handleFind">
-          {{ q.i18n.main.gumfav }}
+  <Wrapper>
+    <div :class="$style.wrapper">
+      <header :class="$style.header">
+        <button :class="$style.btn" @click="$router.push('/reservation/my')">
+          <Case />
         </button>
-      </div>
-    </main>
-    <div :class="$style.content">
-      <Block v-if="list.length > 0">
-        <div :class="$style.top">
-          <Title>{{ q.i18n.main.bqbral }}</Title>
-          <div :class="$style.link" @click="$router.push('/reservation/my')">
-            {{ q.i18n.main.grrgsf }}
+        <button :class="$style.btn" @click="$router.push('/settings')">
+          <Settings />
+        </button>
+      </header>
+
+      <main :class="$style.main">
+        <Logo />
+        <div :class="$style.title">
+          <div>{{ q.i18n.main.fzchhj }}</div>
+          <span :class="$style.animate">{{ q.i18n.main.ojanrn }}</span>
+        </div>
+        <div :class="$style.list">
+          <MainInfo :search="true" />
+          <button :class="$style.find" @click="handleFind">
+            {{ q.i18n.main.gumfav }}
+          </button>
+        </div>
+      </main>
+      <div :class="$style.content">
+        <Block v-if="list.length > 0">
+          <div :class="$style.top">
+            <Title>{{ q.i18n.main.bqbral }}</Title>
+            <div :class="$style.link" @click="$router.push('/reservation/my')">
+              {{ q.i18n.main.grrgsf }}
+            </div>
           </div>
-        </div>
-        <ReservationCard
-          :id="list[0].id"
-          :in-date="new Date(list[0].checkInDate)"
-          :out-date="new Date(list[0].checkOutDate)"
-          :city="list[0].hotel.city.name"
-          :name="list[0].hotel.name"
-          :status="
-            list[0].status === 'Подтвержден'
-              ? 'success'
-              : ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(
-                    list[0].status,
-                  )
-                ? 'fail'
-                : 'loading'
-          "
-        />
-      </Block>
-      <!--          TODO: последний поиск на главной-->
-      <Block v-if="lastSearch.list.length > 0">
-        <div :class="$style.top">
-          <Title>{{ q.i18n.main.bzrkjs }}</Title>
-        </div>
-        <div :class="$style.bottom">
-          <Carousel>
-            <div
-              v-for="item of lastSearch.list"
-              :class="$style.card"
-              @click="() => handleLastSearchClick(item.type, item.id, item.name)"
-            >
-              <!--              <img-->
-              <!--                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"-->
-              <!--                :class="$style.card__img"-->
-              <!--              />-->
-              <div :class="$style.card__right">
-                <Text :w="600" :s="14" :l="18">{{ item.name }}</Text>
-                <Text :s="12" :l="16" :c="$style.card__date"
-                  ><DateView
-                    :left="dates(new Date(item.in), q.i18n)"
-                    :right="dates(new Date(item.out), q.i18n)"
-                  />, {{ item.guests }} {{ q.i18n.main.lnlijg }}</Text
-                >
+          <ReservationCard
+            :id="list[0].id"
+            :in-date="new Date(list[0].checkInDate)"
+            :out-date="new Date(list[0].checkOutDate)"
+            :city="list[0].hotel.city.name"
+            :name="list[0].hotel.name"
+            :status="
+              list[0].status === 'Подтвержден'
+                ? 'success'
+                : ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(
+                      list[0].status,
+                    )
+                  ? 'fail'
+                  : 'loading'
+            "
+          />
+        </Block>
+        <!--          TODO: последний поиск на главной-->
+        <Block v-if="lastSearch.list.length > 0">
+          <div :class="$style.top">
+            <Title>{{ q.i18n.main.bzrkjs }}</Title>
+          </div>
+          <div :class="$style.bottom">
+            <Carousel>
+              <div
+                v-for="item of lastSearch.list"
+                :class="$style.card"
+                @click="() => handleLastSearchClick(item.type, item.id, item.name)"
+              >
+                <!--              <img-->
+                <!--                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"-->
+                <!--                :class="$style.card__img"-->
+                <!--              />-->
+                <div :class="$style.card__right">
+                  <Text :w="600" :s="14" :l="18">{{ item.name }}</Text>
+                  <Text :s="12" :l="16" :c="$style.card__date"
+                    ><DateView
+                      :left="dates(new Date(item.in), q.i18n)"
+                      :right="dates(new Date(item.out), q.i18n)"
+                    />, {{ item.guests }} {{ q.i18n.main.lnlijg }}</Text
+                  >
+                </div>
               </div>
-            </div>
-          </Carousel>
-        </div>
-      </Block>
-      <!--          TODO: популярное на главной-->
-      <Block>
-        <div :class="$style.top">
-          <Title>{{ q.i18n.main.xmcsqq }}</Title>
-        </div>
-        <div :class="$style.bottom">
-          <Carousel>
-            <div :class="$style.popular" @click="$router.push('/search/results')">
-              <img
-                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                :class="$style.popular__img"
-              />
-              <Text :w="600" :s="14" :l="18">{{ q.i18n.main.sjqrco }}</Text>
-              <!--TODO: валюта-->
-              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
-            </div>
-            <div :class="$style.popular" @click="$router.push('/search/results')">
-              <img
-                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                :class="$style.popular__img"
-              />
-              <Text :w="600" :s="14" :l="18">{{ q.i18n.main.cyrumt }}</Text>
-              <!--TODO: валюта-->
-              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
-            </div>
-            <div :class="$style.popular" @click="$router.push('/search/results')">
-              <img
-                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                :class="$style.popular__img"
-              />
-              <Text :w="600" :s="14" :l="18">{{ q.i18n.main.hdwtlq }}</Text>
-              <!--TODO: валюта-->
-              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
-            </div>
-            <div :class="$style.popular" @click="$router.push('/search/results')">
-              <img
-                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                :class="$style.popular__img"
-              />
-              <Text :w="600" :s="14" :l="18">{{ q.i18n.main.qnctit }}</Text>
-              <!--TODO: валюта-->
-              <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
-            </div>
-          </Carousel>
-        </div>
-      </Block>
+            </Carousel>
+          </div>
+        </Block>
+        <!--          TODO: популярное на главной-->
+        <Block>
+          <div :class="$style.top">
+            <Title>{{ q.i18n.main.xmcsqq }}</Title>
+          </div>
+          <div :class="$style.bottom">
+            <Carousel>
+              <div :class="$style.popular" @click="$router.push('/search/results')">
+                <img
+                  src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
+                  :class="$style.popular__img"
+                />
+                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.sjqrco }}</Text>
+                <!--TODO: валюта-->
+                <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
+              </div>
+              <div :class="$style.popular" @click="$router.push('/search/results')">
+                <img
+                  src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
+                  :class="$style.popular__img"
+                />
+                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.cyrumt }}</Text>
+                <!--TODO: валюта-->
+                <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
+              </div>
+              <div :class="$style.popular" @click="$router.push('/search/results')">
+                <img
+                  src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
+                  :class="$style.popular__img"
+                />
+                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.hdwtlq }}</Text>
+                <!--TODO: валюта-->
+                <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
+              </div>
+              <div :class="$style.popular" @click="$router.push('/search/results')">
+                <img
+                  src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
+                  :class="$style.popular__img"
+                />
+                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.qnctit }}</Text>
+                <!--TODO: валюта-->
+                <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
+              </div>
+            </Carousel>
+          </div>
+        </Block>
+      </div>
     </div>
-  </div>
+  </Wrapper>
 </template>
 
 <script setup lang="ts">
@@ -144,6 +146,7 @@ import MainInfo from "../../components/common/MainInfo.vue";
 import ReservationCard from "../../components/items/ReservationCard.vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const list = ref<GetOrderDto[]>([]);
 const q = useInter();
 const router = useRouter();

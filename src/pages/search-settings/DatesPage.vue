@@ -4,6 +4,7 @@ import { months, useStore, dates as reformatDates, useHotel } from "../../utils"
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
+import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 const q = useInter();
 const weeks = [
   q.i18n.dates.page.tlvult,
@@ -34,80 +35,82 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div class="dates">
-    <div class="dates__main">
-      <div class="dates__content">
-        <div class="dates__week">
-          <div class="dates__week__item" v-for="item of weeks">
-            {{ item }}
+  <Wrapper>
+    <div class="dates">
+      <div class="dates__main">
+        <div class="dates__content">
+          <div class="dates__week">
+            <div class="dates__week__item" v-for="item of weeks">
+              {{ item }}
+            </div>
           </div>
+          <template v-for="item of dates">
+            <div class="dates__name" v-if="item.type === 'name'">{{ item.name }}</div>
+            <div class="dates__line" v-if="item.type === 'line'">
+              <template v-for="day of item.values">
+                <button
+                  v-if="!!day"
+                  class="dates__day"
+                  :class="{
+                    dates__day_active:
+                      inDate?.getTime() === day.real.getTime() ||
+                      outDate?.getTime() === day.real.getTime(),
+                    dates__day_active_left: inDate?.getTime() === day.real.getTime(),
+                    dates__day_active_right: outDate?.getTime() === day.real.getTime(),
+                    dates__day_range:
+                      day.real.getTime() > (inDate?.getTime() || 100 ** 10) &&
+                      day.real.getTime() < (outDate?.getTime() || 0),
+                    dates__day_active_one:
+                      (inDate?.getTime() === day.real.getTime() && !outDate) ||
+                      (outDate?.getTime() === day.real.getTime() && !inDate),
+                    dates__day_left: day.position === 'left',
+                    dates__day_right: day.position === 'right',
+                    dates__day_consecutive_left:
+                      outDate &&
+                      inDate.getTime() === day.real.getTime() &&
+                      areConsecutiveDates(inDate, outDate),
+                    dates__day_consecutive_right:
+                      outDate &&
+                      outDate.getTime() === day.real.getTime() &&
+                      areConsecutiveDates(inDate, outDate),
+                  }"
+                  :disabled="day.disabled"
+                  @click="
+                    () => {
+                      hotel.setOffers([]);
+                      store.changeDate(day.real);
+                    }
+                  "
+                >
+                  {{ day.day }}
+                </button>
+                <div v-if="!day" class="dates__empty" />
+              </template></div
+          ></template>
         </div>
-        <template v-for="item of dates">
-          <div class="dates__name" v-if="item.type === 'name'">{{ item.name }}</div>
-          <div class="dates__line" v-if="item.type === 'line'">
-            <template v-for="day of item.values">
-              <button
-                v-if="!!day"
-                class="dates__day"
-                :class="{
-                  dates__day_active:
-                    inDate?.getTime() === day.real.getTime() ||
-                    outDate?.getTime() === day.real.getTime(),
-                  dates__day_active_left: inDate?.getTime() === day.real.getTime(),
-                  dates__day_active_right: outDate?.getTime() === day.real.getTime(),
-                  dates__day_range:
-                    day.real.getTime() > (inDate?.getTime() || 100 ** 10) &&
-                    day.real.getTime() < (outDate?.getTime() || 0),
-                  dates__day_active_one:
-                    (inDate?.getTime() === day.real.getTime() && !outDate) ||
-                    (outDate?.getTime() === day.real.getTime() && !inDate),
-                  dates__day_left: day.position === 'left',
-                  dates__day_right: day.position === 'right',
-                  dates__day_consecutive_left:
-                    outDate &&
-                    inDate.getTime() === day.real.getTime() &&
-                    areConsecutiveDates(inDate, outDate),
-                  dates__day_consecutive_right:
-                    outDate &&
-                    outDate.getTime() === day.real.getTime() &&
-                    areConsecutiveDates(inDate, outDate),
-                }"
-                :disabled="day.disabled"
-                @click="
-                  () => {
-                    hotel.setOffers([]);
-                    store.changeDate(day.real);
-                  }
-                "
-              >
-                {{ day.day }}
-              </button>
-              <div v-if="!day" class="dates__empty" />
-            </template></div
-        ></template>
+      </div>
+      <div class="dates__footer">
+        <button
+          class="dates__footer__btn"
+          @click="handleClick"
+          :disabled="!inDate || !outDate"
+        >
+          <span class="dates__footer__day" v-if="!outDate">
+            {{ reformatDates(inDate, q.i18n) }}
+          </span>
+          <DateView
+            v-if="!!inDate && !!outDate"
+            :left="
+              reformatDates(inDate, q.i18n, {
+                sameMonth: inDate.getMonth() === outDate.getMonth(),
+              })
+            "
+            :right="reformatDates(outDate, q.i18n)"
+          />
+        </button>
       </div>
     </div>
-    <div class="dates__footer">
-      <button
-        class="dates__footer__btn"
-        @click="handleClick"
-        :disabled="!inDate || !outDate"
-      >
-        <span class="dates__footer__day" v-if="!outDate">
-          {{ reformatDates(inDate, q.i18n) }}
-        </span>
-        <DateView
-          v-if="!!inDate && !!outDate"
-          :left="
-            reformatDates(inDate, q.i18n, {
-              sameMonth: inDate.getMonth() === outDate.getMonth(),
-            })
-          "
-          :right="reformatDates(outDate, q.i18n)"
-        />
-      </button>
-    </div>
-  </div>
+  </Wrapper>
 </template>
 
 <style scoped lang="scss">
