@@ -16,6 +16,7 @@ watch(
   () => {
     if (!props.footer || !props.text) {
       window.Telegram.WebApp.MainButton.onClick(() => {});
+      window.Telegram.WebApp.MainButton.hide();
       return;
     }
     window.Telegram.WebApp.MainButton.text = props.text;
@@ -38,9 +39,9 @@ onMounted(() => {
   window.Telegram.WebApp.MainButton.show();
 });
 onUnmounted(() => {
-  setTimeout(() => {
-    window.Telegram.WebApp.MainButton.hide();
-  }, 100);
+  // setTimeout(() => {
+  //   window.Telegram.WebApp.MainButton.hide();
+  // }, 100);
 });
 const handleClose = () => {
   if (store.message)
