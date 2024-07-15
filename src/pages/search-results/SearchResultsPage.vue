@@ -237,9 +237,9 @@ const subtitle = () => {
   gap: 12px;
   overflow: hidden;
 
-  //path {
-  //  fill: var(--tg-theme-hint-color);
-  //}
+  path {
+    fill: var(--tg-theme-section-header-text-color);
+  }
 
   &:not([disabled]):active {
     opacity: 0.6 !important;

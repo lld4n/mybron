@@ -53,7 +53,6 @@
             "
           />
         </Block>
-        <!--          TODO: последний поиск на главной-->
         <Block v-if="lastSearch.list.length > 0">
           <div :class="$style.top">
             <Title>{{ q.i18n.main.bzrkjs }}</Title>
