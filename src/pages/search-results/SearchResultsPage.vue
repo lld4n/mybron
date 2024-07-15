@@ -13,6 +13,7 @@ import {
   SearchHotelByCityRequest,
   SearchHotelByHotelRequest,
   SearchHotelResponse,
+  useLastSearch,
   useStore,
 } from "../../utils";
 import { onMounted, ref } from "vue";
@@ -27,6 +28,7 @@ const list = ref<HotelWithCheapestOfferDto[]>([]);
 const store = useStore();
 const router = useRouter();
 const q = useInter();
+const lastSearch = useLastSearch();
 const progress = ref(0);
 onMounted(async () => {
   if (!store.search || !store.out) {
@@ -52,9 +54,17 @@ onMounted(async () => {
     checkInDate: dateToApi(store.in),
     checkOutDate: dateToApi(store.out),
     filters: {
-      numberOfGuests: store.adultsCount + store.children.length,
+      numberOfGuests: store.adultsCount,
     },
   };
+  lastSearch.addList({
+    id: store.search.id,
+    in: store.in.getTime(),
+    out: store.out.getTime(),
+    name: store.search.name,
+    guests: store.adultsCount,
+    type: store.search.type,
+  });
   if (store.search.type === "city") {
     data.cityId = store.search.id;
   } else {

@@ -48,39 +48,28 @@
         />
       </Block>
       <!--          TODO: последний поиск на главной-->
-      <Block>
+      <Block v-if="lastSearch.list.length > 0">
         <div :class="$style.top">
           <Title>{{ q.i18n.main.bzrkjs }}</Title>
         </div>
         <div :class="$style.bottom">
           <Carousel>
-            <div :class="$style.card" @click="$router.push('/hotel/1')">
-              <img
-                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                :class="$style.card__img"
-              />
+            <div
+              v-for="item of lastSearch.list"
+              :class="$style.card"
+              @click="() => handleLastSearchClick(item.type, item.id, item.name)"
+            >
+              <!--              <img-->
+              <!--                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"-->
+              <!--                :class="$style.card__img"-->
+              <!--              />-->
               <div :class="$style.card__right">
-                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.lfyaua }}</Text>
+                <Text :w="600" :s="14" :l="18">{{ item.name }}</Text>
                 <Text :s="12" :l="16" :c="$style.card__date"
                   ><DateView
-                    :left="'29 ' + q.i18n.main.nbhqzz"
-                    :right="'18 ' + q.i18n.main.jqgdhw"
-                  />, 2 {{ q.i18n.main.lnlijg }}</Text
-                >
-              </div>
-            </div>
-            <div :class="$style.card" @click="$router.push('/hotel/1')">
-              <img
-                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                :class="$style.card__img"
-              />
-              <div :class="$style.card__right">
-                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.lfyaua }}</Text>
-                <Text :s="12" :l="16" :c="$style.card__date"
-                  ><DateView
-                    :left="'29 ' + q.i18n.main.nbhqzz"
-                    :right="'18 ' + q.i18n.main.jqgdhw"
-                  />, 2 {{ q.i18n.main.lnlijg }}</Text
+                    :left="dates(new Date(item.in), q.i18n)"
+                    :right="dates(new Date(item.out), q.i18n)"
+                  />, {{ item.guests }} {{ q.i18n.main.lnlijg }}</Text
                 >
               </div>
             </div>
@@ -142,7 +131,7 @@ import Case from "../../assets/icons/case.svg";
 import Settings from "../../assets/icons/settings.svg";
 import Logo from "../../assets/logo.svg";
 
-import { fetchOrders, GetOrderDto, useStore } from "../../utils";
+import { dates, fetchOrders, GetOrderDto, useLastSearch, useStore } from "../../utils";
 import { onMounted, ref, watch } from "vue";
 
 import Block from "../../components/ui/wrappers/Block.vue";
@@ -158,6 +147,7 @@ import { useInter } from "../../utils/i18n";
 const list = ref<GetOrderDto[]>([]);
 const q = useInter();
 const router = useRouter();
+const lastSearch = useLastSearch();
 console.log(window.Telegram);
 onMounted(async () => {
   // @ts-ignore
@@ -196,6 +186,20 @@ watch(
     list.value = await fetchOrders(store.auth);
   },
 );
+
+const handleLastSearchClick = (type: "city" | "hotel", id: number, name: string) => {
+  if (type === "hotel") {
+    router.push("/hotel/" + id);
+  } else {
+    store.setSearch({
+      type: "city",
+      id,
+      name,
+    });
+    if (!store.out) router.push("/dates");
+    else router.push("/search/results");
+  }
+};
 </script>
 
 <style lang="scss" module>

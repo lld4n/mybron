@@ -21,6 +21,7 @@ import {
   HotelReviewsResponse,
   HotelWithOffersDto,
   useHotel,
+  useLastSearch,
   useStore,
 } from "../../utils";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
@@ -37,6 +38,7 @@ const store = useStore();
 const hotel = useHotel();
 const router = useRouter();
 const q = useInter();
+const lastSearch = useLastSearch();
 
 onMounted(async () => {
   if (!store.out) {
@@ -70,6 +72,15 @@ onMounted(async () => {
       console.log(res);
     });
   data.value = await fetchHotelInfo(route.params.id, store, hotel, q.i18n);
+  if (data.value)
+    lastSearch.addList({
+      id: data.value.id,
+      in: store.in.getTime(),
+      out: store.out.getTime(),
+      name: data.value.name,
+      guests: store.adultsCount,
+      type: "hotel",
+    });
   loading.value = false;
   fetched.value = true;
 });
