@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import ky from "ky";
 import { api, Geo, LiveSearchResponse, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
@@ -42,11 +42,16 @@ type sendDataUser = {
 };
 const q = useInter();
 
+watch(
+  () => window.Telegram.WebApp.isExpanded,
+  () => {
+    window.Telegram.WebApp.expand();
+  },
+);
+
 onMounted(async () => {
   // @ts-ignore
   window.Telegram.WebApp.disableVerticalSwipes();
-  // @ts-ignore
-  window.Telegram.WebApp.isVerticalSwipesEnabled = false;
   if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
     q.changeLanguage("en");
   }

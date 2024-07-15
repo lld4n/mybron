@@ -2,15 +2,15 @@
   <Wrapper>
     <div :class="$style.wrapper">
       <header :class="$style.header">
-        <button :class="$style.btn" @click="$router.push('/reservation/my')">
-          <Case />
+        <button :class="$style.btn" @click="$router.push('/settings')">
+          <Settings />
         </button>
         <div :class="$style.right">
           <button :class="$style.btn" @click="$router.push('/likes')">
             <Like />
           </button>
-          <button :class="$style.btn" @click="$router.push('/settings')">
-            <Settings />
+          <button :class="$style.btn" @click="$router.push('/reservation/my')">
+            <Case />
           </button>
         </div>
       </header>
@@ -94,33 +94,6 @@
                   :class="$style.popular__img"
                 />
                 <Text :w="600" :s="14" :l="18">{{ q.i18n.main.sjqrco }}</Text>
-                <!--TODO: валюта-->
-                <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
-              </div>
-              <div :class="$style.popular" @click="$router.push('/search/results')">
-                <img
-                  src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                  :class="$style.popular__img"
-                />
-                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.cyrumt }}</Text>
-                <!--TODO: валюта-->
-                <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
-              </div>
-              <div :class="$style.popular" @click="$router.push('/search/results')">
-                <img
-                  src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                  :class="$style.popular__img"
-                />
-                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.hdwtlq }}</Text>
-                <!--TODO: валюта-->
-                <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
-              </div>
-              <div :class="$style.popular" @click="$router.push('/search/results')">
-                <img
-                  src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                  :class="$style.popular__img"
-                />
-                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.qnctit }}</Text>
                 <!--TODO: валюта-->
                 <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
               </div>
@@ -374,6 +347,7 @@ const handleLastSearchClick = (type: "city" | "hotel", id: number, name: string)
   display: flex;
   flex-direction: column;
   gap: 2px;
+  margin-bottom: 8px;
   div {
     color: white;
     z-index: 10;

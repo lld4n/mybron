@@ -5,7 +5,7 @@ import StarsView from "../ui/views/StarsView.vue";
 import CopyButton from "../ui/CopyButton.vue";
 import Walking from "../../assets/icons/walking.svg";
 import Text from "../ui/wrappers/Text.vue";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { AvailableAmenityDto } from "../../utils";
 import AmenityCarousel from "./AmenityCarousel.vue";
 import {
@@ -44,6 +44,9 @@ const meter = (v: number) => {
     return m + " м";
   }
 };
+const theme = computed(() => {
+  return window.Telegram.WebApp.colorScheme || "light";
+});
 </script>
 
 <template>
@@ -80,6 +83,7 @@ const meter = (v: number) => {
             'pinchRotate',
             'panTilt',
           ],
+          theme,
         }"
         width="100%"
         height="200px"

@@ -3,50 +3,9 @@ import { useStore } from "../../../utils";
 import Copy from "../../../assets/icons/copy.svg";
 import CircleCheck from "../../../assets/cicle-check.svg";
 import Text from "./Text.vue";
-import { onMounted, onUnmounted, watch } from "vue";
-interface Props {
-  footer?: () => void;
-  text?: string;
-}
-const props = defineProps<Props>();
+
 const store = useStore();
 
-watch(
-  () => props,
-  (newValue) => {
-    console.log("wrapper изменился", newValue);
-    if (!newValue.footer || !newValue.text) {
-      window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
-      return;
-    }
-    window.Telegram.WebApp.MainButton.text = newValue.text;
-    window.Telegram.WebApp.MainButton.onClick(() => {
-      if (!newValue.footer) return;
-      newValue.footer();
-    }).show();
-    // window.Telegram.WebApp.MainButton.show();
-  },
-  {
-    deep: true,
-    immediate: true,
-  },
-);
-
-onMounted(() => {
-  // if (!props.footer || !props.text) return;
-  // window.Telegram.WebApp.MainButton.text = props.text;
-  // window.Telegram.WebApp.MainButton.onClick(() => {
-  //   if (!props.footer) return;
-  //   props.footer();
-  // });
-  // console.log(window.Telegram.WebApp.MainButton);
-  // window.Telegram.WebApp.MainButton.show();
-});
-onUnmounted(() => {
-  // setTimeout(() => {
-  //   window.Telegram.WebApp.MainButton.hide();
-  // }, 100);
-});
 const handleClose = () => {
   if (store.message)
     store.setMessage({

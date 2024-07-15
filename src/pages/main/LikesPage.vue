@@ -66,8 +66,4 @@ const render = computed(() => {
     fill: var(--tg-theme-hint-color);
   }
 }
-.add {
-  width: 16px;
-  height: 14px;
-}
 </style>
