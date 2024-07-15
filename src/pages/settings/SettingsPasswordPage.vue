@@ -26,7 +26,7 @@ const send = async () => {
   // try {
   const data = await api.post("user/authorization-methods/email-password", {
     body: JSON.stringify({
-      email: value.value,
+      email: settings.email,
       password: value.value,
       activationMethod: "BY_CODE",
     }),
@@ -35,7 +35,7 @@ const send = async () => {
       Authorization: store.auth,
     },
   });
-  console.log(data.status);
+  console.log("ЗАПРОС", data);
   // await router.push("/settings/code/email");
   // } catch (e) {
   //   console.log(e);
