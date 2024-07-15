@@ -4,19 +4,27 @@ import Minus from "../../assets/icons/minus.svg";
 import Plus from "../../assets/icons/plus.svg";
 import CircleX from "../../assets/icons/x-circle.svg";
 import { useHotel, useStore } from "../../utils";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import Title from "../../components/ui/wrappers/Title.vue";
 import { useInter } from "../../utils/i18n";
+import { useRouter } from "vue-router";
 const store = useStore();
 const hotel = useHotel();
 const adultsCount = computed(() => store.adultsCount);
 const children = computed(() => store.children);
 const q = useInter();
+const router = useRouter();
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.text = q.i18n.guests.page.favgen;
+  window.Telegram.WebApp.MainButton.onClick(() => {
+    router.go(-1);
+  }).show();
+});
 </script>
 
 <template>
-  <Wrapper :footer="() => $router.go(-1)" :text="q.i18n.guests.page.favgen">
+  <Wrapper>
     <div :class="$style.content">
       <Block>
         <div :class="$style.top">

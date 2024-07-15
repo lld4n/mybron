@@ -4,7 +4,7 @@ import Text from "../../components/ui/wrappers/Text.vue";
 const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
-import { defineAsyncComponent, ref } from "vue";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
 import { useSettings } from "../../utils/settings.ts";
@@ -18,14 +18,16 @@ const send = () => {
   settings.setEmail(value.value);
   router.push("/settings/password");
 };
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.text = q.i18n.settings.email.page.zsilhn;
+  window.Telegram.WebApp.MainButton.onClick(() => {
+    send();
+  }).show();
+});
 </script>
 
 <template>
-  <Wrapper
-    :text="q.i18n.settings.email.page.zsilhn"
-    :footer="() => send()"
-    :class="$style.wrapper"
-  >
+  <Wrapper :class="$style.wrapper">
     <div :class="$style.block">
       <Animation type="mailbox" :c="$style.animation" :loop="false" />
     </div>

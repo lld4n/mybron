@@ -1,15 +1,25 @@
 <script setup lang="ts">
 import Wrapper from "./Wrapper.vue";
 import { useInter } from "../../../utils/i18n";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 defineProps({
   title: { type: String, required: true },
+});
+
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.text = q.i18n.filter.template.ncsjqh;
+  window.Telegram.WebApp.MainButton.onClick(() => {
+    router.go(-1);
+  }).show();
 });
 const q = useInter();
 </script>
 
 <template>
-  <Wrapper :text="q.i18n.filter.template.ncsjqh" :footer="() => $router.go(-1)">
+  <Wrapper>
     <div :class="$style.wrapper">
       <div :class="$style.main">
         <div :class="$style.header">

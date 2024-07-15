@@ -27,6 +27,7 @@ const q = useInter();
 const route = useRoute();
 const router = useRouter();
 onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   setInterval(() => {
     timer.value--;
   }, 1000);

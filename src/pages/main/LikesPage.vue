@@ -5,7 +5,7 @@ import AddLike from "../../assets/likes/add-like.svg";
 import { LikeItem, useLikes } from "../../utils";
 import Text from "../../components/ui/wrappers/Text.vue";
 import Block from "../../components/ui/wrappers/Block.vue";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import LikeView from "../../components/ui/views/LikeView.vue";
 
 const likes = useLikes();
@@ -23,6 +23,9 @@ const render = computed(() => {
   return map;
 });
 // TODO: перевод
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
+});
 </script>
 
 <template>

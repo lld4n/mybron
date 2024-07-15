@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import Text from "../../components/ui/wrappers/Text.vue";
-import { defineAsyncComponent, ref, watch } from "vue";
+import { defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import FlagView from "../../components/ui/views/FlagView.vue";
 import { api, useStore } from "../../utils";
@@ -72,14 +72,16 @@ const send = async () => {
   }
   if (flag) await router.push("/settings/code/phone");
 };
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.text = q.i18n.settings.phone.page.hfkqed;
+  window.Telegram.WebApp.MainButton.onClick(() => {
+    send();
+  }).show();
+});
 </script>
 
 <template>
-  <Wrapper
-    :footer="() => send()"
-    :text="q.i18n.settings.phone.page.hfkqed"
-    :class="$style.wrapper"
-  >
+  <Wrapper :class="$style.wrapper">
     <div :class="$style.block">
       <Animation type="phone" :c="$style.animation" :loop="false" />
     </div>

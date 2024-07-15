@@ -40,6 +40,7 @@ const coor = computed(() => {
 });
 
 onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   if (store.hotels.length === 0) {
     router.push("/search/results");
   }

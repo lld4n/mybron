@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DateView from "../../components/ui/views/DateView.vue";
 import { months, useStore, dates as reformatDates, useHotel } from "../../utils";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
@@ -32,6 +32,9 @@ const handleClick = () => {
     router.push("/search/results");
   }
 };
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
+});
 </script>
 
 <template>

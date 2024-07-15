@@ -18,6 +18,11 @@ const q = useInter();
 onMounted(() => {
   if (settings.email.length === 0) {
     router.push("/settings/email");
+  } else {
+    window.Telegram.WebApp.MainButton.text = q.i18n.settings.email.page.zsilhn;
+    window.Telegram.WebApp.MainButton.onClick(() => {
+      send();
+    }).show();
   }
 });
 
@@ -84,11 +89,7 @@ const send = async () => {
 </script>
 
 <template>
-  <Wrapper
-    :footer="() => send()"
-    :text="q.i18n.settings.email.page.zsilhn"
-    :class="$style.wrapper"
-  >
+  <Wrapper :class="$style.wrapper">
     <div :class="$style.block">
       <Animation type="locker" :c="$style.animation" :loop="false" />
     </div>

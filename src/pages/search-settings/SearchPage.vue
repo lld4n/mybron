@@ -59,6 +59,7 @@ const store = useStore();
 const router = useRouter();
 
 onMounted(async () => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   input.value?.focus();
 });
 

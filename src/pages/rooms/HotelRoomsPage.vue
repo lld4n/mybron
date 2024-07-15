@@ -33,6 +33,7 @@ const subtitle = () => {
 };
 
 onMounted(async () => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   if (hotel.offers.length === 0) {
     await fetchHotelInfo(route.params.id, store, hotel, q.i18n);
   }

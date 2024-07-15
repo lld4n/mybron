@@ -17,6 +17,7 @@ import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 
 const name = ref("");
 onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   name.value =
     (window.Telegram.WebApp.initDataUnsafe.user?.first_name ||
       q.i18n.settings.unknown) +

@@ -21,6 +21,7 @@ type Country = {
 };
 const filtered = ref<Country[]>([]);
 onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   filtered.value = countries;
 });
 watch(v, (n) => {

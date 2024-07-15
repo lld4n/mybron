@@ -12,7 +12,7 @@ import { api, useHotel, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
 import { useRouter } from "vue-router";
 import Text from "../../components/ui/wrappers/Text.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 const hotel = useHotel();
 const q = useInter();
 const store = useStore();
@@ -68,10 +68,16 @@ const close = async () => {
     await router.push("/reservation/" + data.orderId);
   }
 };
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.text = q.i18n.hotel.checkout.page.qxmzpt;
+  window.Telegram.WebApp.MainButton.onClick(() => {
+    close();
+  }).show();
+});
 </script>
 
 <template>
-  <Wrapper :footer="() => close()" :text="q.i18n.hotel.checkout.page.qxmzpt">
+  <Wrapper>
     <div :class="$style.wrapper">
       <EstimatedBlock
         v-if="!!hotel.time"

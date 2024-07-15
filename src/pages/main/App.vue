@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from "vue";
+import { onMounted } from "vue";
 import ky from "ky";
 import { api, Geo, LiveSearchResponse, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
@@ -41,13 +41,6 @@ type sendDataUser = {
   photoUrl?: string;
 };
 const q = useInter();
-
-watch(
-  () => window.Telegram.WebApp.isExpanded,
-  () => {
-    window.Telegram.WebApp.expand();
-  },
-);
 
 onMounted(async () => {
   // @ts-ignore

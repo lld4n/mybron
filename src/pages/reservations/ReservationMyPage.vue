@@ -12,6 +12,7 @@ const store = useStore();
 const list = ref<GetOrderDto[]>([]);
 
 onMounted(async () => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   if (!store.auth) return;
   list.value = await fetchOrders(store.auth);
 });

@@ -32,6 +32,7 @@ const q = useInter();
 const lastSearch = useLastSearch();
 const progress = ref(0);
 onMounted(async () => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   if (!store.search || !store.out) {
     await router.push("/");
     return;

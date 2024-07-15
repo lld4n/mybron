@@ -130,6 +130,7 @@ const router = useRouter();
 const lastSearch = useLastSearch();
 console.log(window.Telegram);
 onMounted(async () => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   console.log(window.Telegram.WebApp.initDataUnsafe.user?.language_code);
   window.Telegram.WebApp.expand();
   if (window.Telegram.WebApp.colorScheme === "dark") {

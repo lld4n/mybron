@@ -2,11 +2,20 @@
 import MainInfo from "../../components/common/MainInfo.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import { useInter } from "../../utils/i18n";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 const q = useInter();
+const router = useRouter();
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.text = q.i18n.done;
+  window.Telegram.WebApp.MainButton.onClick(() => {
+    router.go(-1);
+  }).show();
+});
 </script>
 
 <template>
-  <Wrapper :footer="() => $router.go(-1)" :text="q.i18n.done">
+  <Wrapper>
     <div :class="$style.wrapper">
       <MainInfo :search="true" />
     </div>

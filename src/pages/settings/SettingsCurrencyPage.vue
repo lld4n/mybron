@@ -5,7 +5,11 @@ import { currencies, useInter } from "../../utils/i18n";
 import Block from "../../components/ui/wrappers/Block.vue";
 import Check from "../../assets/icons/check.svg";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
+import { onMounted } from "vue";
 const q = useInter();
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
+});
 </script>
 
 <template>

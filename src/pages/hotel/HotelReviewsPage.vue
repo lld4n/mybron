@@ -2,7 +2,11 @@
 import ReviewCard from "../../components/items/ReviewCard.vue";
 import { useHotel } from "../../utils";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
+import { onMounted } from "vue";
 const hotel = useHotel();
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
+});
 </script>
 
 <template>

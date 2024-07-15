@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AvailableAmenityDto, useHotel } from "../../utils";
 import Block from "../../components/ui/wrappers/Block.vue";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import AmenityView from "../../components/ui/views/AmenityView.vue";
 import Title from "../../components/ui/wrappers/Title.vue";
 import Ellipse from "../../assets/amenities/ellipse.svg";
@@ -21,6 +21,9 @@ const list = computed(() => {
     }
   }
   return ans;
+});
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
 });
 </script>
 

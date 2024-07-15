@@ -4,8 +4,12 @@ import Title from "../../components/ui/wrappers/Title.vue";
 import { useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
+import { onMounted } from "vue";
 const q = useInter();
 const store = useStore();
+onMounted(() => {
+  window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
+});
 </script>
 
 <template>

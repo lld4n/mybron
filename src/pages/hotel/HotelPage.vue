@@ -48,6 +48,7 @@ onMounted(async () => {
     await router.push("/");
     return;
   }
+
   loading.value = true;
   fetched.value = false;
   api
@@ -75,7 +76,7 @@ onMounted(async () => {
       console.log(res);
     });
   data.value = await fetchHotelInfo(route.params.id, store, hotel, q.i18n);
-  if (data.value)
+  if (data.value) {
     lastSearch.addList({
       id: data.value.id,
       in: store.in.getTime(),
@@ -84,6 +85,18 @@ onMounted(async () => {
       guests: store.adultsCount,
       type: "hotel",
     });
+    window.Telegram.WebApp.MainButton.text =
+      "Номера от " +
+      Math.min(
+        ...data.value.offers.offers.map(
+          (e) => e.priceDetails.client.clientCurrency.gross.price,
+        ),
+      ) +
+      " ₽";
+    window.Telegram.WebApp.MainButton.onClick(() => {
+      router.push("/rooms/" + route.params.id);
+    }).show();
+  }
   loading.value = false;
   fetched.value = true;
 });
@@ -96,19 +109,7 @@ onMounted(async () => {
     <LoadingSimple />
   </div>
   <!--  TODO: перевод и валюта-->
-  <Wrapper
-    :text="
-      'Номера от ' +
-      Math.min(
-        ...data.offers.offers.map(
-          (e) => e.priceDetails.client.clientCurrency.gross.price,
-        ),
-      ) +
-      ' ₽'
-    "
-    :footer="() => $router.push('/rooms/' + route.params.id)"
-    v-if="!loading && !!data"
-  >
+  <Wrapper v-if="!loading && !!data">
     <div :class="$style.carousel">
       <CarouselCount>
         <img
