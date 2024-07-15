@@ -16,16 +16,15 @@ watch(
   (newValue) => {
     console.log("wrapper изменился", newValue);
     if (!newValue.footer || !newValue.text) {
-      window.Telegram.WebApp.MainButton.onClick(() => {});
-      window.Telegram.WebApp.MainButton.hide();
+      window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
       return;
     }
     window.Telegram.WebApp.MainButton.text = newValue.text;
     window.Telegram.WebApp.MainButton.onClick(() => {
       if (!newValue.footer) return;
       newValue.footer();
-    });
-    window.Telegram.WebApp.MainButton.show();
+    }).show();
+    // window.Telegram.WebApp.MainButton.show();
   },
   {
     deep: true,
@@ -34,14 +33,14 @@ watch(
 );
 
 onMounted(() => {
-  if (!props.footer || !props.text) return;
-  window.Telegram.WebApp.MainButton.text = props.text;
-  window.Telegram.WebApp.MainButton.onClick(() => {
-    if (!props.footer) return;
-    props.footer();
-  });
-  console.log(window.Telegram.WebApp.MainButton);
-  window.Telegram.WebApp.MainButton.show();
+  // if (!props.footer || !props.text) return;
+  // window.Telegram.WebApp.MainButton.text = props.text;
+  // window.Telegram.WebApp.MainButton.onClick(() => {
+  //   if (!props.footer) return;
+  //   props.footer();
+  // });
+  // console.log(window.Telegram.WebApp.MainButton);
+  // window.Telegram.WebApp.MainButton.show();
 });
 onUnmounted(() => {
   // setTimeout(() => {
