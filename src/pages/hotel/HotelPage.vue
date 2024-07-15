@@ -94,17 +94,16 @@ onMounted(async () => {
   </div>
   <!--  TODO: перевод и валюта-->
   <Wrapper
-    :footer="{
-      text:
-        'Номера от ' +
-        Math.min(
-          ...data.offers.offers.map(
-            (e) => e.priceDetails.client.clientCurrency.gross.price,
-          ),
-        ) +
-        ' ₽',
-      click: () => $router.push('/rooms/' + route.params.id),
-    }"
+    :text="
+      'Номера от ' +
+      Math.min(
+        ...data.offers.offers.map(
+          (e) => e.priceDetails.client.clientCurrency.gross.price,
+        ),
+      ) +
+      ' ₽'
+    "
+    :footer="() => $router.push('/rooms/' + route.params.id)"
     v-if="!loading && !!data"
   >
     <div :class="$style.carousel">

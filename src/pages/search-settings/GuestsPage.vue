@@ -16,12 +16,7 @@ const q = useInter();
 </script>
 
 <template>
-  <Wrapper
-    :footer="{
-      text: q.i18n.guests.page.favgen,
-      click: () => $router.go(-1),
-    }"
-  >
+  <Wrapper :footer="() => $router.go(-1)" :text="q.i18n.guests.page.favgen">
     <div :class="$style.content">
       <Block>
         <div :class="$style.top">

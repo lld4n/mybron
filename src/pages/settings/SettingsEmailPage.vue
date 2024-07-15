@@ -22,10 +22,8 @@ const send = () => {
 
 <template>
   <Wrapper
-    :footer="{
-      text: q.i18n.settings.email.page.zsilhn,
-      click: () => send(),
-    }"
+    :text="q.i18n.settings.email.page.zsilhn"
+    :footer="() => send()"
     :class="$style.wrapper"
   >
     <div @click="send">send</div>

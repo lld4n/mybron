@@ -71,12 +71,7 @@ const close = async () => {
 </script>
 
 <template>
-  <Wrapper
-    :footer="{
-      text: q.i18n.hotel.checkout.page.qxmzpt,
-      click: () => close(),
-    }"
-  >
+  <Wrapper :footer="() => close()" :text="q.i18n.hotel.checkout.page.qxmzpt">
     <div :class="$style.wrapper">
       <EstimatedBlock
         v-if="!!hotel.time"

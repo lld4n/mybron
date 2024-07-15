@@ -75,10 +75,8 @@ const send = async () => {
 
 <template>
   <Wrapper
-    :footer="{
-      text: q.i18n.settings.phone.page.hfkqed,
-      click: () => send(),
-    }"
+    :footer="() => send()"
+    :text="q.i18n.settings.phone.page.hfkqed"
     :class="$style.wrapper"
   >
     <div :class="$style.block">

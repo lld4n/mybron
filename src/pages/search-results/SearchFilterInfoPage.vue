@@ -6,12 +6,7 @@ const q = useInter();
 </script>
 
 <template>
-  <Wrapper
-    :footer="{
-      text: q.i18n.done,
-      click: () => $router.go(-1),
-    }"
-  >
+  <Wrapper :footer="() => $router.go(-1)" :text="q.i18n.done">
     <div :class="$style.wrapper">
       <MainInfo :search="true" />
     </div>

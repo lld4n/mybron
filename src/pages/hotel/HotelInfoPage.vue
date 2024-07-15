@@ -6,12 +6,7 @@ const q = useInter();
 </script>
 
 <template>
-  <Wrapper
-    :footer="{
-      text: q.i18n.hotel.info.page.jcigyr,
-      click: () => $router.go(-1),
-    }"
-  >
+  <Wrapper :footer="() => $router.go(-1)" :text="q.i18n.hotel.info.page.jcigyr">
     <div :class="$style.wrapper">
       <MainInfo />
     </div>

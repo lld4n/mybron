@@ -9,12 +9,7 @@ const q = useInter();
 </script>
 
 <template>
-  <Wrapper
-    :footer="{
-      text: q.i18n.filter.template.ncsjqh,
-      click: () => $router.go(-1),
-    }"
-  >
+  <Wrapper :text="q.i18n.filter.template.ncsjqh" :footer="() => $router.go(-1)">
     <div :class="$style.wrapper">
       <div :class="$style.main">
         <div :class="$style.header">

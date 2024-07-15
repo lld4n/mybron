@@ -5,10 +5,8 @@ import CircleCheck from "../../../assets/cicle-check.svg";
 import Text from "./Text.vue";
 import { onMounted, onUnmounted, watch } from "vue";
 interface Props {
-  footer?: {
-    click: () => void;
-    text: string;
-  };
+  footer?: () => void;
+  text?: string;
 }
 const props = defineProps<Props>();
 const store = useStore();
@@ -16,25 +14,25 @@ const store = useStore();
 watch(
   () => props,
   () => {
-    if (!props.footer) {
+    if (!props.footer || !props.text) {
       window.Telegram.WebApp.MainButton.onClick(() => {});
       return;
     }
-    window.Telegram.WebApp.MainButton.text = props.footer.text;
+    window.Telegram.WebApp.MainButton.text = props.text;
     window.Telegram.WebApp.MainButton.onClick(() => {
       if (!props.footer) return;
-      props.footer.click();
+      props.footer();
     });
     window.Telegram.WebApp.MainButton.show();
   },
 );
 
 onMounted(() => {
-  if (!props.footer) return;
-  window.Telegram.WebApp.MainButton.text = props.footer.text;
+  if (!props.footer || !props.text) return;
+  window.Telegram.WebApp.MainButton.text = props.text;
   window.Telegram.WebApp.MainButton.onClick(() => {
     if (!props.footer) return;
-    props.footer.click();
+    props.footer();
   });
   console.log(window.Telegram.WebApp.MainButton);
   window.Telegram.WebApp.MainButton.show();

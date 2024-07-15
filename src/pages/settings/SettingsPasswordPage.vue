@@ -59,10 +59,8 @@ const send = async () => {
 
 <template>
   <Wrapper
-    :footer="{
-      text: q.i18n.settings.email.page.zsilhn,
-      click: () => send(),
-    }"
+    :footer="() => send()"
+    :text="q.i18n.settings.email.page.zsilhn"
     :class="$style.wrapper"
   >
     <div :class="$style.block">
