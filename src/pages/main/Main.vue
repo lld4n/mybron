@@ -5,9 +5,14 @@
         <button :class="$style.btn" @click="$router.push('/reservation/my')">
           <Case />
         </button>
-        <button :class="$style.btn" @click="$router.push('/settings')">
-          <Settings />
-        </button>
+        <div :class="$style.right">
+          <button :class="$style.btn" @click="$router.push('/likes')">
+            <Like />
+          </button>
+          <button :class="$style.btn" @click="$router.push('/settings')">
+            <Settings />
+          </button>
+        </div>
       </header>
 
       <main :class="$style.main">
@@ -132,7 +137,7 @@
 import Case from "../../assets/icons/case.svg";
 import Settings from "../../assets/icons/settings.svg";
 import Logo from "../../assets/logo.svg";
-
+import Like from "../../assets/likes/like.svg";
 import { dates, fetchOrders, GetOrderDto, useLastSearch, useStore } from "../../utils";
 import { onMounted, ref, watch } from "vue";
 
@@ -217,6 +222,11 @@ const handleLastSearchClick = (type: "city" | "hotel", id: number, name: string)
   padding: 10px 16px 0;
   width: 100%;
 }
+.right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .btn {
   width: 36px;
   height: 36px;
@@ -238,6 +248,7 @@ const handleLastSearchClick = (type: "city" | "hotel", id: number, name: string)
     }
   }
 }
+
 .main {
   padding: 0 16px 48px;
   display: flex;

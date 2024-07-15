@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import CarouselCount from "../../components/ui/carousel/CarouselCount.vue";
 import Share from "../../assets/icons/share.svg";
-import Like from "../../assets/icons/like.svg";
+import AddLike from "../../assets/likes/add-like.svg";
+import Liked from "../../assets/likes/liked.svg";
 import RatingBlock from "../../components/hotel/RatingBlock.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import AboutBlock from "../../components/hotel/AboutBlock.vue";
@@ -22,6 +23,7 @@ import {
   HotelWithOffersDto,
   useHotel,
   useLastSearch,
+  useLikes,
   useStore,
 } from "../../utils";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
@@ -39,6 +41,7 @@ const hotel = useHotel();
 const router = useRouter();
 const q = useInter();
 const lastSearch = useLastSearch();
+const likes = useLikes();
 
 onMounted(async () => {
   if (!store.out) {
@@ -124,8 +127,20 @@ onMounted(async () => {
         "
         ><Share
       /></a>
-      <div :class="$style.like">
-        <Like />
+      <div
+        :class="$style.like"
+        @click.stop="
+          likes.addList({
+            id: data.id,
+            image: data.descriptionDetails.photos.photos[0].url,
+            name: data.name,
+            city: data.cityName,
+            added: new Date().getTime(),
+          })
+        "
+      >
+        <Liked v-if="likes.check(data.id)" />
+        <AddLike v-if="!likes.check(data.id)" />
       </div>
     </div>
     <div :class="$style.content">
@@ -225,6 +240,9 @@ onMounted(async () => {
   align-items: center;
   cursor: pointer;
   backdrop-filter: blur(10px);
+  path {
+    fill: var(--tg-theme-bg-color);
+  }
 }
 .image {
   flex: 0 0 100%;
@@ -235,10 +253,8 @@ onMounted(async () => {
 .content {
   background-color: var(--tg-theme-secondary-bg-color);
   z-index: 10;
-  min-height: calc(100% - 380px);
-  height: 100%;
   margin-top: 380px;
-  padding-bottom: 84px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;

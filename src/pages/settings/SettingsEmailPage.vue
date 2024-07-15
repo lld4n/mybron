@@ -26,7 +26,6 @@ const send = () => {
     :footer="() => send()"
     :class="$style.wrapper"
   >
-    <div @click="send">send</div>
     <div :class="$style.block">
       <Animation type="mailbox" :c="$style.animation" :loop="false" />
     </div>

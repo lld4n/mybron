@@ -50,7 +50,6 @@ onMounted(async () => {
   }, 500);
   const URL =
     store.search.type === "city" ? "hotels/search/by-city" : "hotels/search/by-hotel";
-
   const data: SearchHotelByHotelRequest & SearchHotelByCityRequest = {
     checkInDate: dateToApi(store.in),
     checkOutDate: dateToApi(store.out),
@@ -174,6 +173,7 @@ const subtitle = () => {
           :center="Number(item.geo.distanceToCenter.toFixed(2))"
           :name="item.info.name"
           :stars="item.info.category"
+          :city="item.geo.cityName"
         />
       </div>
       <div :class="$style.loading" v-if="loading">
@@ -208,7 +208,7 @@ const subtitle = () => {
   background-color: var(--tg-theme-bg-color);
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  height: 100%;
 }
 
 .header {

@@ -7,3 +7,4 @@ export * from "./debounce";
 export * from "./types";
 export * from "./hotel";
 export * from "./lastSearch";
+export * from "./likes";

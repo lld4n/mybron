@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import Carousel from "../ui/carousel/Carousel.vue";
 import { useInter } from "../../utils/i18n";
-import Like from "../../assets/icons/like.svg";
+import AddLike from "../../assets/likes/add-like.svg";
+import Liked from "../../assets/likes/liked.svg";
 import StarsView from "../ui/views/StarsView.vue";
 import Text from "../ui/wrappers/Text.vue";
 import RatingView from "../ui/views/RatingView.vue";
-import { useStore } from "../../utils";
+import { useLikes, useStore } from "../../utils";
 import { computed } from "vue";
+const likes = useLikes();
 interface Props {
   images: string[];
   id: number;
   stars: number;
   name: string;
+  city: string;
   reviews?: {
     rating: number;
     count: number;
@@ -34,8 +37,20 @@ const nights = computed(() => {
 
 <template>
   <div :class="$style.card" @click="$router.push('/hotel/' + id)">
-    <div :class="[$style.like, { [$style.like__left]: left }]">
-      <Like />
+    <div
+      :class="[$style.like, { [$style.like__left]: left }]"
+      @click.stop="
+        likes.addList({
+          id,
+          image: images[0],
+          name: name,
+          city: city,
+          added: new Date().getTime(),
+        })
+      "
+    >
+      <Liked v-if="likes.check(id)" />
+      <AddLike v-if="!likes.check(id)" />
     </div>
     <div :class="$style.full">
       <img :src="images[0]" alt="Image" v-if="images.length === 1" />
@@ -160,6 +175,9 @@ const nights = computed(() => {
     &:not([disabled]):hover {
       opacity: 0.85;
     }
+  }
+  path {
+    fill: var(--tg-theme-bg-color);
   }
 }
 </style>

@@ -127,6 +127,7 @@ const theme = computed(() => {
           :center="Number(item.geo.distanceToCenter.toFixed(2))"
           :name="item.info.name"
           :stars="item.info.category"
+          :city="item.geo.cityName"
         />
       </div>
       <div :class="$style.block">

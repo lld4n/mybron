@@ -34,6 +34,7 @@ import RoomsFilterBedsPage from "../pages/rooms/RoomsFilterBedsPage.vue";
 import RoomsFilterMealsPage from "../pages/rooms/RoomsFilterMealsPage.vue";
 import RoomsFilterPaymentPage from "../pages/rooms/RoomsFilterPaymentPage.vue";
 import SettingsPasswordPage from "../pages/settings/SettingsPasswordPage.vue";
+import LikesPage from "../pages/main/LikesPage.vue";
 const routes = [
   { path: "/", component: Main },
 
@@ -84,6 +85,8 @@ const routes = [
   { path: "/rooms/filter/payment", component: RoomsFilterPaymentPage },
 
   { path: "/checkout", component: HotelCheckoutPage },
+
+  { path: "/likes", component: LikesPage },
 ];
 
 export const router = createRouter({

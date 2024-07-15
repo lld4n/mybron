@@ -59,7 +59,7 @@ const handleClose = () => {
 </script>
 
 <template>
-  <div>
+  <div :class="$style.wrapper">
     <slot></slot>
     <div
       :class="[
@@ -87,6 +87,10 @@ const handleClose = () => {
 </template>
 
 <style module lang="scss">
+.wrapper {
+  height: 100%;
+  min-height: 100%;
+}
 .block {
   display: flex;
   flex-direction: column;
