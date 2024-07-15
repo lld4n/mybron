@@ -13,19 +13,23 @@ const store = useStore();
 
 watch(
   () => props,
-  () => {
-    if (!props.footer || !props.text) {
+  (newValue) => {
+    if (!newValue.footer || !newValue.text) {
       window.Telegram.WebApp.MainButton.onClick(() => {});
       window.Telegram.WebApp.MainButton.hide();
       return;
     }
     console.log("wrapper изменился");
-    window.Telegram.WebApp.MainButton.text = props.text;
+    window.Telegram.WebApp.MainButton.text = newValue.text;
     window.Telegram.WebApp.MainButton.onClick(() => {
-      if (!props.footer) return;
-      props.footer();
+      if (!newValue.footer) return;
+      newValue.footer();
     });
     window.Telegram.WebApp.MainButton.show();
+  },
+  {
+    deep: true,
+    immediate: true,
   },
 );
 
