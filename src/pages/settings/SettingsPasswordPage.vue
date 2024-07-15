@@ -24,7 +24,7 @@ onMounted(() => {
 const send = async () => {
   if (value.value.length === 0 || !store.auth) return;
   // try {
-  const data = await api.post("user/authorization-methods/email-password", {
+  await api.post("user/authorization-methods/email-password", {
     body: JSON.stringify({
       email: settings.email,
       password: value.value,
@@ -35,6 +35,14 @@ const send = async () => {
       Authorization: store.auth,
     },
   });
+  const data = await api.post(
+    "user/email-activation/request-activation-email/by-code",
+    {
+      headers: {
+        Authorization: store.auth,
+      },
+    },
+  );
   console.log("ЗАПРОС", data);
   // await router.push("/settings/code/email");
   // } catch (e) {
