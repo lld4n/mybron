@@ -42,7 +42,7 @@ const send = async () => {
   settings.setPhone(phone);
   let flag = true;
   try {
-    const data = await api
+    await api
       .post("auth/request-sms-otp", {
         body: JSON.stringify({ phone }),
         headers: {
