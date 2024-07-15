@@ -19,6 +19,7 @@ watch(
       window.Telegram.WebApp.MainButton.hide();
       return;
     }
+    console.log("wrapper изменился");
     window.Telegram.WebApp.MainButton.text = props.text;
     window.Telegram.WebApp.MainButton.onClick(() => {
       if (!props.footer) return;
