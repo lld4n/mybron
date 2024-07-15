@@ -87,6 +87,7 @@ onMounted(async () => {
     });
     window.Telegram.WebApp.MainButton.text =
       "Номера от " +
+      route.params.id +
       Math.min(
         ...data.value.offers.offers.map(
           (e) => e.priceDetails.client.clientCurrency.gross.price,

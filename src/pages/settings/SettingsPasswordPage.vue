@@ -4,7 +4,7 @@ import Text from "../../components/ui/wrappers/Text.vue";
 const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
-import { defineAsyncComponent, onMounted, ref } from "vue";
+import { defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
 import { api, useStore } from "../../utils";
@@ -15,6 +15,11 @@ const store = useStore();
 const settings = useSettings();
 const q = useInter();
 
+watch(value, () => {
+  window.Telegram.WebApp.MainButton.onClick(() => {
+    send();
+  });
+});
 onMounted(() => {
   if (settings.email.length === 0) {
     router.push("/settings/email");

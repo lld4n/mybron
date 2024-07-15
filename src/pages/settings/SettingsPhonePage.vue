@@ -31,6 +31,9 @@ watch(value, (v, o) => {
       if (i > 11) break;
     }
     value.value = ans;
+    window.Telegram.WebApp.MainButton.onClick(() => {
+      send();
+    });
   }
 });
 const send = async () => {
