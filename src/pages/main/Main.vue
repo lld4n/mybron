@@ -157,8 +157,6 @@ const router = useRouter();
 const lastSearch = useLastSearch();
 console.log(window.Telegram);
 onMounted(async () => {
-  // @ts-ignore
-  window.Telegram.WebApp.disableVerticalSwipes();
   console.log(window.Telegram.WebApp.initDataUnsafe.user?.language_code);
   window.Telegram.WebApp.expand();
   if (window.Telegram.WebApp.colorScheme === "dark") {

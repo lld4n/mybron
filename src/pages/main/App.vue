@@ -43,6 +43,10 @@ type sendDataUser = {
 const q = useInter();
 
 onMounted(async () => {
+  // @ts-ignore
+  window.Telegram.WebApp.disableVerticalSwipes();
+  // @ts-ignore
+  window.Telegram.WebApp.isVerticalSwipesEnabled = false;
   if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
     q.changeLanguage("en");
   }
