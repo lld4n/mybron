@@ -70,7 +70,6 @@ const theme = computed(() => {
       </Text>
     </div>
     <div :class="$style.map">
-      <!--      TODO: цветовая тема-->
       <yandex-map
         :settings="{
           location: {

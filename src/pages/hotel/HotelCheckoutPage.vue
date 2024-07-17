@@ -1,5 +1,4 @@
 <script setup lang="ts">
-//TODO: все блоки
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
 import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
