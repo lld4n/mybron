@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import ky from "ky";
-import { api, Geo, LiveSearchResponse, useStore } from "../../utils";
+import { api, LiveSearchResponse, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
 const store = useStore();
 
