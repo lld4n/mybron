@@ -96,7 +96,7 @@ const handleClick = (item: Item) => {
   if (!store.out) {
     router.push("/dates");
   } else {
-    router.push("/search/results");
+    router.push("/");
   }
 };
 </script>

@@ -12,8 +12,9 @@ import InfoBlock from "../../components/hotel/InfoBlock.vue";
 import ReviewsBlock from "../../components/hotel/ReviewsBlock.vue";
 import AmenityBlock from "../../components/hotel/AmenityBlock.vue";
 import ConditionsBlock from "../../components/hotel/ConditionsBlock.vue";
+import Refresh from "../../assets/refresh.svg";
 import { useRoute, useRouter } from "vue-router";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import {
   api,
   HotelRatingsDto,
@@ -24,11 +25,13 @@ import {
   useHotel,
   useLastSearch,
   useLikes,
+  useReserve,
   useStore,
 } from "../../utils";
 import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
 import { fetchHotelInfo } from "./fetchHotelInfo.ts";
 import { useInter } from "../../utils/i18n";
+import Text from "../../components/ui/wrappers/Text.vue";
 
 const data = ref<HotelWithOffersDto | null>(null);
 const reviews = ref<HotelReviewDto[]>([]);
@@ -42,12 +45,24 @@ const router = useRouter();
 const q = useInter();
 const lastSearch = useLastSearch();
 const likes = useLikes();
+const reserve = useReserve();
+const final = ref(0);
+const error = ref(false);
 
 onMounted(async () => {
   window.Telegram.WebApp.headerColor =
     window.Telegram.WebApp.themeParams.bg_color || "";
   if (!store.out) {
     await router.push("/");
+    return;
+  }
+  const content = reserve.check(Number(route.params.id));
+  if (content) {
+    data.value = content.data;
+    ratings.value = content.ratings;
+    reviews.value = content.reviews;
+    loading.value = false;
+    fetched.value = true;
     return;
   }
 
@@ -64,6 +79,9 @@ onMounted(async () => {
       reviews.value = res.reviews;
       hotel.setReviews(res.reviews);
       console.log(res);
+    })
+    .finally(() => {
+      final.value++;
     });
 
   api
@@ -76,9 +94,14 @@ onMounted(async () => {
     .then((res) => {
       ratings.value = res.ratings;
       console.log(res);
+    })
+    .finally(() => {
+      final.value++;
     });
   data.value = await fetchHotelInfo(route.params.id, store, hotel, q.i18n);
   if (data.value) {
+    final.value++;
+
     lastSearch.addList({
       id: data.value.id,
       in: store.in.getTime(),
@@ -100,20 +123,39 @@ onMounted(async () => {
     window.Telegram.WebApp.MainButton.onClick(() => {
       router.push("/rooms/" + route.params.id);
     }).show();
+  } else {
+    error.value = true;
   }
   loading.value = false;
   fetched.value = true;
 });
-// TODO: пофиксить новый запрос, после возврата на эту страницу
-// TODO: добавить страницу, если ничего не нашлось
+
+watch(final, (v) => {
+  if (v >= 3 && data.value)
+    reserve.addMap(data.value.id, data.value, reviews.value, ratings.value);
+});
+
+const handleRefresh = () => {
+  window.location.reload();
+};
 </script>
 
 <template>
+  <div :class="$style.center" v-if="error">
+    <!--    TODO: перевод-->
+    <Text :s="17" :l="22" :w="600">Не удалось загрузить</Text>
+    <Text :s="17" :l="22" :g="true"
+      >Попробуйте обновить страницу, или проверьте соединение.</Text
+    >
+    <Text :s="17" :l="22" :c="$style.reply" @click="handleRefresh"
+      ><Refresh /> Обновить</Text
+    >
+  </div>
   <div :class="$style.center" v-if="loading">
     <LoadingSimple />
   </div>
   <!--  TODO: перевод и валюта-->
-  <Wrapper v-if="!loading && !!data">
+  <Wrapper v-if="!loading && !!data && !error">
     <div :class="$style.carousel">
       <CarouselCount>
         <img
@@ -159,6 +201,7 @@ onMounted(async () => {
         :name="data.name"
         :stars="data.category"
         :amenities="data.descriptionDetails.availableAmenities.availableAmenities"
+        :count="ratings?.reviewsTotal || 0"
       />
       <InfoBlock
         :offers-count="data.offers.offers.length"
@@ -271,6 +314,16 @@ onMounted(async () => {
   height: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
   align-items: center;
+}
+.reply {
+  cursor: pointer;
+  color: var(--tg-theme-link-color);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 </style>

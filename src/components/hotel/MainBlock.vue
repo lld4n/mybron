@@ -26,6 +26,7 @@ interface Props {
   address: string;
   latitude: number;
   longitude: number;
+  count: number;
 }
 
 defineProps<Props>();
@@ -51,7 +52,11 @@ const theme = computed(() => {
 
 <template>
   <div :class="$style.wrapper">
-    <RatingView v-if="rating" :level="rating" type="big" :c="$style.rating" />
+    <div :class="$style.rating">
+      <!--      TODO: перевод-->
+      <Text :s="14" :l="18" v-if="count > 0">{{ count }} отзывов</Text>
+      <RatingView v-if="rating" :level="rating" type="big" />
+    </div>
     <div :class="$style.top">
       <StarsView :level="stars" type="small" />
       <div :class="$style.title">{{ name }}</div>
@@ -165,6 +170,9 @@ const theme = computed(() => {
   position: absolute;
   top: 0;
   right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .top {

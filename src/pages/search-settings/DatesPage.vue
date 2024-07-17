@@ -29,7 +29,7 @@ const handleClick = () => {
   if (!store.search) {
     router.push("/search");
   } else {
-    router.push("/search/results");
+    router.push("/");
   }
 };
 onMounted(() => {

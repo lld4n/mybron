@@ -83,22 +83,21 @@
             </Carousel>
           </div>
         </Block>
-        <!--          TODO: популярное на главной-->
         <Block>
           <div :class="$style.top">
             <Title>{{ q.i18n.main.xmcsqq }}</Title>
           </div>
           <div :class="$style.bottom">
             <Carousel>
-              <div :class="$style.popular" @click="$router.push('/search/results')">
-                <img
-                  src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"
-                  :class="$style.popular__img"
-                />
-                <Text :w="600" :s="14" :l="18">{{ q.i18n.main.sjqrco }}</Text>
-                <!--TODO: валюта-->
-                <Text :w="400" :s="12" :l="16">{{ q.i18n.main.opvmfz }}4800 ₽</Text>
-              </div>
+              <template v-for="item of popularList">
+                <div
+                  :class="$style.popular"
+                  @click="() => handlePopularClick(item.id, item.name)"
+                >
+                  <img :src="item.src" :class="$style.popular__img" />
+                  <Text :w="600" :s="14" :l="18">{{ item.name }}</Text>
+                </div>
+              </template>
             </Carousel>
           </div>
         </Block>
@@ -113,6 +112,12 @@ import Settings from "../../assets/icons/settings.svg";
 import Logo from "../../assets/logo.svg";
 import Like from "../../assets/likes/like.svg";
 import City from "../../assets/city.svg";
+
+import Moscow from "../../assets/popular/moscow.jpg";
+import Saint from "../../assets/popular/saintpetersburg.jpg";
+import Kazan from "../../assets/popular/kazan.jpg";
+import Sochi from "../../assets/popular/sochi.jpg";
+
 import { dates, fetchOrders, GetOrderDto, useLastSearch, useStore } from "../../utils";
 import { onMounted, ref, watch } from "vue";
 
@@ -127,6 +132,30 @@ import ReservationCard from "../../components/items/ReservationCard.vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
+//TODO: перевод
+const popularList = [
+  {
+    id: 6,
+    name: "Москва",
+    src: Moscow,
+  },
+  {
+    id: 37,
+    name: "Санкт-Петербург",
+    src: Saint,
+  },
+  {
+    id: 48,
+    name: "Сочи",
+    src: Sochi,
+  },
+  {
+    id: 3,
+    name: "Казань",
+    src: Kazan,
+  },
+];
+
 const list = ref<GetOrderDto[]>([]);
 const q = useInter();
 const router = useRouter();
@@ -141,13 +170,12 @@ onMounted(async () => {
   if (window.Telegram.WebApp.colorScheme === "dark") {
     document.documentElement.setAttribute("data-theme", "dark");
   }
+  if (store.auth) list.value = await fetchOrders(store.auth);
   if (store.checked) return;
   if (window.Telegram.WebApp.initDataUnsafe.start_param) {
     router.push("/hotel/" + window.Telegram.WebApp.initDataUnsafe.start_param);
   }
   store.check();
-  if (!store.auth) return;
-  list.value = await fetchOrders(store.auth);
 });
 window.Telegram.WebApp.onEvent("backButtonClicked", () => {
   router.go(-1);
@@ -159,7 +187,11 @@ const handleFind = () => {
   } else if (!store.out) {
     router.push("/dates");
   } else {
-    router.push("/search/results");
+    if (store.search.type === "city") {
+      router.push("/search/results");
+    } else {
+      router.push("/hotel/" + store.search.id);
+    }
   }
 };
 
@@ -183,6 +215,16 @@ const handleLastSearchClick = (type: "city" | "hotel", id: number, name: string)
     if (!store.out) router.push("/dates");
     else router.push("/search/results");
   }
+};
+
+const handlePopularClick = (id: number, name: string) => {
+  store.setSearch({
+    type: "city",
+    id,
+    name,
+  });
+  if (!store.out) router.push("/dates");
+  else router.push("/search/results");
 };
 </script>
 

@@ -16,32 +16,45 @@ import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
 import TotalBlock from "../../components/hotel/TotalBlock.vue";
 import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
 import { useInter } from "../../utils/i18n";
+import LoadingSimple from "../../components/ui/loading/LoadingSimple.vue";
+import Text from "../../components/ui/wrappers/Text.vue";
+import Refresh from "../../assets/refresh.svg";
 const route = useRoute();
 const store = useStore();
 const q = useInter();
+const loading = ref(true);
+const error = ref(false);
 const info = ref<OrderInfoDto | null>(null);
 const details = ref<OrderServiceAccommodationDto | null>(null);
 onMounted(async () => {
   window.Telegram.WebApp.headerColor =
     window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
-  if (!store.auth) return;
-  const bufferInfo: OrderInfoResponse = await api
-    .get("order/" + route.params.id, {
-      headers: {
-        Authorization: store.auth,
-      },
-    })
-    .json();
-  info.value = bufferInfo.order;
-  const bufferDetails: OrderDetailsResponse = await api
-    .get("order/details?orderId=" + route.params.id, {
-      headers: {
-        Authorization: store.auth,
-      },
-    })
-    .json();
-  details.value = bufferDetails.order.services.services[0];
+  if (!store.auth) {
+    error.value = true;
+    return;
+  }
+  try {
+    const bufferInfo: OrderInfoResponse = await api
+      .get("order/" + route.params.id, {
+        headers: {
+          Authorization: store.auth,
+        },
+      })
+      .json();
+    info.value = bufferInfo.order;
+    const bufferDetails: OrderDetailsResponse = await api
+      .get("order/details?orderId=" + route.params.id, {
+        headers: {
+          Authorization: store.auth,
+        },
+      })
+      .json();
+    details.value = bufferDetails.order.services.services[0];
+    loading.value = false;
+  } catch (e) {
+    error.value = true;
+  }
 });
 const inOutDate = computed(() => {
   const ans = {
@@ -73,10 +86,25 @@ const inOutDate = computed(() => {
   });
   return ans;
 });
+const handleRefresh = () => {
+  window.location.reload();
+};
 </script>
 
 <template>
-  <!--  TODO: случай загрузки и случай, когда ничего не нашлось-->
+  <div :class="$style.center" v-if="error">
+    <!--    TODO: перевод-->
+    <Text :s="17" :l="22" :w="600">Не удалось загрузить</Text>
+    <Text :s="17" :l="22" :g="true"
+      >Попробуйте обновить страницу, или проверьте соединение.</Text
+    >
+    <Text :s="17" :l="22" :c="$style.reply" @click="handleRefresh"
+      ><Refresh /> Обновить</Text
+    >
+  </div>
+  <div :class="$style.center" v-if="loading">
+    <LoadingSimple />
+  </div>
   <Wrapper>
     <div :class="$style.wrapper" v-if="!!info && !!details">
       <StatusBlock :id="info.id" :status="info.status" />
@@ -119,5 +147,14 @@ const inOutDate = computed(() => {
   padding: 8px 0 16px 0;
   flex-direction: column;
   gap: 8px;
+}
+.center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  align-items: center;
 }
 </style>
