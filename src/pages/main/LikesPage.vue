@@ -24,6 +24,8 @@ const render = computed(() => {
 });
 // TODO: перевод
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
 });
 </script>

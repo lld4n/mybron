@@ -31,6 +31,7 @@ export const useLastSearch = defineStore("lastSearch", {
             last.guests = item.guests;
             last.in = item.in;
             last.out = item.out;
+            last.image = item.image;
             b.unshift(last);
           } else {
             b.push(last);

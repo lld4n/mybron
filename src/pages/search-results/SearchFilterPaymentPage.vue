@@ -3,8 +3,13 @@ import FilterTemplate from "../../components/ui/wrappers/FilterTemplate.vue";
 import CheckBox from "../../assets/icons/checkbox.svg";
 import { PaymentFiltersValues, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
+import { onMounted } from "vue";
 const store = useStore();
 const q = useInter();
+onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
+});
 </script>
 
 <template>

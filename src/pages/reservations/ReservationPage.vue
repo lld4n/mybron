@@ -22,6 +22,8 @@ const q = useInter();
 const info = ref<OrderInfoDto | null>(null);
 const details = ref<OrderServiceAccommodationDto | null>(null);
 onMounted(async () => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   if (!store.auth) return;
   const bufferInfo: OrderInfoResponse = await api

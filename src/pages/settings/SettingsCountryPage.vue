@@ -21,6 +21,8 @@ type Country = {
 };
 const filtered = ref<Country[]>([]);
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   filtered.value = countries;
 });

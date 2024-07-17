@@ -27,6 +27,8 @@ const q = useInter();
 const route = useRoute();
 const router = useRouter();
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   setInterval(() => {
     timer.value--;

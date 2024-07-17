@@ -24,6 +24,8 @@ const send = () => {
   router.push("/settings/password");
 };
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.text = q.i18n.settings.email.page.zsilhn;
   window.Telegram.WebApp.MainButton.onClick(() => {
     send();

@@ -4,8 +4,13 @@ import CheckBox from "../../assets/icons/checkbox.svg";
 import { StarsFiltersValues, useStore } from "../../utils";
 import StarsView from "../../components/ui/views/StarsView.vue";
 import { useInter } from "../../utils/i18n";
+import { onMounted } from "vue";
 const store = useStore();
 const q = useInter();
+onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
+});
 </script>
 
 <template>

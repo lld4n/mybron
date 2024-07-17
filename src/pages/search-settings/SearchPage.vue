@@ -59,6 +59,8 @@ const store = useStore();
 const router = useRouter();
 
 onMounted(async () => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   input.value?.focus();
 });

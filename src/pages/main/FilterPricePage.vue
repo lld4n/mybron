@@ -15,6 +15,8 @@ const hotel = useHotel();
 const q = useInter();
 const room = route.fullPath.includes("rooms");
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   if (room) {
     numbers.value[0] = hotel.filters.price[0];

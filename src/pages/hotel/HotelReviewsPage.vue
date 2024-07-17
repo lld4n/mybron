@@ -5,6 +5,8 @@ import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import { onMounted } from "vue";
 const hotel = useHotel();
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
 });
 </script>

@@ -32,6 +32,8 @@ const q = useInter();
 const lastSearch = useLastSearch();
 const progress = ref(0);
 onMounted(async () => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   if (!store.search || !store.out) {
     await router.push("/");

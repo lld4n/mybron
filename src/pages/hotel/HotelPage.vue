@@ -44,6 +44,8 @@ const lastSearch = useLastSearch();
 const likes = useLikes();
 
 onMounted(async () => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.bg_color || "";
   if (!store.out) {
     await router.push("/");
     return;
@@ -83,10 +85,11 @@ onMounted(async () => {
       out: store.out.getTime(),
       name: data.value.name,
       guests: store.adultsCount,
+      image: data.value.descriptionDetails.photos.photos[0].url,
       type: "hotel",
     });
     window.Telegram.WebApp.MainButton.text =
-      "Номера от " +
+      "Выбрать номер от " +
       route.params.id +
       Math.min(
         ...data.value.offers.offers.map(

@@ -7,6 +7,8 @@ import { useRouter } from "vue-router";
 const q = useInter();
 const router = useRouter();
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.bg_color || "";
   window.Telegram.WebApp.MainButton.text = q.i18n.hotel.info.page.jcigyr;
   window.Telegram.WebApp.MainButton.onClick(() => {
     router.go(-1);

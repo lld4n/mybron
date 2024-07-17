@@ -12,6 +12,8 @@ const store = useStore();
 const list = ref<GetOrderDto[]>([]);
 
 onMounted(async () => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   if (!store.auth) return;
   list.value = await fetchOrders(store.auth);

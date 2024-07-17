@@ -21,6 +21,8 @@ watch(value, () => {
   });
 });
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   if (settings.email.length === 0) {
     router.push("/settings/email");
   } else {

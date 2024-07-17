@@ -8,6 +8,8 @@ import { onMounted } from "vue";
 const hotel = useHotel();
 const q = useInter();
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
 });
 </script>

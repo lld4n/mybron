@@ -76,6 +76,8 @@ const send = async () => {
   if (flag) await router.push("/settings/code/phone");
 };
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.text = q.i18n.settings.phone.page.hfkqed;
   window.Telegram.WebApp.MainButton.onClick(() => {
     send();

@@ -69,6 +69,8 @@ const close = async () => {
   }
 };
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.bg_color || "";
   window.Telegram.WebApp.MainButton.text = q.i18n.hotel.checkout.page.qxmzpt;
   window.Telegram.WebApp.MainButton.onClick(() => {
     close();

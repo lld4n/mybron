@@ -52,16 +52,27 @@ onMounted(async () => {
     const ipData: { ip: string } = await ky
       .get("https://api.ipify.org?format=json")
       .json();
-    const coorData: Geo = await ky
-      .get("https://ipapi.co/" + ipData.ip + "/json/")
+    // const coorData: Geo = await ky
+    //   .get("https://ipapi.co/" + ipData.ip + "/json/")
+    //   .json();
+    const da: { location: { data: { city: string } } } = await ky
+      .post("http://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address", {
+        body: JSON.stringify({ ip: ipData.ip }),
+        headers: {
+          Authorization: "Token 08bfebd34140d876932f3a36efc562899ae6a56f",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
       .json();
+    console.log("IP", da);
     const data = await api.get("live-search", {
       searchParams: {
-        q: coorData.city.replace(/[^a-zA-Z]/g, ""),
+        q: da.location.data.city,
       },
     });
     const parsed: LiveSearchResponse = await data.json();
-    store.setNear(parsed.liveSearchResults);
+    store.setNear(parsed.liveSearchResults.filter((e) => e.type !== "HOTEL"));
   } catch (e) {}
 
   try {

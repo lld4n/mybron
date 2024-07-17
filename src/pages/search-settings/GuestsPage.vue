@@ -16,6 +16,8 @@ const children = computed(() => store.children);
 const q = useInter();
 const router = useRouter();
 onMounted(() => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.text = q.i18n.guests.page.favgen;
   window.Telegram.WebApp.MainButton.onClick(() => {
     router.go(-1);

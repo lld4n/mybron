@@ -64,10 +64,12 @@
                 :class="$style.card"
                 @click="() => handleLastSearchClick(item.type, item.id, item.name)"
               >
-                <!--              <img-->
-                <!--                src="https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg"-->
-                <!--                :class="$style.card__img"-->
-                <!--              />-->
+                <img v-if="!!item.image" :src="item.image" :class="$style.card__img" />
+                <template v-if="!item.image">
+                  <div :class="$style.icon">
+                    <City v-if="item.type === 'city'" />
+                  </div>
+                </template>
                 <div :class="$style.card__right">
                   <Text :w="600" :s="14" :l="18">{{ item.name }}</Text>
                   <Text :s="12" :l="16" :c="$style.card__date"
@@ -110,6 +112,7 @@ import Case from "../../assets/icons/case.svg";
 import Settings from "../../assets/icons/settings.svg";
 import Logo from "../../assets/logo.svg";
 import Like from "../../assets/likes/like.svg";
+import City from "../../assets/city.svg";
 import { dates, fetchOrders, GetOrderDto, useLastSearch, useStore } from "../../utils";
 import { onMounted, ref, watch } from "vue";
 
@@ -130,6 +133,8 @@ const router = useRouter();
 const lastSearch = useLastSearch();
 console.log(window.Telegram);
 onMounted(async () => {
+  window.Telegram.WebApp.headerColor =
+    window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
   console.log(window.Telegram.WebApp.initDataUnsafe.user?.language_code);
   window.Telegram.WebApp.expand();
@@ -389,5 +394,19 @@ const handleLastSearchClick = (type: "city" | "hotel", id: number, name: string)
   100% {
     background-position: -200% center;
   }
+}
+
+.icon {
+  path {
+    fill: var(--tg-theme-section-header-text-color);
+  }
+  background-color: var(--tg-theme-header-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
 }
 </style>
