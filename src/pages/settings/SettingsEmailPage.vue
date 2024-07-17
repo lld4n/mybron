@@ -12,7 +12,7 @@ const value = ref("");
 const router = useRouter();
 const settings = useSettings();
 const q = useInter();
-
+const test = ref("default");
 watch(value, () => {
   window.Telegram.WebApp.MainButton.onClick(() => {
     send();
@@ -31,11 +31,19 @@ onMounted(() => {
     send();
   }).show();
 });
+
+const focus = () => {
+  test.value = "focus";
+};
+const blur = () => {
+  test.value = "blur";
+};
 </script>
 
 <template>
   <Wrapper :class="$style.wrapper">
     <div :class="$style.block">
+      <Text :s="32" :w="700">{{ test }}</Text>
       <Animation type="mailbox" :c="$style.animation" :loop="false" />
     </div>
     <div :class="$style.top">
@@ -52,6 +60,8 @@ onMounted(() => {
         :class="$style.input"
         v-model="value"
         placeholder="name@example.com"
+        @focus="focus"
+        @blur="blur"
       />
     </div>
   </Wrapper>
