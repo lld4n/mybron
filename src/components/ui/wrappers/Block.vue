@@ -14,5 +14,6 @@
   flex-direction: column;
   background-color: var(--tg-theme-bg-color);
   border-radius: 16px;
+  transform: translateZ(0);
 }
 </style>

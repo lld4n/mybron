@@ -79,13 +79,13 @@ defineProps<Props>();
 .img {
   flex: 0 0 100%;
   min-width: 0;
-  height: 250px;
+  height: 200px;
   object-fit: cover;
 }
 .content {
   background-color: var(--tg-theme-bg-color);
   margin-top: -20px;
-  padding: 12px 16px;
+  padding: 12px 16px 16px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -130,7 +130,7 @@ defineProps<Props>();
   }
 }
 .in {
-  padding: 0 16px 16px 0;
+  padding: 0 0 16px 0;
   height: initial;
   div {
     opacity: 1;

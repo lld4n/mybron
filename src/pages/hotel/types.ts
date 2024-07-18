@@ -17,4 +17,5 @@ export type RenderRoomItem = {
   meals: AvailableMealDto[];
   payment: string;
   cancel: HotelOfferCancellationPolicyDto[];
+  guaranteeType: string;
 };

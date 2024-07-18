@@ -134,10 +134,6 @@ watch(final, (v) => {
   if (v >= 3 && data.value)
     reserve.addMap(data.value.id, data.value, reviews.value, ratings.value);
 });
-
-const handleRefresh = () => {
-  window.location.reload();
-};
 </script>
 
 <template>
@@ -147,9 +143,7 @@ const handleRefresh = () => {
     <Text :s="17" :l="22" :g="true"
       >Попробуйте обновить страницу, или проверьте соединение.</Text
     >
-    <Text :s="17" :l="22" :c="$style.reply" @click="handleRefresh"
-      ><Refresh /> Обновить</Text
-    >
+    <Text :s="17" :l="22" :c="$style.reply"><Refresh /> Обновить</Text>
   </div>
   <div :class="$style.center" v-if="loading">
     <LoadingSimple />

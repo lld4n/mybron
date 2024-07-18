@@ -52,6 +52,7 @@ onMounted(async () => {
       meals: item.meals.meals,
       payment: item.paymentRecipient,
       cancel: item.cancellationPolicies,
+      guaranteeType: item.guaranteeType,
     };
     if (finded) {
       finded.rooms.push(one);
@@ -134,10 +135,8 @@ const handleClick = (code: string) => {
         <div :class="$style.info">
           <div :class="$style.item" @click="$router.push('/hotel/info')">
             <div :class="$style.left">
-              <Text :s="14" :l="18" :w="600">{{
-                store.search?.name || hotel.name
-              }}</Text>
-              <Text :s="12" :l="16" :c="$style.text">{{ subtitle() }}</Text>
+              <Text :s="14" :l="18" :w="600">{{ hotel.name }}</Text>
+              <Text :s="12" :l="16">{{ subtitle() }}</Text>
             </div>
           </div>
         </div>
@@ -161,13 +160,13 @@ const handleClick = (code: string) => {
   padding-bottom: 20px;
 }
 .info {
-  padding: 12px 0;
+  padding: 0 0 12px;
 }
 .item {
   flex: 0 0 auto;
   min-width: 0;
   padding: 5px 10px;
-  background-color: var(--tertiary-fill-background);
+  background-color: var(--quarternary-fill-background);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -199,7 +198,7 @@ const handleClick = (code: string) => {
 .content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   padding-bottom: 12px;
 }
 .center {

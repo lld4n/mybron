@@ -3,7 +3,7 @@ import StatusBlock from "../../components/hotel/StatusBlock.vue";
 import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import ButtonsBlock from "../../components/hotel/ButtonsBlock.vue";
 import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import {
   api,
   OrderDetailsResponse,
@@ -86,9 +86,6 @@ const inOutDate = computed(() => {
   });
   return ans;
 });
-const handleRefresh = () => {
-  window.location.reload();
-};
 </script>
 
 <template>
@@ -98,9 +95,7 @@ const handleRefresh = () => {
     <Text :s="17" :l="22" :g="true"
       >Попробуйте обновить страницу, или проверьте соединение.</Text
     >
-    <Text :s="17" :l="22" :c="$style.reply" @click="handleRefresh"
-      ><Refresh /> Обновить</Text
-    >
+    <Text :s="17" :l="22" :c="$style.reply"><Refresh /> Обновить</Text>
   </div>
   <div :class="$style.center" v-if="loading">
     <LoadingSimple />

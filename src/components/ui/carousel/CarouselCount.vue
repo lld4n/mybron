@@ -58,5 +58,6 @@ onMounted(() => {
   font-weight: 400;
   border-radius: 10px;
   color: white;
+  backdrop-filter: blur(10px);
 }
 </style>
