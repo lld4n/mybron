@@ -177,7 +177,7 @@ const nights = computed(() => {
     }
   }
   path {
-    fill: var(--tg-theme-bg-color);
+    fill: white;
   }
 }
 </style>

@@ -29,7 +29,7 @@ defineProps<Props>();
         <Text :s="12" :l="16" :c="$style.gray">{{ date }}</Text>
       </div>
       <Text :s="17" :l="22" :w="500" :c="$style.rating">
-        <Tripadvisor />
+        <Tripadvisor :class="$style.tripadvisor" />
         <ReviewView :rating="rating" />
         {{ rating }}
       </Text>
@@ -67,6 +67,11 @@ defineProps<Props>();
 </template>
 
 <style module lang="scss">
+.tripadvisor {
+  path {
+    fill: var(--tg-theme-text-color);
+  }
+}
 .rating {
   display: flex;
   align-items: center;

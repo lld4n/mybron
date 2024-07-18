@@ -56,7 +56,7 @@ onMounted(async () => {
     //   .get("https://ipapi.co/" + ipData.ip + "/json/")
     //   .json();
     const da: { location: { data: { city: string } } } = await ky
-      .post("http://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address", {
+      .post("https://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address", {
         body: JSON.stringify({ ip: ipData.ip }),
         headers: {
           Authorization: "Token 08bfebd34140d876932f3a36efc562899ae6a56f",

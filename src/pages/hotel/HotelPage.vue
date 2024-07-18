@@ -274,6 +274,9 @@ const handleRefresh = () => {
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(10px);
+  path {
+    fill: white;
+  }
 }
 .like {
   position: absolute;
@@ -289,7 +292,7 @@ const handleRefresh = () => {
   cursor: pointer;
   backdrop-filter: blur(10px);
   path {
-    fill: var(--tg-theme-bg-color);
+    fill: white;
   }
 }
 .image {

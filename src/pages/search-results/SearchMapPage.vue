@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import FilterView from "../../components/common/FilterView.vue";
-import ShapeIcon from "../../assets/icons/shape.svg";
+import ShapeIcon from "../../assets/map.svg";
 import X from "../../assets/icons/x.svg";
 import { computed, onMounted, ref } from "vue";
 import Marker from "../../assets/icons/marker.svg";
