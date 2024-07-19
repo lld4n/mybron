@@ -52,6 +52,7 @@ const error = ref(false);
 onMounted(async () => {
   window.Telegram.WebApp.headerColor =
     window.Telegram.WebApp.themeParams.bg_color || "";
+  window.Telegram.WebApp.MainButton.hide();
   if (!store.out) {
     await router.push("/");
     return;
@@ -109,18 +110,6 @@ onMounted(async () => {
       image: data.value.descriptionDetails.photos.photos[0].url,
       type: "hotel",
     });
-    window.Telegram.WebApp.MainButton.text =
-      "Выбрать номер от " +
-      route.params.id +
-      Math.min(
-        ...data.value.offers.offers.map(
-          (e) => e.priceDetails.client.clientCurrency.gross.price,
-        ),
-      ) +
-      " ₽";
-    window.Telegram.WebApp.MainButton.onClick(() => {
-      router.push("/rooms/" + route.params.id);
-    }).show();
   } else {
     error.value = true;
   }
@@ -147,7 +136,20 @@ watch(final, (v) => {
     <LoadingSimple />
   </div>
   <!--  TODO: перевод и валюта-->
-  <Wrapper v-if="!loading && !!data && !error">
+  <Wrapper
+    v-if="!loading && !!data && !error"
+    :label="
+      'Выбрать номер от ' +
+      route.params.id +
+      Math.min(
+        ...data.offers.offers.map(
+          (e) => e.priceDetails.client.clientCurrency.gross.price,
+        ),
+      ) +
+      ' ₽'
+    "
+    :click="() => router.push('/rooms/' + route.params.id)"
+  >
     <div :class="$style.carousel">
       <CarouselCount>
         <img

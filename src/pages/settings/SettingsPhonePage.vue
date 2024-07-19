@@ -31,9 +31,6 @@ watch(value, (v, o) => {
       if (i > 11) break;
     }
     value.value = ans;
-    window.Telegram.WebApp.MainButton.onClick(() => {
-      send();
-    });
   }
 });
 const send = async () => {
@@ -78,15 +75,16 @@ const send = async () => {
 onMounted(() => {
   window.Telegram.WebApp.headerColor =
     window.Telegram.WebApp.themeParams.secondary_bg_color || "";
-  window.Telegram.WebApp.MainButton.text = q.i18n.settings.phone.page.hfkqed;
-  window.Telegram.WebApp.MainButton.onClick(() => {
-    send();
-  }).show();
+  window.Telegram.WebApp.MainButton.hide();
 });
 </script>
 
 <template>
-  <Wrapper :class="$style.wrapper">
+  <Wrapper
+    :class="$style.wrapper"
+    :label="q.i18n.settings.phone.page.hfkqed"
+    :click="send"
+  >
     <div :class="$style.block">
       <Animation type="phone" :c="$style.animation" :loop="false" />
     </div>

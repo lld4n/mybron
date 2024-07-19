@@ -13,11 +13,6 @@ const router = useRouter();
 const settings = useSettings();
 const q = useInter();
 const test = ref("default");
-watch(value, () => {
-  window.Telegram.WebApp.MainButton.onClick(() => {
-    send();
-  });
-});
 const send = () => {
   if (value.value.length === 0) return;
   settings.setEmail(value.value);
@@ -26,10 +21,7 @@ const send = () => {
 onMounted(() => {
   window.Telegram.WebApp.headerColor =
     window.Telegram.WebApp.themeParams.secondary_bg_color || "";
-  window.Telegram.WebApp.MainButton.text = q.i18n.settings.email.page.zsilhn;
-  window.Telegram.WebApp.MainButton.onClick(() => {
-    send();
-  }).show();
+  window.Telegram.WebApp.MainButton.hide();
 });
 
 const focus = () => {
@@ -41,7 +33,11 @@ const blur = () => {
 </script>
 
 <template>
-  <Wrapper :class="$style.wrapper">
+  <Wrapper
+    :class="$style.wrapper"
+    :label="q.i18n.settings.email.page.zsilhn"
+    :click="send"
+  >
     <div :class="$style.block">
       <Text :s="32" :w="700">{{ test }}</Text>
       <Animation type="mailbox" :c="$style.animation" :loop="false" />

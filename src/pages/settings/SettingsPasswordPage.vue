@@ -15,21 +15,11 @@ const store = useStore();
 const settings = useSettings();
 const q = useInter();
 
-watch(value, () => {
-  window.Telegram.WebApp.MainButton.onClick(() => {
-    send();
-  });
-});
 onMounted(() => {
   window.Telegram.WebApp.headerColor =
     window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   if (settings.email.length === 0) {
     router.push("/settings/email");
-  } else {
-    window.Telegram.WebApp.MainButton.text = q.i18n.settings.email.page.zsilhn;
-    window.Telegram.WebApp.MainButton.onClick(() => {
-      send();
-    }).show();
   }
 });
 
@@ -96,7 +86,11 @@ const send = async () => {
 </script>
 
 <template>
-  <Wrapper :class="$style.wrapper">
+  <Wrapper
+    :class="$style.wrapper"
+    :label="q.i18n.settings.email.page.zsilhn"
+    :click="send"
+  >
     <div :class="$style.block">
       <Animation type="locker" :c="$style.animation" :loop="false" />
     </div>
