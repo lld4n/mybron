@@ -108,6 +108,7 @@ onMounted(() => {
         v-model="value"
         inputmode="numeric"
         placeholder="000 000 0000"
+        autofocus
       />
     </div>
   </Wrapper>
@@ -158,6 +159,7 @@ onMounted(() => {
   line-height: 24px;
   border-bottom-right-radius: 12px;
   border-top-right-radius: 12px;
+  transform: translateZ(0);
   &::placeholder {
     color: var(--tg-theme-hint-color);
   }
@@ -166,6 +168,7 @@ onMounted(() => {
   padding: 12px;
   border-bottom-left-radius: 12px;
   border-top-left-radius: 12px;
+  transform: translateZ(0);
   background-color: var(--tg-theme-bg-color);
   display: flex;
   align-items: center;

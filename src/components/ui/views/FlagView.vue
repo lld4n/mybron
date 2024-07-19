@@ -12,6 +12,7 @@ defineProps<Props>();
 
 <style module lang="scss">
 .icon {
+  width: 22px;
   object-fit: cover;
   border: 1px solid #0000001a;
   border-radius: 1.5px;

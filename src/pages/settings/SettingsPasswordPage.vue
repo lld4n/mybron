@@ -105,6 +105,7 @@ const send = async () => {
         :class="$style.input"
         v-model="value"
         placeholder="Пароль"
+        autofocus
       />
     </div>
   </Wrapper>
@@ -142,6 +143,7 @@ const send = async () => {
   align-items: center;
   padding: 24px 16px;
   width: 100%;
+  transform: translateZ(0);
 }
 .input {
   width: 100%;

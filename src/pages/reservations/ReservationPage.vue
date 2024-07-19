@@ -114,6 +114,11 @@ const inOutDate = computed(() => {
         :out-time="inOutDate.outTime"
       />
       <ButtonsBlock
+        :cancel-date="
+          details.cancellationPolicies.length > 0
+            ? new Date(details.cancellationPolicies[0].penaltyDateTime)
+            : undefined
+        "
         :id="info.id"
         :no-show-cancel="
           ['Аннулировано, без штрафа', 'Аннулировано, штраф'].includes(info.status)

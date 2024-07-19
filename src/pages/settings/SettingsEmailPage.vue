@@ -12,7 +12,6 @@ const value = ref("");
 const router = useRouter();
 const settings = useSettings();
 const q = useInter();
-const test = ref("default");
 const send = () => {
   if (value.value.length === 0) return;
   settings.setEmail(value.value);
@@ -23,13 +22,6 @@ onMounted(() => {
     window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.hide();
 });
-
-const focus = () => {
-  test.value = "focus";
-};
-const blur = () => {
-  test.value = "blur";
-};
 </script>
 
 <template>
@@ -39,7 +31,6 @@ const blur = () => {
     :click="send"
   >
     <div :class="$style.block">
-      <Text :s="32" :w="700">{{ test }}</Text>
       <Animation type="mailbox" :c="$style.animation" :loop="false" />
     </div>
     <div :class="$style.top">
@@ -56,8 +47,7 @@ const blur = () => {
         :class="$style.input"
         v-model="value"
         placeholder="name@example.com"
-        @focus="focus"
-        @blur="blur"
+        autofocus
       />
     </div>
   </Wrapper>
@@ -104,6 +94,7 @@ const blur = () => {
   font-size: 20px;
   line-height: 24px;
   border-radius: 12px;
+  transform: translateZ(0);
   &::placeholder {
     color: var(--tg-theme-hint-color);
   }

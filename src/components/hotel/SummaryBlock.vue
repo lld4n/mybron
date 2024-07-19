@@ -6,6 +6,7 @@ import Text from "../ui/wrappers/Text.vue";
 import {
   AvailableAmenityDto,
   AvailableMealDto,
+  GuestDto,
   HotelOfferCancellationPolicyDto,
 } from "../../utils";
 import { useInter } from "../../utils/i18n";
@@ -13,12 +14,12 @@ import AmenityCarousel from "./AmenityCarousel.vue";
 interface Props {
   am: AvailableAmenityDto[];
   name: string;
-  noShowGuests?: boolean;
   meals: AvailableMealDto[];
   cancel: HotelOfferCancellationPolicyDto[];
   payment: string;
   image?: string;
   size?: number;
+  guests?: GuestDto[];
 }
 
 defineProps<Props>();
@@ -73,13 +74,13 @@ const q = useInter();
             q.i18n.summary.block.rnamwt
           }}</Text>
         </div>
-        <div :class="$style.item" v-if="!noShowGuests">
+        <div :class="$style.item" v-if="guests && guests.length > 0">
           <Text :s="17" :l="22" :c="$style.left">{{
             q.i18n.summary.block.qlgaid
           }}</Text>
-          <Text :s="17" :l="22" :c="$style.right"
-            >{{ q.i18n.summary.block.gkvzfd }}, {{ q.i18n.summary.block.nsrwni }}</Text
-          >
+          <Text :s="17" :l="22" :c="$style.right">
+            {{ guests.map((e) => e.firstName + " " + e.lastName).join(",") }}
+          </Text>
         </div>
       </div>
       <AmenityCarousel :no-show="true" :am="am" />

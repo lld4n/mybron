@@ -10,6 +10,7 @@ import { useRouter } from "vue-router";
 interface Props {
   id: number;
   noShowCancel?: boolean;
+  cancelDate?: Date;
 }
 
 const props = defineProps<Props>();
@@ -18,10 +19,14 @@ const store = useStore();
 const router = useRouter();
 const handleCancel = () => {
   if (!store.auth) return;
+  const now = new Date();
   window.Telegram.WebApp.showPopup(
     {
       title: q.i18n.hotel.buttons.cancel,
-      message: q.i18n.hotel.buttons.popup.nnn,
+      message:
+        props.cancelDate && now.getTime() > props.cancelDate.getTime()
+          ? "Платная отмена"
+          : q.i18n.hotel.buttons.popup.nnn,
       buttons: [
         {
           id: "cancel",
@@ -44,15 +49,16 @@ const handleCancel = () => {
             },
           })
           .json()
-          .then(() => {
-            store.setMessage({
-              type: "cancel",
-              text: q.i18n.hotel.buttons.message.canceled,
-            });
-            router.push("/reservation/my");
-          })
-          .catch((e) => {
-            console.log(e);
+          .then((res: any) => {
+            if ("message" in res) {
+              window.Telegram.WebApp.showAlert(res.message);
+            } else {
+              store.setMessage({
+                type: "cancel",
+                text: q.i18n.hotel.buttons.message.canceled,
+              });
+              router.push("/reservation/my");
+            }
           });
       }
     },
