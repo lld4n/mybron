@@ -1,9 +1,35 @@
-# Vue 3 + TypeScript + Vite
+# Ключи
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Ключ в Яндекс картах
 
-## Recommended Setup
+Настраивается в `src/main.ts`. Сейчас используется найденный в интернете ключ
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+## Ключ dadata
 
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+Необходим для определения города по IP. Настраивается в `src/pages/main/App.vue` (строчка 76). Сейчас убран, необходимо получить свой ключ [здесь](https://dadata.ru/api/iplocate/)
+
+# Сборка и деплой
+
+В проекте используется стандартный Vite + Vue
+
+Для запуска команда
+
+```shell
+npm run dev
+```
+
+```shell
+yarn dev
+```
+
+Сборка проекта
+
+```shell
+npm run build
+```
+
+```shell
+yarn build
+```
+
+Для деплоя использовался [Vercel](https://vercel.com) с базовыми настройками

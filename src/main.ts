@@ -9,8 +9,6 @@ import { createYmaps } from "vue-yandex-maps";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
-// 4b570f4b-b386-41b6-bd93-aff1a11c1142
-// WORK 186f0adf-8b02-43df-a8ae-8c25e6a58865
 createApp(App)
   .use(
     createYmaps({
