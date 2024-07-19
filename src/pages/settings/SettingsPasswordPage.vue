@@ -4,7 +4,7 @@ import Text from "../../components/ui/wrappers/Text.vue";
 const Animation = defineAsyncComponent(
   () => import("../../components/ui/Animation.vue"),
 );
-import { defineAsyncComponent, onMounted, ref, watch } from "vue";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useInter } from "../../utils/i18n";
 import { api, useStore } from "../../utils";
