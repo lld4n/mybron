@@ -41,7 +41,6 @@ const handleCancel = () => {
       ],
     },
     (button_id) => {
-      console.log("че происходит", button_id);
       if (button_id === "cancel") {
         api
           .post("order/" + props.id + "/cancel", {
@@ -51,6 +50,7 @@ const handleCancel = () => {
           })
           .json()
           .then((res: any) => {
+            console.log(res);
             if ("message" in res) {
               window.Telegram.WebApp.showAlert(res.message);
             } else {
