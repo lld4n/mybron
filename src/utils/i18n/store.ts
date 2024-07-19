@@ -27,6 +27,7 @@ export const useInter = defineStore("i18n", {
   actions: {
     changeLanguage(key: SlugType) {
       this.i18n = languages[key];
+      window.Telegram.WebApp.CloudStorage.setItem("language", this.i18n.slug);
     },
     changeCurrency(key: CurrencyType) {
       this.currency = key;
