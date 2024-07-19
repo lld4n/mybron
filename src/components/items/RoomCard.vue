@@ -26,7 +26,14 @@ const handle = () => {
     }, 300);
   }
 };
-defineProps<Props>();
+
+const checkBeds = () => {
+  if (props.room.room.availableBedSets.bedSets.length === 0) return false;
+  if (props.room.room.availableBedSets.bedSets[0].beds.length === 0) return false;
+  return true;
+};
+
+const props = defineProps<Props>();
 </script>
 
 <template>
@@ -39,8 +46,8 @@ defineProps<Props>();
       <Text :s="14" :l="18" :c="$style.info">
         <Size />
         <div>{{ room.room.size }} {{ q.i18n.slug === "ru" ? " м²" : " m²" }}</div>
-        <div>•</div>
-        <div>
+        <div v-if="checkBeds()">•</div>
+        <div v-if="checkBeds()">
           {{ beds(room.room.availableBedSets.bedSets[0].beds[0].type, q.i18n) }}
         </div>
       </Text>
@@ -65,6 +72,7 @@ defineProps<Props>();
       <AmenityCarousel
         :am="room.room.availableAmenities.availableAmenities"
         :no-show="true"
+        style="margin-bottom: 8px"
       />
       <Carousel>
         <RoomItemCard

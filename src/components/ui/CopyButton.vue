@@ -34,6 +34,7 @@ const copy = async () => {
   line-height: 18px;
   font-weight: 400;
   span {
+    text-align: left;
     color: var(--tg-theme-link-color);
     overflow: hidden;
     display: -webkit-box;

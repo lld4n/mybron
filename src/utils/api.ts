@@ -16,6 +16,5 @@ export async function fetchOrders(auth: string) {
       },
     })
     .json();
-  console.log(data);
   return data.orders;
 }

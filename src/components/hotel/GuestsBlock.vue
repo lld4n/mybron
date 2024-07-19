@@ -4,27 +4,22 @@ import Text from "../ui/wrappers/Text.vue";
 import AddGuest from "../../assets/icons/add-guest.svg";
 import { onMounted, ref, watch } from "vue";
 import Input from "../ui/Input.vue";
-import { useHotel } from "../../utils";
 import Title from "../ui/wrappers/Title.vue";
 import { useInter } from "../../utils/i18n";
+import { useOrder } from "../../utils";
 const show = ref(false);
-const hotel = useHotel();
+const order = useOrder();
 const name = ref("");
 const surname = ref("");
 onMounted(() => {
-  name.value = hotel.guests.firstName;
-  surname.value = hotel.guests.lastName;
-  console.log(hotel.guests);
+  name.value = order.guestFirstName;
+  surname.value = order.guestLastName;
 });
 const handleShow = () => {
   show.value = !show.value;
 };
-watch(name, (v) => {
-  hotel.setGuestName(v, "first");
-});
-watch(surname, (v) => {
-  hotel.setGuestName(v, "last");
-});
+watch(name, (v) => order.change("guestFirstName", v));
+watch(surname, (v) => order.change("guestLastName", v));
 const q = useInter();
 </script>
 

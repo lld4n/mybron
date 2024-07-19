@@ -2,16 +2,21 @@
 import Block from "../ui/wrappers/Block.vue";
 import Text from "../ui/wrappers/Text.vue";
 import AddWish from "../../assets/icons/add-wish.svg";
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Title from "../ui/wrappers/Title.vue";
 import { useInter } from "../../utils/i18n";
+import { useOrder } from "../../utils";
 const show = ref(false);
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const wish = ref("");
+const order = useOrder();
 const handleShow = () => {
   show.value = !show.value;
 };
-watch(wish, () => {
+onMounted(() => {
+  wish.value = order.wish;
+});
+watch(wish, (v) => {
   if (!textareaRef.value) return;
   textareaRef.value.style.height = "86px";
   if (textareaRef.value.scrollHeight < 300) {
@@ -19,6 +24,7 @@ watch(wish, () => {
   } else {
     textareaRef.value.style.height = `300px`;
   }
+  order.change("wish", v);
 });
 const q = useInter();
 </script>
@@ -45,7 +51,7 @@ const q = useInter();
         ref="textareaRef"
         v-model="wish"
         :class="$style.textarea"
-        placeholder="{{ q.i18n.wishes.block.aifvgs }}"
+        :placeholder="q.i18n.wishes.block.aifvgs"
       ></textarea>
     </div>
   </Block>

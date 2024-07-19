@@ -3,23 +3,17 @@ import Block from "../ui/wrappers/Block.vue";
 import Title from "../ui/wrappers/Title.vue";
 import Input from "../ui/Input.vue";
 import { ref, watch } from "vue";
-import { useHotel } from "../../utils";
+import { useOrder } from "../../utils";
 import { useInter } from "../../utils/i18n";
 const name = ref("");
 const surname = ref("");
-const hotel = useHotel();
-watch(name, (v) => {
-  hotel.setInfo({
-    firstName: v,
-    lastName: surname.value,
-  });
-});
-watch(surname, (v) => {
-  hotel.setInfo({
-    firstName: name.value,
-    lastName: v,
-  });
-});
+const phone = ref("");
+const email = ref("");
+const order = useOrder();
+watch(name, (v) => order.change("firstName", v));
+watch(surname, (v) => order.change("lastName", v));
+watch(phone, (v) => order.change("phone", v));
+watch(email, (v) => order.change("email", v));
 const q = useInter();
 </script>
 
@@ -39,6 +33,8 @@ const q = useInter();
         :name="q.i18n.data.block.bmjznr"
         :placeholder="q.i18n.data.block.req"
       />
+      <Input v-model="phone" :name="'Телефон'" :placeholder="q.i18n.data.block.req" />
+      <Input v-model="email" :name="'Почта'" :placeholder="q.i18n.data.block.req" />
     </div>
   </Block>
 </template>

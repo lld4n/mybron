@@ -31,7 +31,7 @@ const q = useInter();
       <div :class="$style.top">
         <img :src="image" :class="$style.img" v-if="image" />
         <div :class="$style.info">
-          <Title>{{ name }}</Title>
+          <Title :class="$style.title">{{ name }}</Title>
           <Text :s="14" :l="18" :c="$style.gap" v-if="size">
             <Size />
             {{ size }} {{ q.i18n.summary.block.fmwogv }}²</Text
@@ -48,7 +48,7 @@ const q = useInter();
             q.i18n.summary.block.czujdc
           }}</Text>
           <Text :s="17" :l="22" :c="$style.green" v-if="meals.length > 0">{{
-            meals[0].name
+            meals.filter((e) => e.included)[0].name
           }}</Text>
         </div>
         <div :class="$style.item">
@@ -132,7 +132,7 @@ const q = useInter();
 }
 
 .left {
-  min-width: 160px;
+  min-width: 120px;
   color: var(--tg-theme-hint-color);
 }
 
@@ -143,8 +143,17 @@ const q = useInter();
   display: flex;
   align-items: center;
   gap: 5px;
+  rect {
+    stroke: var(--tg-theme-text-color);
+  }
   path {
     fill: var(--tg-theme-text-color);
   }
+}
+.title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>

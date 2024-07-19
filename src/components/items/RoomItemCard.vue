@@ -112,12 +112,18 @@ const handleClick = (info: InfoTypeRoom | null) => {
 const handleClose = () => {
   show.value = null;
 };
+
+const checkBeds = () => {
+  if (props.room.availableBedSets.bedSets.length === 0) return false;
+  if (props.room.availableBedSets.bedSets[0].beds.length === 0) return false;
+  return true;
+};
 </script>
 
 <template>
   <div :class="$style.wrapper">
     <div :class="$style.list">
-      <div :class="$style.bed">
+      <div :class="$style.bed" v-if="checkBeds()">
         <Text :s="13" :l="18" :class="$style.icon">
           <BedsView :type="room.availableBedSets.bedSets[0].beds[0].type" />
           x{{ room.availableBedSets.bedSets[0].beds[0].amount }}</Text

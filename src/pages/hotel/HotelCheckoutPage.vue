@@ -3,26 +3,24 @@ import Wrapper from "../../components/ui/wrappers/Wrapper.vue";
 import EstimatedBlock from "../../components/hotel/EstimatedBlock.vue";
 import SummaryBlock from "../../components/hotel/SummaryBlock.vue";
 import TotalBlock from "../../components/hotel/TotalBlock.vue";
-// import WishesBlock from "../../components/hotel/WishesBlock.vue";
-import CrossGreen from "../../assets/icons/cross-green.svg";
 import GuestsBlock from "../../components/hotel/GuestsBlock.vue";
 import DataBlock from "../../components/hotel/DataBlock.vue";
-import { api, useHotel, useStore } from "../../utils";
+import { api, useHotel, useOrder, useStore } from "../../utils";
 import { useInter } from "../../utils/i18n";
 import { useRouter } from "vue-router";
-import Text from "../../components/ui/wrappers/Text.vue";
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
+import WishesBlock from "../../components/hotel/WishesBlock.vue";
+import CardBlock from "../../components/hotel/CardBlock.vue";
 const hotel = useHotel();
+
+console.log("CHECKOUT", hotel.offer, hotel.room);
 const q = useInter();
 const store = useStore();
+const order = useOrder();
 const router = useRouter();
-const handleShow = () => {
-  show.value = false;
-};
-const show = ref(true);
 const close = async () => {
   if (!hotel.offer || !store.auth) return;
-  if (hotel.info.firstName.length === 0 || hotel.info.lastName.length === 0) {
+  if (order.firstName.length === 0 || order.lastName.length === 0) {
     store.setMessage({
       type: "contact",
       text: q.i18n.hotel.checkout.page.vliqps,
@@ -30,64 +28,146 @@ const close = async () => {
     });
     return;
   }
-  window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
-  let guests;
-  guests = [hotel.info];
-  if (
-    hotel.guests.lastName.length > 0 &&
-    hotel.guests.firstName.length > 0 &&
-    store.adultsCount === 2
-  ) {
-    guests.push(hotel.guests);
-  } else {
-    for (let i = 1; i < store.adultsCount; i++) {
-      guests.push(hotel.info);
+  if (hotel.offer.guaranteeType !== "contract") {
+    if (
+      order.cardCVV.length !== 3 ||
+      order.cardNumber.length !== 16 ||
+      order.cardOwner.length === 0 ||
+      order.cardTerm.length !== 5
+    ) {
+      store.setMessage({
+        type: "contact",
+        text: "Необходимо указать данные карты",
+      });
+      return;
+    }
+    if (order.phone.length === 0 || order.email.length === 0) {
+      store.setMessage({
+        type: "contact",
+        text: "Необходимо указать контактные данные",
+      });
+      return;
     }
   }
-  const body = {
+
+  let guests = [
+    {
+      firstName: order.firstName,
+      lastName: order.lastName,
+    },
+  ];
+  if (
+    order.guestLastName.length > 0 &&
+    order.guestFirstName.length > 0 &&
+    store.adultsCount === 2
+  ) {
+    guests.push({
+      firstName: order.guestFirstName,
+      lastName: order.guestLastName,
+    });
+  } else {
+    for (let i = 1; i < store.adultsCount; i++) {
+      guests.push({
+        firstName: order.firstName,
+        lastName: order.lastName,
+      });
+    }
+  }
+  const body: any = {
     accommodations: [
       {
         offerCode: hotel.offer.code,
         guests: guests,
       },
     ],
+    comment: order.wish,
   };
-  const data: {
-    orderId: number;
-  } = await api
-    .post("order", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: store.auth,
-      },
-      body: JSON.stringify(body),
-    })
-    .json();
-  if (data && data.orderId) {
-    await router.push("/reservation/" + data.orderId);
+
+  let orderId: number = 0;
+
+  if (
+    hotel.offer.guaranteeType === "contract" &&
+    hotel.offer.paymentRecipient === "HOTEL"
+  ) {
+    const data: {
+      orderId: number;
+    } = await api
+      .post("order", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: store.auth,
+        },
+        body: JSON.stringify(body),
+      })
+      .json();
+    if (data) orderId = data.orderId;
+  } else if (
+    hotel.offer.guaranteeType === "contract" &&
+    hotel.offer.paymentRecipient === "AGENCY"
+  ) {
+    window.Telegram.WebApp.showAlert("Данный метод оплаты пока что не поддерживается");
+  } else {
+    body.cardDetails = {
+      number: Number(order.cardNumber),
+      cardHolder: order.cardOwner,
+      expirationMonth: Number(order.cardTerm.split("/")[0]),
+      expirationYear: Number("20" + order.cardTerm.split("/")[1]),
+      cvv: order.cardCVV,
+      cardHolderEmail: order.email,
+      cardHolderPhone: order.phone,
+    };
+    const data: {
+      orderId: number;
+    } = await api
+      .post("order", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: store.auth,
+        },
+        body: JSON.stringify(body),
+      })
+      .json();
+    if (data) orderId = data.orderId;
+  }
+
+  if (orderId) {
+    window.Telegram.WebApp.openTelegramLink("https://t.me/MoyabronBot");
+    await router.push("/reservation/" + orderId);
+  } else {
+    window.Telegram.WebApp.showAlert("Произошла ошибка");
   }
 };
 onMounted(() => {
   window.Telegram.WebApp.headerColor =
     window.Telegram.WebApp.themeParams.secondary_bg_color || "";
-  window.Telegram.WebApp.MainButton.text = q.i18n.hotel.checkout.page.qxmzpt;
-  window.Telegram.WebApp.MainButton.onClick(() => {
-    close();
-  }).show();
 });
 </script>
 
 <template>
-  <Wrapper>
+  <Wrapper
+    :click="close"
+    :description="
+      hotel.offer?.guaranteeType === 'contract' &&
+      hotel.offer?.paymentRecipient === 'AGENCY'
+        ? 'Мы пришлем ссылку на оплату в бота'
+        : ''
+    "
+    :label="
+      hotel.offer?.guaranteeType === 'contract' &&
+      hotel.offer?.paymentRecipient === 'AGENCY'
+        ? 'Перейти к оплате'
+        : 'Забронировать'
+    "
+  >
     <div :class="$style.wrapper">
       <EstimatedBlock
         v-if="!!hotel.time"
         :category="hotel.category"
         :in-time="hotel.time.timeIn"
         :address="hotel.address"
-        :check-in="hotel.time.checkIn"
+        :check-in="hotel.time.checkIn.split(':').slice(0, 2).join(':')"
         :name="hotel.name"
-        :check-out="hotel.time.checkOut"
+        :check-out="hotel.time.checkOut.split(':').slice(0, 2).join(':')"
         :out-time="hotel.time.timeOut"
       />
       <SummaryBlock
@@ -101,21 +181,22 @@ onMounted(() => {
         :image="hotel.room?.photos.photos[0].url || ''"
         :size="hotel.room?.size"
       />
-      <DataBlock />
-      <GuestsBlock v-if="store.adultsCount > 1" />
-      <!--      <WishesBlock />-->
       <TotalBlock
+        :title="
+          hotel.offer?.guaranteeType === 'contract' &&
+          hotel.offer?.paymentRecipient === 'AGENCY'
+            ? 'Оплата сейчас'
+            : 'Оплата при заселении'
+        "
         v-if="!!hotel.offer"
         :total="hotel.offer.priceDetails.client.clientCurrency.gross.price"
         :vat="hotel.offer.priceDetails.client.clientCurrency.gross.vatAmount"
         :name="hotel.offer.name"
       />
-    </div>
-    <div :class="$style.footer" v-if="show">
-      <Text :s="14" :l="18" :w="600" :c="$style.green"
-        >Бот пришлет ссылку на оплату в чат</Text
-      >
-      <CrossGreen @click="handleShow" />
+      <CardBlock v-if="!!hotel.offer && hotel.offer.guaranteeType !== 'contract'" />
+      <DataBlock />
+      <GuestsBlock v-if="store.adultsCount > 1" />
+      <WishesBlock />
     </div>
   </Wrapper>
 </template>

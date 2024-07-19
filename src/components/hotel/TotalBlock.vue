@@ -9,6 +9,7 @@ interface Props {
   vat: number;
   total: number;
   name: string;
+  title: string;
 }
 
 defineProps<Props>();
@@ -17,7 +18,7 @@ defineProps<Props>();
 <template>
   <Block>
     <div :class="$style.top">
-      <Title>{{ q.i18n.hotel.total.title }}</Title>
+      <Title>{{ title }}</Title>
     </div>
     <div :class="$style.list">
       <div :class="$style.item">
@@ -25,7 +26,7 @@ defineProps<Props>();
         <!--TODO: валюта-->
         <Text :s="17" :l="22">{{ total - vat }} ₽</Text>
       </div>
-      <div :class="$style.item">
+      <div :class="$style.item" v-if="vat > 0">
         <Text :s="17" :l="22">{{ q.i18n.hotel.total.tax }}</Text>
         <!--TODO: валюта-->
         <Text :s="17" :l="22">{{ vat }} ₽</Text>

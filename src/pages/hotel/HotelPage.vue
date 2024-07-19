@@ -78,7 +78,6 @@ onMounted(async () => {
     .then((res) => {
       reviews.value = res.reviews;
       hotel.setReviews(res.reviews);
-      console.log(res);
     })
     .finally(() => {
       final.value++;
@@ -93,7 +92,6 @@ onMounted(async () => {
     .json<HotelRatingsResponse>()
     .then((res) => {
       ratings.value = res.ratings;
-      console.log(res);
     })
     .finally(() => {
       final.value++;

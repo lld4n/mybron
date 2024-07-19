@@ -57,7 +57,6 @@ export async function fetchHotelInfo(
       timeOut: dates(store.out!, q),
     });
     hotel.setCategory(jsonData.offers[0].category);
-    console.log(jsonData.offers[0]);
     return jsonData.offers[0];
   }
   return null;

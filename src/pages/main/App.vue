@@ -79,7 +79,6 @@ onMounted(async () => {
         },
       })
       .json();
-    console.log("IP", da);
     const data = await api.get("live-search", {
       searchParams: {
         q: da.location.data.city,
