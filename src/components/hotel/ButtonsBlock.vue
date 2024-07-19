@@ -41,6 +41,7 @@ const handleCancel = () => {
       ],
     },
     (button_id) => {
+      console.log("че происходит", button_id);
       if (button_id === "cancel") {
         api
           .post("order/" + props.id + "/cancel", {
