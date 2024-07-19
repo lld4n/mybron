@@ -57,6 +57,14 @@ onMounted(async () => {
       window.Telegram.WebApp.CloudStorage.setItem("language", q.i18n.slug);
     }
   });
+  window.Telegram.WebApp.CloudStorage.getItem("currency", (_, value) => {
+    console.log("определили валюту", value);
+    if (value) {
+      q.changeCurrency(value as "RUB" | "EUR" | "USD");
+    } else {
+      window.Telegram.WebApp.CloudStorage.setItem("currency", q.currency);
+    }
+  });
   try {
     const ipData: { ip: string } = await ky
       .get("https://api.ipify.org?format=json")

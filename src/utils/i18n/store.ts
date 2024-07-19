@@ -31,6 +31,7 @@ export const useInter = defineStore("i18n", {
     },
     changeCurrency(key: CurrencyType) {
       this.currency = key;
+      window.Telegram.WebApp.CloudStorage.setItem("currency", this.currency);
     },
   },
 });
