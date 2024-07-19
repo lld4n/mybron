@@ -9,3 +9,4 @@ export * from "./hotel";
 export * from "./lastSearch";
 export * from "./likes";
 export * from "./reserve";
+export * from "./beds";

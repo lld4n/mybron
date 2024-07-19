@@ -10,6 +10,7 @@ import { RenderRoom } from "../../pages/hotel/types.ts";
 import Size from "../../assets/size.svg";
 import { useInter } from "../../utils/i18n";
 import { ref } from "vue";
+import { beds } from "../../utils";
 interface Props {
   room: RenderRoom;
   click: (code: string) => void;
@@ -39,10 +40,12 @@ defineProps<Props>();
         <Size />
         <div>{{ room.room.size }} {{ q.i18n.slug === "ru" ? " м²" : " m²" }}</div>
         <div>•</div>
-        <!--        TODO: кровать и валюта-->
-        <div>Кровать</div>
+        <div>
+          {{ beds(room.room.availableBedSets.bedSets[0].beds[0].type, q.i18n) }}
+        </div>
       </Text>
       <Text :s="20" :l="24" :c="$style.price">
+        <!--        TODO: валюта-->
         <div>
           {{ q.i18n.slug === "ru" ? "от " : "from " }}
           {{ Math.min(...room.rooms.map((e) => e.price)) }} ₽
@@ -67,6 +70,7 @@ defineProps<Props>();
         <RoomItemCard
           :class="$style.item"
           :item="item"
+          :room="room.room"
           v-for="item of room.rooms"
           :click="click"
         />

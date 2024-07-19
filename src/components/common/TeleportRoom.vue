@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { HotelOfferCancellationPolicyDto } from "../../utils";
+import { dates, HotelOfferCancellationPolicyDto } from "../../utils";
 import { InfoTypeRoom } from "../items/RoomItemCard.vue";
 import Cross from "../../assets/room-cross.svg";
+import Dot from "../../assets/room-dot.svg";
 import Text from "../ui/wrappers/Text.vue";
-
+import { computed } from "vue";
+import { useInter } from "../../utils/i18n";
+const q = useInter();
 interface Props {
   item: InfoTypeRoom | null;
   cancel: HotelOfferCancellationPolicyDto | null;
@@ -11,11 +14,20 @@ interface Props {
   close: () => void;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const cancelDate = computed(() => {
+  if (!props.cancel) return;
+  const time = new Date(props.cancel?.penaltyDateTime);
+  let ans = dates(time, q.i18n) + " ";
+  ans += time.getHours() + ":" + time.getMinutes();
+  return ans;
+});
 </script>
 
 <template>
   <Teleport to="body">
+    <!--          TODO: перевод-->
     <div :class="$style.wrapper" v-if="show && item" @click="close">
       <div :class="$style.content" @click.stop="() => {}">
         <div :class="$style.top">
@@ -25,8 +37,32 @@ defineProps<Props>();
         <Text :s="17" :l="22" :class="$style.text" v-if="item.text.length > 0">
           {{ item.text }}
         </Text>
+        <div :class="$style.list" v-if="item.list.length > 0">
+          <div :class="$style.item" v-for="label of item.list">
+            <Dot />
+            <Text :s="17" :l="22" :c="$style.label">{{ label }}</Text>
+          </div>
+        </div>
+        <div
+          :class="$style.cancel"
+          v-if="!!cancelDate && item.list.length === 0 && item.text.length === 0"
+        >
+          <div :class="$style.cancel__item">
+            <div :class="[$style.tab, $style.green]" />
+            <div :class="$style.right">
+              <Text :s="17" :l="22" :w="500">Бесплатная отмена</Text>
+              <Text :s="17" :l="22" :g="true">До {{ cancelDate }}</Text>
+            </div>
+          </div>
+          <div :class="$style.cancel__item">
+            <div :class="[$style.tab, $style.red]" />
+            <div :class="$style.right">
+              <Text :s="17" :l="22" :w="500">Штраф 100%</Text>
+              <Text :s="17" :l="22" :g="true">С {{ cancelDate }}</Text>
+            </div>
+          </div>
+        </div>
         <div :class="$style.footer">
-          <!--          TODO: перевод-->
           <button @click="close" :class="$style.btn">
             <Text :s="17" :l="22" :w="600">Понятно</Text>
           </button>
@@ -129,5 +165,45 @@ defineProps<Props>();
 
 .text {
   padding: 0 16px 16px 16px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  padding-left: 25px;
+  padding-bottom: 16px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 19px;
+}
+.label {
+  padding: 11px 16px 11px 0;
+  border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
+  &:last-child {
+    border-bottom: none;
+  }
+}
+.cancel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 16px 16px;
+  &__item {
+    gap: 12px;
+    display: flex;
+    align-items: center;
+  }
+}
+.tab {
+  height: 40px;
+  width: 3px;
+  border-radius: 2px;
+}
+.green {
+  background-color: #34c759;
+}
+.red {
+  background-color: #ff3b30;
 }
 </style>

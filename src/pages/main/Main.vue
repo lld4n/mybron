@@ -68,6 +68,7 @@
                 <template v-if="!item.image">
                   <div :class="$style.icon">
                     <City v-if="item.type === 'city'" />
+                    <Apartment v-if="item.type === 'hotel'" />
                   </div>
                 </template>
                 <div :class="$style.card__right">
@@ -112,7 +113,7 @@ import Settings from "../../assets/icons/settings.svg";
 import Logo from "../../assets/logo.svg";
 import Like from "../../assets/likes/like.svg";
 import City from "../../assets/city.svg";
-
+import Apartment from "../../assets/icons/apartment.svg";
 import Moscow from "../../assets/popular/moscow.jpg";
 import Saint from "../../assets/popular/saintpetersburg.jpg";
 import Kazan from "../../assets/popular/kazan.jpg";

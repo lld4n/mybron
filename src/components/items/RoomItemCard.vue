@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import Text from "../ui/wrappers/Text.vue";
 import { RenderRoomItem } from "../../pages/hotel/types.ts";
-import { dates, useStore } from "../../utils";
+import { dates, RoomDto, useStore } from "../../utils";
 import Info from "../../assets/info.svg";
 import { useInter } from "../../utils/i18n";
 import { computed, ref } from "vue";
 import TeleportRoom from "../common/TeleportRoom.vue";
+import BedsView from "../ui/views/BedsView.vue";
 // TODO: сделать карточку комнаты
 interface Props {
   item: RenderRoomItem;
+  room: RoomDto;
   click: (code: string) => void;
 }
 const store = useStore();
@@ -115,6 +117,13 @@ const handleClose = () => {
 <template>
   <div :class="$style.wrapper">
     <div :class="$style.list">
+      <div :class="$style.bed">
+        <Text :s="13" :l="18" :class="$style.icon">
+          <BedsView :type="room.availableBedSets.bedSets[0].beds[0].type" />
+          x{{ room.availableBedSets.bedSets[0].beds[0].amount }}</Text
+        >
+        <Text :s="11" :l="13">тип кровати может измениться</Text>
+      </div>
       <div :class="$style.item" v-for="item of render">
         <Text :s="13" :l="18" :class="[$style.text, { [$style.green]: item.green }]">{{
           item.text
@@ -244,5 +253,19 @@ const handleClose = () => {
 }
 .text {
   flex: 1;
+}
+.bed {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 8px;
+}
+.icon {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  path {
+    fill: var(--tg-theme-text-color);
+  }
 }
 </style>

@@ -108,6 +108,24 @@ onMounted(async () => {
       });
     }
   }
+
+  ans = ans.map((card) => {
+    return {
+      id: card.id,
+      room: card.room,
+      rooms: card.rooms.sort((a, b) => {
+        if (a.price !== b.price) {
+          if (hotel.filters.sort === "expensive") return b.price - a.price;
+          return a.price - b.price;
+        } else {
+          if (a.guaranteeType === "contract" && a.payment === "AGENCY") {
+            return -1;
+          }
+          return 0;
+        }
+      }),
+    };
+  });
   // TODO: проверка кроватей
   // TODO: проверка удобств именно у номера
   render.value = ans;
