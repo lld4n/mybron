@@ -128,6 +128,7 @@ const inOutDate = computed(() => {
         :meals="details.meals.meals"
       />
       <TotalBlock
+        title="Оплата картой"
         :total="details.priceDetails.client.clientCurrency.gross.price"
         :vat="details.priceDetails.client.clientCurrency.gross.vatAmount"
         :name="details.offerName"

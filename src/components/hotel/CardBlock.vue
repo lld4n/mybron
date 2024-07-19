@@ -8,7 +8,6 @@ import Union from "../../assets/card/union.svg";
 import World from "../../assets/card/world.svg";
 import Text from "../ui/wrappers/Text.vue";
 import { ref, watch } from "vue";
-import Input from "../ui/Input.vue";
 import { useOrder } from "../../utils";
 const number = ref("");
 const term = ref("");
