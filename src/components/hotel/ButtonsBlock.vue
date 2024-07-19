@@ -40,27 +40,24 @@ const handleCancel = () => {
         },
       ],
     },
-    (button_id) => {
+    async (button_id) => {
       if (button_id === "cancel") {
-        api
+        const res: { message: string } = await api
           .post("order/" + props.id + "/cancel", {
             headers: {
               Authorization: store.auth,
             },
           })
-          .json()
-          .then((res: any) => {
-            console.log(res);
-            if ("message" in res) {
-              window.Telegram.WebApp.showAlert(res.message);
-            } else {
-              store.setMessage({
-                type: "cancel",
-                text: q.i18n.hotel.buttons.message.canceled,
-              });
-              router.push("/reservation/my");
-            }
+          .json();
+        if ("message" in res) {
+          window.Telegram.WebApp.showAlert(res.message);
+        } else {
+          store.setMessage({
+            type: "cancel",
+            text: q.i18n.hotel.buttons.message.canceled,
           });
+          await router.push("/reservation/my");
+        }
       }
     },
   );
