@@ -7,7 +7,6 @@ import { useInter } from "../../utils/i18n";
 import { computed, ref } from "vue";
 import TeleportRoom from "../common/TeleportRoom.vue";
 import BedsView from "../ui/views/BedsView.vue";
-// TODO: сделать карточку комнаты
 interface Props {
   item: RenderRoomItem;
   room: RoomDto;
