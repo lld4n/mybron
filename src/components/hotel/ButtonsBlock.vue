@@ -49,6 +49,7 @@ const handleCancel = () => {
             },
           })
           .json();
+        console.log("RESULT", res);
         if ("message" in res) {
           window.Telegram.WebApp.showAlert(res.message);
         } else {
