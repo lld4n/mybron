@@ -89,18 +89,23 @@ const close = async () => {
     hotel.offer.guaranteeType === "contract" &&
     hotel.offer.paymentRecipient === "HOTEL"
   ) {
-    const data: {
-      orderId: number;
-    } = await api
-      .post("order", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: store.auth,
-        },
-        body: JSON.stringify(body),
-      })
-      .json();
-    if (data) orderId = data.orderId;
+    try {
+      const data: {
+        orderId: number;
+      } = await api
+        .post("order", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: store.auth,
+          },
+          body: JSON.stringify(body),
+        })
+        .json();
+      if (data) orderId = data.orderId;
+    } catch (error) {
+      //@ts-ignore
+      window.Telegram.WebApp.showAlert(error.toString());
+    }
   } else if (
     hotel.offer.guaranteeType === "contract" &&
     hotel.offer.paymentRecipient === "AGENCY"
@@ -116,18 +121,23 @@ const close = async () => {
       cardHolderEmail: order.email,
       cardHolderPhone: order.phone,
     };
-    const data: {
-      orderId: number;
-    } = await api
-      .post("order", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: store.auth,
-        },
-        body: JSON.stringify(body),
-      })
-      .json();
-    if (data) orderId = data.orderId;
+    try {
+      const data: {
+        orderId: number;
+      } = await api
+        .post("order", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: store.auth,
+          },
+          body: JSON.stringify(body),
+        })
+        .json();
+      if (data) orderId = data.orderId;
+    } catch (error) {
+      //@ts-ignore
+      window.Telegram.WebApp.showAlert(error.toString());
+    }
   }
 
   if (orderId) {
