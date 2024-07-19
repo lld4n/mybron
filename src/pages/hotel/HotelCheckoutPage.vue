@@ -89,23 +89,21 @@ const close = async () => {
     hotel.offer.guaranteeType === "contract" &&
     hotel.offer.paymentRecipient === "HOTEL"
   ) {
-    try {
-      const data: {
-        orderId: number;
-      } = await api
-        .post("order", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: store.auth,
-          },
-          body: JSON.stringify(body),
-        })
-        .json();
-      if (data) orderId = data.orderId;
-    } catch (error) {
-      //@ts-ignore
-      window.Telegram.WebApp.showAlert(error.toString());
-    }
+    const data:
+      | {
+          orderId: number;
+        }
+      | { message: string } = await api
+      .post("order", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: store.auth,
+        },
+        body: JSON.stringify(body),
+      })
+      .json();
+    if ("orderId" in data) orderId = data.orderId;
+    else window.Telegram.WebApp.showAlert(data.message);
   } else if (
     hotel.offer.guaranteeType === "contract" &&
     hotel.offer.paymentRecipient === "AGENCY"
@@ -121,23 +119,21 @@ const close = async () => {
       cardHolderEmail: order.email,
       cardHolderPhone: order.phone,
     };
-    try {
-      const data: {
-        orderId: number;
-      } = await api
-        .post("order", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: store.auth,
-          },
-          body: JSON.stringify(body),
-        })
-        .json();
-      if (data) orderId = data.orderId;
-    } catch (error) {
-      //@ts-ignore
-      window.Telegram.WebApp.showAlert(error.toString());
-    }
+    const data:
+      | {
+          orderId: number;
+        }
+      | { message: string } = await api
+      .post("order", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: store.auth,
+        },
+        body: JSON.stringify(body),
+      })
+      .json();
+    if ("orderId" in data) orderId = data.orderId;
+    else window.Telegram.WebApp.showAlert(data.message);
   }
 
   if (orderId) {
