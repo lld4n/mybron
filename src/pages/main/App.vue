@@ -45,16 +45,22 @@ const q = useInter();
 onMounted(async () => {
   // @ts-ignore
   window.Telegram.WebApp.disableVerticalSwipes();
-  if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
-    q.changeLanguage("en");
-  }
+
+  window.Telegram.WebApp.CloudStorage.getItem("language", (_, value) => {
+    console.log("определили язык", value);
+    if (value) {
+      q.changeLanguage(value as "en" | "ru");
+    } else {
+      if (window.Telegram.WebApp.initDataUnsafe.user?.language_code !== "ru") {
+        q.changeLanguage("en");
+      }
+      window.Telegram.WebApp.CloudStorage.setItem("language", q.i18n.slug);
+    }
+  });
   try {
     const ipData: { ip: string } = await ky
       .get("https://api.ipify.org?format=json")
       .json();
-    // const coorData: Geo = await ky
-    //   .get("https://ipapi.co/" + ipData.ip + "/json/")
-    //   .json();
     const da: { location: { data: { city: string } } } = await ky
       .post("https://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address", {
         body: JSON.stringify({ ip: ipData.ip }),

@@ -166,7 +166,6 @@ onMounted(async () => {
   window.Telegram.WebApp.headerColor =
     window.Telegram.WebApp.themeParams.secondary_bg_color || "";
   window.Telegram.WebApp.MainButton.onClick(() => {}).hide();
-  console.log(window.Telegram.WebApp.initDataUnsafe.user?.language_code);
   window.Telegram.WebApp.expand();
   if (window.Telegram.WebApp.colorScheme === "dark") {
     document.documentElement.setAttribute("data-theme", "dark");
