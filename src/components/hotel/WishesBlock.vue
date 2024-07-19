@@ -66,7 +66,9 @@ const q = useInter();
   padding: 11px 16px;
   color: var(--tg-theme-link-color);
   transition: opacity 0.1s ease-out;
-
+  path {
+    fill: var(--tg-theme-link-color);
+  }
   &:not([disabled]):active {
     opacity: 0.6 !important;
   }

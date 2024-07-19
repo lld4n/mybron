@@ -40,7 +40,7 @@ watch(term, (v) => {
     if (i === 4) continue;
     if (isNumber(v[i])) {
       ans += v[i];
-      if (i === 1) {
+      if (i === 1 && i !== v.length - 1) {
         ans += "/";
       }
     }

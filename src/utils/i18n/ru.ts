@@ -432,7 +432,7 @@ export const ru = {
   wishes: {
     block: {
       tvddck: "Добавить пожелания",
-      bxygfb: "Второй гость",
+      bxygfb: "Пожелания",
       iiqkxh: "Свернуть",
       iutezy: "Например",
       snktll: "если нужен детский стул в номер",
