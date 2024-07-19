@@ -140,7 +140,6 @@ watch(final, (v) => {
     v-if="!loading && !!data && !error"
     :label="
       'Выбрать номер от ' +
-      route.params.id +
       Math.min(
         ...data.offers.offers.map(
           (e) => e.priceDetails.client.clientCurrency.gross.price,
